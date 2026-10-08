@@ -1,15 +1,15 @@
 # Private Pod package: Dashboards and Reporting: cloud and DevOps
 
-| Field | Value |
-| --- | --- |
-| Node id | NODE_CAP_01_CLOUD_DEVOPS |
-| Work category | cloud-devops |
-| Operating model | private-pod |
-| Classification confidence | medium |
-| Readiness | review-required |
-| Handoff ready | no |
-| Provenance | Deterministic |
-| Source ids | CAP_01, ARC_19, ARC_22, FR_06 |
+| Field                     | Value                         |
+| ------------------------- | ----------------------------- |
+| Node id                   | NODE_CAP_01_CLOUD_DEVOPS      |
+| Work category             | cloud-devops                  |
+| Operating model           | private-pod                   |
+| Classification confidence | medium                        |
+| Readiness                 | review-required               |
+| Handoff ready             | no                            |
+| Provenance                | Deterministic                 |
+| Source ids                | CAP_01, ARC_19, ARC_22, FR_06 |
 
 ## Classification rationale
 
@@ -69,6 +69,7 @@ _Not present in the imported package — the operator must supply this before ha
 ## Completeness
 
 Missing: securityAndAccess, coordinationDependencies
+
 - Not handoff-ready: securityAndAccess, coordinationDependencies are not present in the imported package.
 
 > MOCK AI MODE — no external service was contacted.

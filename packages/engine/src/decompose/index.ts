@@ -1,25 +1,15 @@
-/**
- * Delivery decomposition (FR3).
- *
- * Nodes are generated from the imported structure only. Nothing is invented:
- *
- *  - an open gap, question, unconfirmed assumption, stale section, platform
- *    conflict or missing estimation input produces a discovery, clarification or
- *    approval node, never an implementation node;
- *  - implementation nodes come from capabilities, integrations, AI use cases,
- *    security requirements, delivery phases and quality findings;
- *  - acceptance conditions, risks, assumptions and roles are copied from the
- *    package and keep the id of the item they came from;
- *  - effort comes only from the package's estimate workstreams. Work the package
- *    does not estimate is marked `needs-input` and cannot be `ready`.
- *
- * A node that would otherwise be ready but is gated by an unresolved critical
- * item is `blocked`, and one that is missing required package fields is
- * `review-required`, so an incomplete package is never presented as executable.
- */
-
-import { classifyNode, applyOverride, type ClassificationInput } from "../classify";
-import type { ExecutionNode, NodeAnchors, SourceRef, WorkCategory, NodeKind } from "../canonical/execution";
+import {
+  classifyNode,
+  applyOverride,
+  type ClassificationInput,
+} from "../classify";
+import type {
+  ExecutionNode,
+  NodeAnchors,
+  SourceRef,
+  WorkCategory,
+  NodeKind,
+} from "../canonical/execution";
 import type {
   CanonicalPackage,
   Capability,
@@ -33,7 +23,8 @@ import type { GeneratorInfo } from "../canonical/execution";
 import { missingModelFields } from "../packages";
 import type { DecomposeInput, DecomposeResult, NodeDraft } from "./types";
 
-const MEASURABLE = /\b(\d+|must|shall|within|%|per|each|every|quarterly|daily)\b/i;
+const MEASURABLE =
+  /\b(\d+|must|shall|within|%|per|each|every|quarterly|daily)\b/i;
 
 function slug(value: string): string {
   return value
@@ -119,7 +110,9 @@ const CATEGORY_LABEL: Record<WorkCategory, string> = {
 };
 
 function measurableItems(items: ScopeItem[]): ScopeItem[] {
-  return items.filter((item) => MEASURABLE.test(item.description) || MEASURABLE.test(item.title));
+  return items.filter(
+    (item) => MEASURABLE.test(item.description) || MEASURABLE.test(item.title),
+  );
 }
 
 /**
@@ -132,16 +125,23 @@ interface CategoryDecision {
   reason: string;
 }
 
-function categoriesForCapability(canonical: CanonicalPackage, capability: Capability): CategoryDecision[] {
+function categoriesForCapability(
+  canonical: CanonicalPackage,
+  capability: Capability,
+): CategoryDecision[] {
   const decisions: CategoryDecision[] = [];
   const requirements = canonical.scope.requirements.filter((item) =>
     capability.requirementIds.includes(item.id),
   );
   const components = canonical.architecture.components.filter((component) =>
-    component.requirementIds.some((id) => capability.requirementIds.includes(id)),
+    component.requirementIds.some((id) =>
+      capability.requirementIds.includes(id),
+    ),
   );
   const integrations = canonical.strategy.integrations.filter((integration) =>
-    integration.requirementIds.some((id) => capability.requirementIds.includes(id)),
+    integration.requirementIds.some((id) =>
+      capability.requirementIds.includes(id),
+    ),
   );
   const aiUseCases = canonical.strategy.aiUseCases.filter((useCase) =>
     useCase.requirementIds.some((id) => capability.requirementIds.includes(id)),
@@ -149,7 +149,9 @@ function categoriesForCapability(canonical: CanonicalPackage, capability: Capabi
   const functional = requirements.filter(
     (item) => item.kind === "functional" || item.kind === "business",
   );
-  const experience = components.filter((component) => component.area === "experience");
+  const experience = components.filter(
+    (component) => component.area === "experience",
+  );
 
   if (functional.length > 0) {
     decisions.push({
@@ -162,12 +164,16 @@ function categoriesForCapability(canonical: CanonicalPackage, capability: Capabi
     decisions.push({
       category: "ux-design",
       sourceIds: experience.map((component) => component.id),
-      reason: "designs the experience surfaces " + experience.map((component) => component.id).join(", "),
+      reason:
+        "designs the experience surfaces " +
+        experience.map((component) => component.id).join(", "),
     });
     decisions.push({
       category: "frontend",
       sourceIds: experience.map((component) => component.id),
-      reason: "builds the experience surfaces " + experience.map((component) => component.id).join(", "),
+      reason:
+        "builds the experience surfaces " +
+        experience.map((component) => component.id).join(", "),
     });
   }
   for (const integration of integrations) {
@@ -204,35 +210,50 @@ function categoriesForCapability(canonical: CanonicalPackage, capability: Capabi
     decisions.push({
       category: "cloud-devops",
       sourceIds: components.map((component) => component.id),
-      reason: "provisions " + components.map((component) => component.id).join(", "),
+      reason:
+        "provisions " + components.map((component) => component.id).join(", "),
     });
   }
   if (functional.length > 0 || components.length > 0) {
     decisions.push({
       category: "testing",
-      sourceIds: [...functional.map((item) => item.id), ...components.map((component) => component.id)],
+      sourceIds: [
+        ...functional.map((item) => item.id),
+        ...components.map((component) => component.id),
+      ],
       reason: "verifies the delivered scope",
     });
   }
   return decisions;
 }
 
-function backlogNodeDraft(item: ScopeItem, kind: NodeKind, reason: string): NodeDraft {
+function backlogNodeDraft(
+  item: ScopeItem,
+  kind: NodeKind,
+  reason: string,
+): NodeDraft {
   const anchors = emptyAnchors();
   anchors.requirementIds = [item.id, ...item.relatedIds];
   anchors.backlogSourceId = item.id;
   return {
     id: "",
     title: item.title,
-    objective: item.description || `Resolve ${item.id} before the dependent delivery work can start.`,
+    objective:
+      item.description ||
+      `Resolve ${item.id} before the dependent delivery work can start.`,
     workCategory: "discovery",
     kind,
     scope: `${reason} Raised by the imported package as ${item.kind} ${item.id}.${
-      item.affectsInputs.length > 0 ? ` Affects estimation inputs: ${item.affectsInputs.join(", ")}.` : ""
+      item.affectsInputs.length > 0
+        ? ` Affects estimation inputs: ${item.affectsInputs.join(", ")}.`
+        : ""
     }`,
     sourceIds: [item.id, ...item.relatedIds],
     anchors,
-    inputs: item.affectsInputs.length > 0 ? item.affectsInputs.map((input) => `Estimation input ${input}`) : [],
+    inputs:
+      item.affectsInputs.length > 0
+        ? item.affectsInputs.map((input) => `Estimation input ${input}`)
+        : [],
     deliverables: [],
     acceptanceConditions: item.resolution ? [item.resolution] : [],
     acceptanceSourceIds: item.resolution ? [item.id] : [],
@@ -258,19 +279,34 @@ function capabilityDraft(
   anchors.capabilityId = capability.id;
   anchors.requirementIds = capability.requirementIds;
   anchors.componentIds = canonical.architecture.components
-    .filter((component) => intersect(component.requirementIds, capability.requirementIds).length > 0 || decision.sourceIds.includes(component.id))
+    .filter(
+      (component) =>
+        intersect(component.requirementIds, capability.requirementIds).length >
+          0 || decision.sourceIds.includes(component.id),
+    )
     .map((component) => component.id);
   anchors.integrationIds = canonical.strategy.integrations
-    .filter((integration) => decision.sourceIds.includes(integration.id) || intersect(integration.requirementIds, capability.requirementIds).length > 0)
+    .filter(
+      (integration) =>
+        decision.sourceIds.includes(integration.id) ||
+        intersect(integration.requirementIds, capability.requirementIds)
+          .length > 0,
+    )
     .map((integration) => integration.id);
   anchors.domainIds = canonical.strategy.dataDomains
-    .filter((domain) => category === "data-engineering" || capability.name.toLowerCase().includes(domain.name.toLowerCase().split(" ")[0]))
+    .filter(
+      (domain) =>
+        category === "data-engineering" ||
+        capability.name
+          .toLowerCase()
+          .includes(domain.name.toLowerCase().split(" ")[0]),
+    )
     .map((domain) => domain.id);
   anchors.aiUseCaseIds = canonical.strategy.aiUseCases
     .filter((useCase) => decision.sourceIds.includes(useCase.id))
     .map((useCase) => useCase.id);
-  const deliveryPackage = canonical.functionalScope.deliveryPackages.find((group) =>
-    group.capabilityIds.includes(capability.id),
+  const deliveryPackage = canonical.functionalScope.deliveryPackages.find(
+    (group) => group.capabilityIds.includes(capability.id),
   );
   anchors.workstreamId = deliveryPackage ? deliveryPackage.id : null;
 
@@ -278,9 +314,12 @@ function capabilityDraft(
     capability.requirementIds.includes(item.id),
   );
   const measurable = measurableItems(requirements);
-  const risks = canonical.scope.risks.filter((risk) => intersect(risk.relatedIds, capability.requirementIds).length > 0);
+  const risks = canonical.scope.risks.filter(
+    (risk) => intersect(risk.relatedIds, capability.requirementIds).length > 0,
+  );
   const assumptions = canonical.scope.assumptions.filter(
-    (assumption) => intersect(assumption.relatedIds, capability.requirementIds).length > 0,
+    (assumption) =>
+      intersect(assumption.relatedIds, capability.requirementIds).length > 0,
   );
   const componentNames = canonical.architecture.components
     .filter((component) => anchors.componentIds.includes(component.id))
@@ -290,19 +329,26 @@ function capabilityDraft(
     .map((integration) => integration.name);
 
   const inputs: string[] = [];
-  for (const integration of integrationNames) inputs.push(`Confirmed contract for the ${integration} integration`);
-  for (const component of componentNames) inputs.push(`Approved design for ${component}`);
-  for (const assumption of assumptions) inputs.push(`Confirmation of assumption ${assumption.id}`);
+  for (const integration of integrationNames)
+    inputs.push(`Confirmed contract for the ${integration} integration`);
+  for (const component of componentNames)
+    inputs.push(`Approved design for ${component}`);
+  for (const assumption of assumptions)
+    inputs.push(`Confirmation of assumption ${assumption.id}`);
 
   const deliverables: string[] = [];
   if (category === "integration") {
-    for (const integration of integrationNames) deliverables.push(`${integration} integrated for ${capability.name}`);
+    for (const integration of integrationNames)
+      deliverables.push(`${integration} integrated for ${capability.name}`);
   } else if (category === "ai-implementation") {
-    for (const useCase of canonical.strategy.aiUseCases.filter((entry) => anchors.aiUseCaseIds.includes(entry.id))) {
+    for (const useCase of canonical.strategy.aiUseCases.filter((entry) =>
+      anchors.aiUseCaseIds.includes(entry.id),
+    )) {
       deliverables.push(`${useCase.name} implemented`);
     }
   } else if (componentNames.length > 0) {
-    for (const component of componentNames) deliverables.push(`${component} updated for ${capability.name}`);
+    for (const component of componentNames)
+      deliverables.push(`${component} updated for ${capability.name}`);
   } else {
     deliverables.push(`${capability.name} — ${CATEGORY_LABEL[category]}`);
   }
@@ -310,11 +356,19 @@ function capabilityDraft(
   return {
     id: "",
     title: `${capability.name}: ${CATEGORY_LABEL[category]}`,
-    objective: capability.description || `Deliver the ${CATEGORY_LABEL[category]} work for ${capability.name}.`,
+    objective:
+      capability.description ||
+      `Deliver the ${CATEGORY_LABEL[category]} work for ${capability.name}.`,
     workCategory: category,
     kind: "delivery",
     scope: `Implements ${capability.name} (${decision.reason}). Requirements: ${capability.requirementIds.join(", ") || "none recorded"}.`,
-    sourceIds: [...new Set([capability.id, ...decision.sourceIds, ...capability.requirementIds])],
+    sourceIds: [
+      ...new Set([
+        capability.id,
+        ...decision.sourceIds,
+        ...capability.requirementIds,
+      ]),
+    ],
     anchors,
     inputs,
     deliverables,
@@ -331,7 +385,9 @@ function capabilityDraft(
     ],
     risks: risks.map((risk) => `${risk.id}: ${risk.title}`),
     riskSourceIds: risks.map((risk) => risk.id),
-    assumptions: assumptions.map((assumption) => `${assumption.id}: ${assumption.title}`),
+    assumptions: assumptions.map(
+      (assumption) => `${assumption.id}: ${assumption.title}`,
+    ),
     assumptionSourceIds: assumptions.map((assumption) => assumption.id),
     roles: [],
     skills: [],
@@ -342,7 +398,9 @@ function capabilityDraft(
 }
 
 function integrationDraft(canonical: CanonicalPackage, id: string): NodeDraft {
-  const integration = canonical.strategy.integrations.find((entry) => entry.id === id);
+  const integration = canonical.strategy.integrations.find(
+    (entry) => entry.id === id,
+  );
   if (!integration) throw new Error(`unknown integration ${id}`);
   const anchors = emptyAnchors();
   anchors.integrationIds = [integration.id];
@@ -361,11 +419,19 @@ function integrationDraft(canonical: CanonicalPackage, id: string): NodeDraft {
     sourceIds: [integration.id, ...integration.requirementIds],
     anchors,
     inputs: [`Confirmed contract for the ${integration.name} integration`],
-    deliverables: [`${integration.name} integration`, `${integration.name} error handling (${integration.errorHandling || "unspecified"})`],
-    acceptanceConditions: measurable.map((item) => item.description || item.title),
+    deliverables: [
+      `${integration.name} integration`,
+      `${integration.name} error handling (${integration.errorHandling || "unspecified"})`,
+    ],
+    acceptanceConditions: measurable.map(
+      (item) => item.description || item.title,
+    ),
     acceptanceSourceIds: measurable.map((item) => item.id),
     risks: canonical.scope.risks
-      .filter((risk) => intersect(risk.relatedIds, integration.requirementIds).length > 0)
+      .filter(
+        (risk) =>
+          intersect(risk.relatedIds, integration.requirementIds).length > 0,
+      )
       .map((risk) => `${risk.id}: ${risk.title}`),
     riskSourceIds: [],
     assumptions: [],
@@ -379,35 +445,55 @@ function integrationDraft(canonical: CanonicalPackage, id: string): NodeDraft {
 }
 
 function aiDraft(canonical: CanonicalPackage, id: string): NodeDraft {
-  const useCase = canonical.strategy.aiUseCases.find((entry) => entry.id === id);
-  if (!useCase) throw new Error(`unknown AI use case ${id}`);
-  const boundaries = canonical.strategy.aiBoundaries.filter((boundary) =>
-    intersect(boundary.requirementIds, useCase.requirementIds).length > 0,
+  const useCase = canonical.strategy.aiUseCases.find(
+    (entry) => entry.id === id,
   );
-  const humanBoundaries = boundaries.filter((boundary) => boundary.type === "human");
-  const deterministicBoundaries = boundaries.filter((boundary) => boundary.type === "deterministic");
+  if (!useCase) throw new Error(`unknown AI use case ${id}`);
+  const boundaries = canonical.strategy.aiBoundaries.filter(
+    (boundary) =>
+      intersect(boundary.requirementIds, useCase.requirementIds).length > 0,
+  );
+  const humanBoundaries = boundaries.filter(
+    (boundary) => boundary.type === "human",
+  );
+  const deterministicBoundaries = boundaries.filter(
+    (boundary) => boundary.type === "deterministic",
+  );
   const anchors = emptyAnchors();
   anchors.aiUseCaseIds = [useCase.id];
   anchors.requirementIds = useCase.requirementIds;
   return {
     id: "",
     title: `${useCase.name}: AI implementation`,
-    objective: useCase.description || `Implement the ${useCase.name} AI use case.`,
+    objective:
+      useCase.description || `Implement the ${useCase.name} AI use case.`,
     workCategory: "ai-implementation",
     kind: "delivery",
     scope: `AI use case ${useCase.id}. Human-decision boundary: ${
-      humanBoundaries.length > 0 ? humanBoundaries.map((boundary) => boundary.activity).join(", ") : "none declared"
+      humanBoundaries.length > 0
+        ? humanBoundaries.map((boundary) => boundary.activity).join(", ")
+        : "none declared"
     }. Deterministic boundary: ${
       deterministicBoundaries.length > 0
-        ? deterministicBoundaries.map((boundary) => boundary.activity).join(", ")
+        ? deterministicBoundaries
+            .map((boundary) => boundary.activity)
+            .join(", ")
         : "none declared"
     }.`,
-    sourceIds: [useCase.id, ...useCase.requirementIds, ...boundaries.map(() => useCase.id)],
+    sourceIds: [
+      useCase.id,
+      ...useCase.requirementIds,
+      ...boundaries.map(() => useCase.id),
+    ],
     anchors,
     inputs: [],
-    deliverables: [`${useCase.name} implemented`, `Evaluation of ${useCase.name} following the declared approach`],
+    deliverables: [
+      `${useCase.name} implemented`,
+      `Evaluation of ${useCase.name} following the declared approach`,
+    ],
     acceptanceConditions: humanBoundaries.map(
-      (boundary) => `Human review of ${boundary.activity} is recorded before release (${boundary.reason})`,
+      (boundary) =>
+        `Human review of ${boundary.activity} is recorded before release (${boundary.reason})`,
     ),
     acceptanceSourceIds: humanBoundaries.map(() => useCase.id),
     risks: [],
@@ -422,7 +508,11 @@ function aiDraft(canonical: CanonicalPackage, id: string): NodeDraft {
   };
 }
 
-function reviewDraft(canonical: CanonicalPackage, activity: string, requirementIds: string[]): NodeDraft {
+function reviewDraft(
+  canonical: CanonicalPackage,
+  activity: string,
+  requirementIds: string[],
+): NodeDraft {
   const anchors = emptyAnchors();
   anchors.requirementIds = requirementIds;
   return {
@@ -450,7 +540,12 @@ function reviewDraft(canonical: CanonicalPackage, activity: string, requirementI
   };
 }
 
-function qualityDraft(canonical: CanonicalPackage, checkId: string, name: string, findings: string[]): NodeDraft {
+function qualityDraft(
+  canonical: CanonicalPackage,
+  checkId: string,
+  name: string,
+  findings: string[],
+): NodeDraft {
   const anchors = emptyAnchors();
   return {
     id: "",
@@ -523,12 +618,18 @@ export function decompose(input: DecomposeInput): DecomposeResult {
   const openBacklog = [
     ...canonical.scope.gaps,
     ...canonical.scope.questions,
-    ...canonical.scope.assumptions.filter((item) => item.review !== "approved" && item.review !== "validated"),
+    ...canonical.scope.assumptions.filter(
+      (item) => item.review !== "approved" && item.review !== "validated",
+    ),
   ].filter((item) => item.inScope);
 
   for (const item of openBacklog) {
     const kind: NodeKind =
-      item.kind === "gap" ? "discovery" : item.kind === "question" ? "clarification" : "approval";
+      item.kind === "gap"
+        ? "discovery"
+        : item.kind === "question"
+          ? "clarification"
+          : "approval";
     drafts.push(
       backlogNodeDraft(
         item,
@@ -541,9 +642,13 @@ export function decompose(input: DecomposeInput): DecomposeResult {
       ),
     );
   }
-  notes.push(`${openBacklog.length} discovery, clarification or approval node(s) generated from gaps, questions and unconfirmed assumptions.`);
+  notes.push(
+    `${openBacklog.length} discovery, clarification or approval node(s) generated from gaps, questions and unconfirmed assumptions.`,
+  );
 
-  const staleSections = imported.report.sections.filter((section) => section.status === "stale" || !section.reviewed);
+  const staleSections = imported.report.sections.filter(
+    (section) => section.status === "stale" || !section.reviewed,
+  );
   for (const [position, section] of staleSections.entries()) {
     drafts.push({
       id: "",
@@ -553,7 +658,9 @@ export function decompose(input: DecomposeInput): DecomposeResult {
       workCategory: "discovery",
       kind: "discovery",
       scope: `Section ${section.path} — ${section.staleReasons.join("; ") || "not reviewed by the client"}.`,
-      sourceIds: [`SECTION_${String(position + 1).padStart(2, "0")}_${slug(section.name).toUpperCase()}`],
+      sourceIds: [
+        `SECTION_${String(position + 1).padStart(2, "0")}_${slug(section.name).toUpperCase()}`,
+      ],
       anchors: emptyAnchors(),
       inputs: [],
       deliverables: [],
@@ -578,10 +685,15 @@ export function decompose(input: DecomposeInput): DecomposeResult {
       objective: imported.conflict.summary,
       workCategory: "discovery",
       kind: "clarification",
-      scope: imported.conflict.claims.map((claim) => `${claim.source}: ${claim.platform}`).join(" vs ") || imported.conflict.summary,
+      scope:
+        imported.conflict.claims
+          .map((claim) => `${claim.source}: ${claim.platform}`)
+          .join(" vs ") || imported.conflict.summary,
       sourceIds: [
         "PLATFORM_CONFLICT",
-        ...imported.conflict.claims.map((claim) => claim.refId).filter((id): id is string => Boolean(id)),
+        ...imported.conflict.claims
+          .map((claim) => claim.refId)
+          .filter((id): id is string => Boolean(id)),
       ],
       anchors: emptyAnchors(),
       inputs: [],
@@ -600,7 +712,10 @@ export function decompose(input: DecomposeInput): DecomposeResult {
     });
   }
 
-  for (const [position, missing] of canonical.delivery.missingInputs.entries()) {
+  for (const [
+    position,
+    missing,
+  ] of canonical.delivery.missingInputs.entries()) {
     drafts.push({
       id: "",
       title: `Provide missing estimation input: ${missing}`,
@@ -627,8 +742,14 @@ export function decompose(input: DecomposeInput): DecomposeResult {
     });
   }
 
-  for (const finding of canonical.quality.findings.filter((entry) => entry.status === "warn")) {
-    drafts.push(qualityDraft(canonical, finding.checkId, finding.checkName, [finding.message]));
+  for (const finding of canonical.quality.findings.filter(
+    (entry) => entry.status === "warn",
+  )) {
+    drafts.push(
+      qualityDraft(canonical, finding.checkId, finding.checkName, [
+        finding.message,
+      ]),
+    );
   }
 
   // Implementation nodes, capability first so the graph has a stable spine.
@@ -638,27 +759,39 @@ export function decompose(input: DecomposeInput): DecomposeResult {
     }
   }
 
-  const coveredIntegrations = new Set(drafts.flatMap((draft) => draft.anchors.integrationIds));
+  const coveredIntegrations = new Set(
+    drafts.flatMap((draft) => draft.anchors.integrationIds),
+  );
   for (const integration of canonical.strategy.integrations) {
-    if (!coveredIntegrations.has(integration.id)) drafts.push(integrationDraft(canonical, integration.id));
+    if (!coveredIntegrations.has(integration.id))
+      drafts.push(integrationDraft(canonical, integration.id));
   }
-  const coveredAi = new Set(drafts.flatMap((draft) => draft.anchors.aiUseCaseIds));
+  const coveredAi = new Set(
+    drafts.flatMap((draft) => draft.anchors.aiUseCaseIds),
+  );
   for (const useCase of canonical.strategy.aiUseCases) {
     if (!coveredAi.has(useCase.id)) drafts.push(aiDraft(canonical, useCase.id));
   }
 
-  for (const boundary of canonical.strategy.aiBoundaries.filter((entry) => entry.type === "human")) {
-    drafts.push(reviewDraft(canonical, boundary.activity, boundary.requirementIds));
+  for (const boundary of canonical.strategy.aiBoundaries.filter(
+    (entry) => entry.type === "human",
+  )) {
+    drafts.push(
+      reviewDraft(canonical, boundary.activity, boundary.requirementIds),
+    );
   }
-  for (const phase of canonical.delivery.phases) drafts.push(phaseDraft(canonical, phase.id));
+  for (const phase of canonical.delivery.phases)
+    drafts.push(phaseDraft(canonical, phase.id));
 
   drafts.push({
     id: "",
     title: "Operational handoff approval",
-    objective: "A human approves the graph before any work is handed to a delivery model.",
+    objective:
+      "A human approves the graph before any work is handed to a delivery model.",
     workCategory: "technical-review",
     kind: "approval",
-    scope: "Terminal approval node: the engine never recruits talent, launches a challenge or commits delivery.",
+    scope:
+      "Terminal approval node: the engine never recruits talent, launches a challenge or commits delivery.",
     sourceIds: [],
     anchors: emptyAnchors(),
     inputs: [],
@@ -679,7 +812,9 @@ export function decompose(input: DecomposeInput): DecomposeResult {
   // Gating: an unresolved critical item blocks the implementation work that
   // cites it, and a discovery-required deal blocks all implementation work.
   const requirementIndex = requirementsOf(canonical);
-  const criticalGates = openBacklog.filter((item) => item.critical || item.kind === "gap");
+  const criticalGates = openBacklog.filter(
+    (item) => item.critical || item.kind === "gap",
+  );
   const gateTargets = new Map<string, string[]>();
   for (const gate of criticalGates) {
     for (const target of [...gate.relatedIds, ...gate.affectsInputs]) {
@@ -692,7 +827,11 @@ export function decompose(input: DecomposeInput): DecomposeResult {
   for (const draft of drafts) {
     if (draft.kind !== "delivery") continue;
     const gated = new Set<string>();
-    for (const sourceId of [...draft.anchors.requirementIds, ...draft.anchors.integrationIds, ...draft.anchors.aiUseCaseIds]) {
+    for (const sourceId of [
+      ...draft.anchors.requirementIds,
+      ...draft.anchors.integrationIds,
+      ...draft.anchors.aiUseCaseIds,
+    ]) {
       for (const gate of gateTargets.get(sourceId) ?? []) gated.add(gate);
       for (const related of requirementIndex.get(sourceId) ?? []) {
         for (const gate of gateTargets.get(related) ?? []) gated.add(gate);
@@ -723,7 +862,9 @@ export function decompose(input: DecomposeInput): DecomposeResult {
   const workstreamCandidates = (draft: NodeDraft): EstimateWorkstream[] => {
     if (draft.anchors.phaseId === null) return canonical.delivery.workstreams;
     const owned = new Set(phaseWorkstreamIds.get(draft.anchors.phaseId) ?? []);
-    return canonical.delivery.workstreams.filter((workstream) => owned.has(workstream.id));
+    return canonical.delivery.workstreams.filter((workstream) =>
+      owned.has(workstream.id),
+    );
   };
 
   const implementation = drafts.filter((draft) => draft.kind === "delivery");
@@ -733,14 +874,25 @@ export function decompose(input: DecomposeInput): DecomposeResult {
   for (const draft of implementation) {
     let best: { id: string; score: number } | null = null;
     for (const workstream of workstreamCandidates(draft)) {
-      const roleOverlap = intersect(draft.roles.length > 0 ? draft.roles : [], workstream.roles).length;
+      const roleOverlap = intersect(
+        draft.roles.length > 0 ? draft.roles : [],
+        workstream.roles,
+      ).length;
       const skillOverlap = intersect(draft.skills, workstream.skills).length;
       const nameHit = workstream.name
         .toLowerCase()
         .split(/\s+/)
-        .some((token: string) => token.length > 3 && draft.title.toLowerCase().includes(token));
+        .some(
+          (token: string) =>
+            token.length > 3 && draft.title.toLowerCase().includes(token),
+        );
       const score = roleOverlap * 2 + skillOverlap + (nameHit ? 1.5 : 0);
-      if (score > 0 && (!best || score > best.score || (score === best.score && workstream.id < best.id))) {
+      if (
+        score > 0 &&
+        (!best ||
+          score > best.score ||
+          (score === best.score && workstream.id < best.id))
+      ) {
         best = { id: workstream.id, score };
       }
     }
@@ -757,11 +909,15 @@ export function decompose(input: DecomposeInput): DecomposeResult {
     grouped.set(workstreamId, list);
   }
   for (const [workstreamId, members] of grouped) {
-    const workstream = canonical.delivery.workstreams.find((entry) => entry.id === workstreamId);
+    const workstream = canonical.delivery.workstreams.find(
+      (entry) => entry.id === workstreamId,
+    );
     if (!workstream) continue;
     for (const member of members) {
-      member.roles = member.roles.length > 0 ? member.roles : [...workstream.roles];
-      member.skills = member.skills.length > 0 ? member.skills : [...workstream.skills];
+      member.roles =
+        member.roles.length > 0 ? member.roles : [...workstream.roles];
+      member.skills =
+        member.skills.length > 0 ? member.skills : [...workstream.skills];
       member.effort = {
         minimum: splitRange(workstream.low, members.length),
         maximum: splitRange(workstream.high, members.length),
@@ -780,14 +936,18 @@ export function decompose(input: DecomposeInput): DecomposeResult {
   // Roles for discovery nodes come from the workstream roles named by the gap's
   // affected inputs, otherwise an integration or data specialist is the honest
   // answer only when the package names such a role.
-  const rolePool = new Set(canonical.delivery.workstreams.flatMap((workstream) => workstream.roles));
+  const rolePool = new Set(
+    canonical.delivery.workstreams.flatMap((workstream) => workstream.roles),
+  );
 
   const nodes: ExecutionNode[] = [];
   for (const draft of drafts) {
     const idPrefix =
       draft.anchors.backlogSourceId !== null
         ? `NODE_${draft.anchors.backlogSourceId}`
-        : draft.kind === "approval" && draft.workCategory === "technical-review" && draft.sourceIds.length === 0
+        : draft.kind === "approval" &&
+            draft.workCategory === "technical-review" &&
+            draft.sourceIds.length === 0
           ? `NODE_${slug(draft.title)}`
           : draft.anchors.capabilityId
             ? `NODE_${draft.anchors.capabilityId}_${slug(draft.workCategory)}`
@@ -799,9 +959,15 @@ export function decompose(input: DecomposeInput): DecomposeResult {
                   ? `NODE_${draft.anchors.aiUseCaseIds[0]}_${slug(draft.workCategory)}`
                   : `NODE_${slug(draft.title)}`;
     draft.id = uniqueId(idPrefix, used).toUpperCase().replace(/-/g, "_");
-    if (draft.roles.length === 0 && rolePool.size > 0 && draft.kind === "delivery") {
+    if (
+      draft.roles.length === 0 &&
+      rolePool.size > 0 &&
+      draft.kind === "delivery"
+    ) {
       const integrationRoles = canonical.delivery.workstreams
-        .filter((workstream) => workstream.name.toLowerCase().includes("integrat"))
+        .filter((workstream) =>
+          workstream.name.toLowerCase().includes("integrat"),
+        )
         .flatMap((workstream) => workstream.roles);
       if (draft.workCategory === "integration" && integrationRoles.length > 0) {
         draft.roles = [...new Set(integrationRoles)];
@@ -811,9 +977,13 @@ export function decompose(input: DecomposeInput): DecomposeResult {
   }
 
   const removed = new Set(input.removedNodeIds);
-  const overrides = new Map(input.overrides.map((override) => [override.nodeId, override]));
+  const overrides = new Map(
+    input.overrides.map((override) => [override.nodeId, override]),
+  );
   const kept = nodes.filter((node) => !removed.has(node.id));
-  notes.push(`${kept.length} node(s) after removing ${removed.size} user-removed node(s).`);
+  notes.push(
+    `${kept.length} node(s) after removing ${removed.size} user-removed node(s).`,
+  );
 
   const withOverrides = kept.map((node) => {
     const override = overrides.get(node.id);
@@ -830,11 +1000,20 @@ export function decompose(input: DecomposeInput): DecomposeResult {
   });
 
   // Re-check package completeness after any model override changed the model.
-  const finalised = withOverrides.map((node) => finaliseReadiness(node, canonical));
+  const finalised = withOverrides.map((node) =>
+    finaliseReadiness(node, canonical),
+  );
 
   const traceability = buildTraceability(canonical, finalised);
-  const uncovered = traceability.filter((row) => !row.covered).map((row) => row.sourceId);
-  return { nodes: finalised, traceability, notes, uncoveredSourceIds: uncovered };
+  const uncovered = traceability
+    .filter((row) => !row.covered)
+    .map((row) => row.sourceId);
+  return {
+    nodes: finalised,
+    traceability,
+    notes,
+    uncoveredSourceIds: uncovered,
+  };
 }
 
 /** Turn a draft into a node: classification, provenance, blockers, readiness. */
@@ -847,7 +1026,11 @@ function materialise(
     (domain) => draft.anchors.domainIds.includes(domain.id) && domain.regulated,
   );
   const securityRequirementIds = canonical.scope.requirements
-    .filter((item) => item.kind === "security" && draft.anchors.requirementIds.includes(item.id))
+    .filter(
+      (item) =>
+        item.kind === "security" &&
+        draft.anchors.requirementIds.includes(item.id),
+    )
     .map((item) => item.id);
   const phases = new Set<string>();
   for (const sourceId of draft.sourceIds) {
@@ -880,7 +1063,11 @@ function materialise(
   const recommendation = classifyNode(classificationInput);
   const componentCount = draft.anchors.componentIds.length;
   const complexity: ExecutionNode["complexity"] =
-    componentCount >= 4 || draft.roles.length >= 3 ? "high" : componentCount >= 2 ? "medium" : "low";
+    componentCount >= 4 || draft.roles.length >= 3
+      ? "high"
+      : componentCount >= 2
+        ? "medium"
+        : "low";
 
   const node: ExecutionNode = {
     id: draft.id,
@@ -905,7 +1092,8 @@ function materialise(
       unit: "person-days",
       provenance: "deterministic",
       sourceIds: [],
-      basis: "No estimate workstream in the imported package covers this work, so effort is unknown until the operator supplies it.",
+      basis:
+        "No estimate workstream in the imported package covers this work, so effort is unknown until the operator supplies it.",
     },
     risks: draft.risks,
     assumptions: draft.assumptions,
@@ -936,19 +1124,29 @@ function materialise(
 }
 
 /** Readiness is deterministic: no model, no blocker, no missing field, no ready. */
-export function finaliseReadiness(node: ExecutionNode, canonical: CanonicalPackage): ExecutionNode {
+export function finaliseReadiness(
+  node: ExecutionNode,
+  canonical: CanonicalPackage,
+): ExecutionNode {
   const blockers = new Set<ExecutionNode["readinessBlockers"][number]>();
-  if (node.sourceIds.length === 0 && node.kind !== "discovery" && node.kind !== "approval") {
+  if (
+    node.sourceIds.length === 0 &&
+    node.kind !== "discovery" &&
+    node.kind !== "approval"
+  ) {
     blockers.add("unsupported");
   }
   if (node.blockedBy.length > 0) blockers.add("dependency-blocked");
   // Readiness is recomputed from scratch here, so an operator's explicit block or
   // rejection has to be re-applied rather than silently dropped on recompile.
   if (node.blockingStatus === "blocked") blockers.add("open-blocker");
-  if (node.acceptanceConditions.length === 0) blockers.add("missing-acceptance");
-  if (node.effort.maximum === null && node.kind === "delivery") blockers.add("missing-effort");
+  if (node.acceptanceConditions.length === 0)
+    blockers.add("missing-acceptance");
+  if (node.effort.maximum === null && node.kind === "delivery")
+    blockers.add("missing-effort");
   if (node.inputs.length === 0) blockers.add("missing-inputs");
-  if (node.operatingModel.rationale.length === 0) blockers.add("missing-rationale");
+  if (node.operatingModel.rationale.length === 0)
+    blockers.add("missing-rationale");
   if (node.humanReviewRequired) blockers.add("human-approval-pending");
   if (node.kind !== "delivery") {
     // Discovery work is legitimately open-ended: accept missing effort for it.
@@ -963,7 +1161,9 @@ export function finaliseReadiness(node: ExecutionNode, canonical: CanonicalPacka
   const readiness: Readiness =
     blockers.size === 0
       ? "ready"
-      : blockers.has("unsupported") || blockers.has("dependency-blocked") || blockers.has("open-blocker")
+      : blockers.has("unsupported") ||
+          blockers.has("dependency-blocked") ||
+          blockers.has("open-blocker")
         ? "blocked"
         : "review-required";
 
@@ -985,25 +1185,45 @@ function rulesGenerator(): GeneratorInfo {
   };
 }
 
-
 /** Map every in-scope requirement, component, integration and AI use case to nodes. */
 export function buildTraceability(
   canonical: CanonicalPackage,
   nodes: ExecutionNode[],
 ): DecomposeResult["traceability"] {
   const rows: DecomposeResult["traceability"] = [];
-  const add = (sourceId: string, kind: string, title: string, inScope: boolean) => {
-    const nodeIds = nodes.filter((node) => node.sourceIds.includes(sourceId)).map((node) => node.id);
-    rows.push({ sourceId, sourceKind: kind, sourceTitle: title, inScope, nodeIds, covered: nodeIds.length > 0 });
+  const add = (
+    sourceId: string,
+    kind: string,
+    title: string,
+    inScope: boolean,
+  ) => {
+    const nodeIds = nodes
+      .filter((node) => node.sourceIds.includes(sourceId))
+      .map((node) => node.id);
+    rows.push({
+      sourceId,
+      sourceKind: kind,
+      sourceTitle: title,
+      inScope,
+      nodeIds,
+      covered: nodeIds.length > 0,
+    });
   };
-  for (const item of canonical.scope.requirements) add(item.id, item.kind, item.title, item.inScope);
+  for (const item of canonical.scope.requirements)
+    add(item.id, item.kind, item.title, item.inScope);
   for (const component of canonical.architecture.components) {
-    add(component.id, "component", `${component.logicalComponent} (${component.service})`, true);
+    add(
+      component.id,
+      "component",
+      `${component.logicalComponent} (${component.service})`,
+      true,
+    );
   }
   for (const integration of canonical.strategy.integrations) {
     add(integration.id, "integration", integration.name, true);
   }
-  for (const useCase of canonical.strategy.aiUseCases) add(useCase.id, "aiUseCase", useCase.name, true);
+  for (const useCase of canonical.strategy.aiUseCases)
+    add(useCase.id, "aiUseCase", useCase.name, true);
   for (const capability of canonical.functionalScope.capabilities) {
     add(capability.id, "capability", capability.name, true);
   }

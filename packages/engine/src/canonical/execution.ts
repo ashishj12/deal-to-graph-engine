@@ -1,19 +1,5 @@
-/**
- * The execution model: every type the compiler produces after import.
- *
- * Design rules enforced by these types:
- *  - An item is only ever grounded in an imported source id or an approved user
- *    decision. Anything else must say so (`needs-input`, `unsupported`).
- *  - Effort, acceptance conditions and risks are never invented: they carry the
- *    provenance of where they came from, and `null`/empty when the package does
- *    not contain them.
- *  - Classification is a recommendation with a quote-able rationale, never a
- *    silent default.
- */
-
 import type { MaturityLevel, Provenance, Readiness } from "./types";
 
-/** Work categories from the challenge specification. */
 export const WORK_CATEGORIES = [
   "discovery",
   "ux-design",
@@ -31,15 +17,14 @@ export const WORK_CATEGORIES = [
 ] as const;
 export type WorkCategory = (typeof WORK_CATEGORIES)[number];
 
-/**
- * Node kinds. A missing contract, unconfirmed assumption, unresolved question or
- * stale section becomes a `discovery`, `clarification` or `approval` node instead
- * of an invented implementation requirement.
- */
-export const NODE_KINDS = ["delivery", "discovery", "clarification", "approval"] as const;
+export const NODE_KINDS = [
+  "delivery",
+  "discovery",
+  "clarification",
+  "approval",
+] as const;
 export type NodeKind = (typeof NODE_KINDS)[number];
 
-/** Edge types from the challenge specification. */
 export const EDGE_TYPES = [
   "blocking-discovery",
   "design-handoff",
@@ -106,7 +91,13 @@ export interface ModelScore {
   model: "flexible-talent" | "challenge" | "private-pod";
   score: number;
   /** Weighted contributions, so the recommendation can be audited feature by feature. */
-  contributions: { feature: string; weight: number; value: number; points: number; evidence: string }[];
+  contributions: {
+    feature: string;
+    weight: number;
+    value: number;
+    points: number;
+    evidence: string;
+  }[];
 }
 
 export interface OperatingModelRecommendation {
@@ -117,7 +108,12 @@ export interface OperatingModelRecommendation {
   rationale: string[];
   sourceIds: string[];
   overridden: boolean;
-  overrideHistory: { from: ModelScore["model"]; to: ModelScore["model"]; rationale: string; at: string }[];
+  overrideHistory: {
+    from: ModelScore["model"];
+    to: ModelScore["model"];
+    rationale: string;
+    at: string;
+  }[];
   /** Ranked scores for all three models. */
   scores: ModelScore[];
   /** Score gap between the winner and the runner-up, in points. */
@@ -140,16 +136,10 @@ export interface NodeAnchors {
   domainIds: string[];
   aiUseCaseIds: string[];
   requirementIds: string[];
-  /** Estimate workstream whose range funds this node's effort. */
   estimateWorkstreamId: string | null;
-  /** Backlog item that generated this node, when it is a discovery node. */
   backlogSourceId: string | null;
 }
 
-/**
- * A suggestion from the AI layer. Suggestions are never applied silently: each
- * one names the field it would fill and waits for an explicit user decision.
- */
 export interface AiSuggestion {
   id: string;
   field: string;
@@ -169,7 +159,6 @@ export interface ExecutionNode {
   objective: string;
   workCategory: WorkCategory;
   kind: NodeKind;
-  /** Free text summarising what is in and out of scope for this node. */
   scope: string;
   sourceIds: string[];
   sourceRefs: SourceRef[];
@@ -183,29 +172,21 @@ export interface ExecutionNode {
   effort: EffortEstimate;
   risks: string[];
   assumptions: string[];
-  /** `blocked` when an open gap/question or unconfirmed contract gates this node. */
   blockingStatus: "none" | "blocked" | "gated";
   blockedBy: string[];
   operatingModel: OperatingModelRecommendation;
   provenance: Provenance;
   readiness: Readiness;
-  /** Every reason the node is not `ready`, so the UI never guesses. */
   readinessBlockers: ReadinessBlocker[];
-  /** Model-specific fields still missing for the selected operating model. */
   modelFieldsMissing: string[];
-  /** True when a human must review the output before handoff. */
   humanReviewRequired: boolean;
   fieldProvenance: Record<NodeField, Provenance>;
   acceptanceSourceIds: string[];
   riskSourceIds: string[];
   assumptionSourceIds: string[];
-  /** Set when this node came from a user split. */
   splitOf: string | null;
-  /** Set when this node came from a user merge. */
   mergedFrom: string[];
-  /** Where in the canonical model this node came from. */
   anchors: NodeAnchors;
-  /** Labelled AI suggestions awaiting a user decision. */
   aiSuggestions: AiSuggestion[];
 }
 
@@ -333,7 +314,11 @@ export interface TraceabilityRow {
 
 /* ------------------------------------------------------------------ quality */
 
-export const QUALITY_STATUSES = ["Ready", "Review Required", "Blocked"] as const;
+export const QUALITY_STATUSES = [
+  "Ready",
+  "Review Required",
+  "Blocked",
+] as const;
 export type QualityStatus = (typeof QUALITY_STATUSES)[number];
 
 export interface QualityGateFinding {
@@ -355,7 +340,12 @@ export interface QualityReport {
   score: number;
   findings: QualityGateFinding[];
   counts: { pass: number; warn: number; fail: number };
-  coverage: { requirements: number; components: number; integrations: number; aiUseCases: number };
+  coverage: {
+    requirements: number;
+    components: number;
+    integrations: number;
+    aiUseCases: number;
+  };
   /** Rule ids that forced the status, in evaluation order. */
   gatedOn: string[];
   generatedAt: string;
@@ -448,7 +438,12 @@ export interface ChangeImpact {
   invalidatedPackages: string[];
   modelChanges: { nodeId: string; from: string; to: string }[];
   waveChanges: { nodeId: string; from: number; to: number }[];
-  criticalPath: { before: string[]; after: string[]; changed: boolean; effortDelta: number };
+  criticalPath: {
+    before: string[];
+    after: string[];
+    changed: boolean;
+    effortDelta: number;
+  };
   effortDelta: number;
   durationDelta: number;
   newlyBlocked: string[];

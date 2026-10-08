@@ -1,13 +1,3 @@
-/**
- * Export layer (FR7).
- *
- * Produces the four artefact families the challenge requires and, in every one of
- * them, preserves node ids, source ids, dependencies, operating-model
- * classifications and rationales, execution waves, the critical path, quality
- * findings and readiness — with the mock-mode notice attached so a reader can
- * never mistake mock output for live output.
- */
-
 import type { GraphBundleFile } from "../canonical/execution";
 import type { CompiledDeal } from "../compile";
 import { buildModelPackage } from "../packages";
@@ -16,7 +6,12 @@ import { stableStringify } from "./stable-json";
 import { zipFiles } from "./bundle";
 
 export { stableStringify } from "./stable-json";
-export { packageToMarkdown, toExecutionPlanMarkdown, qualityToMarkdown, wavesToMarkdown } from "./plan";
+export {
+  packageToMarkdown,
+  toExecutionPlanMarkdown,
+  qualityToMarkdown,
+  wavesToMarkdown,
+} from "./plan";
 export { zipFiles } from "./bundle";
 
 /** Machine-readable graph export: nodes, edges, waves, critical path, findings. */
@@ -57,7 +52,10 @@ export function toQualityJson(compiled: CompiledDeal): string {
 export function packageToJson(compiled: CompiledDeal, nodeId: string): string {
   const node = compiled.graph.nodes.find((entry) => entry.id === nodeId);
   if (!node) throw new Error(`unknown node ${nodeId}`);
-  const pkg = buildModelPackage(node, { canonical: compiled.canonical, generator: compiled.graph.generator });
+  const pkg = buildModelPackage(node, {
+    canonical: compiled.canonical,
+    generator: compiled.graph.generator,
+  });
   return stableStringify({ ...pkg, title: node.title, node });
 }
 
@@ -65,14 +63,33 @@ export function packageToJson(compiled: CompiledDeal, nodeId: string): string {
 export function buildBundleFiles(compiled: CompiledDeal): GraphBundleFile[] {
   const slug = compiled.graph.dealId.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const files: GraphBundleFile[] = [
-    { path: `${slug}.graph.json`, kind: "json", contents: toGraphJson(compiled) },
-    { path: `${slug}.quality.json`, kind: "json", contents: toQualityJson(compiled) },
-    { path: `${slug}.execution-plan.md`, kind: "markdown", contents: toExecutionPlanMarkdown(compiled) },
+    {
+      path: `${slug}.graph.json`,
+      kind: "json",
+      contents: toGraphJson(compiled),
+    },
+    {
+      path: `${slug}.quality.json`,
+      kind: "json",
+      contents: toQualityJson(compiled),
+    },
+    {
+      path: `${slug}.execution-plan.md`,
+      kind: "markdown",
+      contents: toExecutionPlanMarkdown(compiled),
+    },
   ];
   for (const node of compiled.graph.nodes) {
-    const pkg = buildModelPackage(node, { canonical: compiled.canonical, generator: compiled.graph.generator });
+    const pkg = buildModelPackage(node, {
+      canonical: compiled.canonical,
+      generator: compiled.graph.generator,
+    });
     const base = `${slug}.packages/${node.id.toLowerCase()}`;
-    files.push({ path: `${base}.${pkg.model}.json`, kind: "json", contents: packageToJson(compiled, node.id) });
+    files.push({
+      path: `${base}.${pkg.model}.json`,
+      kind: "json",
+      contents: packageToJson(compiled, node.id),
+    });
     files.push({
       path: `${base}.${pkg.model}.md`,
       kind: "markdown",

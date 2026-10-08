@@ -605,11 +605,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:documents",
-          "data:documents",
-          "security:rbac"
-        ],
+        "signals": ["capability:documents", "data:documents", "security:rbac"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -634,9 +630,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:portal"
-        ],
+        "signals": ["capability:portal"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -690,9 +684,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "ai:assistant"
-        ],
+        "signals": ["ai:assistant"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -717,10 +709,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:forms",
-          "delivery:phased"
-        ],
+        "signals": ["capability:forms", "delivery:phased"],
         "review": "approved",
         "inScope": false,
         "userEdited": false,
@@ -742,9 +731,7 @@
           "quote": "FR1. The system must accept incoming referral letters, prior-authorisation forms and lab results from fax, secure email and patient-portal upload.",
           "verified": true
         },
-        "relatedIds": [
-          "SYS_04"
-        ],
+        "relatedIds": ["SYS_04"],
         "affectsInputs": [],
         "critical": false,
         "signals": [
@@ -777,11 +764,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:documents",
-          "data:documents",
-          "ai:extraction"
-        ],
+        "signals": ["capability:documents", "data:documents", "ai:extraction"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -803,15 +786,10 @@
           "quote": "FR3. The system must present each extracted document to a medical records clerk for review and correction before anything is written to Epic.",
           "verified": true
         },
-        "relatedIds": [
-          "PER_01"
-        ],
+        "relatedIds": ["PER_01"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:documents",
-          "data:documents"
-        ],
+        "signals": ["capability:documents", "data:documents"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -833,10 +811,7 @@
           "quote": "FR4. Approved documents must be written back to the correct patient chart in Epic through the FHIR R4 API, tagged with the extracting user and timestamp.",
           "verified": true
         },
-        "relatedIds": [
-          "SYS_01",
-          "GAP_01"
-        ],
+        "relatedIds": ["SYS_01", "GAP_01"],
         "affectsInputs": [],
         "critical": false,
         "signals": [
@@ -867,14 +842,10 @@
           "quote": "FR5. The patient-support assistant must answer common questions about appointment preparation, clinic locations, hours and accepted insurance plans.",
           "verified": true
         },
-        "relatedIds": [
-          "PER_02"
-        ],
+        "relatedIds": ["PER_02"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "ai:assistant"
-        ],
+        "signals": ["ai:assistant"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -896,9 +867,7 @@
           "quote": "FR6. The patient-support assistant must retrieve answers from our approved clinic policy and FAQ documents rather than generating unsourced medical guidance.",
           "verified": true
         },
-        "relatedIds": [
-          "DATA_02"
-        ],
+        "relatedIds": ["DATA_02"],
         "affectsInputs": [],
         "critical": false,
         "signals": [
@@ -928,15 +897,10 @@
           "quote": "FR7. The patient-support assistant must recognise when a question requires clinical judgement or involves symptoms and must hand off to a human staff member.",
           "verified": true
         },
-        "relatedIds": [
-          "PER_02"
-        ],
+        "relatedIds": ["PER_02"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:workflow",
-          "ai:assistant"
-        ],
+        "signals": ["capability:workflow", "ai:assistant"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -987,17 +951,10 @@
           "quote": "FR8. The assistant must be available through our existing patient portal and, if feasible, as a widget on our public website.",
           "verified": true
         },
-        "relatedIds": [
-          "PER_02",
-          "SYS_05"
-        ],
+        "relatedIds": ["PER_02", "SYS_05"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:portal",
-          "ai:assistant",
-          "nfr:availability"
-        ],
+        "signals": ["capability:portal", "ai:assistant", "nfr:availability"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1019,16 +976,10 @@
           "quote": "FR10. The system should flag documents where extraction confidence is low so clerks review those first.",
           "verified": true
         },
-        "relatedIds": [
-          "PER_01"
-        ],
+        "relatedIds": ["PER_01"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:documents",
-          "data:documents",
-          "ai:extraction"
-        ],
+        "signals": ["capability:documents", "data:documents", "ai:extraction"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1083,11 +1034,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:documents",
-          "data:documents",
-          "ai:extraction"
-        ],
+        "signals": ["capability:documents", "data:documents", "ai:extraction"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1112,10 +1059,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:admin",
-          "ai:assistant"
-        ],
+        "signals": ["capability:admin", "ai:assistant"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1140,9 +1084,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "nfr:availability"
-        ],
+        "signals": ["nfr:availability"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1197,10 +1139,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "ai:assistant",
-          "nfr:performance"
-        ],
+        "signals": ["ai:assistant", "nfr:performance"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1222,10 +1161,7 @@
           "quote": "INT1. The intake system must integrate with Epic through the FHIR R4 API to write structured document data and retrieve patient context.",
           "verified": true
         },
-        "relatedIds": [
-          "SYS_01",
-          "GAP_01"
-        ],
+        "relatedIds": ["SYS_01", "GAP_01"],
         "affectsInputs": [],
         "critical": false,
         "signals": [
@@ -1286,14 +1222,10 @@
           "quote": "INT3. The patient-support assistant should integrate with Five9 so a handed-off conversation can be routed to an available front-desk agent with context preserved.",
           "verified": true
         },
-        "relatedIds": [
-          "SYS_02"
-        ],
+        "relatedIds": ["SYS_02"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "ai:assistant"
-        ],
+        "signals": ["ai:assistant"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1315,15 +1247,10 @@
           "quote": "INT4. The assistant must authenticate patients through the existing patient-portal login rather than introducing a separate identity system.",
           "verified": true
         },
-        "relatedIds": [
-          "SYS_05"
-        ],
+        "relatedIds": ["SYS_05"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:identity",
-          "ai:assistant"
-        ],
+        "signals": ["capability:identity", "ai:assistant"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1345,17 +1272,10 @@
           "quote": "INT5. The solution should be able to query the regional CareEverywhere health information exchange in a later phase, but that integration is not required for go-live.",
           "verified": true
         },
-        "relatedIds": [
-          "SYS_03",
-          "GAP_03"
-        ],
+        "relatedIds": ["SYS_03", "GAP_03"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "data:pii",
-          "delivery:deadline",
-          "delivery:phased"
-        ],
+        "signals": ["data:pii", "delivery:deadline", "delivery:phased"],
         "review": "approved",
         "inScope": false,
         "userEdited": false,
@@ -1377,9 +1297,7 @@
           "quote": "DATA1. All patient documents and extracted fields are protected health information and must be handled under our HIPAA policies at every stage.",
           "verified": true
         },
-        "relatedIds": [
-          "SEC_01"
-        ],
+        "relatedIds": ["SEC_01"],
         "affectsInputs": [],
         "critical": false,
         "signals": [
@@ -1474,9 +1392,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:workflow"
-        ],
+        "signals": ["capability:workflow"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1528,15 +1444,10 @@
           "quote": "SEC1. The solution must comply with HIPAA, including a signed business associate agreement with any AI provider or subprocessor involved.",
           "verified": true
         },
-        "relatedIds": [
-          "DEP_01",
-          "ASM_01"
-        ],
+        "relatedIds": ["DEP_01", "ASM_01"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "compliance:hipaa"
-        ],
+        "signals": ["compliance:hipaa"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1561,11 +1472,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "data:pii",
-          "security:encryption",
-          "compliance:hipaa"
-        ],
+        "signals": ["data:pii", "security:encryption", "compliance:hipaa"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1651,10 +1558,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "compliance:hipaa",
-          "delivery:deadline"
-        ],
+        "signals": ["compliance:hipaa", "delivery:deadline"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1676,14 +1580,10 @@
           "quote": "SEC6. The patient-support assistant must never display another patient's information, even if a conversation is misrouted.",
           "verified": true
         },
-        "relatedIds": [
-          "PER_02"
-        ],
+        "relatedIds": ["PER_02"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "ai:assistant"
-        ],
+        "signals": ["ai:assistant"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1825,11 +1725,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:workflow",
-          "ai:assistant",
-          "delivery:phased"
-        ],
+        "signals": ["capability:workflow", "ai:assistant", "delivery:phased"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1851,16 +1747,10 @@
           "quote": "CON2. The medical records team must be able to fall back to today's manual process at any time during the initial rollout if extraction quality is not trusted yet.",
           "verified": true
         },
-        "relatedIds": [
-          "SYS_04",
-          "PER_01"
-        ],
+        "relatedIds": ["SYS_04", "PER_01"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "ai:extraction",
-          "delivery:phased"
-        ],
+        "signals": ["ai:extraction", "delivery:phased"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1885,11 +1775,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:admin",
-          "nfr:availability",
-          "delivery:team"
-        ],
+        "signals": ["capability:admin", "nfr:availability", "delivery:team"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1914,10 +1800,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "integration:ehr",
-          "integration:api"
-        ],
+        "signals": ["integration:ehr", "integration:api"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1967,11 +1850,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:workflow",
-          "capability:forms",
-          "data:pii"
-        ],
+        "signals": ["capability:workflow", "capability:forms", "data:pii"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1996,10 +1875,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:documents",
-          "data:documents"
-        ],
+        "signals": ["capability:documents", "data:documents"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -2021,9 +1897,7 @@
           "quote": "FR8. The assistant must be available through our existing patient portal and, if feasible, as a widget on our public website.",
           "verified": true
         },
-        "relatedIds": [
-          "FR_09"
-        ],
+        "relatedIds": ["FR_09"],
         "affectsInputs": [],
         "critical": false,
         "signals": [
@@ -2088,9 +1962,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "ai:assistant"
-        ],
+        "signals": ["ai:assistant"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -2112,14 +1984,10 @@
           "quote": "The Compliance Officer confirmed a business associate agreement will be required with whichever AI provider is ultimately used and asked to review that agreement before any pilot.",
           "verified": true
         },
-        "relatedIds": [
-          "SEC_01"
-        ],
+        "relatedIds": ["SEC_01"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "delivery:phased"
-        ],
+        "signals": ["delivery:phased"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -2141,9 +2009,7 @@
           "quote": "Referral letters, prior-authorisation forms and outside lab results arrive by fax, secure email and patient portal upload, and today a team of eleven medical records clerks manually reads and keys each document into our EHR.",
           "verified": true
         },
-        "relatedIds": [
-          "FR_02"
-        ],
+        "relatedIds": ["FR_02"],
         "affectsInputs": [],
         "critical": false,
         "signals": [
@@ -2175,16 +2041,10 @@
           "quote": "The Director of Patient Access asked whether the assistant could eventually support Spanish-language conversations, given about 18% of patients prefer Spanish, but this was not committed to for the initial phase.",
           "verified": true
         },
-        "relatedIds": [
-          "FR_05"
-        ],
+        "relatedIds": ["FR_05"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "ai:assistant",
-          "delivery:deadline",
-          "delivery:phased"
-        ],
+        "signals": ["ai:assistant", "delivery:deadline", "delivery:phased"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -2206,18 +2066,10 @@
           "quote": "It is still unclear whether Epic's FHIR R4 API in our current sandbox environment supports writing structured referral data or only reading patient context; the CMIO will confirm with the Epic team.",
           "verified": true
         },
-        "relatedIds": [
-          "INT_01",
-          "Q_01"
-        ],
-        "affectsInputs": [
-          "integrationReadiness"
-        ],
+        "relatedIds": ["INT_01", "Q_01"],
+        "affectsInputs": ["integrationReadiness"],
         "critical": true,
-        "signals": [
-          "integration:ehr",
-          "integration:api"
-        ],
+        "signals": ["integration:ehr", "integration:api"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -2239,14 +2091,10 @@
           "quote": "No decision has been made yet on whether the assistant runs as a fully separate application or is embedded directly inside the existing patient portal.",
           "verified": true
         },
-        "relatedIds": [
-          "Q_02"
-        ],
+        "relatedIds": ["Q_02"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "ai:assistant"
-        ],
+        "signals": ["ai:assistant"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -2268,17 +2116,10 @@
           "quote": "INT5. The solution should be able to query the regional CareEverywhere health information exchange in a later phase, but that integration is not required for go-live.",
           "verified": true
         },
-        "relatedIds": [
-          "INT_05",
-          "Q_03"
-        ],
+        "relatedIds": ["INT_05", "Q_03"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "data:pii",
-          "delivery:deadline",
-          "delivery:phased"
-        ],
+        "signals": ["data:pii", "delivery:deadline", "delivery:phased"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -2300,14 +2141,10 @@
           "quote": "SEC1. The solution must comply with HIPAA, including a signed business associate agreement with any AI provider or subprocessor involved.",
           "verified": true
         },
-        "relatedIds": [
-          "SEC_01"
-        ],
+        "relatedIds": ["SEC_01"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "compliance:hipaa"
-        ],
+        "signals": ["compliance:hipaa"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -2329,9 +2166,7 @@
           "quote": "DATA2. The assistant's knowledge base must be built only from clinic-approved policy, FAQ and appointment-prep documents, refreshed whenever those documents change.",
           "verified": true
         },
-        "relatedIds": [
-          "DATA_02"
-        ],
+        "relatedIds": ["DATA_02"],
         "affectsInputs": [],
         "critical": false,
         "signals": [
@@ -2363,17 +2198,10 @@
           "quote": "It is still unclear whether Epic's FHIR R4 API in our current sandbox environment supports writing structured referral data or only reading patient context; the CMIO will confirm with the Epic team.",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_01"
-        ],
-        "affectsInputs": [
-          "integrationReadiness"
-        ],
+        "relatedIds": ["GAP_01"],
+        "affectsInputs": ["integrationReadiness"],
         "critical": true,
-        "signals": [
-          "integration:ehr",
-          "integration:api"
-        ],
+        "signals": ["integration:ehr", "integration:api"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -2395,14 +2223,10 @@
           "quote": "No decision has been made yet on whether the assistant runs as a fully separate application or is embedded directly inside the existing patient portal.",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_02"
-        ],
+        "relatedIds": ["GAP_02"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "ai:assistant"
-        ],
+        "signals": ["ai:assistant"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -2424,9 +2248,7 @@
           "quote": "A regional health information exchange, CareEverywhere, is used ad hoc by physicians to pull outside records, but is not integrated into our intake workflow.",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_03"
-        ],
+        "relatedIds": ["GAP_03"],
         "affectsInputs": [],
         "critical": false,
         "signals": [
@@ -2457,17 +2279,13 @@
         "severity": "info",
         "code": "customer-excluded",
         "message": "BR_05 starts out of scope because the customer's text says it is excluded from this phase. Switch it back into scope during review if it belongs in this engagement.",
-        "refs": [
-          "BR_05"
-        ]
+        "refs": ["BR_05"]
       },
       {
         "severity": "info",
         "code": "customer-excluded",
         "message": "INT_05 starts out of scope because the customer's text says it is excluded from this phase. Switch it back into scope during review if it belongs in this engagement.",
-        "refs": [
-          "INT_05"
-        ]
+        "refs": ["INT_05"]
       }
     ]
   },
@@ -2475,9 +2293,7 @@
     "cloudPlatform": "azure",
     "cloudSelectionMode": "user-selected",
     "expectedUsers": 1200,
-    "targetRegions": [
-      "Oregon, USA"
-    ],
+    "targetRegions": ["Oregon, USA"],
     "deliveryDeadlineWeeks": 24,
     "environments": 3,
     "aiProviderPreference": "no-preference"
@@ -2945,32 +2761,17 @@
               "statements": [
                 {
                   "text": "Harborview Health Network needs a HIPAA-compliant clinical-document intake pipeline and a retrieval-grounded patient-support assistant on AWS, integrated with Epic via FHIR R4, serving roughly 1,200 staff and 85,000 monthly patient encounters with a 24-week phased rollout; Epic sandbox write access and the assistant's deployment form remain open.",
-                  "refs": [
-                    "BR_01",
-                    "BR_02",
-                    "BR_03",
-                    "BR_04"
-                  ],
+                  "refs": ["BR_01", "BR_02", "BR_03", "BR_04"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Clinical Intake and Patient Support Assistant serves 4 business objectives set by Harborview Health Network (BR_01, BR_02, BR_03 and BR_04); each is detailed under Business objectives.",
-                  "refs": [
-                    "BR_01",
-                    "BR_02",
-                    "BR_03",
-                    "BR_04"
-                  ],
+                  "refs": ["BR_01", "BR_02", "BR_03", "BR_04"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "The solution is organised into 6 capability areas (Application Experience, Platform Foundation, Data Platform, Systems Integration, AI Capabilities and Security and Compliance) and connects to Epic EHR (SYS_01), Five9 Contact Centre (SYS_02), CareEverywhere Health Information Exchange (SYS_03) and Patient Portal (SYS_05).",
-                  "refs": [
-                    "SYS_01",
-                    "SYS_02",
-                    "SYS_03",
-                    "SYS_05"
-                  ],
+                  "refs": ["SYS_01", "SYS_02", "SYS_03", "SYS_05"],
                   "label": "ai-interpretation"
                 }
               ]
@@ -2981,19 +2782,12 @@
               "statements": [
                 {
                   "text": "Today Harborview Health Network relies on Manual Document Scanning Process: Incoming documents are currently scanned into a shared network drive and manually filed by the medical records team before being keyed into Epic.",
-                  "refs": [
-                    "SYS_04"
-                  ],
+                  "refs": ["SYS_04"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "Until this is addressed, Harborview Health Network cannot achieve \"Cut document-keying time by 50%\" (BR_01), \"Reduce routine front-desk call volume\" (BR_02), \"Faster document-to-chart visibility\" (BR_03) and \"Clinical decisions stay with licensed staff\" (BR_04).",
-                  "refs": [
-                    "BR_01",
-                    "BR_02",
-                    "BR_03",
-                    "BR_04"
-                  ],
+                  "refs": ["BR_01", "BR_02", "BR_03", "BR_04"],
                   "label": "customer-requested"
                 }
               ]
@@ -3004,30 +2798,22 @@
               "statements": [
                 {
                   "text": "BR_01 - Cut document-keying time by 50%: Reduce the time medical records clerks spend keying referral and prior-authorisation documents into Epic by at least 50%.",
-                  "refs": [
-                    "BR_01"
-                  ],
+                  "refs": ["BR_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "BR_02 - Reduce routine front-desk call volume: Reduce routine front-desk call volume by giving patients a self-service way to get appointment-prep and billing answers.",
-                  "refs": [
-                    "BR_02"
-                  ],
+                  "refs": ["BR_02"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "BR_03 - Faster document-to-chart visibility: Reduce the average time from document receipt to the document being visible in a patient's Epic chart.",
-                  "refs": [
-                    "BR_03"
-                  ],
+                  "refs": ["BR_03"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "BR_04 - Clinical decisions stay with licensed staff: Every clinical or coverage decision remains with a licensed staff member; the assistant never makes an autonomous clinical or eligibility determination.",
-                  "refs": [
-                    "BR_04"
-                  ],
+                  "refs": ["BR_04"],
                   "label": "customer-requested"
                 }
               ]
@@ -3038,16 +2824,12 @@
               "statements": [
                 {
                   "text": "PER_01 - Medical Records Clerk: One of eleven staff who manually read and key referral and prior-authorisation documents into Epic today, and who will review extracted data.",
-                  "refs": [
-                    "PER_01"
-                  ],
+                  "refs": ["PER_01"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "PER_02 - Patient: Calls or messages the clinic with appointment-prep, billing and insurance questions and will interact with the support assistant.",
-                  "refs": [
-                    "PER_02"
-                  ],
+                  "refs": ["PER_02"],
                   "label": "ai-interpretation"
                 }
               ]
@@ -3058,20 +2840,12 @@
               "statements": [
                 {
                   "text": "Medical Records Clerk journey: Step 1: Present each extracted document to a medical records clerk for review and correction before anything is written to Epic (FR_03; delivered by CAP_01). Step 2: Medical records clerks see a queue of documents awaiting review, prioritised by how long they have been waiting (FR_08; delivered by CAP_04). Step 3: Documents where extraction confidence is low are flagged so medical records clerks review those first (FR_10; delivered by CAP_11).",
-                  "refs": [
-                    "FR_03",
-                    "FR_08",
-                    "FR_10"
-                  ],
+                  "refs": ["FR_03", "FR_08", "FR_10"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Patient journey: Step 1: The patient-support assistant answers common questions about appointment preparation, clinic locations, hours and accepted insurance plans (FR_05; delivered by CAP_10). Step 2: The assistant recognises when a question requires clinical judgement or involves symptoms and hands off to a human staff member (FR_07; delivered by CAP_04). Step 3: The patient-support assistant is available through the existing patient portal and, where feasible, as a widget on the public website (FR_09; delivered by CAP_03, CAP_10).",
-                  "refs": [
-                    "FR_05",
-                    "FR_07",
-                    "FR_09"
-                  ],
+                  "refs": ["FR_05", "FR_07", "FR_09"],
                   "label": "ai-interpretation"
                 }
               ]
@@ -3082,107 +2856,77 @@
               "statements": [
                 {
                   "text": "DATA_01 - Protected health information handling: All patient documents and extracted fields are protected health information and must be handled under HIPAA policies at every stage.",
-                  "refs": [
-                    "DATA_01"
-                  ],
+                  "refs": ["DATA_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "DATA_02 - Approved-content-only assistant knowledge base: The assistant's knowledge base is built only from clinic-approved policy, FAQ and appointment-prep documents, refreshed whenever those documents change.",
-                  "refs": [
-                    "DATA_02"
-                  ],
+                  "refs": ["DATA_02"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "DATA_03 - Six-year document and conversation retention: Extracted document data and assistant conversation logs must be retained for at least six years to satisfy state medical-records requirements.",
-                  "refs": [
-                    "DATA_03"
-                  ],
+                  "refs": ["DATA_03"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "DATA_04 - Conversation-log governance for model training: Conversation logs are reviewable by compliance staff but must not be used to retrain or fine-tune any model without a separate, explicit approval process.",
-                  "refs": [
-                    "DATA_04"
-                  ],
+                  "refs": ["DATA_04"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "DATA_05 - Separated encryption for documents and sessions: Document images and extracted text must be encrypted at rest, separate from the assistant's conversational session data.",
-                  "refs": [
-                    "DATA_05"
-                  ],
+                  "refs": ["DATA_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_01 - Multi-channel document intake: Accept incoming referral letters, prior-authorisation forms and lab results from fax, secure email and patient-portal upload.",
-                  "refs": [
-                    "FR_01"
-                  ],
+                  "refs": ["FR_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_02 - Structured field extraction: Extract structured fields from each document, including patient identifiers, referring provider, requested service and supporting clinical notes.",
-                  "refs": [
-                    "FR_02"
-                  ],
+                  "refs": ["FR_02"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_03 - Mandatory clerk review before write-back: Present each extracted document to a medical records clerk for review and correction before anything is written to Epic.",
-                  "refs": [
-                    "FR_03"
-                  ],
+                  "refs": ["FR_03"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_04 - Approved-document write-back to Epic: Write approved documents back to the correct patient chart in Epic through the FHIR R4 API, tagged with the extracting user and timestamp.",
-                  "refs": [
-                    "FR_04"
-                  ],
+                  "refs": ["FR_04"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_05 - Patient-support assistant Q&A: The patient-support assistant answers common questions about appointment preparation, clinic locations, hours and accepted insurance plans.",
-                  "refs": [
-                    "FR_05"
-                  ],
+                  "refs": ["FR_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_06 - Assistant answers grounded in approved policy content: The assistant retrieves answers from approved clinic policy and FAQ documents rather than generating unsourced medical guidance.",
-                  "refs": [
-                    "FR_06"
-                  ],
+                  "refs": ["FR_06"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_07 - Escalation for clinical-judgement questions: The assistant recognises when a question requires clinical judgement or involves symptoms and hands off to a human staff member.",
-                  "refs": [
-                    "FR_07"
-                  ],
+                  "refs": ["FR_07"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_08 - Prioritised clerk review queue: Medical records clerks see a queue of documents awaiting review, prioritised by how long they have been waiting.",
-                  "refs": [
-                    "FR_08"
-                  ],
+                  "refs": ["FR_08"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_09 - Assistant availability through the patient portal and public website: The patient-support assistant is available through the existing patient portal and, where feasible, as a widget on the public website.",
-                  "refs": [
-                    "FR_09"
-                  ],
+                  "refs": ["FR_09"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_10 - Low-confidence extraction flagging for clerk review: Documents where extraction confidence is low are flagged so medical records clerks review those first.",
-                  "refs": [
-                    "FR_10"
-                  ],
+                  "refs": ["FR_10"],
                   "label": "customer-requested"
                 }
               ]
@@ -3193,86 +2937,62 @@
               "statements": [
                 {
                   "text": "NFR_01 - 85,000 patient encounters per month at scale: Process at least 85,000 patient encounters worth of associated documents per month without a growing backlog.",
-                  "refs": [
-                    "NFR_01"
-                  ],
+                  "refs": ["NFR_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "NFR_02 - 5-minute extraction turnaround: Document extraction results must be available to a reviewing clerk within 5 minutes of document receipt for 95% of documents.",
-                  "refs": [
-                    "NFR_02"
-                  ],
+                  "refs": ["NFR_02"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "NFR_03 - 1,200 staff plus 85,000 monthly conversations: Support approximately 1,200 clinical and administrative staff users plus patient-facing assistant traffic estimated at 85,000 conversations per month.",
-                  "refs": [
-                    "NFR_03"
-                  ],
+                  "refs": ["NFR_03"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "NFR_04 - 99.5% availability during clinic hours: Maintain 99.5% availability during clinic operating hours, 7am to 8pm Pacific, seven days a week.",
-                  "refs": [
-                    "NFR_04"
-                  ],
+                  "refs": ["NFR_04"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "NFR_05 - Traceable extraction and assistant answers: Every assistant answer and every extracted field must be traceable back to the source document or policy document it came from.",
-                  "refs": [
-                    "NFR_05"
-                  ],
+                  "refs": ["NFR_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "NFR_06 - 4-second assistant response time: The patient-support assistant must respond to a typical question within 4 seconds.",
-                  "refs": [
-                    "NFR_06"
-                  ],
+                  "refs": ["NFR_06"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "SEC_01 - HIPAA compliance with a signed BAA: Comply with HIPAA, including a signed business associate agreement with any AI provider or subprocessor involved.",
-                  "refs": [
-                    "SEC_01"
-                  ],
+                  "refs": ["SEC_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "SEC_02 - PHI encryption in transit and at rest: Encrypt all protected health information in transit and at rest using current industry-standard algorithms.",
-                  "refs": [
-                    "SEC_02"
-                  ],
+                  "refs": ["SEC_02"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "SEC_03 - Role-based review-queue access: Access to the document-review queue is role-based and limited to authorised medical records staff, with supervisor audit visibility.",
-                  "refs": [
-                    "SEC_03"
-                  ],
+                  "refs": ["SEC_03"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "SEC_04 - MFA for review-queue access: Enforce multi-factor authentication for all staff accessing the intake review queue or extracted patient data.",
-                  "refs": [
-                    "SEC_04"
-                  ],
+                  "refs": ["SEC_04"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "SEC_05 - HIPAA security risk assessment before go-live: Undergo a HIPAA security risk assessment before go-live.",
-                  "refs": [
-                    "SEC_05"
-                  ],
+                  "refs": ["SEC_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "SEC_06 - No cross-patient information disclosure on misroute: The patient-support assistant must never display another patient's information, even if a conversation is misrouted.",
-                  "refs": [
-                    "SEC_06"
-                  ],
+                  "refs": ["SEC_06"],
                   "label": "customer-requested"
                 }
               ]
@@ -3283,30 +3003,22 @@
               "statements": [
                 {
                   "text": "INT_01 - Epic FHIR R4 write and read integration: Integrate with Epic through the FHIR R4 API to write structured document data and retrieve patient context.",
-                  "refs": [
-                    "INT_01"
-                  ],
+                  "refs": ["INT_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "INT_02 - Inbound document channel integration: Accept inbound documents from the existing fax gateway, secure email inbox and patient-portal upload mechanism.",
-                  "refs": [
-                    "INT_02"
-                  ],
+                  "refs": ["INT_02"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "INT_03 - Five9 handoff integration: The patient-support assistant integrates with Five9 so a handed-off conversation routes to an available front-desk agent with context preserved.",
-                  "refs": [
-                    "INT_03"
-                  ],
+                  "refs": ["INT_03"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "INT_04 - Patient-portal authentication reuse: Authenticate patients through the existing patient-portal login rather than introducing a separate identity system.",
-                  "refs": [
-                    "INT_04"
-                  ],
+                  "refs": ["INT_04"],
                   "label": "customer-requested"
                 }
               ]
@@ -3317,9 +3029,7 @@
               "statements": [
                 {
                   "text": "DEP_01 - Business associate agreement execution: A signed business associate agreement with the chosen AI provider must be reviewed and executed before any pilot can begin.",
-                  "refs": [
-                    "DEP_01"
-                  ],
+                  "refs": ["DEP_01"],
                   "label": "ai-interpretation"
                 }
               ]
@@ -3330,16 +3040,12 @@
               "statements": [
                 {
                   "text": "ASM_01 - AI provider must support a HIPAA BAA: Assumed the selected AI/ML provider can execute a HIPAA business associate agreement; providers unable to sign a BAA are out of consideration.",
-                  "refs": [
-                    "ASM_01"
-                  ],
+                  "refs": ["ASM_01"],
                   "label": "assumption-to-confirm"
                 },
                 {
                   "text": "ASM_02 - Policy documents are reusable for a knowledge base: Assumed the clinic's existing policy, FAQ and appointment-prep documents are already in a reusable digital format suitable for a knowledge base.",
-                  "refs": [
-                    "ASM_02"
-                  ],
+                  "refs": ["ASM_02"],
                   "label": "assumption-to-confirm"
                 }
               ]
@@ -3350,16 +3056,12 @@
               "statements": [
                 {
                   "text": "RSK_01 - Extraction-accuracy risk across document sources: Documents arrive by fax, secure email and portal upload with varying quality, creating a risk of inconsistent extraction accuracy across sources.",
-                  "refs": [
-                    "RSK_01"
-                  ],
+                  "refs": ["RSK_01"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "RSK_02 - Spanish-language coverage gap at launch: About 18% of patients prefer Spanish, but Spanish-language conversations are not committed to for the initial assistant phase, risking uneven adoption.",
-                  "refs": [
-                    "RSK_02"
-                  ],
+                  "refs": ["RSK_02"],
                   "label": "ai-interpretation"
                 }
               ]
@@ -3370,16 +3072,12 @@
               "statements": [
                 {
                   "text": "BR_05 - Behavioural-health screening (future candidate): excluded from this engagement because the customer states \"BR5. The solution could eventually extend to behavioural-health intake screening, though that is out of scope for this initial phase.\"",
-                  "refs": [
-                    "BR_05"
-                  ],
+                  "refs": ["BR_05"],
                   "label": "out-of-scope"
                 },
                 {
                   "text": "INT_05 - CareEverywhere query integration (later phase): excluded from this engagement because the customer states \"INT5. The solution should be able to query the regional CareEverywhere health information exchange in a later phase, but that integration is not required for go-live.\"",
-                  "refs": [
-                    "INT_05"
-                  ],
+                  "refs": ["INT_05"],
                   "label": "out-of-scope"
                 },
                 {
@@ -3400,13 +3098,7 @@
                 },
                 {
                   "text": "Decommissioning of the existing systems referenced in the scope model is out of scope; this engagement covers integration with those systems, not their retirement.",
-                  "refs": [
-                    "SYS_01",
-                    "SYS_02",
-                    "SYS_03",
-                    "SYS_04",
-                    "SYS_05"
-                  ],
+                  "refs": ["SYS_01", "SYS_02", "SYS_03", "SYS_04", "SYS_05"],
                   "label": "assumption-to-confirm"
                 }
               ]
@@ -3417,23 +3109,17 @@
               "statements": [
                 {
                   "text": "Q_01 - Does the Epic FHIR R4 sandbox support writing referral data?: Confirm whether the Epic FHIR R4 sandbox supports writing structured referral data or is currently read-only for patient context.",
-                  "refs": [
-                    "Q_01"
-                  ],
+                  "refs": ["Q_01"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_02 - Should the assistant be standalone or embedded in the portal?: Confirm whether the patient-support assistant should ship as a standalone application or be embedded in the existing patient portal.",
-                  "refs": [
-                    "Q_02"
-                  ],
+                  "refs": ["Q_02"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_03 - Confirm the target phase for the CareEverywhere integration: The customer says the CareEverywhere integration is not required for go-live; confirm which later phase should deliver it so it can be planned and estimated then.",
-                  "refs": [
-                    "Q_03"
-                  ],
+                  "refs": ["Q_03"],
                   "label": "ai-interpretation"
                 }
               ]
@@ -3444,288 +3130,177 @@
               "statements": [
                 {
                   "text": "BR_01 - Cut document-keying time by 50% is covered by CAP_01.",
-                  "refs": [
-                    "BR_01",
-                    "CAP_01"
-                  ],
+                  "refs": ["BR_01", "CAP_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "BR_02 - Reduce routine front-desk call volume is covered by CAP_03.",
-                  "refs": [
-                    "BR_02",
-                    "CAP_03"
-                  ],
+                  "refs": ["BR_02", "CAP_03"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "BR_03 - Faster document-to-chart visibility is covered by CAP_01.",
-                  "refs": [
-                    "BR_03",
-                    "CAP_01"
-                  ],
+                  "refs": ["BR_03", "CAP_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "BR_04 - Clinical decisions stay with licensed staff is covered by CAP_10.",
-                  "refs": [
-                    "BR_04",
-                    "CAP_10"
-                  ],
+                  "refs": ["BR_04", "CAP_10"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_01 - Multi-channel document intake is covered by CAP_01, CAP_02.",
-                  "refs": [
-                    "FR_01",
-                    "CAP_01",
-                    "CAP_02"
-                  ],
+                  "refs": ["FR_01", "CAP_01", "CAP_02"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_02 - Structured field extraction is covered by CAP_11.",
-                  "refs": [
-                    "FR_02",
-                    "CAP_11"
-                  ],
+                  "refs": ["FR_02", "CAP_11"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_03 - Mandatory clerk review before write-back is covered by CAP_01.",
-                  "refs": [
-                    "FR_03",
-                    "CAP_01"
-                  ],
+                  "refs": ["FR_03", "CAP_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_04 - Approved-document write-back to Epic is covered by CAP_01, CAP_04.",
-                  "refs": [
-                    "FR_04",
-                    "CAP_01",
-                    "CAP_04"
-                  ],
+                  "refs": ["FR_04", "CAP_01", "CAP_04"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_05 - Patient-support assistant Q&A is covered by CAP_10.",
-                  "refs": [
-                    "FR_05",
-                    "CAP_10"
-                  ],
+                  "refs": ["FR_05", "CAP_10"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_06 - Assistant answers grounded in approved policy content is covered by CAP_04, CAP_10.",
-                  "refs": [
-                    "FR_06",
-                    "CAP_04",
-                    "CAP_10"
-                  ],
+                  "refs": ["FR_06", "CAP_04", "CAP_10"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_07 - Escalation for clinical-judgement questions is covered by CAP_04.",
-                  "refs": [
-                    "FR_07",
-                    "CAP_04"
-                  ],
+                  "refs": ["FR_07", "CAP_04"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_08 - Prioritised clerk review queue is covered by CAP_04.",
-                  "refs": [
-                    "FR_08",
-                    "CAP_04"
-                  ],
+                  "refs": ["FR_08", "CAP_04"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_09 - Assistant availability through the patient portal and public website is covered by CAP_03, CAP_10.",
-                  "refs": [
-                    "FR_09",
-                    "CAP_03",
-                    "CAP_10"
-                  ],
+                  "refs": ["FR_09", "CAP_03", "CAP_10"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_10 - Low-confidence extraction flagging for clerk review is covered by CAP_11.",
-                  "refs": [
-                    "FR_10",
-                    "CAP_11"
-                  ],
+                  "refs": ["FR_10", "CAP_11"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "NFR_01 - 85,000 patient encounters per month at scale is covered by CAP_05.",
-                  "refs": [
-                    "NFR_01",
-                    "CAP_05"
-                  ],
+                  "refs": ["NFR_01", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "NFR_02 - 5-minute extraction turnaround is covered by CAP_05.",
-                  "refs": [
-                    "NFR_02",
-                    "CAP_05"
-                  ],
+                  "refs": ["NFR_02", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "NFR_03 - 1,200 staff plus 85,000 monthly conversations is covered by CAP_05.",
-                  "refs": [
-                    "NFR_03",
-                    "CAP_05"
-                  ],
+                  "refs": ["NFR_03", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "NFR_04 - 99.5% availability during clinic hours is covered by CAP_05.",
-                  "refs": [
-                    "NFR_04",
-                    "CAP_05"
-                  ],
+                  "refs": ["NFR_04", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "NFR_05 - Traceable extraction and assistant answers is covered by CAP_05.",
-                  "refs": [
-                    "NFR_05",
-                    "CAP_05"
-                  ],
+                  "refs": ["NFR_05", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "NFR_06 - 4-second assistant response time is covered by CAP_05.",
-                  "refs": [
-                    "NFR_06",
-                    "CAP_05"
-                  ],
+                  "refs": ["NFR_06", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "INT_01 - Epic FHIR R4 write and read integration is covered by CAP_09.",
-                  "refs": [
-                    "INT_01",
-                    "CAP_09"
-                  ],
+                  "refs": ["INT_01", "CAP_09"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "INT_02 - Inbound document channel integration is covered by CAP_05.",
-                  "refs": [
-                    "INT_02",
-                    "CAP_05"
-                  ],
+                  "refs": ["INT_02", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "INT_03 - Five9 handoff integration is covered by CAP_05.",
-                  "refs": [
-                    "INT_03",
-                    "CAP_05"
-                  ],
+                  "refs": ["INT_03", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "INT_04 - Patient-portal authentication reuse is covered by CAP_05.",
-                  "refs": [
-                    "INT_04",
-                    "CAP_05"
-                  ],
+                  "refs": ["INT_04", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "DATA_01 - Protected health information handling is covered by CAP_07, CAP_08.",
-                  "refs": [
-                    "DATA_01",
-                    "CAP_07",
-                    "CAP_08"
-                  ],
+                  "refs": ["DATA_01", "CAP_07", "CAP_08"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "DATA_02 - Approved-content-only assistant knowledge base is covered by CAP_07.",
-                  "refs": [
-                    "DATA_02",
-                    "CAP_07"
-                  ],
+                  "refs": ["DATA_02", "CAP_07"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "DATA_03 - Six-year document and conversation retention is covered by CAP_06, CAP_07.",
-                  "refs": [
-                    "DATA_03",
-                    "CAP_06",
-                    "CAP_07"
-                  ],
+                  "refs": ["DATA_03", "CAP_06", "CAP_07"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "DATA_04 - Conversation-log governance for model training is covered by CAP_05.",
-                  "refs": [
-                    "DATA_04",
-                    "CAP_05"
-                  ],
+                  "refs": ["DATA_04", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "DATA_05 - Separated encryption for documents and sessions is covered by CAP_07.",
-                  "refs": [
-                    "DATA_05",
-                    "CAP_07"
-                  ],
+                  "refs": ["DATA_05", "CAP_07"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "SEC_01 - HIPAA compliance with a signed BAA is covered by CAP_05.",
-                  "refs": [
-                    "SEC_01",
-                    "CAP_05"
-                  ],
+                  "refs": ["SEC_01", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "SEC_02 - PHI encryption in transit and at rest is covered by CAP_12.",
-                  "refs": [
-                    "SEC_02",
-                    "CAP_12"
-                  ],
+                  "refs": ["SEC_02", "CAP_12"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "SEC_03 - Role-based review-queue access is covered by CAP_14.",
-                  "refs": [
-                    "SEC_03",
-                    "CAP_14"
-                  ],
+                  "refs": ["SEC_03", "CAP_14"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "SEC_04 - MFA for review-queue access is covered by CAP_13.",
-                  "refs": [
-                    "SEC_04",
-                    "CAP_13"
-                  ],
+                  "refs": ["SEC_04", "CAP_13"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "SEC_05 - HIPAA security risk assessment before go-live is covered by CAP_05.",
-                  "refs": [
-                    "SEC_05",
-                    "CAP_05"
-                  ],
+                  "refs": ["SEC_05", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "SEC_06 - No cross-patient information disclosure on misroute is covered by CAP_05.",
-                  "refs": [
-                    "SEC_06",
-                    "CAP_05"
-                  ],
+                  "refs": ["SEC_06", "CAP_05"],
                   "label": "customer-requested"
                 }
               ]
@@ -3741,11 +3316,7 @@
                 "Step 2: Medical records clerks see a queue of documents awaiting review, prioritised by how long they have been waiting (FR_08; delivered by CAP_04).",
                 "Step 3: Documents where extraction confidence is low are flagged so medical records clerks review those first (FR_10; delivered by CAP_11)."
               ],
-              "requirementIds": [
-                "FR_03",
-                "FR_08",
-                "FR_10"
-              ]
+              "requirementIds": ["FR_03", "FR_08", "FR_10"]
             },
             {
               "id": "JNY_02",
@@ -3756,11 +3327,7 @@
                 "Step 2: The assistant recognises when a question requires clinical judgement or involves symptoms and hands off to a human staff member (FR_07; delivered by CAP_04).",
                 "Step 3: The patient-support assistant is available through the existing patient portal and, where feasible, as a widget on the public website (FR_09; delivered by CAP_03, CAP_10)."
               ],
-              "requirementIds": [
-                "FR_05",
-                "FR_07",
-                "FR_09"
-              ]
+              "requirementIds": ["FR_05", "FR_07", "FR_09"]
             }
           ]
         },
@@ -3770,18 +3337,9 @@
               "id": "CAP_01",
               "name": "Document Management",
               "scope": "Provide document management covering upload, storage, retrieval and lifecycle control for the files the solution manages. It delivers: BR_01 (Cut document-keying time by 50%), BR_03 (Faster document-to-chart visibility), FR_01 (Multi-channel document intake), FR_03 (Mandatory clerk review before write-back), FR_04 (Approved-document write-back to Epic). It connects to Manual Document Scanning Process, Patient Portal.",
-              "requirementIds": [
-                "BR_01",
-                "BR_03",
-                "FR_01",
-                "FR_03",
-                "FR_04"
-              ],
+              "requirementIds": ["BR_01", "BR_03", "FR_01", "FR_03", "FR_04"],
               "priority": "High",
-              "dependencies": [
-                "Manual Document Scanning Process",
-                "Epic EHR"
-              ],
+              "dependencies": ["Manual Document Scanning Process", "Epic EHR"],
               "label": "customer-requested",
               "module": "Application Experience",
               "workstream": "Core Product Experience",
@@ -3795,13 +3353,9 @@
               "id": "CAP_02",
               "name": "Forms and Data Capture",
               "scope": "Provide forms and structured data capture so users can submit the information the process requires with built-in validation. It delivers: FR_01 (Multi-channel document intake). It connects to CareEverywhere Health Information Exchange.",
-              "requirementIds": [
-                "FR_01"
-              ],
+              "requirementIds": ["FR_01"],
               "priority": "High",
-              "dependencies": [
-                "Manual Document Scanning Process"
-              ],
+              "dependencies": ["Manual Document Scanning Process"],
               "label": "customer-requested",
               "module": "Application Experience",
               "workstream": "Core Product Experience",
@@ -3815,14 +3369,9 @@
               "id": "CAP_03",
               "name": "Self-Service Portal",
               "scope": "Provide a self-service portal that gives users a single place to manage their account, requests and records. It delivers: BR_02 (Reduce routine front-desk call volume), FR_09 (Assistant availability through the patient portal and public website). It connects to Patient Portal.",
-              "requirementIds": [
-                "BR_02",
-                "FR_09"
-              ],
+              "requirementIds": ["BR_02", "FR_09"],
               "priority": "High",
-              "dependencies": [
-                "Patient Portal"
-              ],
+              "dependencies": ["Patient Portal"],
               "label": "customer-requested",
               "module": "Application Experience",
               "workstream": "Core Product Experience",
@@ -3836,16 +3385,9 @@
               "id": "CAP_04",
               "name": "Workflow and Approvals",
               "scope": "Provide workflow and approvals so multi-step processes route to the right approver with a visible status at every stage. It delivers: FR_04 (Approved-document write-back to Epic), FR_06 (Assistant answers grounded in approved policy content), FR_07 (Escalation for clinical-judgement questions), FR_08 (Prioritised clerk review queue). It connects to CareEverywhere Health Information Exchange.",
-              "requirementIds": [
-                "FR_04",
-                "FR_06",
-                "FR_07",
-                "FR_08"
-              ],
+              "requirementIds": ["FR_04", "FR_06", "FR_07", "FR_08"],
               "priority": "High",
-              "dependencies": [
-                "Epic EHR"
-              ],
+              "dependencies": ["Epic EHR"],
               "label": "customer-requested",
               "module": "Application Experience",
               "workstream": "Core Product Experience",
@@ -3893,9 +3435,7 @@
               "id": "CAP_06",
               "name": "Data Retention and Archival",
               "scope": "Apply retention and archival rules so data is kept only as long as policy and regulation require. It delivers: DATA_03 (Six-year document and conversation retention).",
-              "requirementIds": [
-                "DATA_03"
-              ],
+              "requirementIds": ["DATA_03"],
               "priority": "High",
               "dependencies": [],
               "label": "customer-requested",
@@ -3911,12 +3451,7 @@
               "id": "CAP_07",
               "name": "Document and Content Data Management",
               "scope": "Manage documents and unstructured content as first-class data, indexed so it can be searched, retrieved and governed. It delivers: DATA_01 (Protected health information handling), DATA_02 (Approved-content-only assistant knowledge base), DATA_03 (Six-year document and conversation retention), DATA_05 (Separated encryption for documents and sessions). It connects to Manual Document Scanning Process, Patient Portal.",
-              "requirementIds": [
-                "DATA_01",
-                "DATA_02",
-                "DATA_03",
-                "DATA_05"
-              ],
+              "requirementIds": ["DATA_01", "DATA_02", "DATA_03", "DATA_05"],
               "priority": "High",
               "dependencies": [],
               "label": "customer-requested",
@@ -3932,9 +3467,7 @@
               "id": "CAP_08",
               "name": "Personal Data Protection",
               "scope": "Classify and protect the personal or sensitive data the solution collects, with access limited to what each role needs. It delivers: DATA_01 (Protected health information handling). It connects to CareEverywhere Health Information Exchange.",
-              "requirementIds": [
-                "DATA_01"
-              ],
+              "requirementIds": ["DATA_01"],
               "priority": "High",
               "dependencies": [],
               "label": "customer-requested",
@@ -3950,13 +3483,9 @@
               "id": "CAP_09",
               "name": "Clinical System Integration (HL7/FHIR)",
               "scope": "Integrate with the clinical system over HL7/FHIR so patient and encounter data is exchanged in a standards-based, auditable format. It delivers: INT_01 (Epic FHIR R4 write and read integration). It connects to Epic EHR.",
-              "requirementIds": [
-                "INT_01"
-              ],
+              "requirementIds": ["INT_01"],
               "priority": "High",
-              "dependencies": [
-                "Epic EHR"
-              ],
+              "dependencies": ["Epic EHR"],
               "label": "customer-requested",
               "module": "Systems Integration",
               "workstream": "Integration Layer",
@@ -3970,16 +3499,9 @@
               "id": "CAP_10",
               "name": "AI Conversational Assistant",
               "scope": "Deliver a conversational AI assistant that answers user questions in natural language, grounded in the platform's own content. It delivers: BR_04 (Clinical decisions stay with licensed staff), FR_05 (Patient-support assistant Q&A), FR_06 (Assistant answers grounded in approved policy content), FR_09 (Assistant availability through the patient portal and public website). It connects to Patient Portal.",
-              "requirementIds": [
-                "BR_04",
-                "FR_05",
-                "FR_06",
-                "FR_09"
-              ],
+              "requirementIds": ["BR_04", "FR_05", "FR_06", "FR_09"],
               "priority": "High",
-              "dependencies": [
-                "Patient Portal"
-              ],
+              "dependencies": ["Patient Portal"],
               "label": "customer-requested",
               "module": "AI Capabilities",
               "workstream": "AI and Machine Learning",
@@ -3993,10 +3515,7 @@
               "id": "CAP_11",
               "name": "AI Document Extraction",
               "scope": "Deliver AI-based document extraction so structured data is pulled from unstructured documents without manual re-keying. It delivers: FR_02 (Structured field extraction), FR_10 (Low-confidence extraction flagging for clerk review).",
-              "requirementIds": [
-                "FR_02",
-                "FR_10"
-              ],
+              "requirementIds": ["FR_02", "FR_10"],
               "priority": "High",
               "dependencies": [],
               "label": "customer-requested",
@@ -4012,9 +3531,7 @@
               "id": "CAP_12",
               "name": "Data Encryption",
               "scope": "Implement encryption at rest and in transit for the data classes the reviewed scope identifies as sensitive. It delivers: SEC_02 (PHI encryption in transit and at rest).",
-              "requirementIds": [
-                "SEC_02"
-              ],
+              "requirementIds": ["SEC_02"],
               "priority": "High",
               "dependencies": [],
               "label": "customer-requested",
@@ -4030,9 +3547,7 @@
               "id": "CAP_13",
               "name": "Multi-Factor Authentication",
               "scope": "Implement multi-factor authentication so a compromised password alone cannot grant access to the platform. It delivers: SEC_04 (MFA for review-queue access).",
-              "requirementIds": [
-                "SEC_04"
-              ],
+              "requirementIds": ["SEC_04"],
               "priority": "High",
               "dependencies": [],
               "label": "customer-requested",
@@ -4048,9 +3563,7 @@
               "id": "CAP_14",
               "name": "Role-Based Access Control",
               "scope": "Implement role-based access control so each user's permissions match their responsibilities and nothing more. It delivers: SEC_03 (Role-based review-queue access).",
-              "requirementIds": [
-                "SEC_03"
-              ],
+              "requirementIds": ["SEC_03"],
               "priority": "High",
               "dependencies": [],
               "label": "customer-requested",
@@ -4185,10 +3698,7 @@
           "modules": [
             {
               "name": "AI Capabilities",
-              "capabilityIds": [
-                "CAP_10",
-                "CAP_11"
-              ],
+              "capabilityIds": ["CAP_10", "CAP_11"],
               "requirementIds": [
                 "BR_04",
                 "FR_05",
@@ -4200,12 +3710,7 @@
             },
             {
               "name": "Application Experience",
-              "capabilityIds": [
-                "CAP_01",
-                "CAP_02",
-                "CAP_03",
-                "CAP_04"
-              ],
+              "capabilityIds": ["CAP_01", "CAP_02", "CAP_03", "CAP_04"],
               "requirementIds": [
                 "BR_01",
                 "BR_03",
@@ -4221,23 +3726,12 @@
             },
             {
               "name": "Data Platform",
-              "capabilityIds": [
-                "CAP_06",
-                "CAP_07",
-                "CAP_08"
-              ],
-              "requirementIds": [
-                "DATA_03",
-                "DATA_01",
-                "DATA_02",
-                "DATA_05"
-              ]
+              "capabilityIds": ["CAP_06", "CAP_07", "CAP_08"],
+              "requirementIds": ["DATA_03", "DATA_01", "DATA_02", "DATA_05"]
             },
             {
               "name": "Platform Foundation",
-              "capabilityIds": [
-                "CAP_05"
-              ],
+              "capabilityIds": ["CAP_05"],
               "requirementIds": [
                 "NFR_01",
                 "NFR_02",
@@ -4256,34 +3750,19 @@
             },
             {
               "name": "Security and Compliance",
-              "capabilityIds": [
-                "CAP_12",
-                "CAP_13",
-                "CAP_14"
-              ],
-              "requirementIds": [
-                "SEC_02",
-                "SEC_04",
-                "SEC_03"
-              ]
+              "capabilityIds": ["CAP_12", "CAP_13", "CAP_14"],
+              "requirementIds": ["SEC_02", "SEC_04", "SEC_03"]
             },
             {
               "name": "Systems Integration",
-              "capabilityIds": [
-                "CAP_09"
-              ],
-              "requirementIds": [
-                "INT_01"
-              ]
+              "capabilityIds": ["CAP_09"],
+              "requirementIds": ["INT_01"]
             }
           ],
           "workstreams": [
             {
               "name": "AI and Machine Learning",
-              "capabilityIds": [
-                "CAP_10",
-                "CAP_11"
-              ],
+              "capabilityIds": ["CAP_10", "CAP_11"],
               "requirementIds": [
                 "BR_04",
                 "FR_05",
@@ -4295,9 +3774,7 @@
             },
             {
               "name": "Core Platform Services",
-              "capabilityIds": [
-                "CAP_05"
-              ],
+              "capabilityIds": ["CAP_05"],
               "requirementIds": [
                 "NFR_01",
                 "NFR_02",
@@ -4316,12 +3793,7 @@
             },
             {
               "name": "Core Product Experience",
-              "capabilityIds": [
-                "CAP_01",
-                "CAP_02",
-                "CAP_03",
-                "CAP_04"
-              ],
+              "capabilityIds": ["CAP_01", "CAP_02", "CAP_03", "CAP_04"],
               "requirementIds": [
                 "BR_01",
                 "BR_03",
@@ -4337,39 +3809,18 @@
             },
             {
               "name": "Data Management",
-              "capabilityIds": [
-                "CAP_06",
-                "CAP_07",
-                "CAP_08"
-              ],
-              "requirementIds": [
-                "DATA_03",
-                "DATA_01",
-                "DATA_02",
-                "DATA_05"
-              ]
+              "capabilityIds": ["CAP_06", "CAP_07", "CAP_08"],
+              "requirementIds": ["DATA_03", "DATA_01", "DATA_02", "DATA_05"]
             },
             {
               "name": "Integration Layer",
-              "capabilityIds": [
-                "CAP_09"
-              ],
-              "requirementIds": [
-                "INT_01"
-              ]
+              "capabilityIds": ["CAP_09"],
+              "requirementIds": ["INT_01"]
             },
             {
               "name": "Security Controls",
-              "capabilityIds": [
-                "CAP_12",
-                "CAP_13",
-                "CAP_14"
-              ],
-              "requirementIds": [
-                "SEC_02",
-                "SEC_04",
-                "SEC_03"
-              ]
+              "capabilityIds": ["CAP_12", "CAP_13", "CAP_14"],
+              "requirementIds": ["SEC_02", "SEC_04", "SEC_03"]
             }
           ],
           "deliveryPackages": [
@@ -4416,12 +3867,7 @@
             },
             {
               "name": "Package 2 - Data and Integration",
-              "capabilityIds": [
-                "CAP_06",
-                "CAP_07",
-                "CAP_08",
-                "CAP_09"
-              ],
+              "capabilityIds": ["CAP_06", "CAP_07", "CAP_08", "CAP_09"],
               "requirementIds": [
                 "DATA_03",
                 "DATA_01",
@@ -4437,10 +3883,7 @@
             },
             {
               "name": "Package 3 - AI Capabilities",
-              "capabilityIds": [
-                "CAP_10",
-                "CAP_11"
-              ],
+              "capabilityIds": ["CAP_10", "CAP_11"],
               "requirementIds": [
                 "BR_04",
                 "FR_05",
@@ -4457,16 +3900,8 @@
             },
             {
               "name": "Package 4 - Security and Compliance",
-              "capabilityIds": [
-                "CAP_12",
-                "CAP_13",
-                "CAP_14"
-              ],
-              "requirementIds": [
-                "SEC_02",
-                "SEC_04",
-                "SEC_03"
-              ],
+              "capabilityIds": ["CAP_12", "CAP_13", "CAP_14"],
+              "requirementIds": ["SEC_02", "SEC_04", "SEC_03"],
               "engagementModel": "topcoder-challenge-series",
               "suggestedChallengeTypes": [
                 "Development challenge series",
@@ -4477,16 +3912,12 @@
           "outOfScope": [
             {
               "text": "BR_05 - Behavioural-health screening (future candidate): excluded from this engagement because the customer states \"BR5. The solution could eventually extend to behavioural-health intake screening, though that is out of scope for this initial phase.\"",
-              "refs": [
-                "BR_05"
-              ],
+              "refs": ["BR_05"],
               "label": "out-of-scope"
             },
             {
               "text": "INT_05 - CareEverywhere query integration (later phase): excluded from this engagement because the customer states \"INT5. The solution should be able to query the regional CareEverywhere health information exchange in a later phase, but that integration is not required for go-live.\"",
-              "refs": [
-                "INT_05"
-              ],
+              "refs": ["INT_05"],
               "label": "out-of-scope"
             },
             {
@@ -4496,24 +3927,12 @@
             },
             {
               "text": "Production data-migration volumes, historical backfill and legacy data cleansing beyond the reviewed data requirements remain out of scope until the customer confirms them.",
-              "refs": [
-                "DATA_01",
-                "DATA_02",
-                "DATA_03",
-                "DATA_04",
-                "DATA_05"
-              ],
+              "refs": ["DATA_01", "DATA_02", "DATA_03", "DATA_04", "DATA_05"],
               "label": "assumption-to-confirm"
             },
             {
               "text": "Decommissioning of the existing systems referenced in the scope model is out of scope; this engagement covers integration with those systems, not their retirement.",
-              "refs": [
-                "SYS_01",
-                "SYS_02",
-                "SYS_03",
-                "SYS_04",
-                "SYS_05"
-              ],
+              "refs": ["SYS_01", "SYS_02", "SYS_03", "SYS_04", "SYS_05"],
               "label": "assumption-to-confirm"
             }
           ]
@@ -4539,14 +3958,7 @@
         "summary": [
           {
             "text": "The proposed solution architecture targets Microsoft Azure and is composed of 25 components covering 14 functional capabilities. It spans the full reviewed scope; see each component’s own rationale below for its specific citations.",
-            "refs": [
-              "NFR_06",
-              "NFR_01",
-              "SEC_03",
-              "SEC_02",
-              "SEC_04",
-              "FR_09"
-            ],
+            "refs": ["NFR_06", "NFR_01", "SEC_03", "SEC_02", "SEC_04", "FR_09"],
             "label": "ai-interpretation"
           }
         ],
@@ -4557,9 +3969,7 @@
             "area": "user-apps",
             "logicalComponent": "web-hosting-cdn",
             "service": "Azure Static Web Apps with Azure Front Door",
-            "requirementIds": [
-              "NFR_06"
-            ],
+            "requirementIds": ["NFR_06"],
             "assumptionIds": [],
             "purpose": "Serves the customer-facing web experience and delivers static assets close to users.",
             "rationale": "Azure Static Web Apps with Azure Front Door serves the web experience with edge caching, TLS termination and low first-byte latency worldwide. It addresses NFR_06.",
@@ -4582,11 +3992,7 @@
             "area": "api",
             "logicalComponent": "api-gateway",
             "service": "Azure API Management",
-            "requirementIds": [
-              "NFR_01",
-              "NFR_06",
-              "SEC_03"
-            ],
+            "requirementIds": ["NFR_01", "NFR_06", "SEC_03"],
             "assumptionIds": [],
             "purpose": "Exposes the solution's functional capabilities as versioned, governed APIs for the front end and integrations.",
             "rationale": "Azure API Management centralizes authentication, throttling and request validation ahead of the application compute runtime. It addresses NFR_01, NFR_06 and SEC_03.",
@@ -4609,10 +4015,7 @@
             "area": "backend",
             "logicalComponent": "container-runtime",
             "service": "Azure Container Apps",
-            "requirementIds": [
-              "NFR_01",
-              "NFR_06"
-            ],
+            "requirementIds": ["NFR_01", "NFR_06"],
             "assumptionIds": [],
             "purpose": "Hosts the backend business logic that implements the reviewed functional requirements.",
             "rationale": "Azure Container Apps runs the backend services with managed autoscaling so capacity tracks real traffic without manual intervention. It addresses NFR_01 and NFR_06.",
@@ -4620,10 +4023,7 @@
               "Container-based hosting requires a build/release pipeline for every deployable service.",
               "Autoscaling limits must be tuned against real traffic before go-live to avoid cost or latency surprises."
             ],
-            "dependencies": [
-              "Primary Relational Database",
-              "Monitoring"
-            ],
+            "dependencies": ["Primary Relational Database", "Monitoring"],
             "securityConsiderations": [
               "Run containers with least-privilege service identities and no long-lived static credentials.",
               "Scan container images for known vulnerabilities before each release."
@@ -4635,11 +4035,7 @@
             "area": "data-storage",
             "logicalComponent": "managed-relational-db",
             "service": "Azure Database for PostgreSQL - Flexible Server",
-            "requirementIds": [
-              "NFR_01",
-              "NFR_06",
-              "SEC_02"
-            ],
+            "requirementIds": ["NFR_01", "NFR_06", "SEC_02"],
             "assumptionIds": [],
             "purpose": "Stores the core transactional data the application reads and writes.",
             "rationale": "Azure Database for PostgreSQL - Flexible Server provides managed relational storage with automated backups, patching and encryption at rest. It addresses NFR_01, NFR_06 and SEC_02.",
@@ -4647,10 +4043,7 @@
               "A managed relational engine caps vertical scale; very high write throughput may need read replicas or partitioning later.",
               "Schema migrations must be coordinated with application deployments to avoid downtime."
             ],
-            "dependencies": [
-              "Backup",
-              "Key Management"
-            ],
+            "dependencies": ["Backup", "Key Management"],
             "securityConsiderations": [
               "Encrypt data at rest and in transit, and restrict network access to the application tier only.",
               "Apply least-privilege database roles per service rather than a single shared credential."
@@ -4662,10 +4055,7 @@
             "area": "identity",
             "logicalComponent": "identity-customer",
             "service": "Microsoft Entra External ID",
-            "requirementIds": [
-              "SEC_03",
-              "SEC_04"
-            ],
+            "requirementIds": ["SEC_03", "SEC_04"],
             "assumptionIds": [],
             "purpose": "Handles registration, sign-in, session management and multi-factor authentication for end users.",
             "rationale": "Microsoft Entra External ID provides managed sign-up, sign-in, SSO federation and MFA so authentication is never implemented by hand. It addresses SEC_03 and SEC_04.",
@@ -4673,9 +4063,7 @@
               "A managed identity provider constrains custom sign-in UX to its supported customization hooks.",
               "Federating with an external identity provider (SSO) adds a dependency on that provider’s availability."
             ],
-            "dependencies": [
-              "Secrets Manager"
-            ],
+            "dependencies": ["Secrets Manager"],
             "securityConsiderations": [
               "Enforce MFA for privileged accounts and require strong password/session policies for all users.",
               "Log every authentication and authorization decision for audit purposes."
@@ -4718,9 +4106,7 @@
             "area": "observability",
             "logicalComponent": "logging",
             "service": "Azure Monitor Log Analytics",
-            "requirementIds": [
-              "SEC_03"
-            ],
+            "requirementIds": ["SEC_03"],
             "assumptionIds": [],
             "purpose": "Centralizes application and infrastructure logs for troubleshooting and audit.",
             "rationale": "Azure Monitor Log Analytics aggregates structured logs from every service with a defined, policy-driven retention period. It addresses SEC_03.",
@@ -4728,9 +4114,7 @@
               "Centralized log retention has a direct storage cost that scales with request volume.",
               "Log content must be scrubbed of personal or sensitive data before it is retained."
             ],
-            "dependencies": [
-              "Monitoring"
-            ],
+            "dependencies": ["Monitoring"],
             "securityConsiderations": [
               "Redact personal or sensitive data from log payloads before they are written.",
               "Restrict log access to authorized operations staff and retain an access audit trail."
@@ -4757,9 +4141,7 @@
             "tradeOffs": [
               "A fully automated pipeline needs an initial investment in test coverage to be trustworthy for production releases."
             ],
-            "dependencies": [
-              "Infrastructure as Code"
-            ],
+            "dependencies": ["Infrastructure as Code"],
             "securityConsiderations": [
               "Require code review and passing automated security scans before a release can be promoted.",
               "Keep deployment credentials scoped to the pipeline identity, never to individual engineers."
@@ -4786,9 +4168,7 @@
             "tradeOffs": [
               "Declarative provisioning has a learning curve for teams used to manual console changes."
             ],
-            "dependencies": [
-              "CI/CD Pipeline"
-            ],
+            "dependencies": ["CI/CD Pipeline"],
             "securityConsiderations": [
               "Store infrastructure state and variables in a controlled, access-audited location, never in source control in plain text."
             ]
@@ -4831,9 +4211,7 @@
             "area": "security",
             "logicalComponent": "key-management",
             "service": "Azure Key Vault (keys, HSM-backed)",
-            "requirementIds": [
-              "SEC_02"
-            ],
+            "requirementIds": ["SEC_02"],
             "assumptionIds": [],
             "purpose": "Manages the encryption keys that protect data at rest across storage and database services.",
             "rationale": "Azure Key Vault (keys, HSM-backed) issues and rotates encryption keys with a full audit trail of every key-use event. It addresses SEC_02.",
@@ -4851,18 +4229,14 @@
             "area": "backup-dr",
             "logicalComponent": "backup",
             "service": "Azure Backup",
-            "requirementIds": [
-              "NFR_04"
-            ],
+            "requirementIds": ["NFR_04"],
             "assumptionIds": [],
             "purpose": "Protects stored data with policy-driven, regularly tested backups.",
             "rationale": "Azure Backup takes policy-driven, encrypted backups on a defined schedule with a tested restore procedure. It addresses NFR_04.",
             "tradeOffs": [
               "Backup retention has a direct storage cost that scales with data volume and retention period."
             ],
-            "dependencies": [
-              "Primary Relational Database"
-            ],
+            "dependencies": ["Primary Relational Database"],
             "securityConsiderations": [
               "Encrypt backups at rest and test restores on a regular schedule, not only after an incident."
             ]
@@ -4933,9 +4307,7 @@
             "area": "api",
             "logicalComponent": "api-gateway",
             "service": "Azure API Management",
-            "requirementIds": [
-              "INT_01"
-            ],
+            "requirementIds": ["INT_01"],
             "assumptionIds": [],
             "purpose": "Publishes governed, versioned endpoints for partner and internal system integrations, separate from the product’s own front-end API.",
             "rationale": "Azure API Management exposes integration endpoints with independent throttling, auth and monitoring from the customer-facing API. It addresses INT_01.",
@@ -4959,9 +4331,7 @@
             "area": "integration",
             "logicalComponent": "integration-service",
             "service": "Azure Logic Apps",
-            "requirementIds": [
-              "INT_01"
-            ],
+            "requirementIds": ["INT_01"],
             "assumptionIds": [],
             "purpose": "Coordinates data exchange with the external systems identified in the reviewed scope.",
             "rationale": "Azure Logic Apps provides managed connectors, retry and error-handling policy for each external-system integration. It addresses INT_01.",
@@ -4985,9 +4355,7 @@
             "area": "messaging",
             "logicalComponent": "message-queue",
             "service": "Azure Service Bus (queues)",
-            "requirementIds": [
-              "INT_01"
-            ],
+            "requirementIds": ["INT_01"],
             "assumptionIds": [],
             "purpose": "Decouples integration producers and consumers so a slow or unavailable external system does not block the application.",
             "rationale": "Azure Service Bus (queues) buffers integration messages with dead-letter handling so failed deliveries are retried rather than lost. It addresses INT_01.",
@@ -5082,10 +4450,7 @@
             "tradeOffs": [
               "Model responses are probabilistic; outputs affecting decisions need a human-review step (see AI solution approach)."
             ],
-            "dependencies": [
-              "Secrets Manager",
-              "Patient Portal"
-            ],
+            "dependencies": ["Secrets Manager", "Patient Portal"],
             "securityConsiderations": [
               "Apply content-safety guardrails and never send unmasked personal data in a prompt without a documented basis."
             ]
@@ -5096,19 +4461,14 @@
             "area": "ai-ml",
             "logicalComponent": "vector-search",
             "service": "Azure AI Search (vector search)",
-            "requirementIds": [
-              "DATA_02"
-            ],
+            "requirementIds": ["DATA_02"],
             "assumptionIds": [],
             "purpose": "Retrieves the most relevant grounding content for retrieval-augmented AI responses.",
             "rationale": "Azure AI Search (vector search) indexes content as embeddings so the AI assistant retrieves grounded context instead of relying on model memory alone. It addresses DATA_02.",
             "tradeOffs": [
               "Retrieval quality depends on how the source content is chunked and kept up to date; this needs an ongoing content-ops process."
             ],
-            "dependencies": [
-              "LLM Platform",
-              "Object Storage"
-            ],
+            "dependencies": ["LLM Platform", "Object Storage"],
             "securityConsiderations": [
               "Enforce the same access controls on retrieved content as on the source documents, so retrieval cannot bypass permissions."
             ]
@@ -5119,22 +4479,14 @@
             "area": "ai-ml",
             "logicalComponent": "document-ai",
             "service": "Azure AI Document Intelligence",
-            "requirementIds": [
-              "FR_02",
-              "FR_10",
-              "NFR_02",
-              "NFR_05",
-              "TECH_02"
-            ],
+            "requirementIds": ["FR_02", "FR_10", "NFR_02", "NFR_05", "TECH_02"],
             "assumptionIds": [],
             "purpose": "Extracts structured text and data from scanned or unstructured source documents.",
             "rationale": "Azure AI Document Intelligence extracts structured text, tables and key-value pairs from source documents before they are indexed or processed. It addresses FR_02, FR_10, NFR_02, NFR_05 and TECH_02.",
             "tradeOffs": [
               "Extraction accuracy varies with source document quality and may need a human-review step for low-confidence results."
             ],
-            "dependencies": [
-              "Object Storage"
-            ],
+            "dependencies": ["Object Storage"],
             "securityConsiderations": [
               "Route extracted personal data through the same encryption and access controls as the rest of the data estate."
             ]
@@ -5145,18 +4497,14 @@
             "area": "availability",
             "logicalComponent": "availability-scaling",
             "service": "Zone-redundant Azure Container Apps environment with KEDA scale rules",
-            "requirementIds": [
-              "NFR_04"
-            ],
+            "requirementIds": ["NFR_04"],
             "assumptionIds": [],
             "purpose": "Distributes traffic and compute capacity across multiple availability zones to sustain the required uptime.",
             "rationale": "Zone-redundant Azure Container Apps environment with KEDA scale rules spreads compute across multiple availability zones with automatic failover and load-based scaling. It addresses NFR_04.",
             "tradeOffs": [
               "Multi-AZ deployment increases baseline infrastructure cost versus a single-instance deployment."
             ],
-            "dependencies": [
-              "Application Compute Runtime"
-            ],
+            "dependencies": ["Application Compute Runtime"],
             "securityConsiderations": [
               "Ensure failover paths are exercised in a game-day/DR test, not only documented."
             ]
@@ -5167,19 +4515,14 @@
             "area": "backup-dr",
             "logicalComponent": "dr-multi-region",
             "service": "Azure Database for PostgreSQL cross-region read replica with geo-redundant backup (paired region)",
-            "requirementIds": [
-              "NFR_04"
-            ],
+            "requirementIds": ["NFR_04"],
             "assumptionIds": [],
             "purpose": "Provides a cross-region recovery path so the service can be restored after a regional outage.",
             "rationale": "Azure Database for PostgreSQL cross-region read replica with geo-redundant backup (paired region) replicates critical data and configuration to a secondary region with a documented recovery time/point objective. It addresses NFR_04.",
             "tradeOffs": [
               "A warm or hot standby region roughly doubles the infrastructure cost of the protected components."
             ],
-            "dependencies": [
-              "Backup",
-              "Primary Relational Database"
-            ],
+            "dependencies": ["Backup", "Primary Relational Database"],
             "securityConsiderations": [
               "Keep the secondary region’s access controls and encryption configuration in parity with primary."
             ]
@@ -5190,20 +4533,14 @@
             "area": "data-storage",
             "logicalComponent": "cache",
             "service": "Azure Cache for Redis",
-            "requirementIds": [
-              "BR_03",
-              "NFR_01",
-              "NFR_06"
-            ],
+            "requirementIds": ["BR_03", "NFR_01", "NFR_06"],
             "assumptionIds": [],
             "purpose": "Reduces database load and read latency for frequently accessed data under high concurrent usage.",
             "rationale": "Azure Cache for Redis serves hot read paths from memory so the relational database is not the scaling bottleneck under peak load. It addresses BR_03, NFR_01 and NFR_06.",
             "tradeOffs": [
               "Cached data can briefly go stale after a write; time-to-live and invalidation rules must be defined per data type."
             ],
-            "dependencies": [
-              "Primary Relational Database"
-            ],
+            "dependencies": ["Primary Relational Database"],
             "securityConsiderations": [
               "Encrypt cache traffic and avoid caching personal data beyond the minimum required time-to-live."
             ]
@@ -5230,9 +4567,7 @@
             "tradeOffs": [
               "Orchestrated workflows add operational complexity versus simple synchronous calls and need their own monitoring."
             ],
-            "dependencies": [
-              "Application Compute Runtime"
-            ],
+            "dependencies": ["Application Compute Runtime"],
             "securityConsiderations": [
               "Enforce the same authorization checks at each workflow step as would apply to a direct API call."
             ]
@@ -5405,54 +4740,38 @@
           },
           {
             "text": "Application services run as containers on Azure Container Apps, promoted unchanged from test into production.",
-            "refs": [
-              "NFR_01",
-              "NFR_06"
-            ],
+            "refs": ["NFR_01", "NFR_06"],
             "label": "ai-interpretation"
           }
         ],
         "availability": [
           {
             "text": "Zone-redundant Azure Container Apps environment with KEDA scale rules distributes traffic and scales the application tier across multiple availability zones to meet the required uptime.",
-            "refs": [
-              "NFR_04"
-            ],
+            "refs": ["NFR_04"],
             "label": "ai-interpretation"
           },
           {
             "text": "Azure Cache for Redis absorbs read load at peak concurrency, reducing pressure on the primary database.",
-            "refs": [
-              "BR_03",
-              "NFR_01",
-              "NFR_06"
-            ],
+            "refs": ["BR_03", "NFR_01", "NFR_06"],
             "label": "ai-interpretation"
           }
         ],
         "backupDr": [
           {
             "text": "Azure Backup takes policy-driven, encrypted backups of the primary data store with periodic restore testing.",
-            "refs": [
-              "NFR_04"
-            ],
+            "refs": ["NFR_04"],
             "label": "ai-interpretation"
           },
           {
             "text": "Azure Database for PostgreSQL cross-region read replica with geo-redundant backup (paired region) provides a cross-region recovery path with a defined recovery time and recovery point objective.",
-            "refs": [
-              "NFR_04"
-            ],
+            "refs": ["NFR_04"],
             "label": "ai-interpretation"
           }
         ],
         "securityControls": [
           {
             "text": "Microsoft Entra External ID enforces authentication, session management and multi-factor authentication for every end-user session.",
-            "refs": [
-              "SEC_03",
-              "SEC_04"
-            ],
+            "refs": ["SEC_03", "SEC_04"],
             "label": "ai-interpretation"
           },
           {
@@ -5469,9 +4788,7 @@
           },
           {
             "text": "Azure Key Vault (keys, HSM-backed) manages encryption keys and rotation for data at rest across storage and database services.",
-            "refs": [
-              "SEC_02"
-            ],
+            "refs": ["SEC_02"],
             "label": "ai-interpretation"
           },
           {
@@ -5517,9 +4834,7 @@
               "reasons": [
                 {
                   "text": "TECH_01 states a direct preference for Amazon Web Services (AWS), mentions Amazon, and mentions an existing AWS footprint.",
-                  "refs": [
-                    "TECH_01"
-                  ],
+                  "refs": ["TECH_01"],
                   "points": 30
                 },
                 {
@@ -5576,9 +4891,7 @@
             ],
             "owner": "To be confirmed with customer",
             "classification": "regulated",
-            "requirementIds": [
-              "DATA_01"
-            ]
+            "requirementIds": ["DATA_01"]
           },
           {
             "id": "DD_02",
@@ -5589,9 +4902,7 @@
             ],
             "owner": "To be confirmed with customer",
             "classification": "internal",
-            "requirementIds": [
-              "DATA_02"
-            ]
+            "requirementIds": ["DATA_02"]
           },
           {
             "id": "DD_03",
@@ -5602,9 +4913,7 @@
             ],
             "owner": "To be confirmed with customer",
             "classification": "internal",
-            "requirementIds": [
-              "DATA_03"
-            ]
+            "requirementIds": ["DATA_03"]
           },
           {
             "id": "DD_04",
@@ -5615,9 +4924,7 @@
             ],
             "owner": "To be confirmed with customer",
             "classification": "internal",
-            "requirementIds": [
-              "DATA_04"
-            ]
+            "requirementIds": ["DATA_04"]
           },
           {
             "id": "DD_05",
@@ -5628,9 +4935,7 @@
             ],
             "owner": "To be confirmed with customer",
             "classification": "internal",
-            "requirementIds": [
-              "DATA_05"
-            ]
+            "requirementIds": ["DATA_05"]
           }
         ],
         "topics": [
@@ -5698,10 +5003,7 @@
           {
             "topic": "data-quality",
             "approach": "Data quality: no reviewed requirement states a data-quality or reconciliation rule for this scope yet; records are still validated against their basic schema on the way in.",
-            "services": [
-              "Azure Logic Apps",
-              "Azure Durable Functions"
-            ],
+            "services": ["Azure Logic Apps", "Azure Durable Functions"],
             "requirementIds": [
               "DATA_01",
               "DATA_02",
@@ -5812,14 +5114,8 @@
             "retry": "Exponential backoff starting at 1 second and doubling to a 5-attempt ceiling for calls to Epic EHR, after which the call is routed to the dead-letter queue instead of retried forever.",
             "monitoring": "Success/failure counts and latency for calls to Epic EHR are tracked in Azure Monitor, Azure Monitor Log Analytics, with an alert routed to the delivery team when the failure rate or latency crosses its threshold.",
             "dataSync": "Epic EHR is treated as the system of record for the fields it owns; conflicting updates are resolved by last-writer-wins on the record's own timestamp, and a daily reconciliation job compares record counts between Epic EHR and the platform to surface drift instead of assuming the sync is complete.",
-            "requirementIds": [
-              "INT_01",
-              "SYS_01"
-            ],
-            "componentIds": [
-              "ARC_02",
-              "ARC_15"
-            ],
+            "requirementIds": ["INT_01", "SYS_01"],
+            "componentIds": ["ARC_02", "ARC_15"],
             "complexity": "High",
             "readiness": "unknown"
           },
@@ -5836,14 +5132,8 @@
             "retry": "Exponential backoff starting at 1 second and doubling to a 5-attempt ceiling for calls to Patient Portal, after which the call is routed to the dead-letter queue instead of retried forever.",
             "monitoring": "Success/failure counts and latency for calls to Patient Portal are tracked in Azure Monitor, Azure Monitor Log Analytics, with an alert routed to the delivery team when the failure rate or latency crosses its threshold.",
             "dataSync": "Patient Portal is treated as the system of record for the fields it owns; conflicting updates are resolved by last-writer-wins on the record's own timestamp, and a daily reconciliation job compares record counts between Patient Portal and the platform to surface drift instead of assuming the sync is complete.",
-            "requirementIds": [
-              "INT_02",
-              "SYS_05"
-            ],
-            "componentIds": [
-              "ARC_02",
-              "ARC_15"
-            ],
+            "requirementIds": ["INT_02", "SYS_05"],
+            "componentIds": ["ARC_02", "ARC_15"],
             "complexity": "High",
             "readiness": "unknown"
           },
@@ -5860,14 +5150,8 @@
             "retry": "Exponential backoff starting at 1 second and doubling to a 5-attempt ceiling for calls to Five9 Contact Centre, after which the call is routed to the dead-letter queue instead of retried forever.",
             "monitoring": "Success/failure counts and latency for calls to Five9 Contact Centre are tracked in Azure Monitor, Azure Monitor Log Analytics, with an alert routed to the delivery team when the failure rate or latency crosses its threshold.",
             "dataSync": "the platform is treated as the system of record for the fields it owns; conflicting updates are resolved by last-writer-wins on the record's own timestamp, and a daily reconciliation job compares record counts between Five9 Contact Centre and the platform to surface drift instead of assuming the sync is complete.",
-            "requirementIds": [
-              "INT_03",
-              "SYS_02"
-            ],
-            "componentIds": [
-              "ARC_02",
-              "ARC_15"
-            ],
+            "requirementIds": ["INT_03", "SYS_02"],
+            "componentIds": ["ARC_02", "ARC_15"],
             "complexity": "High",
             "readiness": "unknown"
           },
@@ -5884,15 +5168,8 @@
             "retry": "A failed sign-in is retried by the user through a fresh redirect to Patient Portal; the platform itself never automatically retries a failed authentication.",
             "monitoring": "Sign-in success/failure counts and time-to-authenticate for Patient Portal are tracked in Azure Monitor, Azure Monitor Log Analytics, with an alert when the failure rate spikes so a broken federation is caught before it locks users out.",
             "dataSync": "Patient Portal is the identity source of truth for the signed-in user during federation; the platform stores no password or long-lived credential of its own and persists nothing beyond the session created once Patient Portal confirms the user's identity.",
-            "requirementIds": [
-              "INT_04",
-              "SYS_05"
-            ],
-            "componentIds": [
-              "ARC_05",
-              "ARC_02",
-              "ARC_15"
-            ],
+            "requirementIds": ["INT_04", "SYS_05"],
+            "componentIds": ["ARC_05", "ARC_02", "ARC_15"],
             "complexity": "High",
             "readiness": "unknown"
           }
@@ -6113,49 +5390,37 @@
             "activity": "Multi-channel document intake",
             "type": "deterministic",
             "reason": "Which document goes where is decided by fixed metadata (record id, document type, retention class), not a judgement call, so intake and storage stay deterministic and fully auditable.",
-            "requirementIds": [
-              "FR_01"
-            ]
+            "requirementIds": ["FR_01"]
           },
           {
             "activity": "Approved-document write-back to Epic",
             "type": "deterministic",
             "reason": "Which document goes where is decided by fixed metadata (record id, document type, retention class), not a judgement call, so intake and storage stay deterministic and fully auditable.",
-            "requirementIds": [
-              "FR_04"
-            ]
+            "requirementIds": ["FR_04"]
           },
           {
             "activity": "Prioritised clerk review queue",
             "type": "deterministic",
             "reason": "Who a case is routed or reassigned to follows a fixed rule (role, queue, workload threshold) that must give the same answer for the same input, not a model’s best guess.",
-            "requirementIds": [
-              "FR_08"
-            ]
+            "requirementIds": ["FR_08"]
           },
           {
             "activity": "Epic FHIR R4 write and read integration",
             "type": "deterministic",
             "reason": "Reading from and writing to the clinical system follows the fixed resource contract (HL7/FHIR) the system exposes, leaving no ambiguity for a model to resolve.",
-            "requirementIds": [
-              "INT_01"
-            ]
+            "requirementIds": ["INT_01"]
           },
           {
             "activity": "Inbound document channel integration",
             "type": "deterministic",
             "reason": "Which document goes where is decided by fixed metadata (record id, document type, retention class), not a judgement call, so intake and storage stay deterministic and fully auditable.",
-            "requirementIds": [
-              "INT_02"
-            ]
+            "requirementIds": ["INT_02"]
           },
           {
             "activity": "Mandatory clerk review before write-back",
             "type": "human-decision",
             "reason": "FR_03 is the customer's own requirement for a human decision: Present each extracted document to a medical records clerk for review and correction before anything is written to Epic. The application routes and records that decision; it does not make it on its own.",
-            "requirementIds": [
-              "FR_03"
-            ]
+            "requirementIds": ["FR_03"]
           },
           {
             "activity": "Sign-off on a binding decision that an assistant conversation surfaces",
@@ -6393,10 +5658,7 @@
                   "label": "Forms and Data Capture",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 1 requirement (FR_01) at High priority.",
-                  "refIds": [
-                    "CAP_02",
-                    "FR_01"
-                  ]
+                  "refIds": ["CAP_02", "FR_01"]
                 },
                 {
                   "id": "DRV_03",
@@ -6404,11 +5666,7 @@
                   "label": "Self-Service Portal",
                   "complexity": "High",
                   "rationale": "High complexity: covers 2 requirements (BR_02 and FR_09) at High priority, and involves demanding features (Conversational assistant).",
-                  "refIds": [
-                    "CAP_03",
-                    "BR_02",
-                    "FR_09"
-                  ]
+                  "refIds": ["CAP_03", "BR_02", "FR_09"]
                 },
                 {
                   "id": "DRV_04",
@@ -6416,13 +5674,7 @@
                   "label": "Workflow and Approvals",
                   "complexity": "Very High",
                   "rationale": "Very High complexity: covers 4 requirements (FR_04, FR_06, FR_07 and FR_08) at High priority, and involves demanding features (Workflow and approvals; Conversational assistant).",
-                  "refIds": [
-                    "CAP_04",
-                    "FR_04",
-                    "FR_06",
-                    "FR_07",
-                    "FR_08"
-                  ]
+                  "refIds": ["CAP_04", "FR_04", "FR_06", "FR_07", "FR_08"]
                 }
               ],
               "skills": [
@@ -6489,11 +5741,7 @@
               "id": "WS_03",
               "name": "Security Controls",
               "phaseId": "PH_2",
-              "requirementIds": [
-                "SEC_02",
-                "SEC_04",
-                "SEC_03"
-              ],
+              "requirementIds": ["SEC_02", "SEC_04", "SEC_03"],
               "drivers": [
                 {
                   "id": "DRV_06",
@@ -6501,10 +5749,7 @@
                   "label": "Data Encryption",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 1 requirement (SEC_02) at High priority.",
-                  "refIds": [
-                    "CAP_12",
-                    "SEC_02"
-                  ]
+                  "refIds": ["CAP_12", "SEC_02"]
                 },
                 {
                   "id": "DRV_07",
@@ -6512,10 +5757,7 @@
                   "label": "Multi-Factor Authentication",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 1 requirement (SEC_04) at High priority, and involves demanding features (Workflow and approvals).",
-                  "refIds": [
-                    "CAP_13",
-                    "SEC_04"
-                  ]
+                  "refIds": ["CAP_13", "SEC_04"]
                 },
                 {
                   "id": "DRV_08",
@@ -6523,10 +5765,7 @@
                   "label": "Role-Based Access Control",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 1 requirement (SEC_03) at High priority, and involves demanding features (Workflow and approvals).",
-                  "refIds": [
-                    "CAP_14",
-                    "SEC_03"
-                  ]
+                  "refIds": ["CAP_14", "SEC_03"]
                 }
               ],
               "skills": [
@@ -6625,11 +5864,7 @@
                   "label": "Delivery pipeline and observability",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: 3 deployment and observability components (Monitoring, Centralized Logging and CI/CD Pipeline) to automate and operate on Microsoft Azure.",
-                  "refIds": [
-                    "ARC_06",
-                    "ARC_07",
-                    "ARC_08"
-                  ]
+                  "refIds": ["ARC_06", "ARC_07", "ARC_08"]
                 },
                 {
                   "id": "DRV_11",
@@ -6637,11 +5872,7 @@
                   "label": "Performance and scalability hardening",
                   "complexity": "High",
                   "rationale": "High complexity: 2 quality attributes (Performance; Scalability) required by BR_03, NFR_01 and NFR_06; raised one level because NFR_01 and NFR_06 are High priority.",
-                  "refIds": [
-                    "BR_03",
-                    "NFR_01",
-                    "NFR_06"
-                  ]
+                  "refIds": ["BR_03", "NFR_01", "NFR_06"]
                 },
                 {
                   "id": "DRV_12",
@@ -6649,11 +5880,7 @@
                   "label": "Availability and resilience hardening",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: 1 quality attribute (Availability) required by FR_09, NFR_04 and CON_04; raised one level because FR_09 and NFR_04 are High priority.",
-                  "refIds": [
-                    "FR_09",
-                    "NFR_04",
-                    "CON_04"
-                  ]
+                  "refIds": ["FR_09", "NFR_04", "CON_04"]
                 },
                 {
                   "id": "DRV_13",
@@ -6661,11 +5888,7 @@
                   "label": "General non-functional hardening",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: 3 requirements (NFR_02, NFR_03 and NFR_05) outside the standard quality attribute groups.",
-                  "refIds": [
-                    "NFR_02",
-                    "NFR_03",
-                    "NFR_05"
-                  ]
+                  "refIds": ["NFR_02", "NFR_03", "NFR_05"]
                 }
               ],
               "skills": [
@@ -6699,13 +5922,7 @@
                   "label": "Epic FHIR R4 write and read integration",
                   "complexity": "High",
                   "rationale": "High complexity (from the integration strategy): bidirectional api exchange with Epic EHR (internal system) over FHIR R4 REST APIs; interface readiness is not yet confirmed. Requirements: INT_01 and SYS_01.",
-                  "refIds": [
-                    "IF_01",
-                    "INT_01",
-                    "SYS_01",
-                    "ARC_02",
-                    "ARC_15"
-                  ]
+                  "refIds": ["IF_01", "INT_01", "SYS_01", "ARC_02", "ARC_15"]
                 },
                 {
                   "id": "DRV_15",
@@ -6713,13 +5930,7 @@
                   "label": "Inbound document channel integration",
                   "complexity": "High",
                   "rationale": "High complexity (from the integration strategy): inbound api exchange with Patient Portal (internal system) over REST/JSON over HTTPS; interface readiness is not yet confirmed. Requirements: INT_02 and SYS_05.",
-                  "refIds": [
-                    "IF_02",
-                    "INT_02",
-                    "SYS_05",
-                    "ARC_02",
-                    "ARC_15"
-                  ]
+                  "refIds": ["IF_02", "INT_02", "SYS_05", "ARC_02", "ARC_15"]
                 },
                 {
                   "id": "DRV_16",
@@ -6727,13 +5938,7 @@
                   "label": "Five9 handoff integration",
                   "complexity": "High",
                   "rationale": "High complexity (from the integration strategy): outbound api exchange with Five9 Contact Centre (external system) over REST/JSON over HTTPS; interface readiness is not yet confirmed. Requirements: INT_03 and SYS_02.",
-                  "refIds": [
-                    "IF_03",
-                    "INT_03",
-                    "SYS_02",
-                    "ARC_02",
-                    "ARC_15"
-                  ]
+                  "refIds": ["IF_03", "INT_03", "SYS_02", "ARC_02", "ARC_15"]
                 },
                 {
                   "id": "DRV_17",
@@ -6778,9 +5983,7 @@
                   "label": "Protected health information handling",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: DATA_01 is limited to modelling and storing the data; raised one level because personal or sensitive data needs privacy controls.",
-                  "refIds": [
-                    "DATA_01"
-                  ]
+                  "refIds": ["DATA_01"]
                 },
                 {
                   "id": "DRV_19",
@@ -6788,9 +5991,7 @@
                   "label": "Approved-content-only assistant knowledge base",
                   "complexity": "Low",
                   "rationale": "Low complexity: DATA_02 is limited to modelling and storing the data.",
-                  "refIds": [
-                    "DATA_02"
-                  ]
+                  "refIds": ["DATA_02"]
                 },
                 {
                   "id": "DRV_20",
@@ -6798,9 +5999,7 @@
                   "label": "Six-year document and conversation retention",
                   "complexity": "Low",
                   "rationale": "Low complexity: DATA_03 is limited to modelling and storing the data.",
-                  "refIds": [
-                    "DATA_03"
-                  ]
+                  "refIds": ["DATA_03"]
                 },
                 {
                   "id": "DRV_21",
@@ -6808,9 +6007,7 @@
                   "label": "Conversation-log governance for model training",
                   "complexity": "Low",
                   "rationale": "Low complexity: DATA_04 is limited to modelling and storing the data.",
-                  "refIds": [
-                    "DATA_04"
-                  ]
+                  "refIds": ["DATA_04"]
                 },
                 {
                   "id": "DRV_22",
@@ -6818,9 +6015,7 @@
                   "label": "Separated encryption for documents and sessions",
                   "complexity": "Low",
                   "rationale": "Low complexity: DATA_05 is limited to modelling and storing the data.",
-                  "refIds": [
-                    "DATA_05"
-                  ]
+                  "refIds": ["DATA_05"]
                 }
               ],
               "skills": [
@@ -6928,76 +6123,47 @@
             {
               "id": "ER_01",
               "text": "RSK_01 is not priced as its own effort line; the estimate carries it through the workstream confidence rating instead of a dedicated cost, and the affected driver(s) must be revisited if it materialises. It is scoped against FR_02.",
-              "refs": [
-                "RSK_01",
-                "FR_02"
-              ]
+              "refs": ["RSK_01", "FR_02"]
             },
             {
               "id": "ER_02",
               "text": "RSK_02 is not priced as its own effort line; the estimate carries it through the workstream confidence rating instead of a dedicated cost, and the affected driver(s) must be revisited if it materialises. It is scoped against FR_05.",
-              "refs": [
-                "RSK_02",
-                "FR_05"
-              ]
+              "refs": ["RSK_02", "FR_05"]
             },
             {
               "id": "ER_03",
               "text": "Interface readiness of Epic EHR (IF_01 Epic FHIR R4 write and read integration) is not confirmed; late sandbox access or interface changes would extend the integration workstream.",
-              "refs": [
-                "IF_01",
-                "INT_01",
-                "SYS_01"
-              ]
+              "refs": ["IF_01", "INT_01", "SYS_01"]
             },
             {
               "id": "ER_04",
               "text": "Interface readiness of Patient Portal (IF_02 Inbound document channel integration) is not confirmed; late sandbox access or interface changes would extend the integration workstream.",
-              "refs": [
-                "IF_02",
-                "INT_02",
-                "SYS_05"
-              ]
+              "refs": ["IF_02", "INT_02", "SYS_05"]
             },
             {
               "id": "ER_05",
               "text": "Interface readiness of Five9 Contact Centre (IF_03 Five9 handoff integration) is not confirmed; late sandbox access or interface changes would extend the integration workstream.",
-              "refs": [
-                "IF_03",
-                "INT_03",
-                "SYS_02"
-              ]
+              "refs": ["IF_03", "INT_03", "SYS_02"]
             },
             {
               "id": "ER_06",
               "text": "Interface readiness of Patient Portal (IF_04 Patient-portal authentication reuse) is not confirmed; late sandbox access or interface changes would extend the integration workstream.",
-              "refs": [
-                "IF_04",
-                "INT_04",
-                "SYS_05"
-              ]
+              "refs": ["IF_04", "INT_04", "SYS_05"]
             },
             {
               "id": "ER_07",
               "text": "Critical open item Epic sandbox write capability unconfirmed (GAP_01) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "GAP_01"
-              ]
+              "refs": ["GAP_01"]
             },
             {
               "id": "ER_08",
               "text": "Critical open item Does the Epic FHIR R4 sandbox support writing referral data (Q_01) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "Q_01"
-              ]
+              "refs": ["Q_01"]
             },
             {
               "id": "ER_09",
               "text": "AI output quality for Retrieval-augmented generation (RAG) assistant: Patient-support assistant Q&A and 3 related functions and Document extraction pipeline with human validation: Structured field extraction and 1 related function depends on representative customer data being available for evaluation; acceptance thresholds must be agreed before the AI build starts.",
-              "refs": [
-                "AIUC_01",
-                "AIUC_02"
-              ]
+              "refs": ["AIUC_01", "AIUC_02"]
             },
             {
               "id": "ER_10",
@@ -7009,54 +6175,37 @@
             {
               "id": "ED_01",
               "text": "DEP_01 is treated as a precondition the estimate assumes will be met on schedule, not as a costed activity; a delay pushes out the dependent work rather than adding effort, so while it is outstanding the workstreams whose requirements it relates to are held at Medium confidence at most. It is scoped against SEC_01.",
-              "refs": [
-                "DEP_01",
-                "SEC_01"
-              ]
+              "refs": ["DEP_01", "SEC_01"]
             },
             {
               "id": "ED_02",
               "text": "Access to a test instance of Epic EHR (SYS_01) and a named subject-matter expert while the related integration and data work is delivered.",
-              "refs": [
-                "SYS_01"
-              ]
+              "refs": ["SYS_01"]
             },
             {
               "id": "ED_03",
               "text": "Access to a test instance of Five9 Contact Centre (SYS_02) and a named subject-matter expert while the related integration and data work is delivered.",
-              "refs": [
-                "SYS_02"
-              ]
+              "refs": ["SYS_02"]
             },
             {
               "id": "ED_04",
               "text": "Access to a test instance of CareEverywhere Health Information Exchange (SYS_03) and a named subject-matter expert while the related integration and data work is delivered.",
-              "refs": [
-                "SYS_03"
-              ]
+              "refs": ["SYS_03"]
             },
             {
               "id": "ED_05",
               "text": "Access to a test instance of Manual Document Scanning Process (SYS_04) and a named subject-matter expert while the related integration and data work is delivered.",
-              "refs": [
-                "SYS_04"
-              ]
+              "refs": ["SYS_04"]
             },
             {
               "id": "ED_06",
               "text": "Access to a test instance of Patient Portal (SYS_05) and a named subject-matter expert while the related integration and data work is delivered.",
-              "refs": [
-                "SYS_05"
-              ]
+              "refs": ["SYS_05"]
             },
             {
               "id": "ED_07",
               "text": "Customer answers to the open questions (Q_01, Q_02 and Q_03) before Discovery and Architecture completes.",
-              "refs": [
-                "Q_01",
-                "Q_02",
-                "Q_03"
-              ]
+              "refs": ["Q_01", "Q_02", "Q_03"]
             },
             {
               "id": "ED_08",
@@ -7068,18 +6217,12 @@
             {
               "id": "EA_01",
               "text": "The estimate is built as if ASM_01 holds as stated (still to be validated with the customer); if that turns out to be wrong, the driver(s) it affects must be re-scored on the next calculation. It is scoped against SEC_01.",
-              "refs": [
-                "ASM_01",
-                "SEC_01"
-              ]
+              "refs": ["ASM_01", "SEC_01"]
             },
             {
               "id": "EA_02",
               "text": "The estimate is built as if ASM_02 holds as stated (still to be validated with the customer); if that turns out to be wrong, the driver(s) it affects must be re-scored on the next calculation. It is scoped against DATA_02.",
-              "refs": [
-                "ASM_02",
-                "DATA_02"
-              ]
+              "refs": ["ASM_02", "DATA_02"]
             },
             {
               "id": "EA_03",
@@ -7111,24 +6254,12 @@
             {
               "id": "EX_03",
               "text": "Migration of data or content that is not listed in the reviewed data requirements (DATA_01, DATA_02, DATA_03, DATA_04 and DATA_05) is excluded.",
-              "refs": [
-                "DATA_01",
-                "DATA_02",
-                "DATA_03",
-                "DATA_04",
-                "DATA_05"
-              ]
+              "refs": ["DATA_01", "DATA_02", "DATA_03", "DATA_04", "DATA_05"]
             },
             {
               "id": "EX_04",
               "text": "Changes to customer-owned or third-party systems (Epic EHR, Five9 Contact Centre, CareEverywhere Health Information Exchange, Manual Document Scanning Process and Patient Portal) that are needed to expose interfaces remain with the system owners.",
-              "refs": [
-                "SYS_01",
-                "SYS_02",
-                "SYS_03",
-                "SYS_04",
-                "SYS_05"
-              ]
+              "refs": ["SYS_01", "SYS_02", "SYS_03", "SYS_04", "SYS_05"]
             },
             {
               "id": "EX_05",
@@ -7153,30 +6284,22 @@
             {
               "id": "EX_09",
               "text": "Recommended enhancement ENH_01 AI Answer Quality Feedback Loop is not estimated until a reviewer accepts it into scope.",
-              "refs": [
-                "ENH_01"
-              ]
+              "refs": ["ENH_01"]
             },
             {
               "id": "EX_10",
               "text": "Recommended enhancement ENH_02 Observability and Operations Dashboard is not estimated until a reviewer accepts it into scope.",
-              "refs": [
-                "ENH_02"
-              ]
+              "refs": ["ENH_02"]
             },
             {
               "id": "EX_11",
               "text": "Recommended enhancement ENH_03 Security and Compliance Hardening Review is not estimated until a reviewer accepts it into scope.",
-              "refs": [
-                "ENH_03"
-              ]
+              "refs": ["ENH_03"]
             },
             {
               "id": "EX_12",
               "text": "Recommended enhancement ENH_04 Data Quality and Governance Program is not estimated until a reviewer accepts it into scope.",
-              "refs": [
-                "ENH_04"
-              ]
+              "refs": ["ENH_04"]
             }
           ],
           "explanation": "The estimate inputs for Clinical Intake and Patient Support Assistant are organised into 7 workstreams and 24 scope drivers across the build phases Experience and Core Platform, Data and Integration and AI Capabilities; Discovery and Architecture, Testing and Hardening, and Deployment and Handover are added as configurable overheads. Each driver cites the reviewed requirements, capabilities, architecture components, integrations or AI use cases that justify it, and its complexity is derived from the facts named in its rationale. A capability whose reviewed requirements are all already priced by AI use-case, integration or data drivers is priced once, in those more specific workstreams, never twice; two capabilities built from the same requirements are combined into one driver. The main complexity hotspots are Document Management (DRV_01), Self-Service Portal (DRV_03), Workflow and Approvals (DRV_04), Core Platform Services (DRV_05), Cloud platform foundation and environments (DRV_09), Performance and scalability hardening (DRV_11), Epic FHIR R4 write and read integration (DRV_14), Inbound document channel integration (DRV_15), Five9 handoff integration (DRV_16), Patient-portal authentication reuse (DRV_17) and Retrieval-augmented generation (RAG) assistant: Patient-support assistant Q&A and 3 related functions (DRV_23). Security and compliance work is delivered through the named security capability in the functional scope, so no separate generic security workstream is planned; that would price the same controls twice. Only complexity levels are suggested here: effort, timeline and ROM values are calculated from the base-effort table, role mix, day rates, contingency and team size in the estimation configuration."
@@ -7315,10 +6438,7 @@
                   "label": "Forms and Data Capture",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 1 requirement (FR_01) at High priority.",
-                  "refIds": [
-                    "CAP_02",
-                    "FR_01"
-                  ],
+                  "refIds": ["CAP_02", "FR_01"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 15
                 },
@@ -7328,11 +6448,7 @@
                   "label": "Self-Service Portal",
                   "complexity": "High",
                   "rationale": "High complexity: covers 2 requirements (BR_02 and FR_09) at High priority, and involves demanding features (Conversational assistant).",
-                  "refIds": [
-                    "CAP_03",
-                    "BR_02",
-                    "FR_09"
-                  ],
+                  "refIds": ["CAP_03", "BR_02", "FR_09"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 25
                 },
@@ -7342,13 +6458,7 @@
                   "label": "Workflow and Approvals",
                   "complexity": "Very High",
                   "rationale": "Very High complexity: covers 4 requirements (FR_04, FR_06, FR_07 and FR_08) at High priority, and involves demanding features (Workflow and approvals; Conversational assistant).",
-                  "refIds": [
-                    "CAP_04",
-                    "FR_04",
-                    "FR_06",
-                    "FR_07",
-                    "FR_08"
-                  ],
+                  "refIds": ["CAP_04", "FR_04", "FR_06", "FR_07", "FR_08"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 40
                 }
@@ -7582,11 +6692,7 @@
               "id": "WS_03",
               "name": "Security Controls",
               "phaseId": "PH_2",
-              "requirementIds": [
-                "SEC_02",
-                "SEC_04",
-                "SEC_03"
-              ],
+              "requirementIds": ["SEC_02", "SEC_04", "SEC_03"],
               "skills": [
                 "UX/UI design",
                 "Frontend engineering",
@@ -7601,10 +6707,7 @@
                   "label": "Data Encryption",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 1 requirement (SEC_02) at High priority.",
-                  "refIds": [
-                    "CAP_12",
-                    "SEC_02"
-                  ],
+                  "refIds": ["CAP_12", "SEC_02"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 8
                 },
@@ -7614,10 +6717,7 @@
                   "label": "Multi-Factor Authentication",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 1 requirement (SEC_04) at High priority, and involves demanding features (Workflow and approvals).",
-                  "refIds": [
-                    "CAP_13",
-                    "SEC_04"
-                  ],
+                  "refIds": ["CAP_13", "SEC_04"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 8
                 },
@@ -7627,10 +6727,7 @@
                   "label": "Role-Based Access Control",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 1 requirement (SEC_03) at High priority, and involves demanding features (Workflow and approvals).",
-                  "refIds": [
-                    "CAP_14",
-                    "SEC_03"
-                  ],
+                  "refIds": ["CAP_14", "SEC_03"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 8
                 }
@@ -7798,11 +6895,7 @@
                   "label": "Delivery pipeline and observability",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: 3 deployment and observability components (Monitoring, Centralized Logging and CI/CD Pipeline) to automate and operate on Microsoft Azure.",
-                  "refIds": [
-                    "ARC_06",
-                    "ARC_07",
-                    "ARC_08"
-                  ],
+                  "refIds": ["ARC_06", "ARC_07", "ARC_08"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 10
                 },
@@ -7812,11 +6905,7 @@
                   "label": "Performance and scalability hardening",
                   "complexity": "High",
                   "rationale": "High complexity: 2 quality attributes (Performance; Scalability) required by BR_03, NFR_01 and NFR_06; raised one level because NFR_01 and NFR_06 are High priority.",
-                  "refIds": [
-                    "BR_03",
-                    "NFR_01",
-                    "NFR_06"
-                  ],
+                  "refIds": ["BR_03", "NFR_01", "NFR_06"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 10
                 },
@@ -7826,11 +6915,7 @@
                   "label": "Availability and resilience hardening",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: 1 quality attribute (Availability) required by FR_09, NFR_04 and CON_04; raised one level because FR_09 and NFR_04 are High priority.",
-                  "refIds": [
-                    "FR_09",
-                    "NFR_04",
-                    "CON_04"
-                  ],
+                  "refIds": ["FR_09", "NFR_04", "CON_04"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 6
                 },
@@ -7840,11 +6925,7 @@
                   "label": "General non-functional hardening",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: 3 requirements (NFR_02, NFR_03 and NFR_05) outside the standard quality attribute groups.",
-                  "refIds": [
-                    "NFR_02",
-                    "NFR_03",
-                    "NFR_05"
-                  ],
+                  "refIds": ["NFR_02", "NFR_03", "NFR_05"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 6
                 }
@@ -7967,13 +7048,7 @@
                   "label": "Epic FHIR R4 write and read integration",
                   "complexity": "High",
                   "rationale": "High complexity (from the integration strategy): bidirectional api exchange with Epic EHR (internal system) over FHIR R4 REST APIs; interface readiness is not yet confirmed. Requirements: INT_01 and SYS_01.",
-                  "refIds": [
-                    "IF_01",
-                    "INT_01",
-                    "SYS_01",
-                    "ARC_02",
-                    "ARC_15"
-                  ],
+                  "refIds": ["IF_01", "INT_01", "SYS_01", "ARC_02", "ARC_15"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 22
                 },
@@ -7983,13 +7058,7 @@
                   "label": "Inbound document channel integration",
                   "complexity": "High",
                   "rationale": "High complexity (from the integration strategy): inbound api exchange with Patient Portal (internal system) over REST/JSON over HTTPS; interface readiness is not yet confirmed. Requirements: INT_02 and SYS_05.",
-                  "refIds": [
-                    "IF_02",
-                    "INT_02",
-                    "SYS_05",
-                    "ARC_02",
-                    "ARC_15"
-                  ],
+                  "refIds": ["IF_02", "INT_02", "SYS_05", "ARC_02", "ARC_15"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 22
                 },
@@ -7999,13 +7068,7 @@
                   "label": "Five9 handoff integration",
                   "complexity": "High",
                   "rationale": "High complexity (from the integration strategy): outbound api exchange with Five9 Contact Centre (external system) over REST/JSON over HTTPS; interface readiness is not yet confirmed. Requirements: INT_03 and SYS_02.",
-                  "refIds": [
-                    "IF_03",
-                    "INT_03",
-                    "SYS_02",
-                    "ARC_02",
-                    "ARC_15"
-                  ],
+                  "refIds": ["IF_03", "INT_03", "SYS_02", "ARC_02", "ARC_15"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 22
                 },
@@ -8128,9 +7191,7 @@
                   "label": "Protected health information handling",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: DATA_01 is limited to modelling and storing the data; raised one level because personal or sensitive data needs privacy controls.",
-                  "refIds": [
-                    "DATA_01"
-                  ],
+                  "refIds": ["DATA_01"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 12
                 },
@@ -8140,9 +7201,7 @@
                   "label": "Approved-content-only assistant knowledge base",
                   "complexity": "Low",
                   "rationale": "Low complexity: DATA_02 is limited to modelling and storing the data.",
-                  "refIds": [
-                    "DATA_02"
-                  ],
+                  "refIds": ["DATA_02"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 6
                 },
@@ -8152,9 +7211,7 @@
                   "label": "Six-year document and conversation retention",
                   "complexity": "Low",
                   "rationale": "Low complexity: DATA_03 is limited to modelling and storing the data.",
-                  "refIds": [
-                    "DATA_03"
-                  ],
+                  "refIds": ["DATA_03"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 6
                 },
@@ -8164,9 +7221,7 @@
                   "label": "Conversation-log governance for model training",
                   "complexity": "Low",
                   "rationale": "Low complexity: DATA_04 is limited to modelling and storing the data.",
-                  "refIds": [
-                    "DATA_04"
-                  ],
+                  "refIds": ["DATA_04"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 6
                 },
@@ -8176,9 +7231,7 @@
                   "label": "Separated encryption for documents and sessions",
                   "complexity": "Low",
                   "rationale": "Low complexity: DATA_05 is limited to modelling and storing the data.",
-                  "refIds": [
-                    "DATA_05"
-                  ],
+                  "refIds": ["DATA_05"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 6
                 }
@@ -8607,9 +7660,7 @@
             {
               "id": "PH_1",
               "name": "Discovery and Architecture",
-              "workstreamIds": [
-                "WS_PH_1"
-              ],
+              "workstreamIds": ["WS_PH_1"],
               "effortDays": {
                 "low": 41,
                 "likely": 48,
@@ -8633,12 +7684,7 @@
             {
               "id": "PH_2",
               "name": "Experience and Core Platform",
-              "workstreamIds": [
-                "WS_01",
-                "WS_02",
-                "WS_03",
-                "WS_04"
-              ],
+              "workstreamIds": ["WS_01", "WS_02", "WS_03", "WS_04"],
               "effortDays": {
                 "low": 199,
                 "likely": 232,
@@ -8662,10 +7708,7 @@
             {
               "id": "PH_3",
               "name": "Data and Integration",
-              "workstreamIds": [
-                "WS_05",
-                "WS_06"
-              ],
+              "workstreamIds": ["WS_05", "WS_06"],
               "effortDays": {
                 "low": 102,
                 "likely": 124,
@@ -8689,9 +7732,7 @@
             {
               "id": "PH_4",
               "name": "AI Capabilities",
-              "workstreamIds": [
-                "WS_07"
-              ],
+              "workstreamIds": ["WS_07"],
               "effortDays": {
                 "low": 41,
                 "likely": 48,
@@ -8715,9 +7756,7 @@
             {
               "id": "PH_5",
               "name": "Testing and Hardening",
-              "workstreamIds": [
-                "WS_PH_5"
-              ],
+              "workstreamIds": ["WS_PH_5"],
               "effortDays": {
                 "low": 76,
                 "likely": 89,
@@ -8741,9 +7780,7 @@
             {
               "id": "PH_6",
               "name": "Deployment and Handover",
-              "workstreamIds": [
-                "WS_PH_6"
-              ],
+              "workstreamIds": ["WS_PH_6"],
               "effortDays": {
                 "low": 27,
                 "likely": 32,
@@ -8885,13 +7922,8 @@
               "key": "integrationReadiness",
               "label": "Integration readiness",
               "effect": "confidence-reduced",
-              "affected": [
-                "WS_05"
-              ],
-              "relatedScopeIds": [
-                "GAP_01",
-                "Q_01"
-              ],
+              "affected": ["WS_05"],
+              "relatedScopeIds": ["GAP_01", "Q_01"],
               "howToResolve": "Confirm the integration readiness with the customer and resolve GAP_01 \"Epic sandbox write capability unconfirmed\" and Q_01 \"Does the Epic FHIR R4 sandbox support writing referral data\" in the scope model; confidence is restored on the next calculation."
             }
           ],
@@ -8899,76 +7931,47 @@
             {
               "id": "ER_01",
               "text": "RSK_01 is not priced as its own effort line; the estimate carries it through the workstream confidence rating instead of a dedicated cost, and the affected driver(s) must be revisited if it materialises. It is scoped against FR_02.",
-              "refs": [
-                "RSK_01",
-                "FR_02"
-              ]
+              "refs": ["RSK_01", "FR_02"]
             },
             {
               "id": "ER_02",
               "text": "RSK_02 is not priced as its own effort line; the estimate carries it through the workstream confidence rating instead of a dedicated cost, and the affected driver(s) must be revisited if it materialises. It is scoped against FR_05.",
-              "refs": [
-                "RSK_02",
-                "FR_05"
-              ]
+              "refs": ["RSK_02", "FR_05"]
             },
             {
               "id": "ER_03",
               "text": "Interface readiness of Epic EHR (IF_01 Epic FHIR R4 write and read integration) is not confirmed; late sandbox access or interface changes would extend the integration workstream.",
-              "refs": [
-                "IF_01",
-                "INT_01",
-                "SYS_01"
-              ]
+              "refs": ["IF_01", "INT_01", "SYS_01"]
             },
             {
               "id": "ER_04",
               "text": "Interface readiness of Patient Portal (IF_02 Inbound document channel integration) is not confirmed; late sandbox access or interface changes would extend the integration workstream.",
-              "refs": [
-                "IF_02",
-                "INT_02",
-                "SYS_05"
-              ]
+              "refs": ["IF_02", "INT_02", "SYS_05"]
             },
             {
               "id": "ER_05",
               "text": "Interface readiness of Five9 Contact Centre (IF_03 Five9 handoff integration) is not confirmed; late sandbox access or interface changes would extend the integration workstream.",
-              "refs": [
-                "IF_03",
-                "INT_03",
-                "SYS_02"
-              ]
+              "refs": ["IF_03", "INT_03", "SYS_02"]
             },
             {
               "id": "ER_06",
               "text": "Interface readiness of Patient Portal (IF_04 Patient-portal authentication reuse) is not confirmed; late sandbox access or interface changes would extend the integration workstream.",
-              "refs": [
-                "IF_04",
-                "INT_04",
-                "SYS_05"
-              ]
+              "refs": ["IF_04", "INT_04", "SYS_05"]
             },
             {
               "id": "ER_07",
               "text": "Critical open item Epic sandbox write capability unconfirmed (GAP_01) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "GAP_01"
-              ]
+              "refs": ["GAP_01"]
             },
             {
               "id": "ER_08",
               "text": "Critical open item Does the Epic FHIR R4 sandbox support writing referral data (Q_01) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "Q_01"
-              ]
+              "refs": ["Q_01"]
             },
             {
               "id": "ER_09",
               "text": "AI output quality for Retrieval-augmented generation (RAG) assistant: Patient-support assistant Q&A and 3 related functions and Document extraction pipeline with human validation: Structured field extraction and 1 related function depends on representative customer data being available for evaluation; acceptance thresholds must be agreed before the AI build starts.",
-              "refs": [
-                "AIUC_01",
-                "AIUC_02"
-              ]
+              "refs": ["AIUC_01", "AIUC_02"]
             },
             {
               "id": "ER_10",
@@ -8980,54 +7983,37 @@
             {
               "id": "ED_01",
               "text": "DEP_01 is treated as a precondition the estimate assumes will be met on schedule, not as a costed activity; a delay pushes out the dependent work rather than adding effort, so while it is outstanding the workstreams whose requirements it relates to are held at Medium confidence at most. It is scoped against SEC_01.",
-              "refs": [
-                "DEP_01",
-                "SEC_01"
-              ]
+              "refs": ["DEP_01", "SEC_01"]
             },
             {
               "id": "ED_02",
               "text": "Access to a test instance of Epic EHR (SYS_01) and a named subject-matter expert while the related integration and data work is delivered.",
-              "refs": [
-                "SYS_01"
-              ]
+              "refs": ["SYS_01"]
             },
             {
               "id": "ED_03",
               "text": "Access to a test instance of Five9 Contact Centre (SYS_02) and a named subject-matter expert while the related integration and data work is delivered.",
-              "refs": [
-                "SYS_02"
-              ]
+              "refs": ["SYS_02"]
             },
             {
               "id": "ED_04",
               "text": "Access to a test instance of CareEverywhere Health Information Exchange (SYS_03) and a named subject-matter expert while the related integration and data work is delivered.",
-              "refs": [
-                "SYS_03"
-              ]
+              "refs": ["SYS_03"]
             },
             {
               "id": "ED_05",
               "text": "Access to a test instance of Manual Document Scanning Process (SYS_04) and a named subject-matter expert while the related integration and data work is delivered.",
-              "refs": [
-                "SYS_04"
-              ]
+              "refs": ["SYS_04"]
             },
             {
               "id": "ED_06",
               "text": "Access to a test instance of Patient Portal (SYS_05) and a named subject-matter expert while the related integration and data work is delivered.",
-              "refs": [
-                "SYS_05"
-              ]
+              "refs": ["SYS_05"]
             },
             {
               "id": "ED_07",
               "text": "Customer answers to the open questions (Q_01, Q_02 and Q_03) before Discovery and Architecture completes.",
-              "refs": [
-                "Q_01",
-                "Q_02",
-                "Q_03"
-              ]
+              "refs": ["Q_01", "Q_02", "Q_03"]
             },
             {
               "id": "ED_08",
@@ -9039,18 +8025,12 @@
             {
               "id": "EA_01",
               "text": "The estimate is built as if ASM_01 holds as stated (still to be validated with the customer); if that turns out to be wrong, the driver(s) it affects must be re-scored on the next calculation. It is scoped against SEC_01.",
-              "refs": [
-                "ASM_01",
-                "SEC_01"
-              ]
+              "refs": ["ASM_01", "SEC_01"]
             },
             {
               "id": "EA_02",
               "text": "The estimate is built as if ASM_02 holds as stated (still to be validated with the customer); if that turns out to be wrong, the driver(s) it affects must be re-scored on the next calculation. It is scoped against DATA_02.",
-              "refs": [
-                "ASM_02",
-                "DATA_02"
-              ]
+              "refs": ["ASM_02", "DATA_02"]
             },
             {
               "id": "EA_03",
@@ -9097,24 +8077,12 @@
             {
               "id": "EX_03",
               "text": "Migration of data or content that is not listed in the reviewed data requirements (DATA_01, DATA_02, DATA_03, DATA_04 and DATA_05) is excluded.",
-              "refs": [
-                "DATA_01",
-                "DATA_02",
-                "DATA_03",
-                "DATA_04",
-                "DATA_05"
-              ]
+              "refs": ["DATA_01", "DATA_02", "DATA_03", "DATA_04", "DATA_05"]
             },
             {
               "id": "EX_04",
               "text": "Changes to customer-owned or third-party systems (Epic EHR, Five9 Contact Centre, CareEverywhere Health Information Exchange, Manual Document Scanning Process and Patient Portal) that are needed to expose interfaces remain with the system owners.",
-              "refs": [
-                "SYS_01",
-                "SYS_02",
-                "SYS_03",
-                "SYS_04",
-                "SYS_05"
-              ]
+              "refs": ["SYS_01", "SYS_02", "SYS_03", "SYS_04", "SYS_05"]
             },
             {
               "id": "EX_05",
@@ -9139,30 +8107,22 @@
             {
               "id": "EX_09",
               "text": "Recommended enhancement ENH_01 AI Answer Quality Feedback Loop is not estimated until a reviewer accepts it into scope.",
-              "refs": [
-                "ENH_01"
-              ]
+              "refs": ["ENH_01"]
             },
             {
               "id": "EX_10",
               "text": "Recommended enhancement ENH_02 Observability and Operations Dashboard is not estimated until a reviewer accepts it into scope.",
-              "refs": [
-                "ENH_02"
-              ]
+              "refs": ["ENH_02"]
             },
             {
               "id": "EX_11",
               "text": "Recommended enhancement ENH_03 Security and Compliance Hardening Review is not estimated until a reviewer accepts it into scope.",
-              "refs": [
-                "ENH_03"
-              ]
+              "refs": ["ENH_03"]
             },
             {
               "id": "EX_12",
               "text": "Recommended enhancement ENH_04 Data Quality and Governance Program is not estimated until a reviewer accepts it into scope.",
-              "refs": [
-                "ENH_04"
-              ]
+              "refs": ["ENH_04"]
             }
           ],
           "rules": [
@@ -9812,9 +8772,7 @@
       ],
       "explanation": "Change: Cloud platform changed from Amazon Web Services to Microsoft Azure. It affects 1 area across Solution architecture. Solution architecture - Cloud service mapping of every component must be regenerated: Every logical component is re-mapped to the equivalent managed service of the newly selected platform. What stays untouched: PRD (PRD): The PRD describes business needs and user outcomes, which are platform-neutral. Functional scope (Functional scope): Capabilities, modules and delivery packages describe what is built, not where it is hosted. Data and integration strategy (Data and integration strategy), AI solution approach (AI solution approach), Effort and timeline estimate (Effort and timeline estimate) and ROM commercials (ROM commercials): Not generated yet. Reviewed requirement model (Reviewed scope model): A configuration change never rewrites reviewed requirements, assumptions or answers; they stay exactly as approved. Only the sections listed as affected are marked stale; reviewed content everywhere else is preserved and is never replaced without the reviewer choosing to regenerate it.",
       "createdAt": "2026-09-28T06:20:01.410Z",
-      "resolvedSections": [
-        "architecture"
-      ]
+      "resolvedSections": ["architecture"]
     }
   ],
   "quality": {
@@ -9876,10 +8834,7 @@
         "findings": [
           {
             "message": "Integration readiness is missing and reduces estimate confidence for WS_05. Confirm the integration readiness with the customer and resolve GAP_01 \"Epic sandbox write capability unconfirmed\" and Q_01 \"Does the Epic FHIR R4 sandbox support writing referral data\" in the scope model; confidence is restored on the next calculation.",
-            "refs": [
-              "GAP_01",
-              "Q_01"
-            ]
+            "refs": ["GAP_01", "Q_01"]
           }
         ]
       },
@@ -9892,24 +8847,15 @@
         "findings": [
           {
             "message": "Critical clarification question Q_01 is unanswered: Does the Epic FHIR R4 sandbox support writing referral data?",
-            "refs": [
-              "Q_01",
-              "GAP_01"
-            ]
+            "refs": ["Q_01", "GAP_01"]
           },
           {
             "message": "Clarification question Q_02 is unanswered: Should the assistant be standalone or embedded in the portal?",
-            "refs": [
-              "Q_02",
-              "GAP_02"
-            ]
+            "refs": ["Q_02", "GAP_02"]
           },
           {
             "message": "Clarification question Q_03 is unanswered: Confirm the target phase for the CareEverywhere integration",
-            "refs": [
-              "Q_03",
-              "GAP_03"
-            ]
+            "refs": ["Q_03", "GAP_03"]
           }
         ]
       },
@@ -9922,9 +8868,7 @@
         "findings": [
           {
             "message": "Technology preference TECH_01 \"AWS as target cloud platform\" names Amazon Web Services, but the selected platform is Microsoft Azure.",
-            "refs": [
-              "TECH_01"
-            ]
+            "refs": ["TECH_01"]
           }
         ]
       },
@@ -9945,17 +8889,11 @@
         "findings": [
           {
             "message": "Assumption ASM_01 \"AI provider must support a HIPAA BAA\" has not been validated by a qualified stakeholder.",
-            "refs": [
-              "ASM_01",
-              "SEC_01"
-            ]
+            "refs": ["ASM_01", "SEC_01"]
           },
           {
             "message": "Assumption ASM_02 \"Policy documents are reusable for a knowledge base\" has not been validated by a qualified stakeholder.",
-            "refs": [
-              "ASM_02",
-              "DATA_02"
-            ]
+            "refs": ["ASM_02", "DATA_02"]
           }
         ]
       },

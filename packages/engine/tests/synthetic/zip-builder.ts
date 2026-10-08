@@ -1,16 +1,3 @@
-/**
- * Synthetic test data: a minimal ZIP writer.
- *
- * The engine's ZIP reader is verified against archives built here at test time
- * rather than a committed binary. That keeps the repository free of opaque
- * binaries (a malware-scan and review hazard) while still exercising the real
- * code path: entries are deflated with `node:zlib`, so the reader has to inflate
- * them through `DecompressionStream("deflate-raw")` exactly as it does for an
- * archive produced by any other tool.
- *
- * This file is test-only data construction. It is never imported by the engine.
- */
-
 import { deflateRawSync } from "node:zlib";
 
 const CRC_TABLE = (() => {
@@ -67,7 +54,12 @@ function u16(value: number): Uint8Array {
 }
 
 function u32(value: number): Uint8Array {
-  return new Uint8Array([value & 0xff, (value >>> 8) & 0xff, (value >>> 16) & 0xff, (value >>> 24) & 0xff]);
+  return new Uint8Array([
+    value & 0xff,
+    (value >>> 8) & 0xff,
+    (value >>> 16) & 0xff,
+    (value >>> 24) & 0xff,
+  ]);
 }
 
 /** Build a valid ZIP archive (local headers + central directory + EOCD). */
@@ -79,9 +71,12 @@ export function buildZip(entries: ZipEntryInput[]): Uint8Array {
 
   for (const entry of entries) {
     const directory = entry.directory === true;
-    const name = directory && !entry.name.endsWith("/") ? `${entry.name}/` : entry.name;
+    const name =
+      directory && !entry.name.endsWith("/") ? `${entry.name}/` : entry.name;
     const nameBytes = encoder.encode(name);
-    const raw = directory ? new Uint8Array(0) : encoder.encode(entry.text ?? "");
+    const raw = directory
+      ? new Uint8Array(0)
+      : encoder.encode(entry.text ?? "");
     const useDeflate = !directory && (entry.method ?? "deflate") === "deflate";
     const payload = useDeflate ? new Uint8Array(deflateRawSync(raw)) : raw;
     const method = useDeflate ? 8 : 0;
@@ -156,7 +151,9 @@ export function buildZip(entries: ZipEntryInput[]): Uint8Array {
 }
 
 /** A ZIP whose deflate payload is appended after a streaming data descriptor. */
-export function buildZipWithDataDescriptor(entries: ZipEntryInput[]): Uint8Array {
+export function buildZipWithDataDescriptor(
+  entries: ZipEntryInput[],
+): Uint8Array {
   const encoder = new TextEncoder();
   const base = buildZip(entries);
   // The central directory is authoritative; zeroing the sizes in the local
@@ -164,7 +161,12 @@ export function buildZipWithDataDescriptor(entries: ZipEntryInput[]): Uint8Array
   // Windows Explorer, Java), which is what the reader is designed to survive.
   const localSignatures: number[] = [];
   for (let index = 0; index + 4 <= base.length; index += 1) {
-    if (base[index] === 0x50 && base[index + 1] === 0x4b && base[index + 2] === 0x03 && base[index + 3] === 0x04) {
+    if (
+      base[index] === 0x50 &&
+      base[index + 1] === 0x4b &&
+      base[index + 2] === 0x03 &&
+      base[index + 3] === 0x04
+    ) {
       localSignatures.push(index);
     }
   }

@@ -1,13 +1,3 @@
-/**
- * The workspace shell.
- *
- * Six workspaces over one engine: Import, Decomposition, Graph, Execution plan,
- * Packages, and Validate & export. The shell owns the imported packages and the
- * append-only decision log; every view is presentation only and calls back into
- * the shell. Recompiling is deterministic, so the change-impact report can prove
- * that untouched nodes came back byte-for-byte identical.
- */
-
 import { DecompositionView } from "@/components/workspace/DecompositionView";
 import { GraphView } from "@/components/workspace/GraphView";
 import { ImportView } from "@/components/workspace/ImportView";
@@ -28,7 +18,12 @@ import {
   type PersistedSession,
   type ViewId,
 } from "@/components/workspace/store";
-import type { Actions, DealEntry, NodeDraftInput, NodeStatus } from "@/components/workspace/types";
+import type {
+  Actions,
+  DealEntry,
+  NodeDraftInput,
+  NodeStatus,
+} from "@/components/workspace/types";
 import { downloadBlob, downloadText } from "@/components/workspace/types";
 import { Button } from "@/components/ui/button";
 import {
@@ -58,7 +53,11 @@ import type {
   ImportedPackage,
   OperatingModel,
 } from "@deal-to-challenge/engine";
-import { SAMPLE_PACKAGES, findSamplePackage, type SamplePackage } from "@deal-to-challenge/engine/samples";
+import {
+  SAMPLE_PACKAGES,
+  findSamplePackage,
+  type SamplePackage,
+} from "@deal-to-challenge/engine/samples";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, Loader2, RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -84,14 +83,21 @@ function decode(bytes: Uint8Array): string {
 }
 
 /** Accepted AI suggestions, read back off the decision log. */
-function acceptedFrom(log: DecisionLog): Map<string, { field: string; value: string }> {
+function acceptedFrom(
+  log: DecisionLog,
+): Map<string, { field: string; value: string }> {
   const accepted = new Map<string, { field: string; value: string }>();
   for (const entry of log.entries) {
-    const after = entry.after as
-      | { suggestionId?: string; suggestionField?: string; suggestionValue?: string }
-      | null;
+    const after = entry.after as {
+      suggestionId?: string;
+      suggestionField?: string;
+      suggestionValue?: string;
+    } | null;
     if (after?.suggestionId && after.suggestionField) {
-      accepted.set(after.suggestionId, { field: after.suggestionField, value: after.suggestionValue ?? "" });
+      accepted.set(after.suggestionId, {
+        field: after.suggestionField,
+        value: after.suggestionValue ?? "",
+      });
     }
   }
   return accepted;
@@ -100,22 +106,24 @@ function acceptedFrom(log: DecisionLog): Map<string, { field: string; value: str
 export default function Workspace() {
   const [session] = useState<PersistedSession>(() => loadSession());
   const [entries, setEntries] = useState<DealEntry[]>([]);
-  const [decisions, setDecisions] = useState<Record<string, DecisionLog>>(() => session.decisions);
+  const [decisions, setDecisions] = useState<Record<string, DecisionLog>>(
+    () => session.decisions,
+  );
   const [activeFileName, setActiveFileName] = useState<string | null>(null);
   const [view, setView] = useState<ViewId>(() => session.view);
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [selection, setSelection] = useState<SelectionTarget>(null);
   const [overrideNode, setOverrideNode] = useState<ExecutionNode | null>(null);
   const [busy, setBusy] = useState(false);
-  // A ref, not state: booting must not trigger a re-render, and the guard only
-  // needs to survive for the lifetime of the mount.
   const bootedRef = useRef(false);
   const busyRef = useRef(false);
   const [searchParams] = useSearchParams();
-  // A deep link from the landing page (`?sample=<slug>`) names one package to open.
   const requestedSlug = searchParams.get("sample") ?? "";
 
-  const active = entries.find((entry) => entry.fileName === activeFileName) ?? entries[0] ?? null;
+  const active =
+    entries.find((entry) => entry.fileName === activeFileName) ??
+    entries[0] ??
+    null;
 
   useEffect(() => {
     saveSession({
@@ -126,31 +134,34 @@ export default function Workspace() {
     });
   }, [active, view, decisions, session.version]);
 
-  // Longest jobs are the compile calls; guard against overlapping ones.
-  const withBusy = useCallback(async <T,>(task: () => Promise<T>): Promise<T | null> => {
-    if (busyRef.current) return null;
-    busyRef.current = true;
-    setBusy(true);
-    try {
-      return await task();
-    } catch (error) {
-      toast("Operation failed", {
-        description: error instanceof Error ? error.message : "Unknown error",
-      });
-      return null;
-    } finally {
-      busyRef.current = false;
-      setBusy(false);
-    }
-  }, []);
+  const withBusy = useCallback(
+    async <T,>(task: () => Promise<T>): Promise<T | null> => {
+      if (busyRef.current) return null;
+      busyRef.current = true;
+      setBusy(true);
+      try {
+        return await task();
+      } catch (error) {
+        toast("Operation failed", {
+          description: error instanceof Error ? error.message : "Unknown error",
+        });
+        return null;
+      } finally {
+        busyRef.current = false;
+        setBusy(false);
+      }
+    },
+    [],
+  );
 
   const buildEntry = useCallback(
     async (item: PendingImport): Promise<DealEntry> => {
-      const imported: ImportedPackage = await runImport(item.fileName, item.text);
+      const imported: ImportedPackage = await runImport(
+        item.fileName,
+        item.text,
+      );
       const dealId = imported.canonical.deal.id;
       const log = decisions[dealId] ?? createLog(dealId);
-      // No `generatedAt` is passed: compileDeal defaults to a fixed epoch so the
-      // same package and the same decisions always produce byte-identical output.
       const compiled = await compileDeal(imported, {
         decisions: log,
         acceptedSuggestions: acceptedFrom(log),
@@ -182,9 +193,14 @@ export default function Workspace() {
         setActiveFileName(focus);
         setSelectedNodeId(null);
         setSelection(null);
-        const errors = built.reduce((sum, entry) => sum + entry.result.report.counts.error, 0);
+        const errors = built.reduce(
+          (sum, entry) => sum + entry.result.report.counts.error,
+          0,
+        );
         toast(
-          built.length === 1 ? `${built[0]?.result.canonical.deal.title ?? "Package"} imported` : `${built.length} packages imported`,
+          built.length === 1
+            ? `${built[0]?.result.canonical.deal.title ?? "Package"} imported`
+            : `${built.length} packages imported`,
           {
             description: `${errors} structural error(s) · maturity: ${built
               .map((entry) => entry.result.maturity.level.replace(/-/g, " "))
@@ -207,9 +223,15 @@ export default function Workspace() {
           try {
             const bytes = new Uint8Array(await file.arrayBuffer());
             if (/\.zip$/i.test(file.name) || looksLikeZip(bytes)) {
-              const { files: extracted, skipped } = await unzipTextEntries(bytes);
-              const packages = extracted.filter((entry) => /\.json$/i.test(entry.baseName));
-              if (packages.length === 0) problems.push(`${file.name}: no .json packages inside the archive`);
+              const { files: extracted, skipped } =
+                await unzipTextEntries(bytes);
+              const packages = extracted.filter((entry) =>
+                /\.json$/i.test(entry.baseName),
+              );
+              if (packages.length === 0)
+                problems.push(
+                  `${file.name}: no .json packages inside the archive`,
+                );
               for (const entry of packages) {
                 pending.push({
                   fileName: entry.baseName,
@@ -218,16 +240,26 @@ export default function Workspace() {
                   archivePath: entry.name,
                 });
               }
-              if (skipped.length > 0) problems.push(`${file.name}: skipped ${skipped.length} non-package entries`);
+              if (skipped.length > 0)
+                problems.push(
+                  `${file.name}: skipped ${skipped.length} non-package entries`,
+                );
             } else {
-              pending.push({ fileName: file.name, text: decode(bytes), source: "upload" });
+              pending.push({
+                fileName: file.name,
+                text: decode(bytes),
+                source: "upload",
+              });
             }
           } catch (error) {
-            problems.push(`${file.name}: ${error instanceof Error ? error.message : "could not be read"}`);
+            problems.push(
+              `${file.name}: ${error instanceof Error ? error.message : "could not be read"}`,
+            );
           }
         }
         setBusy(false);
-        if (problems.length > 0) toast("Archive notes", { description: problems.join(" · ") });
+        if (problems.length > 0)
+          toast("Archive notes", { description: problems.join(" · ") });
         await importEntries(pending);
       })();
     },
@@ -236,26 +268,29 @@ export default function Workspace() {
 
   const loadSample = useCallback(
     (deal: SamplePackage) => {
-      void importEntries([{ fileName: deal.fileName, text: deal.text, source: "sample" }], deal.fileName);
+      void importEntries(
+        [{ fileName: deal.fileName, text: deal.text, source: "sample" }],
+        deal.fileName,
+      );
     },
     [importEntries],
   );
-
-  // The four supplied packages are loaded on first paint so the workspaces are
-  // never empty and a reviewer can see the full pipeline immediately. A
-  // `?sample=<slug>` link from the landing page is an explicit intent, so it wins
-  // over the package that was last open.
   useEffect(() => {
     if (bootedRef.current) return;
     bootedRef.current = true;
-    const requested = findSamplePackage(requestedSlug)?.fileName ?? session.activeSlug ?? SAMPLE_PACKAGES[0]?.fileName;
+    const requested =
+      findSamplePackage(requestedSlug)?.fileName ??
+      session.activeSlug ??
+      SAMPLE_PACKAGES[0]?.fileName;
     void importEntries(
-      SAMPLE_PACKAGES.map((deal) => ({ fileName: deal.fileName, text: deal.text, source: "sample" as const })),
+      SAMPLE_PACKAGES.map((deal) => ({
+        fileName: deal.fileName,
+        text: deal.text,
+        source: "sample" as const,
+      })),
       requested,
     );
   }, [importEntries, requestedSlug, session.activeSlug]);
-
-  /* ------------------------------------------------------------- decisions */
 
   const commit = useCallback(
     async (
@@ -271,13 +306,22 @@ export default function Workspace() {
           decisions: nextLog,
           acceptedSuggestions: acceptedFrom(nextLog),
         });
-        const impact = diffGraphs({ before: current.compiled.graph, after: next.graph, changes });
+        const impact = diffGraphs({
+          before: current.compiled.graph,
+          after: next.graph,
+          changes,
+        });
         setEntries((previous) =>
           previous.map((entry) =>
-            entry.fileName === current.fileName ? { ...entry, compiled: next, impact } : entry,
+            entry.fileName === current.fileName
+              ? { ...entry, compiled: next, impact }
+              : entry,
           ),
         );
-        setDecisions((previous) => ({ ...previous, [current.result.canonical.deal.id]: nextLog }));
+        setDecisions((previous) => ({
+          ...previous,
+          [current.result.canonical.deal.id]: nextLog,
+        }));
         toast(message, {
           description: `${impact.changed.length} field(s) changed · ${impact.affectedNodes.length} node(s) affected · ${impact.unaffectedNodes.length} preserved exactly`,
         });
@@ -389,7 +433,9 @@ export default function Workspace() {
 
     decideSuggestion: (nodeId, suggestionId, accept, rationale) => {
       const node = findNode(nodeId);
-      const suggestion = node?.aiSuggestions.find((entry) => entry.id === suggestionId);
+      const suggestion = node?.aiSuggestions.find(
+        (entry) => entry.id === suggestionId,
+      );
       record({
         type: "resolve-blocker",
         rationale,
@@ -403,7 +449,14 @@ export default function Workspace() {
         },
         summary: `${nodeId}: AI suggestion ${accept ? "accepted" : "rejected"} — ${suggestion?.field ?? "field"}`,
         changes: suggestion
-          ? [{ nodeId, field: "scope", before: node?.scope ?? null, after: node?.scope ?? null }]
+          ? [
+              {
+                nodeId,
+                field: "scope",
+                before: node?.scope ?? null,
+                after: node?.scope ?? null,
+              },
+            ]
           : [],
         message: `Suggestion ${accept ? "accepted" : "rejected"}`,
       });
@@ -505,18 +558,29 @@ export default function Workspace() {
     revert: () => {
       if (!active) return;
       const log = active.compiled.decisions;
-      const reverted = [...log.entries].reverse().find((entry) => entry.type !== "revert");
+      const reverted = [...log.entries]
+        .reverse()
+        .find((entry) => entry.type !== "revert");
       if (!reverted) return;
       void commit(
         () => {
-          const remaining = log.entries.filter((entry) => entry.id !== reverted.id);
-          const approvals = remaining.filter((entry) => entry.type === "approve-graph");
+          const remaining = log.entries.filter(
+            (entry) => entry.id !== reverted.id,
+          );
+          const approvals = remaining.filter(
+            (entry) => entry.type === "approve-graph",
+          );
           const last = approvals[approvals.length - 1];
           const base: DecisionLog = {
             ...log,
             entries: remaining,
             revision: log.revision + 1,
-            graphApproved: Boolean(last) && !remaining.some((entry) => entry.type === "revoke-approval" && entry.at > last.at),
+            graphApproved:
+              Boolean(last) &&
+              !remaining.some(
+                (entry) =>
+                  entry.type === "revoke-approval" && entry.at > last.at,
+              ),
             approvedAt: last?.at ?? null,
             approvedBy: last ? last.actor : null,
           };
@@ -540,15 +604,27 @@ export default function Workspace() {
 
     exportGraph: () => {
       if (!active) return;
-      downloadText(`${active.result.canonical.deal.id}.graph.json`, toGraphJson(active.compiled), "application/json");
+      downloadText(
+        `${active.result.canonical.deal.id}.graph.json`,
+        toGraphJson(active.compiled),
+        "application/json",
+      );
     },
     exportPlan: () => {
       if (!active) return;
-      downloadText(`${active.result.canonical.deal.id}.execution-plan.md`, toExecutionPlanMarkdown(active.compiled), "text/markdown");
+      downloadText(
+        `${active.result.canonical.deal.id}.execution-plan.md`,
+        toExecutionPlanMarkdown(active.compiled),
+        "text/markdown",
+      );
     },
     exportQuality: () => {
       if (!active) return;
-      downloadText(`${active.result.canonical.deal.id}.quality.json`, toQualityJson(active.compiled), "application/json");
+      downloadText(
+        `${active.result.canonical.deal.id}.quality.json`,
+        toQualityJson(active.compiled),
+        "application/json",
+      );
     },
     exportPackage: (nodeId, format) => {
       if (!active) return;
@@ -556,24 +632,33 @@ export default function Workspace() {
       if (!node) return;
       const slug = `${active.result.canonical.deal.id}.${nodeId}`;
       if (format === "json") {
-        downloadText(`${slug}.json`, packageToJson(active.compiled, nodeId), "application/json");
+        downloadText(
+          `${slug}.json`,
+          packageToJson(active.compiled, nodeId),
+          "application/json",
+        );
       } else {
         const pkg = buildModelPackage(node, {
           canonical: active.compiled.canonical,
           generator: active.compiled.graph.generator,
         });
-        downloadText(`${slug}.md`, packageToMarkdown(pkg, node), "text/markdown");
+        downloadText(
+          `${slug}.md`,
+          packageToMarkdown(pkg, node),
+          "text/markdown",
+        );
       }
     },
     exportBundle: () => {
       if (!active) return;
       void (async () => {
         const bytes = await toBundleZip(active.compiled);
-        // Copy into a fresh ArrayBuffer so the Blob accepts it regardless of how
-        // the ZIP writer allocated its backing store.
         const copy = new Uint8Array(bytes.length);
         copy.set(bytes);
-        downloadBlob(`${active.result.canonical.deal.id}.bundle.zip`, new Blob([copy.buffer], { type: "application/zip" }));
+        downloadBlob(
+          `${active.result.canonical.deal.id}.bundle.zip`,
+          new Blob([copy.buffer], { type: "application/zip" }),
+        );
       })();
     },
   };
@@ -582,30 +667,42 @@ export default function Workspace() {
     if (!active) return;
     const dealId = active.result.canonical.deal.id;
     setDecisions((previous) => ({ ...previous, [dealId]: createLog(dealId) }));
-    setEntries((previous) => previous.map((entry) => (entry.fileName === active.fileName ? { ...entry, impact: null } : entry)));
+    setEntries((previous) =>
+      previous.map((entry) =>
+        entry.fileName === active.fileName ? { ...entry, impact: null } : entry,
+      ),
+    );
     clearSession();
-    toast("Decisions cleared", { description: "The graph will return to its deterministic baseline." });
-    void importEntries([{ fileName: active.fileName, text: active.result.rawText, source: active.source }], active.fileName);
+    toast("Decisions cleared", {
+      description: "The graph will return to its deterministic baseline.",
+    });
+    void importEntries(
+      [
+        {
+          fileName: active.fileName,
+          text: active.result.rawText,
+          source: active.source,
+        },
+      ],
+      active.fileName,
+    );
   };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-30 border-b border-rule-strong bg-background/90 backdrop-blur-md">
-        <div className="mx-auto flex w-full max-w-[1680px] flex-wrap items-center gap-x-6 gap-y-2 px-5 py-2.5 sm:px-8">
+        <div className="mx-auto flex w-full max-w-420 flex-wrap items-center gap-x-6 gap-y-2 px-5 py-2.5 sm:px-8">
           <Link to="/" className="flex items-center gap-2.5">
             <span className="flex size-5 items-center justify-center border border-rule-strong">
               <span className="size-1.5 bg-signal" />
             </span>
-            <span className="font-mono-data text-[11px] tracking-[0.1em] uppercase">
+            <span className="font-mono-data text-[11px] tracking-widest uppercase">
               Deal<span className="text-muted-foreground">→</span>Challenge
             </span>
           </Link>
 
-          {/* Six stages. Below `lg` the strip wraps to its own scrolling row instead
-              of disappearing — hidden entirely, there is no way to change workspace
-              on a phone or tablet. */}
           <nav
-            className="order-last flex basis-full items-center overflow-x-auto border-t border-hairline lg:order-none lg:w-auto lg:basis-auto lg:overflow-visible lg:border-t-0"
+            className="order-last flex basis-full items-center overflow-x-auto border-t border-hairline lg:order-0 lg:w-auto lg:basis-auto lg:overflow-visible lg:border-t-0"
             aria-label="Pipeline stages"
           >
             {VIEW_IDS.map((id) => (
@@ -618,8 +715,10 @@ export default function Workspace() {
                 }}
                 aria-current={view === id ? "page" : undefined}
                 className={cn(
-                  "shrink-0 border-r border-hairline px-3 py-2.5 font-mono-data text-[11px] tracking-[0.1em] whitespace-nowrap uppercase last:border-r-0 lg:py-0",
-                  view === id ? "text-foreground" : "text-muted-foreground/60 hover:text-foreground",
+                  "shrink-0 border-r border-hairline px-3 py-2.5 font-mono-data text-[11px] tracking-widest whitespace-nowrap uppercase last:border-r-0 lg:py-0",
+                  view === id
+                    ? "text-foreground"
+                    : "text-muted-foreground/60 hover:text-foreground",
                 )}
               >
                 {VIEW_LABELS[id].index} {VIEW_LABELS[id].name}
@@ -634,7 +733,7 @@ export default function Workspace() {
                 type="button"
                 variant="ghost"
                 size="sm"
-                className="font-mono-data text-[11px] tracking-[0.1em] uppercase"
+                className="font-mono-data text-[11px] tracking-widest uppercase"
                 onClick={clearDecisions}
                 title="Drop every operator decision and rebuild the deterministic baseline"
               >
@@ -646,7 +745,7 @@ export default function Workspace() {
 
         {active && (
           <div className="border-t border-hairline">
-            <div className="mx-auto flex w-full max-w-[1680px] flex-wrap items-center gap-x-5 gap-y-2 px-5 py-2 sm:px-8">
+            <div className="mx-auto flex w-full max-w-420 flex-wrap items-center gap-x-5 gap-y-2 px-5 py-2 sm:px-8">
               <label className="flex items-center gap-2">
                 <span className="sr-only">Active package</span>
                 <select
@@ -665,23 +764,26 @@ export default function Workspace() {
                   ))}
                 </select>
               </label>
-              <span className="font-mono-data text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
+              <span className="font-mono-data text-[11px] tracking-widest text-muted-foreground uppercase">
                 {active.result.canonical.deal.id}
               </span>
               <span
                 className={cn(
-                  "font-mono-data text-[11px] tracking-[0.1em] uppercase",
-                  MATURITY_TEXT[active.result.maturity.level] ?? "text-muted-foreground",
+                  "font-mono-data text-[11px] tracking-widest uppercase",
+                  MATURITY_TEXT[active.result.maturity.level] ??
+                    "text-muted-foreground",
                 )}
               >
                 {active.result.maturity.level.replace(/-/g, " ")}
               </span>
-              <span className="font-mono-data text-[11px] tracking-[0.1em] text-muted-foreground/70">
-                {active.compiled.graph.nodes.length} NODES · {active.compiled.graph.edges.length} EDGES ·{" "}
-                {active.compiled.graph.waves.length} WAVES · {active.compiled.decisions.entries.length}{" "}
-                DECISIONS · sha256:{active.result.sha256.slice(0, 10)}
+              <span className="font-mono-data text-[11px] tracking-widest text-muted-foreground/70">
+                {active.compiled.graph.nodes.length} NODES ·{" "}
+                {active.compiled.graph.edges.length} EDGES ·{" "}
+                {active.compiled.graph.waves.length} WAVES ·{" "}
+                {active.compiled.decisions.entries.length} DECISIONS · sha256:
+                {active.result.sha256.slice(0, 10)}
               </span>
-              <span className="font-mono-data text-[11px] tracking-[0.1em] text-muted-foreground/70">
+              <span className="font-mono-data text-[11px] tracking-widest text-muted-foreground/70">
                 {active.compiled.quality.status.toUpperCase()}
               </span>
             </div>
@@ -689,10 +791,10 @@ export default function Workspace() {
         )}
       </header>
 
-      <div className="mx-auto w-full max-w-[1680px] px-5 py-8 sm:px-8">
+      <div className="mx-auto w-full max-w-420 px-5 py-8 sm:px-8">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-3 border-b border-hairline pb-3">
           <div>
-            <h1 className="text-[19px] leading-6 font-[600] tracking-[-0.02em]">
+            <h1 className="text-[19px] leading-6 font-semibold tracking-[-0.02em]">
               <span className="font-mono-data mr-2 text-[12px] text-muted-foreground">
                 {VIEW_LABELS[view].index}
               </span>
@@ -707,13 +809,18 @@ export default function Workspace() {
               type="button"
               variant="outline"
               size="sm"
-              className="font-mono-data text-[11px] tracking-[0.1em] uppercase"
+              className="font-mono-data text-[11px] tracking-widest uppercase"
               onClick={() => setView("validation")}
             >
               Quality gate
             </Button>
             <Link to="/">
-              <Button type="button" variant="ghost" size="sm" className="font-mono-data text-[11px] tracking-[0.1em] uppercase">
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="font-mono-data text-[11px] tracking-widest uppercase"
+              >
                 <ArrowLeft className="size-3" /> Overview
               </Button>
             </Link>
@@ -723,7 +830,7 @@ export default function Workspace() {
         {busy && entries.length === 0 ? (
           <div className="flex flex-col items-center gap-4 border border-hairline py-36">
             <Loader2 className="size-5 animate-spin text-signal" />
-            <p className="font-mono-data text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
+            <p className="font-mono-data text-[11px] tracking-widest text-muted-foreground uppercase">
               Reading · validating · normalizing · compiling
             </p>
           </div>
@@ -738,12 +845,16 @@ export default function Workspace() {
             activeFileName={active?.fileName ?? null}
             onSetActiveFileName={setActiveFileName}
             onRemove={(fileName) => {
-              setEntries((previous) => previous.filter((entry) => entry.fileName !== fileName));
-              setActiveFileName((current) => (current === fileName ? null : current));
+              setEntries((previous) =>
+                previous.filter((entry) => entry.fileName !== fileName),
+              );
+              setActiveFileName((current) =>
+                current === fileName ? null : current,
+              );
             }}
           />
         ) : !active ? (
-          <p className="border border-dashed border-hairline px-6 py-16 text-center font-mono-data text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
+          <p className="border border-dashed border-hairline px-6 py-16 text-center font-mono-data text-[11px] tracking-widest text-muted-foreground uppercase">
             Load a package in the import workspace first
           </p>
         ) : view === "decomposition" ? (
@@ -790,12 +901,14 @@ export default function Workspace() {
         )}
       </div>
 
-      {/* The node drawer is owned by the shell for every workspace except
-          decomposition, which keeps its own so split and merge stay in context. */}
       {active && view !== "decomposition" && selectedNodeId && (
         <NodeDetail
           entry={active}
-          node={active.compiled.graph.nodes.find((candidate) => candidate.id === selectedNodeId) ?? null}
+          node={
+            active.compiled.graph.nodes.find(
+              (candidate) => candidate.id === selectedNodeId,
+            ) ?? null
+          }
           actions={actions}
           busy={busy}
           onClose={() => setSelectedNodeId(null)}
@@ -812,11 +925,12 @@ export default function Workspace() {
         node={overrideNode}
         busy={busy}
         onClose={() => setOverrideNode(null)}
-        onConfirm={(nodeId, model, rationale) => actions.overrideModel(nodeId, model, rationale)}
+        onConfirm={(nodeId, model, rationale) =>
+          actions.overrideModel(nodeId, model, rationale)
+        }
       />
 
       <Inspector selection={selection} onClose={() => setSelection(null)} />
     </div>
   );
 }
-

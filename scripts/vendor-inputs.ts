@@ -1,31 +1,20 @@
-/**
- * Vendors the deal-scoping packages into the engine.
- *
- * Reads every `*.json` in `samples/inputs/` and writes
- * `packages/engine/src/samples/inputs.ts` containing the byte-exact text plus a
- * SHA-256 digest per file.
- *
- * Why vendor at all: the engine must be able to import a package with no
- * filesystem access (in the browser) and no network access (in mock mode). The
- * inlined copy makes the browser, the CLI and the tests read identical bytes,
- * and the digest makes tampering visible.
- *
- * Usage:
- *   bun run scripts/vendor-inputs.ts            # write
- *   bun run scripts/vendor-inputs.ts --check    # exit 1 when the file is stale
- */
-
 import { createHash } from "node:crypto";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const INPUTS_DIR = fileURLToPath(new URL("../samples/inputs/", import.meta.url));
-const TARGET = fileURLToPath(new URL("../packages/engine/src/samples/inputs.ts", import.meta.url));
+const INPUTS_DIR = fileURLToPath(
+  new URL("../samples/inputs/", import.meta.url),
+);
+const TARGET = fileURLToPath(
+  new URL("../packages/engine/src/samples/inputs.ts", import.meta.url),
+);
 
 const checkOnly = process.argv.includes("--check");
 
 async function main(): Promise<void> {
-  const names = [...new Bun.Glob("*.json").scanSync({ cwd: INPUTS_DIR })].sort();
+  const names = [
+    ...new Bun.Glob("*.json").scanSync({ cwd: INPUTS_DIR }),
+  ].sort();
   if (names.length === 0) {
     throw new Error("samples/inputs/ contains no JSON packages");
   }
@@ -35,7 +24,11 @@ async function main(): Promise<void> {
     const text = await Bun.file(join(INPUTS_DIR, name)).text();
     // Re-parse so a malformed package fails here rather than in the browser.
     JSON.parse(text);
-    texts.push({ name, text, digest: createHash("sha256").update(text).digest("hex") });
+    texts.push({
+      name,
+      text,
+      digest: createHash("sha256").update(text).digest("hex"),
+    });
   }
 
   const lines: string[] = [
@@ -51,11 +44,20 @@ async function main(): Promise<void> {
     "export const SAMPLE_INPUT_DIGESTS: Record<string, string> = {",
   ];
   for (const entry of texts) {
-    lines.push(`  ${JSON.stringify(entry.name)}: ${JSON.stringify(entry.digest)},`);
+    lines.push(
+      `  ${JSON.stringify(entry.name)}: ${JSON.stringify(entry.digest)},`,
+    );
   }
-  lines.push("};", "", "/** Exact file text, keyed by file name. */", "export const SAMPLE_INPUTS: Record<string, string> = {");
+  lines.push(
+    "};",
+    "",
+    "/** Exact file text, keyed by file name. */",
+    "export const SAMPLE_INPUTS: Record<string, string> = {",
+  );
   for (const entry of texts) {
-    lines.push(`  ${JSON.stringify(entry.name)}: ${JSON.stringify(entry.text)},`);
+    lines.push(
+      `  ${JSON.stringify(entry.name)}: ${JSON.stringify(entry.text)},`,
+    );
   }
   lines.push("};", "");
   const next = lines.join("\n");
@@ -67,12 +69,16 @@ async function main(): Promise<void> {
     return;
   }
   if (checkOnly) {
-    console.error("vendor-inputs: packages/engine/src/samples/inputs.ts is stale. Run: bun run vendor-inputs");
+    console.error(
+      "vendor-inputs: packages/engine/src/samples/inputs.ts is stale. Run: bun run vendor-inputs",
+    );
     process.exitCode = 1;
     return;
   }
   await Bun.write(TARGET, next);
-  console.log(`vendor-inputs: wrote ${texts.length} packages to packages/engine/src/samples/inputs.ts`);
+  console.log(
+    `vendor-inputs: wrote ${texts.length} packages to packages/engine/src/samples/inputs.ts`,
+  );
 }
 
 await main();

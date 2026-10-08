@@ -44,11 +44,19 @@ function platformsIn(text: string): string[] {
   return Array.from(found);
 }
 
-export function detectPlatformConflict(raw: Json, canonical: CanonicalPackage): PlatformConflict {
+export function detectPlatformConflict(
+  raw: Json,
+  canonical: CanonicalPackage,
+): PlatformConflict {
   const root = obj(raw);
   const claims: PlatformConflict["claims"] = [];
 
-  const addClaim = (source: string, value: string, text: string, refId?: string) => {
+  const addClaim = (
+    source: string,
+    value: string,
+    text: string,
+    refId?: string,
+  ) => {
     for (const platform of platformsIn(value || text)) {
       claims.push({ source, platform, ...(refId ? { refId } : {}) });
     }
@@ -57,14 +65,26 @@ export function detectPlatformConflict(raw: Json, canonical: CanonicalPackage): 
   const configPlatform = str(at(root, "config.cloudPlatform"));
   if (configPlatform) addClaim("config.cloudPlatform", configPlatform, "");
 
-  if (canonical.architecture.platform && canonical.architecture.platform !== "unspecified") {
-    addClaim("canonical.architecture.platform", canonical.architecture.platform, "");
+  if (
+    canonical.architecture.platform &&
+    canonical.architecture.platform !== "unspecified"
+  ) {
+    addClaim(
+      "canonical.architecture.platform",
+      canonical.architecture.platform,
+      "",
+    );
   }
 
-  const architecturePlatform = str(at(root, "outputs.architecture.data.platform"));
-  if (architecturePlatform) addClaim("outputs.architecture.data.platform", architecturePlatform, "");
+  const architecturePlatform = str(
+    at(root, "outputs.architecture.data.platform"),
+  );
+  if (architecturePlatform)
+    addClaim("outputs.architecture.data.platform", architecturePlatform, "");
 
-  const recommended = str(at(root, "outputs.architecture.data.recommendation.recommended"));
+  const recommended = str(
+    at(root, "outputs.architecture.data.recommendation.recommended"),
+  );
   if (recommended) addClaim("architecture.recommendation", recommended, "");
 
   for (const entry of arr(obj(root.scope).items)) {
@@ -77,11 +97,13 @@ export function detectPlatformConflict(raw: Json, canonical: CanonicalPackage): 
   for (const entry of arr(root.changeLog)) {
     const node = obj(entry);
     const text =
-      typeof entry === "string" ? entry : `${str(node.summary)} ${str(node.description)} ${str(node.reason)}`;
+      typeof entry === "string"
+        ? entry
+        : `${str(node.summary)} ${str(node.description)} ${str(node.reason)}`;
     if (platformsIn(text).length > 0) addClaim("changeLog", "", text);
   }
 
-  const prdText = str(at(root, "outputs.prd.data.overview")); 
+  const prdText = str(at(root, "outputs.prd.data.overview"));
   if (prdText) addClaim("outputs.prd.data.overview", "", prdText);
 
   const distinct = new Set(claims.map((claim) => claim.platform));
@@ -106,7 +128,9 @@ function sectionStatuses(raw: Json): SectionStatus[] {
     const sectionVersion = str(at(node, "meta.scopeVersion")) || null;
     const reviewed = typeof node.reviewed === "boolean" ? node.reviewed : null;
     const versionMismatch =
-      projectVersion !== null && sectionVersion !== null && sectionVersion !== projectVersion;
+      projectVersion !== null &&
+      sectionVersion !== null &&
+      sectionVersion !== projectVersion;
     return {
       name,
       path,
@@ -126,11 +150,13 @@ function sectionStatuses(raw: Json): SectionStatus[] {
   const qualityObj = obj(qualityNode);
   const qualityVersion = str(qualityObj.scopeVersion) || null;
   statuses.push({
-    name: "Quality", 
+    name: "Quality",
     path: "quality",
     present: qualityNode !== undefined,
     status:
-      projectVersion !== null && qualityVersion !== null && qualityVersion !== projectVersion
+      projectVersion !== null &&
+      qualityVersion !== null &&
+      qualityVersion !== projectVersion
         ? "stale"
         : "current",
     reviewed: null,
@@ -188,7 +214,7 @@ export function validatePackage(input: ValidateInput): {
     add(
       "warning",
       "stripped-unsafe-key",
-      `Removed a reserved JSON key ("${key}") while parsing to keep the import safe.`, 
+      `Removed a reserved JSON key ("${key}") while parsing to keep the import safe.`,
       ".",
       [],
       "Rename the key in the source package if it is genuinely required.",
@@ -230,11 +256,14 @@ export function validatePackage(input: ValidateInput): {
   }
 
   const criticalIds = new Set(
-    normalized.sourceIndex.filter((record) => record.critical).map((record) => record.id),
+    normalized.sourceIndex
+      .filter((record) => record.critical)
+      .map((record) => record.id),
   );
 
   for (const dangling of structural.danglingRefs) {
-    const critical = criticalIds.has(dangling.from) || criticalIds.has(dangling.id);
+    const critical =
+      criticalIds.has(dangling.from) || criticalIds.has(dangling.id);
     add(
       critical ? "error" : "warning",
       "dangling-reference",
@@ -315,7 +344,9 @@ export function validatePackage(input: ValidateInput): {
     }
   }
 
-  const criticalOpen = allItems.filter((item) => item.critical && !item.resolved && item.inScope);
+  const criticalOpen = allItems.filter(
+    (item) => item.critical && !item.resolved && item.inScope,
+  );
   if (criticalOpen.length > 0) {
     add(
       "warning",
@@ -368,9 +399,11 @@ export function validatePackage(input: ValidateInput): {
 
   /* -------- missing estimation inputs -------- */
   const missingCore: string[] = [];
-  if (canonical.config.expectedUsers === null) missingCore.push("expectedUsers");
+  if (canonical.config.expectedUsers === null)
+    missingCore.push("expectedUsers");
   if (canonical.config.environments === null) missingCore.push("environments");
-  if (canonical.config.targetRegions.length === 0) missingCore.push("targetRegions");
+  if (canonical.config.targetRegions.length === 0)
+    missingCore.push("targetRegions");
   if (canonical.config.deadline === null) missingCore.push("deadline");
 
   if (missingCore.length > 0) {
@@ -409,12 +442,21 @@ export function validatePackage(input: ValidateInput): {
   }
 
   /* -------- unresolved backlog -------- */
-  const openQuestions = canonical.scope.questions.filter((item) => !item.resolved && item.inScope);
-  const openGaps = canonical.scope.gaps.filter((item) => !item.resolved && item.inScope);
-  const unvalidated = canonical.scope.assumptions.filter(
-    (item) => !item.resolved && !/approved|validated/i.test(item.review) && item.inScope,
+  const openQuestions = canonical.scope.questions.filter(
+    (item) => !item.resolved && item.inScope,
   );
-  const openRisks = canonical.scope.risks.filter((item) => !item.resolved && item.inScope);
+  const openGaps = canonical.scope.gaps.filter(
+    (item) => !item.resolved && item.inScope,
+  );
+  const unvalidated = canonical.scope.assumptions.filter(
+    (item) =>
+      !item.resolved &&
+      !/approved|validated/i.test(item.review) &&
+      item.inScope,
+  );
+  const openRisks = canonical.scope.risks.filter(
+    (item) => !item.resolved && item.inScope,
+  );
 
   if (openQuestions.length > 0) {
     add(
@@ -467,8 +509,8 @@ export function validatePackage(input: ValidateInput): {
   };
 
   const referenceCounts = Object.fromEntries(
-    Object.entries(buildReferenceCounts(raw, normalized.sourceIndex)).sort(([a], [b]) =>
-      a.localeCompare(b),
+    Object.entries(buildReferenceCounts(raw, normalized.sourceIndex)).sort(
+      ([a], [b]) => a.localeCompare(b),
     ),
   );
 
@@ -484,7 +526,10 @@ export function validatePackage(input: ValidateInput): {
   };
 }
 
-function buildReferenceCounts(raw: Json, index: SourceRecord[]): Record<string, number> {
+function buildReferenceCounts(
+  raw: Json,
+  index: SourceRecord[],
+): Record<string, number> {
   const root = obj(raw);
   const known = new Set(index.map((record) => record.id));
   const counts: Record<string, number> = {};
@@ -492,13 +537,17 @@ function buildReferenceCounts(raw: Json, index: SourceRecord[]): Record<string, 
     if (known.has(id)) counts[id] = (counts[id] ?? 0) + 1;
   };
 
-  for (const entry of arr(at(root, "outputs.prd.data.functionalScope.capabilities"))) {
+  for (const entry of arr(
+    at(root, "outputs.prd.data.functionalScope.capabilities"),
+  )) {
     for (const id of strArray(obj(entry).requirementIds)) note(id);
   }
   for (const entry of arr(at(root, "outputs.architecture.data.components"))) {
     for (const id of strArray(obj(entry).requirementIds)) note(id);
   }
-  for (const entry of arr(at(root, "outputs.dataIntegration.data.integrations"))) {
+  for (const entry of arr(
+    at(root, "outputs.dataIntegration.data.integrations"),
+  )) {
     for (const id of strArray(obj(entry).requirementIds)) note(id);
   }
   for (const entry of arr(at(root, "outputs.aiStrategy.data.useCases"))) {

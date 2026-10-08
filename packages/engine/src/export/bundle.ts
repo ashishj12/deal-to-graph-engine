@@ -1,12 +1,3 @@
-/**
- * ZIP bundle export.
- *
- * Writing the archive with the platform's own `CompressionStream` keeps the engine
- * free of dependencies and works identically in the browser and in Bun. The
- * reader in `ingest/zip.ts` can read back what this writes, which the test suite
- * asserts as a round trip.
- */
-
 import type { GraphBundleFile } from "../canonical/execution";
 
 const CRC_TABLE = (() => {
@@ -28,7 +19,9 @@ function crc32(bytes: Uint8Array): number {
 }
 
 async function deflateRaw(bytes: Uint8Array): Promise<Uint8Array> {
-  const stream = new Blob([bytes as BlobPart]).stream().pipeThrough(new CompressionStream("deflate-raw"));
+  const stream = new Blob([bytes as BlobPart])
+    .stream()
+    .pipeThrough(new CompressionStream("deflate-raw"));
   return new Uint8Array(await new Response(stream).arrayBuffer());
 }
 
@@ -37,7 +30,12 @@ function u16(value: number): number[] {
 }
 
 function u32(value: number): number[] {
-  return [value & 0xff, (value >>> 8) & 0xff, (value >>> 16) & 0xff, (value >>> 24) & 0xff];
+  return [
+    value & 0xff,
+    (value >>> 8) & 0xff,
+    (value >>> 16) & 0xff,
+    (value >>> 24) & 0xff,
+  ];
 }
 
 export async function zipFiles(files: GraphBundleFile[]): Promise<Uint8Array> {
@@ -46,7 +44,9 @@ export async function zipFiles(files: GraphBundleFile[]): Promise<Uint8Array> {
   const central: Uint8Array[] = [];
   let offset = 0;
 
-  for (const file of files.slice().sort((a, b) => a.path.localeCompare(b.path))) {
+  for (const file of files
+    .slice()
+    .sort((a, b) => a.path.localeCompare(b.path))) {
     const name = encoder.encode(file.path);
     const raw = encoder.encode(file.contents);
     const payload = await deflateRaw(raw);
@@ -102,7 +102,10 @@ export async function zipFiles(files: GraphBundleFile[]): Promise<Uint8Array> {
     ...u16(0),
   ]);
 
-  const total = [...chunks, ...central, end].reduce((size, chunk) => size + chunk.length, 0);
+  const total = [...chunks, ...central, end].reduce(
+    (size, chunk) => size + chunk.length,
+    0,
+  );
   const out = new Uint8Array(total);
   let cursor = 0;
   for (const chunk of [...chunks, ...central, end]) {

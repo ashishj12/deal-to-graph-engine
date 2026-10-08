@@ -1,15 +1,15 @@
 # Challenge package: Dashboards and Reporting: backend and API
 
-| Field | Value |
-| --- | --- |
-| Node id | NODE_CAP_01_BACKEND_API |
-| Work category | backend-api |
-| Operating model | challenge |
-| Classification confidence | medium |
-| Readiness | review-required |
-| Handoff ready | no |
-| Provenance | Deterministic |
-| Source ids | CAP_01, FR_06 |
+| Field                     | Value                   |
+| ------------------------- | ----------------------- |
+| Node id                   | NODE_CAP_01_BACKEND_API |
+| Work category             | backend-api             |
+| Operating model           | challenge               |
+| Classification confidence | medium                  |
+| Readiness                 | review-required         |
+| Handoff ready             | no                      |
+| Provenance                | Deterministic           |
+| Source ids                | CAP_01, FR_06           |
 
 ## Classification rationale
 
@@ -70,6 +70,7 @@ _Not present in the imported package — the operator must supply this before ha
 ## Completeness
 
 Missing: technologies, skills, dependencies
+
 - Not handoff-ready: technologies, skills, dependencies are not present in the imported package.
 
 > MOCK AI MODE — no external service was contacted.

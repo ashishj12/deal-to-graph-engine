@@ -1,12 +1,3 @@
-/**
- * Defensive JSON handling.
- *
- * All imported text is treated as untrusted data. Parsing strips
- * `__proto__` / `constructor` / `prototype` keys so a hostile package cannot
- * pollute the prototype chain, and duplicate keys are reported rather than
- * silently kept.
- */
-
 export type Json = unknown;
 
 export interface ParseResult {
@@ -19,11 +10,10 @@ export interface ParseResult {
 
 const DANGEROUS_KEYS = new Set(["__proto__", "constructor", "prototype"]);
 
-/**
- * Locate `line`/`column` for a character offset inside a JSON document.
- * JSON.parse only gives us the offset in its message, so we translate it.
- */
-function positionFromOffset(text: string, offset: number): { line: number; column: number } {
+function positionFromOffset(
+  text: string,
+  offset: number,
+): { line: number; column: number } {
   let line = 1;
   let column = 1;
   const limit = Math.max(0, Math.min(offset, text.length));
@@ -45,17 +35,15 @@ function extractOffset(message: string): number | null {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
-/**
- * Scan for duplicate object keys at the top level of an object. This is a
- * best-effort detector used to raise an informational finding; JSON.parse
- * keeps the last value for duplicates, which we do not want to hide.
- */
 function stripDangerousKeys(value: Json, stripped: Set<string>): Json {
   if (Array.isArray(value)) {
     return value.map((entry) => stripDangerousKeys(entry, stripped));
   }
   if (value !== null && typeof value === "object") {
-    const out: Record<string, Json> = Object.create(null) as Record<string, Json>;
+    const out: Record<string, Json> = Object.create(null) as Record<
+      string,
+      Json
+    >;
     for (const [key, entry] of Object.entries(value as Record<string, Json>)) {
       if (DANGEROUS_KEYS.has(key)) {
         stripped.add(key);
@@ -166,7 +154,10 @@ export function safeParse(text: string): ParseResult {
   } catch (error) {
     const message = error instanceof Error ? error.message : "Invalid JSON.";
     const offset = extractOffset(message);
-    const pos = offset === null ? { line: 1, column: 1 } : positionFromOffset(trimmed, offset);
+    const pos =
+      offset === null
+        ? { line: 1, column: 1 }
+        : positionFromOffset(trimmed, offset);
     return {
       ok: false,
       value: null,
@@ -205,7 +196,8 @@ export function arr(value: Json): Json[] {
 
 export function str(value: Json, fallback = ""): string {
   if (typeof value === "string") return value;
-  if (typeof value === "number" || typeof value === "boolean") return String(value);
+  if (typeof value === "number" || typeof value === "boolean")
+    return String(value);
   return fallback;
 }
 
@@ -236,10 +228,12 @@ export function at(root: Json, path: string): Json {
 
 /** Convert a display name into a stable, URL-safe slug for synthesized ids. */
 export function slugify(value: string): string {
-  return value
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 48) || "unnamed";
+  return (
+    value
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 48) || "unnamed"
+  );
 }

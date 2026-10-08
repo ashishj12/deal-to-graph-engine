@@ -1,13 +1,4 @@
 import type { SourceNamespace } from "../canonical/types";
-
-/**
- * Namespace detection for imported identifiers.
- *
- * Namespaces never mix: `INT_01` is a requirement while `IF_01` is an
- * interface design, and `WS_01` (an estimate workstream) is a different thing
- * from a functional workstream (which arrives with no id at all and is
- * synthesized as `WSF:<slug>`).
- */
 export function namespaceOf(id: string): SourceNamespace {
   if (id.startsWith("MOD:")) return "module";
   if (id.startsWith("ENH:")) return "enhancement";

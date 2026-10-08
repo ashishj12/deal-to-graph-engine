@@ -1,16 +1,3 @@
-/**
- * Quality gate (FR6).
- *
- * Every rule is deterministic and every finding is itemised with the node ids and
- * source ids it refers to. The gate is what stops an incomplete graph from being
- * presented as ready for operational handoff:
- *
- *   Blocked          at least one failing rule
- *   Review Required  no failures, but warnings remain
- *   Ready            no findings at all, a valid model on every node, no cycle,
- *                    no blocker, and a recorded human approval of the graph
- */
-
 import type {
   ExecutionGraph,
   ExecutionNode,
@@ -42,7 +29,8 @@ function finding(
     id,
     rule,
     status,
-    severity: status === "fail" ? "error" : status === "warn" ? "warning" : "info",
+    severity:
+      status === "fail" ? "error" : status === "warn" ? "warning" : "info",
     message,
     detail,
     nodeIds,
@@ -65,16 +53,31 @@ export function runQualityGate(input: QualityInput): QualityReport {
 
   // 1. Source coverage across the imported model.
   const trackable = [
-    ...canonical.scope.requirements.filter((item) => item.inScope).map((item) => item.id),
+    ...canonical.scope.requirements
+      .filter((item) => item.inScope)
+      .map((item) => item.id),
     ...canonical.architecture.components.map((component) => component.id),
     ...canonical.strategy.integrations.map((integration) => integration.id),
     ...canonical.strategy.aiUseCases.map((useCase) => useCase.id),
   ];
-  const covered = graph.traceability.filter((row) => row.covered).map((row) => row.sourceId);
+  const covered = graph.traceability
+    .filter((row) => row.covered)
+    .map((row) => row.sourceId);
   const coverage = coveragePercent(new Set(covered).size, trackable.length);
   const requirementCoverage = coveragePercent(
-    graph.traceability.filter((row) => row.covered && row.sourceKind !== "component" && row.sourceKind !== "integration" && row.sourceKind !== "aiUseCase").length,
-    graph.traceability.filter((row) => row.sourceKind !== "component" && row.sourceKind !== "integration" && row.sourceKind !== "aiUseCase").length,
+    graph.traceability.filter(
+      (row) =>
+        row.covered &&
+        row.sourceKind !== "component" &&
+        row.sourceKind !== "integration" &&
+        row.sourceKind !== "aiUseCase",
+    ).length,
+    graph.traceability.filter(
+      (row) =>
+        row.sourceKind !== "component" &&
+        row.sourceKind !== "integration" &&
+        row.sourceKind !== "aiUseCase",
+    ).length,
   );
   const uncovered = trackable.filter((id) => !covered.includes(id));
   findings.push(
@@ -83,7 +86,9 @@ export function runQualityGate(input: QualityInput): QualityReport {
       "source-coverage",
       coverage >= 80 ? "pass" : coverage >= 50 ? "warn" : "fail",
       `Source coverage is ${coverage}% (${new Set(covered).size}/${trackable.length} requirements, components, integrations and AI use cases are referenced by at least one node).`,
-      uncovered.length > 0 ? `Uncovered: ${uncovered.join(", ")}` : "Every trackable source is reflected in the graph.",
+      uncovered.length > 0
+        ? `Uncovered: ${uncovered.join(", ")}`
+        : "Every trackable source is reflected in the graph.",
       [],
       uncovered,
     ),
@@ -91,7 +96,10 @@ export function runQualityGate(input: QualityInput): QualityReport {
 
   // 2. Unsupported nodes.
   const unsupported = nodes.filter(
-    (node) => node.sourceIds.length === 0 && node.anchors.backlogSourceId === null && node.kind !== "approval",
+    (node) =>
+      node.sourceIds.length === 0 &&
+      node.anchors.backlogSourceId === null &&
+      node.kind !== "approval",
   );
   findings.push(
     finding(
@@ -101,7 +109,8 @@ export function runQualityGate(input: QualityInput): QualityReport {
       unsupported.length === 0
         ? "Every node cites an imported source or an approved user decision."
         : `${unsupported.length} node(s) are unsupported and cannot be handed off.`,
-      unsupported.map((node) => `${node.id} (${node.title})`).join("; ") || "No unsupported nodes.",
+      unsupported.map((node) => `${node.id} (${node.title})`).join("; ") ||
+        "No unsupported nodes.",
       unsupported.map((node) => node.id),
     ),
   );
@@ -112,7 +121,9 @@ export function runQualityGate(input: QualityInput): QualityReport {
     const key = `${node.anchors.capabilityId ?? "-"}|${node.workCategory}|${[...node.sourceIds].sort().join(",")}`;
     bySignature.set(key, [...(bySignature.get(key) ?? []), node]);
   }
-  const overlapping = [...bySignature.values()].filter((group) => group.length > 1);
+  const overlapping = [...bySignature.values()].filter(
+    (group) => group.length > 1,
+  );
   findings.push(
     finding(
       "QUALITY_DUPLICATE_SCOPE",
@@ -121,14 +132,20 @@ export function runQualityGate(input: QualityInput): QualityReport {
       overlapping.length === 0
         ? "No two nodes claim the same category over the same sources."
         : `${overlapping.length} group(s) of nodes share a category and identical sources.`,
-      overlapping.map((group) => group.map((node) => node.id).join(" + ")).join("; ") || "No overlap detected.",
+      overlapping
+        .map((group) => group.map((node) => node.id).join(" + "))
+        .join("; ") || "No overlap detected.",
       overlapping.flatMap((group) => group.map((node) => node.id)),
     ),
   );
 
   // 4. Missing inputs and acceptance conditions.
-  const missingAcceptance = deliveryNodes.filter((node) => node.acceptanceConditions.length === 0);
-  const missingInputs = deliveryNodes.filter((node) => node.inputs.length === 0);
+  const missingAcceptance = deliveryNodes.filter(
+    (node) => node.acceptanceConditions.length === 0,
+  );
+  const missingInputs = deliveryNodes.filter(
+    (node) => node.inputs.length === 0,
+  );
   findings.push(
     finding(
       "QUALITY_ACCEPTANCE",
@@ -137,7 +154,8 @@ export function runQualityGate(input: QualityInput): QualityReport {
       missingAcceptance.length === 0
         ? "Every delivery node carries at least one acceptance condition taken from the package."
         : `${missingAcceptance.length} delivery node(s) have no acceptance condition in the package.`,
-      missingAcceptance.map((node) => node.id).join(", ") || "All delivery nodes have acceptance conditions.",
+      missingAcceptance.map((node) => node.id).join(", ") ||
+        "All delivery nodes have acceptance conditions.",
       missingAcceptance.map((node) => node.id),
     ),
   );
@@ -149,29 +167,40 @@ export function runQualityGate(input: QualityInput): QualityReport {
       missingInputs.length === 0
         ? "Every delivery node lists the inputs it needs."
         : `${missingInputs.length} delivery node(s) do not state what they need to start.`,
-      missingInputs.map((node) => node.id).join(", ") || "All delivery nodes list inputs.",
+      missingInputs.map((node) => node.id).join(", ") ||
+        "All delivery nodes list inputs.",
       missingInputs.map((node) => node.id),
     ),
   );
 
   // 5. Classification completeness: one model per executable node.
   const invalidModels = nodes.filter(
-    (node) => !["flexible-talent", "challenge", "private-pod"].includes(node.operatingModel.primary),
+    (node) =>
+      !["flexible-talent", "challenge", "private-pod"].includes(
+        node.operatingModel.primary,
+      ),
   );
-  const modelCounts = nodes.filter((node) => node.operatingModel.primary).length;
+  const modelCounts = nodes.filter(
+    (node) => node.operatingModel.primary,
+  ).length;
   findings.push(
     finding(
       "QUALITY_MODEL_COVERAGE",
       "classification-completeness",
-      invalidModels.length === 0 && modelCounts === nodes.length ? "pass" : "fail",
+      invalidModels.length === 0 && modelCounts === nodes.length
+        ? "pass"
+        : "fail",
       `${modelCounts}/${nodes.length} nodes carry exactly one primary operating model.`,
-      invalidModels.map((node) => node.id).join(", ") || "Every node has exactly one primary model.",
+      invalidModels.map((node) => node.id).join(", ") ||
+        "Every node has exactly one primary model.",
       invalidModels.map((node) => node.id),
     ),
   );
 
   // 6. Rationale present on every classification.
-  const missingRationale = nodes.filter((node) => node.operatingModel.rationale.length === 0);
+  const missingRationale = nodes.filter(
+    (node) => node.operatingModel.rationale.length === 0,
+  );
   findings.push(
     finding(
       "QUALITY_RATIONALE",
@@ -180,7 +209,8 @@ export function runQualityGate(input: QualityInput): QualityReport {
       missingRationale.length === 0
         ? "Every classification explains itself in plain English."
         : `${missingRationale.length} node(s) are classified without a rationale.`,
-      missingRationale.map((node) => node.id).join(", ") || "All classifications carry a rationale.",
+      missingRationale.map((node) => node.id).join(", ") ||
+        "All classifications carry a rationale.",
       missingRationale.map((node) => node.id),
     ),
   );
@@ -190,19 +220,33 @@ export function runQualityGate(input: QualityInput): QualityReport {
   const mismatchDetail: string[] = [];
   for (const node of nodes) {
     const sensitive = canonical.strategy.dataDomains.some(
-      (domain) => node.anchors.domainIds.includes(domain.id) && domain.regulated,
+      (domain) =>
+        node.anchors.domainIds.includes(domain.id) && domain.regulated,
     );
     if (node.operatingModel.primary === "challenge" && sensitive) {
       mismatch.push(node);
-      mismatchDetail.push(`${node.id} is an open challenge over regulated data`);
+      mismatchDetail.push(
+        `${node.id} is an open challenge over regulated data`,
+      );
     }
-    if (node.operatingModel.primary === "flexible-talent" && (node.roles.length >= 3 || node.anchors.componentIds.length >= 4)) {
+    if (
+      node.operatingModel.primary === "flexible-talent" &&
+      (node.roles.length >= 3 || node.anchors.componentIds.length >= 4)
+    ) {
       mismatch.push(node);
-      mismatchDetail.push(`${node.id} is single-specialist work that spans ${node.roles.length} roles and ${node.anchors.componentIds.length} components`);
+      mismatchDetail.push(
+        `${node.id} is single-specialist work that spans ${node.roles.length} roles and ${node.anchors.componentIds.length} components`,
+      );
     }
-    if (node.operatingModel.primary === "private-pod" && node.roles.length === 1 && node.anchors.componentIds.length === 0) {
+    if (
+      node.operatingModel.primary === "private-pod" &&
+      node.roles.length === 1 &&
+      node.anchors.componentIds.length === 0
+    ) {
       mismatch.push(node);
-      mismatchDetail.push(`${node.id} is a pod with one role and no owned component`);
+      mismatchDetail.push(
+        `${node.id} is a pod with one role and no owned component`,
+      );
     }
   }
   findings.push(
@@ -265,7 +309,10 @@ export function runQualityGate(input: QualityInput): QualityReport {
 
   // 10. Invalid dependencies.
   const invalidEdges = graph.findings.filter(
-    (item) => item.code === "invalid-edge" || item.code === "self-dependency" || item.code === "dangling-node",
+    (item) =>
+      item.code === "invalid-edge" ||
+      item.code === "self-dependency" ||
+      item.code === "dangling-node",
   );
   findings.push(
     finding(
@@ -275,14 +322,17 @@ export function runQualityGate(input: QualityInput): QualityReport {
       invalidEdges.length === 0
         ? "Every edge has a known type, a rationale and source identifiers."
         : `${invalidEdges.length} dependency problem(s) detected.`,
-      invalidEdges.map((item) => item.message).join("; ") || "No invalid dependencies.",
+      invalidEdges.map((item) => item.message).join("; ") ||
+        "No invalid dependencies.",
       invalidEdges.flatMap((item) => item.nodeIds),
     ),
   );
 
   // 11. Blocked and stale nodes.
   const blocked = nodes.filter((node) => node.blockingStatus === "blocked");
-  const staleSections = graph.maturity === "review-required" || graph.maturity === "discovery-required";
+  const staleSections =
+    graph.maturity === "review-required" ||
+    graph.maturity === "discovery-required";
   findings.push(
     finding(
       "QUALITY_BLOCKED",
@@ -311,7 +361,8 @@ export function runQualityGate(input: QualityInput): QualityReport {
       criticalMissingEffort.length === 0
         ? `The critical path (${criticalIds.length} node(s), ${graph.criticalPath.effort} person-days) is fully estimated.`
         : `${criticalMissingEffort.length} node(s) on the critical path have no effort in the package.`,
-      criticalMissingEffort.map((node) => node.id).join(", ") || "Critical path fully estimated.",
+      criticalMissingEffort.map((node) => node.id).join(", ") ||
+        "Critical path fully estimated.",
       criticalMissingEffort.map((node) => node.id),
     ),
   );
@@ -325,7 +376,9 @@ export function runQualityGate(input: QualityInput): QualityReport {
       decisions.graphApproved
         ? `The graph was approved by an operator at ${decisions.approvedAt ?? "an earlier revision"}.`
         : "No operator has approved the graph yet; operational handoff needs a recorded human decision.",
-      decisions.graphApproved ? "Approval recorded." : "Approve the graph to clear this finding.",
+      decisions.graphApproved
+        ? "Approval recorded."
+        : "Approve the graph to clear this finding.",
     ),
   );
 
@@ -334,7 +387,8 @@ export function runQualityGate(input: QualityInput): QualityReport {
     warn: findings.filter((item) => item.status === "warn").length,
     fail: findings.filter((item) => item.status === "fail").length,
   };
-  const status: QualityStatus = counts.fail > 0 ? "Blocked" : counts.warn > 0 ? "Review Required" : "Ready";
+  const status: QualityStatus =
+    counts.fail > 0 ? "Blocked" : counts.warn > 0 ? "Review Required" : "Ready";
   const score = Math.max(0, 100 - counts.fail * 15 - counts.warn * 4);
 
   return {
@@ -345,19 +399,30 @@ export function runQualityGate(input: QualityInput): QualityReport {
     coverage: {
       requirements: requirementCoverage,
       components: coveragePercent(
-        graph.traceability.filter((row) => row.sourceKind === "component" && row.covered).length,
-        graph.traceability.filter((row) => row.sourceKind === "component").length,
+        graph.traceability.filter(
+          (row) => row.sourceKind === "component" && row.covered,
+        ).length,
+        graph.traceability.filter((row) => row.sourceKind === "component")
+          .length,
       ),
       integrations: coveragePercent(
-        graph.traceability.filter((row) => row.sourceKind === "integration" && row.covered).length,
-        graph.traceability.filter((row) => row.sourceKind === "integration").length,
+        graph.traceability.filter(
+          (row) => row.sourceKind === "integration" && row.covered,
+        ).length,
+        graph.traceability.filter((row) => row.sourceKind === "integration")
+          .length,
       ),
       aiUseCases: coveragePercent(
-        graph.traceability.filter((row) => row.sourceKind === "aiUseCase" && row.covered).length,
-        graph.traceability.filter((row) => row.sourceKind === "aiUseCase").length,
+        graph.traceability.filter(
+          (row) => row.sourceKind === "aiUseCase" && row.covered,
+        ).length,
+        graph.traceability.filter((row) => row.sourceKind === "aiUseCase")
+          .length,
       ),
     },
-    gatedOn: findings.filter((item) => item.status !== "pass").map((item) => item.rule),
+    gatedOn: findings
+      .filter((item) => item.status !== "pass")
+      .map((item) => item.rule),
     generatedAt: input.generatedAt,
   };
 }

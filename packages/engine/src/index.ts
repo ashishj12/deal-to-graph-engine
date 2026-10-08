@@ -1,25 +1,3 @@
-/**
- * Public API of the Deal-to-Challenge engine.
- *
- * The engine is pure TypeScript: no React, no DOM, no network in mock mode. Every
- * function takes plain data and returns plain data, so the same code runs in the
- * browser, in the CLI (`bun run samples`) and in the test suite.
- *
- * Pipeline stages:
- *   ingest      raw package text → CanonicalPackage + source index + validation + maturity
- *   decompose   canonical model  → ExecutionNode[] with provenance, anchors, readiness
- *   classify    node features    → weighted operating-model recommendation
- *   packages    node + model     → model-specific execution package
- *   dag         nodes            → edges, waves, critical path, aggregates, findings
- *   impact      before/after     → ChangeImpact for any edited field
- *   quality     graph            → deterministic Ready | Review Required | Blocked gate
- *   decisions   user actions     → append-only decision log
- *   export      graph            → graph JSON, execution plan, packages, ZIP bundle
- *   ai          optional         → AIProvider interface + deterministic MockProvider
- */
-
-/* ------------------------------------------------------------------ model */
-
 export * from "./canonical/types";
 export * from "./canonical/execution";
 export {
@@ -32,8 +10,6 @@ export {
   isGrounded,
 } from "./canonical/provenance";
 
-/* ----------------------------------------------------------------- ingest */
-
 export { safeParse, type ParseResult } from "./ingest/json";
 export { namespaceOf, isWellFormedId, normalizeName } from "./ingest/ids";
 export {
@@ -43,7 +19,11 @@ export {
   type StructuralFindings,
   type ReferenceScan,
 } from "./ingest/normalize";
-export { validatePackage, detectPlatformConflict, type ValidateInput } from "./ingest/validate";
+export {
+  validatePackage,
+  detectPlatformConflict,
+  type ValidateInput,
+} from "./ingest/validate";
 export { assessMaturity, type MaturityInput } from "./ingest/maturity";
 export { runImport, sha256Hex, MAX_IMPORT_BYTES } from "./ingest/pipeline";
 export {
@@ -59,7 +39,11 @@ export {
 /* ------------------------------------------------------------ decompose */
 
 export { decompose, finaliseReadiness, buildTraceability } from "./decompose";
-export type { DecomposeInput, DecomposeResult, NodeDraft } from "./decompose/types";
+export type {
+  DecomposeInput,
+  DecomposeResult,
+  NodeDraft,
+} from "./decompose/types";
 
 /* ------------------------------------------------------------- classify */
 
@@ -85,7 +69,11 @@ export { buildGraph, recomputeEdges, summariseModels } from "./dag";
 export type { BuildGraphInput } from "./dag";
 export { buildEdges, buildEdgeDrafts, flowNodeOf, modelMix } from "./dag/edges";
 export type { EdgeDraft } from "./dag/edges";
-export { computeSchedule, computeCriticalPath, computeAggregates } from "./dag/analysis";
+export {
+  computeSchedule,
+  computeCriticalPath,
+  computeAggregates,
+} from "./dag/analysis";
 export { validateGraph, findCycles } from "./dag/validate";
 export type { GraphValidation, ScheduleResult } from "./dag";
 
@@ -114,7 +102,12 @@ export {
   resetDecisionSequence,
   suggestionStatusFrom,
 } from "./decisions";
-export type { DecisionInput, NodeEdit, NodeOverride, NodeStatus } from "./decisions";
+export type {
+  DecisionInput,
+  NodeEdit,
+  NodeOverride,
+  NodeStatus,
+} from "./decisions";
 
 /* ----------------------------------------------------------------- export */
 
@@ -134,7 +127,12 @@ export {
 
 /* --------------------------------------------------------------------- ai */
 
-export { MockProvider, createMockProvider, MOCK_NOTICE, MOCK_PROMPT_VERSION } from "./ai";
+export {
+  MockProvider,
+  createMockProvider,
+  MOCK_NOTICE,
+  MOCK_PROMPT_VERSION,
+} from "./ai";
 export {
   validateDecomposition,
   validateDependencies,

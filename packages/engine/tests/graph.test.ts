@@ -22,18 +22,29 @@ import {
   type ImportedPackage,
 } from "@deal-to-challenge/engine";
 import { SAMPLE_PACKAGES } from "@deal-to-challenge/engine/samples";
-import { cyclicGraph, diamondGraph, parallelGraph, testEdge, testNode } from "./synthetic/graphs";
+import {
+  cyclicGraph,
+  diamondGraph,
+  parallelGraph,
+  testEdge,
+  testNode,
+} from "./synthetic/graphs";
 
 const GENERATED_AT = "2026-10-07T00:00:00.000Z";
 
 async function compile(slug: string): Promise<CompiledDeal> {
   const sample = SAMPLE_PACKAGES.find((entry) => entry.id === slug);
   if (!sample) throw new Error(`missing sample ${slug}`);
-  const imported: ImportedPackage = await runImport(sample.fileName, sample.text);
+  const imported: ImportedPackage = await runImport(
+    sample.fileName,
+    sample.text,
+  );
   return compileDeal(imported, { generatedAt: GENERATED_AT });
 }
 
-const COMPILED = await Promise.all(SAMPLE_PACKAGES.map((sample) => compile(sample.id)));
+const COMPILED = await Promise.all(
+  SAMPLE_PACKAGES.map((sample) => compile(sample.id)),
+);
 const CLAIMSDESK = COMPILED[0];
 const MEMBER_EXPERIENCE = COMPILED[2];
 
@@ -41,7 +52,9 @@ describe("FR3 delivery node generation", () => {
   test("every supplied package produces grounded delivery nodes", () => {
     for (const compiled of COMPILED) {
       expect(compiled.graph.nodes.length).toBeGreaterThan(10);
-      const delivery = compiled.graph.nodes.filter((node) => node.kind === "delivery");
+      const delivery = compiled.graph.nodes.filter(
+        (node) => node.kind === "delivery",
+      );
       expect(delivery.length).toBeGreaterThan(3);
       for (const node of delivery) {
         expect(node.sourceIds.length).toBeGreaterThan(0);
@@ -74,19 +87,25 @@ describe("FR3 delivery node generation", () => {
   });
 
   test("open gaps, questions and unconfirmed assumptions become discovery nodes", () => {
-    const discovery = CLAIMSDESK.graph.nodes.filter((node) => node.kind === "discovery");
+    const discovery = CLAIMSDESK.graph.nodes.filter(
+      (node) => node.kind === "discovery",
+    );
     expect(discovery.length).toBeGreaterThan(0);
     for (const node of discovery) {
       expect(["discovery", "clarification", "approval"]).toContain(node.kind);
     }
-    const gapNode = CLAIMSDESK.graph.nodes.find((node) => node.anchors.backlogSourceId === "GAP_01");
+    const gapNode = CLAIMSDESK.graph.nodes.find(
+      (node) => node.anchors.backlogSourceId === "GAP_01",
+    );
     expect(gapNode).toBeDefined();
     expect(gapNode?.workCategory).toBe("discovery");
   });
 
   test("the early-discovery package yields discovery work and keeps implementation blocked", () => {
     const nodes = MEMBER_EXPERIENCE.graph.nodes;
-    const discovery = nodes.filter((node) => node.kind === "discovery" || node.kind === "clarification");
+    const discovery = nodes.filter(
+      (node) => node.kind === "discovery" || node.kind === "clarification",
+    );
     expect(discovery.length).toBeGreaterThanOrEqual(5);
     const blocked = nodes.filter((node) => node.readiness === "blocked");
     expect(blocked.length).toBeGreaterThan(0);
@@ -99,9 +118,13 @@ describe("FR3 delivery node generation", () => {
 
   test("regulated work produces explicit human-review checkpoints", () => {
     const clinical = COMPILED[1];
-    const approval = clinical.graph.nodes.filter((node) => node.kind === "approval");
+    const approval = clinical.graph.nodes.filter(
+      (node) => node.kind === "approval",
+    );
     expect(approval.length).toBeGreaterThan(0);
-    expect(clinical.graph.aggregates.reviewCheckpoints.length).toBeGreaterThan(0);
+    expect(clinical.graph.aggregates.reviewCheckpoints.length).toBeGreaterThan(
+      0,
+    );
   });
 });
 
@@ -109,11 +132,16 @@ describe("FR4 operating-model classification", () => {
   test("every executable node has exactly one primary operating model", () => {
     for (const compiled of COMPILED) {
       for (const node of compiled.graph.nodes) {
-        expect(["flexible-talent", "challenge", "private-pod"]).toContain(node.operatingModel.primary);
+        expect(["flexible-talent", "challenge", "private-pod"]).toContain(
+          node.operatingModel.primary,
+        );
         expect(node.operatingModel.rationale.length).toBeGreaterThan(0);
-        expect(["high", "medium", "low"]).toContain(node.operatingModel.confidence);
+        expect(["high", "medium", "low"]).toContain(
+          node.operatingModel.confidence,
+        );
         // A recommendation always cites the sources it was given.
-        if (node.sourceIds.length > 0) expect(node.operatingModel.sourceIds.length).toBeGreaterThan(0);
+        if (node.sourceIds.length > 0)
+          expect(node.operatingModel.sourceIds.length).toBeGreaterThan(0);
         expect(node.operatingModel.scores.length).toBe(3);
       }
     }
@@ -121,13 +149,23 @@ describe("FR4 operating-model classification", () => {
 
   test("each supplied package uses at least two operating models", () => {
     for (const compiled of COMPILED) {
-      expect(compiled.graph.operatingModelSummary.modelsUsed.length).toBeGreaterThanOrEqual(2);
+      expect(
+        compiled.graph.operatingModelSummary.modelsUsed.length,
+      ).toBeGreaterThanOrEqual(2);
     }
   });
 
   test("across the four supplied packages all three operating models appear", () => {
-    const used = new Set(COMPILED.flatMap((compiled) => compiled.graph.operatingModelSummary.modelsUsed));
-    expect([...used].sort()).toEqual(["challenge", "flexible-talent", "private-pod"]);
+    const used = new Set(
+      COMPILED.flatMap(
+        (compiled) => compiled.graph.operatingModelSummary.modelsUsed,
+      ),
+    );
+    expect([...used].sort()).toEqual([
+      "challenge",
+      "flexible-talent",
+      "private-pod",
+    ]);
   });
 
   test("ClaimsDesk is a mixed graph with a pod core, challenge nodes and specialists", () => {
@@ -143,11 +181,15 @@ describe("FR4 operating-model classification", () => {
     // be recommended as an open challenge.
     const clinical = COMPILED[1];
     const regulatedDomains = new Set(
-      clinical.canonical.strategy.dataDomains.filter((domain) => domain.regulated).map((domain) => domain.id),
+      clinical.canonical.strategy.dataDomains
+        .filter((domain) => domain.regulated)
+        .map((domain) => domain.id),
     );
     expect(regulatedDomains.size).toBeGreaterThan(0);
     for (const node of clinical.graph.nodes) {
-      const touchesRestricted = node.anchors.domainIds.some((id) => regulatedDomains.has(id));
+      const touchesRestricted = node.anchors.domainIds.some((id) =>
+        regulatedDomains.has(id),
+      );
       if (!touchesRestricted) continue;
       expect(node.operatingModel.primary).not.toBe("challenge");
     }
@@ -156,7 +198,9 @@ describe("FR4 operating-model classification", () => {
 
   test("a challenge node always declares its confidentiality limitations", () => {
     for (const compiled of COMPILED) {
-      const challenges = compiled.packages.filter((pkg) => pkg.model === "challenge");
+      const challenges = compiled.packages.filter(
+        (pkg) => pkg.model === "challenge",
+      );
       for (const pkg of challenges) {
         expect(pkg.confidentialityLimitations.length).toBeGreaterThan(0);
       }
@@ -187,7 +231,9 @@ describe("FR4 operating-model classification", () => {
     const first = classifyNode(input);
     const second = classifyNode(input);
     expect(first.primary).toBe(second.primary);
-    expect(first.scores.map((entry) => entry.score)).toEqual(second.scores.map((entry) => entry.score));
+    expect(first.scores.map((entry) => entry.score)).toEqual(
+      second.scores.map((entry) => entry.score),
+    );
     expect(first.primary).toBe("private-pod");
     expect(first.scores[0].contributions.length).toBeGreaterThan(3);
     expect(first.rationale.length).toBeGreaterThan(0);
@@ -196,7 +242,16 @@ describe("FR4 operating-model classification", () => {
   test("a single-model graph is reported as single-model", () => {
     const nodes = [testNode("A"), testNode("B")];
     expect(summariseModels(nodes).mixed).toBe(false);
-    expect(summariseModels([...nodes, testNode("C", { operatingModel: { primary: "private-pod" } as ExecutionNode["operatingModel"] })]).mixed).toBe(true);
+    expect(
+      summariseModels([
+        ...nodes,
+        testNode("C", {
+          operatingModel: {
+            primary: "private-pod",
+          } as ExecutionNode["operatingModel"],
+        }),
+      ]).mixed,
+    ).toBe(true);
   });
 });
 
@@ -204,7 +259,11 @@ describe("FR5 dependency graph", () => {
   test("waves are longest-path layers on a hand-built diamond", () => {
     const { nodes, edges } = diamondGraph(5);
     const schedule = computeSchedule(nodes, edges);
-    expect(schedule.waves.map((wave) => wave.nodeIds.sort())).toEqual([["A"], ["B", "C"], ["D"]]);
+    expect(schedule.waves.map((wave) => wave.nodeIds.sort())).toEqual([
+      ["A"],
+      ["B", "C"],
+      ["D"],
+    ]);
     expect(schedule.earliestStart.A).toBe(0);
     expect(schedule.earliestStart.B).toBe(5);
     expect(schedule.earliestStart.C).toBe(5);
@@ -222,7 +281,10 @@ describe("FR5 dependency graph", () => {
     const heavy = diamondGraph(5);
     const heavyNodes = heavy.nodes.map((node) =>
       node.id === "C"
-        ? { ...node, effort: { ...node.effort, minimum: 20, maximum: 20, likely: 20 } }
+        ? {
+            ...node,
+            effort: { ...node.effort, minimum: 20, maximum: 20, likely: 20 },
+          }
         : node,
     );
     const heavyPath = computeCriticalPath(heavyNodes, heavy.edges);
@@ -234,7 +296,10 @@ describe("FR5 dependency graph", () => {
   test("independent chains are scheduled in parallel waves", () => {
     const { nodes, edges } = parallelGraph();
     const schedule = computeSchedule(nodes, edges);
-    expect(schedule.waves.map((wave) => wave.nodeIds.sort())).toEqual([["A", "C"], ["B", "D"]]);
+    expect(schedule.waves.map((wave) => wave.nodeIds.sort())).toEqual([
+      ["A", "C"],
+      ["B", "D"],
+    ]);
   });
 
   test("a cycle is reported with the path that produces it", () => {
@@ -244,7 +309,9 @@ describe("FR5 dependency graph", () => {
     expect(cycles[0]).toEqual(["A", "B", "C", "A"]);
     const findings = validateGraph(nodes, edges);
     expect(findings.hasCycle).toBe(true);
-    expect(findings.findings.find((finding) => finding.code === "cycle")?.cyclePath).toEqual(["A", "B", "C", "A"]);
+    expect(
+      findings.findings.find((finding) => finding.code === "cycle")?.cyclePath,
+    ).toEqual(["A", "B", "C", "A"]);
     const schedule = computeSchedule(nodes, edges);
     expect(schedule.cyclicNodeIds.sort()).toEqual(["A", "B", "C"]);
   });
@@ -264,7 +331,10 @@ describe("FR5 dependency graph", () => {
     expect(codes).toContain("dangling-node");
     expect(codes).toContain("invalid-edge");
     // C has no edge in either direction and is a delivery node.
-    expect(findings.findings.find((finding) => finding.code === "orphan-node")?.nodeIds).toContain("C");
+    expect(
+      findings.findings.find((finding) => finding.code === "orphan-node")
+        ?.nodeIds,
+    ).toContain("C");
   });
 
   test("every generated edge carries a type, a rationale and source identifiers", () => {
@@ -280,10 +350,14 @@ describe("FR5 dependency graph", () => {
 
   test("the scheduled graph is acyclic and reports its waves and critical path", () => {
     for (const compiled of COMPILED) {
-      expect(compiled.graph.findings.some((finding) => finding.code === "cycle")).toBe(false);
+      expect(
+        compiled.graph.findings.some((finding) => finding.code === "cycle"),
+      ).toBe(false);
       expect(compiled.graph.waves.length).toBeGreaterThan(1);
       expect(compiled.graph.criticalPath.nodeIds.length).toBeGreaterThan(1);
-      expect(compiled.graph.aggregates.nodeCount).toBe(compiled.graph.nodes.length);
+      expect(compiled.graph.aggregates.nodeCount).toBe(
+        compiled.graph.nodes.length,
+      );
       expect(compiled.graph.aggregates.entryNodes.length).toBeGreaterThan(0);
       expect(compiled.graph.aggregates.terminalNodes.length).toBeGreaterThan(0);
     }
@@ -292,13 +366,25 @@ describe("FR5 dependency graph", () => {
 
 describe("FR6 change impact and quality gate", () => {
   test("an edit changes its node and leaves every unaffected node byte-identical", async () => {
-    const target = CLAIMSDESK.graph.nodes.find((node) => node.kind === "delivery") as ExecutionNode;
+    const target = CLAIMSDESK.graph.nodes.find(
+      (node) => node.kind === "delivery",
+    ) as ExecutionNode;
     const { next, impact } = await applyEdits(
       CLAIMSDESK,
-      [{ nodeId: target.id, field: "title", value: "Renamed intake delivery", rationale: "operator renamed the node", at: GENERATED_AT }],
+      [
+        {
+          nodeId: target.id,
+          field: "title",
+          value: "Renamed intake delivery",
+          rationale: "operator renamed the node",
+          at: GENERATED_AT,
+        },
+      ],
       { generatedAt: GENERATED_AT },
     );
-    expect(next.graph.nodes.find((node) => node.id === target.id)?.title).toBe("Renamed intake delivery");
+    expect(next.graph.nodes.find((node) => node.id === target.id)?.title).toBe(
+      "Renamed intake delivery",
+    );
     expect(impact.preservedExactly).toBe(true);
     expect(impact.affectedNodes).toContain(target.id);
     for (const id of impact.unaffectedNodes) {
@@ -309,7 +395,9 @@ describe("FR6 change impact and quality gate", () => {
   });
 
   test("an operating-model override is recorded, re-classifies the node and preserves the rest", async () => {
-    const target = CLAIMSDESK.graph.nodes.find((node) => node.operatingModel.primary === "flexible-talent") as ExecutionNode;
+    const target = CLAIMSDESK.graph.nodes.find(
+      (node) => node.operatingModel.primary === "flexible-talent",
+    ) as ExecutionNode;
     let log = createLog(CLAIMSDESK.canonical.deal.id);
     log = appendDecision(
       log,
@@ -322,25 +410,56 @@ describe("FR6 change impact and quality gate", () => {
         at: GENERATED_AT,
       }),
     );
-    const next = await compileDeal(CLAIMSDESK.imported, { decisions: log, generatedAt: GENERATED_AT });
-    const overridden = next.graph.nodes.find((node) => node.id === target.id) as ExecutionNode;
+    const next = await compileDeal(CLAIMSDESK.imported, {
+      decisions: log,
+      generatedAt: GENERATED_AT,
+    });
+    const overridden = next.graph.nodes.find(
+      (node) => node.id === target.id,
+    ) as ExecutionNode;
     expect(overridden.operatingModel.primary).toBe("private-pod");
     expect(overridden.operatingModel.overridden).toBe(true);
     expect(overridden.operatingModel.overrideHistory.length).toBe(1);
-    expect(overridden.operatingModel.overrideHistory[0].from).toBe("flexible-talent");
-    expect(next.decisions.entries.some((entry) => entry.type === "override-model")).toBe(true);
+    expect(overridden.operatingModel.overrideHistory[0].from).toBe(
+      "flexible-talent",
+    );
+    expect(
+      next.decisions.entries.some((entry) => entry.type === "override-model"),
+    ).toBe(true);
     // A package is rebuilt for the new model.
-    expect(next.packages.find((pkg) => pkg.nodeId === target.id)?.model).toBe("private-pod");
+    expect(next.packages.find((pkg) => pkg.nodeId === target.id)?.model).toBe(
+      "private-pod",
+    );
     const affected = next.graph.nodes.filter((node) => node.id !== target.id);
     expect(affected.length).toBeGreaterThan(0);
   });
 
   test("the impact report covers every editable field", async () => {
-    const target = CLAIMSDESK.graph.nodes.find((node) => node.kind === "delivery") as ExecutionNode;
+    const target = CLAIMSDESK.graph.nodes.find(
+      (node) => node.kind === "delivery",
+    ) as ExecutionNode;
     const edits = [
-      { nodeId: target.id, field: "title" as const, value: "Edited title", rationale: "edit title", at: GENERATED_AT },
-      { nodeId: target.id, field: "scope" as const, value: "Edited scope", rationale: "edit scope", at: GENERATED_AT },
-      { nodeId: target.id, field: "workCategory" as const, value: "testing", rationale: "edit category", at: GENERATED_AT },
+      {
+        nodeId: target.id,
+        field: "title" as const,
+        value: "Edited title",
+        rationale: "edit title",
+        at: GENERATED_AT,
+      },
+      {
+        nodeId: target.id,
+        field: "scope" as const,
+        value: "Edited scope",
+        rationale: "edit scope",
+        at: GENERATED_AT,
+      },
+      {
+        nodeId: target.id,
+        field: "workCategory" as const,
+        value: "testing",
+        rationale: "edit category",
+        at: GENERATED_AT,
+      },
       {
         nodeId: target.id,
         field: "operatingModel" as const,
@@ -362,10 +481,20 @@ describe("FR6 change impact and quality gate", () => {
         rationale: "edit acceptance",
         at: GENERATED_AT,
       },
-      { nodeId: target.id, field: "sourceIds" as const, value: ["FR_02"], rationale: "edit sources", at: GENERATED_AT },
+      {
+        nodeId: target.id,
+        field: "sourceIds" as const,
+        value: ["FR_02"],
+        rationale: "edit sources",
+        at: GENERATED_AT,
+      },
     ];
-    const { next, impact } = await applyEdits(CLAIMSDESK, edits, { generatedAt: GENERATED_AT });
-    const applied = next.graph.nodes.find((node) => node.id === target.id) as ExecutionNode;
+    const { next, impact } = await applyEdits(CLAIMSDESK, edits, {
+      generatedAt: GENERATED_AT,
+    });
+    const applied = next.graph.nodes.find(
+      (node) => node.id === target.id,
+    ) as ExecutionNode;
     expect(applied.title).toBe("Edited title");
     expect(applied.workCategory).toBe("testing");
     expect(applied.operatingModel.primary).toBe("challenge");
@@ -373,7 +502,15 @@ describe("FR6 change impact and quality gate", () => {
     expect(applied.fieldProvenance.acceptanceConditions).toBe("user-approved");
     expect(applied.sourceIds).toContain("FR_02");
     const changedFields = impact.changed.map((change) => change.field).sort();
-    const expectedFields = ["acceptanceConditions", "effort", "operatingModel", "scope", "sourceIds", "title", "workCategory"].sort();
+    const expectedFields = [
+      "acceptanceConditions",
+      "effort",
+      "operatingModel",
+      "scope",
+      "sourceIds",
+      "title",
+      "workCategory",
+    ].sort();
     expect(changedFields).toEqual(expectedFields as typeof changedFields);
     expect(impact.criticalPath.before.length).toBeGreaterThan(0);
     expect(impact.effortDelta).not.toBeNaN();
@@ -388,7 +525,10 @@ describe("FR6 change impact and quality gate", () => {
       revision: 0,
       generator: mockGenerator(),
     });
-    const cyclicEdges = [testEdge("E1", "NODE_A", "NODE_B"), testEdge("E2", "NODE_B", "NODE_A")];
+    const cyclicEdges = [
+      testEdge("E1", "NODE_A", "NODE_B"),
+      testEdge("E2", "NODE_B", "NODE_A"),
+    ];
     // The compiler re-validates after edge overrides; the test does the same so
     // the findings and the edges describe the same graph.
     graph.edges = cyclicEdges;
@@ -400,7 +540,9 @@ describe("FR6 change impact and quality gate", () => {
       generatedAt: GENERATED_AT,
     });
     expect(quality.status).toBe("Blocked");
-    expect(quality.findings.find((finding) => finding.rule === "cycles")?.status).toBe("fail");
+    expect(
+      quality.findings.find((finding) => finding.rule === "cycles")?.status,
+    ).toBe("fail");
   });
 
   test("the quality gate cannot be Ready while a node is unsupported", () => {
@@ -422,7 +564,10 @@ describe("FR6 change impact and quality gate", () => {
       generatedAt: GENERATED_AT,
     });
     expect(quality.status).toBe("Blocked");
-    expect(quality.findings.find((finding) => finding.rule === "unsupported-nodes")?.status).toBe("fail");
+    expect(
+      quality.findings.find((finding) => finding.rule === "unsupported-nodes")
+        ?.status,
+    ).toBe("fail");
   });
 
   test("the quality gate cannot be Ready while a blocker is open or approval is missing", () => {
@@ -445,8 +590,14 @@ describe("FR6 change impact and quality gate", () => {
       generatedAt: GENERATED_AT,
     });
     expect(quality.status).not.toBe("Ready");
-    expect(quality.findings.find((finding) => finding.rule === "human-approval")?.status).toBe("warn");
-    expect(quality.findings.find((finding) => finding.rule === "blocked-or-stale")?.status).toBe("warn");
+    expect(
+      quality.findings.find((finding) => finding.rule === "human-approval")
+        ?.status,
+    ).toBe("warn");
+    expect(
+      quality.findings.find((finding) => finding.rule === "blocked-or-stale")
+        ?.status,
+    ).toBe("warn");
   });
 
   test("every gate finding is deterministic and itemised", () => {
@@ -456,14 +607,18 @@ describe("FR6 change impact and quality gate", () => {
         expect(finding.provenance).toBe("deterministic");
         expect(finding.message.length).toBeGreaterThan(0);
       }
-      expect(["Ready", "Review Required", "Blocked"]).toContain(compiled.quality.status);
+      expect(["Ready", "Review Required", "Blocked"]).toContain(
+        compiled.quality.status,
+      );
     }
     expect(CLAIMSDESK.quality.coverage.requirements).toBeGreaterThan(0);
   });
 
   test("an incomplete package is never presented as fully ready", () => {
     for (const compiled of COMPILED) {
-      const ready = compiled.graph.nodes.filter((node) => node.readiness === "ready");
+      const ready = compiled.graph.nodes.filter(
+        (node) => node.readiness === "ready",
+      );
       // Readiness requires the operating-model package to be complete, which the
       // imported packages are not until an operator supplies the missing fields.
       expect(compiled.quality.status).not.toBe("Ready");
@@ -479,14 +634,25 @@ describe("FR6 change impact and quality gate", () => {
       decisions: { ...CLAIMSDESK.decisions, graphApproved: false },
       generatedAt: GENERATED_AT,
     });
-    expect(withoutApproval.findings.find((finding) => finding.rule === "human-approval")?.status).toBe("warn");
+    expect(
+      withoutApproval.findings.find(
+        (finding) => finding.rule === "human-approval",
+      )?.status,
+    ).toBe("warn");
     const approved = runQualityGate({
       graph,
       canonical: CLAIMSDESK.canonical,
-      decisions: { ...CLAIMSDESK.decisions, graphApproved: true, approvedAt: GENERATED_AT },
+      decisions: {
+        ...CLAIMSDESK.decisions,
+        graphApproved: true,
+        approvedAt: GENERATED_AT,
+      },
       generatedAt: GENERATED_AT,
     });
-    expect(approved.findings.find((finding) => finding.rule === "human-approval")?.status).toBe("pass");
+    expect(
+      approved.findings.find((finding) => finding.rule === "human-approval")
+        ?.status,
+    ).toBe("pass");
   });
 });
 
@@ -507,7 +673,11 @@ describe("decomposition and diffing helpers", () => {
   });
 
   test("a diff of identical graphs reports no change and preserves everything", () => {
-    const impact = diffGraphs({ before: CLAIMSDESK.graph, after: CLAIMSDESK.graph, changes: [] });
+    const impact = diffGraphs({
+      before: CLAIMSDESK.graph,
+      after: CLAIMSDESK.graph,
+      changes: [],
+    });
     expect(impact.changed).toEqual([]);
     expect(impact.preservedExactly).toBe(true);
     expect(impact.affectedNodes).toEqual([]);

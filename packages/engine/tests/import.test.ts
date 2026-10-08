@@ -22,7 +22,8 @@ describe("import of the supplied packages", () => {
     test(`${deal.fileName} preserves every source id`, async () => {
       const result = await runImport(deal.fileName, deal.text);
       const ids = new Set(result.sourceIndex.map((record) => record.id));
-      const declared = (deal.json as { scope: { items: { id: string }[] } }).scope.items;
+      const declared = (deal.json as { scope: { items: { id: string }[] } })
+        .scope.items;
       for (const item of declared) {
         expect(ids.has(item.id)).toBe(true);
       }
@@ -64,7 +65,9 @@ describe("maturity signal differences", () => {
     const result = await runImport(deal.fileName, deal.text);
     expect(result.conflict.detected).toBe(true);
     expect(result.conflict.resolved).toBe(false);
-    const platforms = new Set(result.conflict.claims.map((claim) => claim.platform));
+    const platforms = new Set(
+      result.conflict.claims.map((claim) => claim.platform),
+    );
     expect(platforms.has("azure")).toBe(true);
     expect(platforms.has("aws")).toBe(true);
   });
@@ -97,15 +100,21 @@ describe("maturity signal differences", () => {
     // and never loses the requirement it excludes.
     const canonicalGroups = result.canonical.functionalScope.outOfScope;
     expect(canonicalGroups.length).toBe(excludedGroups.length);
-    expect(canonicalGroups.every((group) => !group.id.includes("unnamed"))).toBe(true);
-    expect(canonicalGroups.some((group) => group.requirementIds.length > 0)).toBe(true);
+    expect(
+      canonicalGroups.every((group) => !group.id.includes("unnamed")),
+    ).toBe(true);
+    expect(
+      canonicalGroups.some((group) => group.requirementIds.length > 0),
+    ).toBe(true);
   });
 
   test("stale source anchors are detected", async () => {
     const deal = byId["member-experience-modernisation-early-discovery"];
     if (!deal) throw new Error("fixture missing");
     const result = await runImport(deal.fileName, deal.text);
-    const issues = result.report.issues.filter((issue) => issue.code === "quote-mismatch");
+    const issues = result.report.issues.filter(
+      (issue) => issue.code === "quote-mismatch",
+    );
     expect(issues.length).toBeGreaterThan(0);
   });
 
@@ -134,14 +143,17 @@ describe("maturity signal differences", () => {
     );
     expect(capabilities.length).toBeGreaterThan(0);
     for (const capability of capabilities) {
-      expect(capability.resolvedDependencies.length + capability.unresolvedDependencies.length).toBe(
-        capability.dependencyNames.length,
-      );
+      expect(
+        capability.resolvedDependencies.length +
+          capability.unresolvedDependencies.length,
+      ).toBe(capability.dependencyNames.length);
       for (const unresolved of capability.unresolvedDependencies) {
         expect(capability.dependencyNames).toContain(unresolved);
       }
     }
-    expect(capabilities.some((entry) => entry.unresolvedDependencies.length > 0)).toBe(true);
+    expect(
+      capabilities.some((entry) => entry.unresolvedDependencies.length > 0),
+    ).toBe(true);
   });
 });
 
@@ -202,7 +214,9 @@ describe("determinism and safety", () => {
       '"scope":{"items":[{"id":"FR_01","kind":"functional","title":"x"}]}}';
     const result = await runImport("evil.json", payload);
     expect(({} as Record<string, unknown>).polluted).toBeUndefined();
-    const stripped = result.report.issues.filter((issue) => issue.code === "stripped-unsafe-key");
+    const stripped = result.report.issues.filter(
+      (issue) => issue.code === "stripped-unsafe-key",
+    );
     expect(stripped.length).toBe(1);
   });
 

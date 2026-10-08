@@ -1,12 +1,3 @@
-/**
- * Shared workspace contracts.
- *
- * The views are presentation only: every action is a callback the shell turns
- * into an append-only decision. No view mutates the graph or the imported
- * package directly, which is what keeps the imported package the primary source
- * and the user decisions the secondary one.
- */
-
 import type {
   ChangeImpact,
   CompiledDeal,
@@ -20,9 +11,7 @@ import type { SamplePackage } from "@deal-to-challenge/engine/samples";
 import type { ImportedEntry } from "./PackagePicker";
 
 export interface DealEntry extends ImportedEntry {
-  /** Imported package + decomposition + graph + gate + packages, recompiled after every decision. */
   compiled: CompiledDeal;
-  /** Change-impact report for the most recent decision on this deal. */
   impact: ChangeImpact | null;
 }
 
@@ -33,7 +22,11 @@ export interface NodeDraftInput {
   sourceIds: string[];
 }
 
-export type NodeStatus = "approved" | "rejected" | "blocked" | "review-required";
+export type NodeStatus =
+  | "approved"
+  | "rejected"
+  | "blocked"
+  | "review-required";
 
 export interface Actions {
   /** Import workspace. */
@@ -41,15 +34,43 @@ export interface Actions {
   importFiles: (files: File[]) => void;
   importText: (fileName: string, text: string) => void;
   /** Editing. Every one of these appends a decision and recompiles. */
-  edit: (nodeId: string, field: EditableField, value: unknown, rationale: string) => void;
-  overrideModel: (nodeId: string, model: OperatingModel, rationale: string) => void;
+  edit: (
+    nodeId: string,
+    field: EditableField,
+    value: unknown,
+    rationale: string,
+  ) => void;
+  overrideModel: (
+    nodeId: string,
+    model: OperatingModel,
+    rationale: string,
+  ) => void;
   setStatus: (nodeId: string, status: NodeStatus, rationale: string) => void;
-  decideSuggestion: (nodeId: string, suggestionId: string, accept: boolean, rationale: string) => void;
-  addEdge: (source: string, target: string, type: EdgeType, blocking: boolean, rationale: string) => void;
+  decideSuggestion: (
+    nodeId: string,
+    suggestionId: string,
+    accept: boolean,
+    rationale: string,
+  ) => void;
+  addEdge: (
+    source: string,
+    target: string,
+    type: EdgeType,
+    blocking: boolean,
+    rationale: string,
+  ) => void;
   removeEdge: (edgeId: string, rationale: string) => void;
   addNode: (draft: NodeDraftInput, rationale: string) => void;
-  splitNode: (nodeId: string, parts: NodeDraftInput[], rationale: string) => void;
-  mergeNodes: (nodeIds: string[], draft: NodeDraftInput, rationale: string) => void;
+  splitNode: (
+    nodeId: string,
+    parts: NodeDraftInput[],
+    rationale: string,
+  ) => void;
+  mergeNodes: (
+    nodeIds: string[],
+    draft: NodeDraftInput,
+    rationale: string,
+  ) => void;
   removeNode: (nodeId: string, rationale: string) => void;
   approveGraph: (rationale: string) => void;
   revokeApproval: (rationale: string) => void;
@@ -71,12 +92,19 @@ export interface ViewProps {
 }
 
 /** Find a node, or `null` — the graph is always the source of truth. */
-export function nodeById(entry: DealEntry, nodeId: string | null): ExecutionNode | null {
+export function nodeById(
+  entry: DealEntry,
+  nodeId: string | null,
+): ExecutionNode | null {
   if (!nodeId) return null;
   return entry.compiled.graph.nodes.find((node) => node.id === nodeId) ?? null;
 }
 
-export function downloadText(fileName: string, text: string, type = "text/plain"): void {
+export function downloadText(
+  fileName: string,
+  text: string,
+  type = "text/plain",
+): void {
   const blob = new Blob([text], { type });
   downloadBlob(fileName, blob);
 }

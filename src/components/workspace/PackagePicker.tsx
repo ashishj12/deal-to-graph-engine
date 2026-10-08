@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import type { ImportedPackage } from "@deal-to-challenge/engine";
-import { SAMPLE_PACKAGES, type SamplePackage } from "@deal-to-challenge/engine/samples";
+import {
+  SAMPLE_PACKAGES,
+  type SamplePackage,
+} from "@deal-to-challenge/engine/samples";
 import { cn } from "@/lib/utils";
 import { Loader2, X } from "lucide-react";
 import { useRef, useState } from "react";
@@ -9,7 +12,6 @@ import { useRef, useState } from "react";
 export interface ImportedEntry {
   fileName: string;
   source: "sample" | "upload" | "archive";
-  /** Archive path when the file arrived inside a .zip. */
   archivePath?: string;
   result: ImportedPackage;
 }
@@ -38,14 +40,20 @@ export interface PackagePickerProps {
   onImportText: (fileName: string, text: string) => void;
 }
 
-function SectionLabel({ children, count }: { children: React.ReactNode; count?: number }) {
+function SectionLabel({
+  children,
+  count,
+}: {
+  children: React.ReactNode;
+  count?: number;
+}) {
   return (
     <div className="flex items-baseline justify-between border-b border-rule-strong pb-2">
-      <span className="font-mono-data text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
+      <span className="font-mono-data text-[11px] tracking-widest text-muted-foreground uppercase">
         {children}
       </span>
       {count !== undefined && (
-        <span className="font-mono-data text-[11px] tracking-[0.1em] text-muted-foreground/60">
+        <span className="font-mono-data text-[11px] tracking-widest text-muted-foreground/60">
           {String(count).padStart(2, "0")}
         </span>
       )}
@@ -102,17 +110,18 @@ export function PackagePicker({
                       <span className="mt-1.5 flex flex-wrap items-center gap-2">
                         <span
                           className={cn(
-                            "font-mono-data text-[11px] tracking-[0.1em] uppercase",
-                            MATURITY_TEXT[entry.result.maturity.level] ?? "text-muted-foreground",
+                            "font-mono-data text-[11px] tracking-widest uppercase",
+                            MATURITY_TEXT[entry.result.maturity.level] ??
+                              "text-muted-foreground",
                           )}
                         >
                           {entry.result.maturity.level.replace(/-/g, " ")}
                         </span>
-                        <span className="font-mono-data text-[11px] tracking-[0.1em] text-muted-foreground/60 uppercase">
+                        <span className="font-mono-data text-[11px] tracking-widest text-muted-foreground/60 uppercase">
                           {SOURCE_LABEL[entry.source]}
                         </span>
                         {!entry.result.report.passed && (
-                          <span className="font-mono-data text-[11px] tracking-[0.1em] text-blocked uppercase">
+                          <span className="font-mono-data text-[11px] tracking-widest text-blocked uppercase">
                             {entry.result.report.counts.error} err
                           </span>
                         )}
@@ -136,7 +145,9 @@ export function PackagePicker({
 
       {/* ---------------- samples ---------------- */}
       <section className="space-y-3">
-        <SectionLabel count={SAMPLE_PACKAGES.length}>Sample packages</SectionLabel>
+        <SectionLabel count={SAMPLE_PACKAGES.length}>
+          Sample packages
+        </SectionLabel>
         <ul>
           {SAMPLE_PACKAGES.map((deal, position) => (
             <li key={deal.id}>
@@ -147,22 +158,23 @@ export function PackagePicker({
                 className="group block w-full border-b border-hairline py-3 text-left transition-colors hover:bg-surface-raise/60 disabled:opacity-50"
               >
                 <span className="flex items-baseline gap-3">
-                  <span className="font-mono-data text-[11px] tracking-[0.1em] text-muted-foreground/60 transition-colors group-hover:text-signal">
+                  <span className="font-mono-data text-[11px] tracking-widest text-muted-foreground/60 transition-colors group-hover:text-signal">
                     {String(position + 1).padStart(2, "0")}
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[13px] font-[600] tracking-[-0.005em]">
+                    <span className="block truncate text-[13px] font-semibold tracking-[-0.005em]">
                       {deal.title}
                     </span>
-                    <span className="mt-1 block truncate font-mono-data text-[11px] tracking-[0.1em] text-muted-foreground/60">
+                    <span className="mt-1 block truncate font-mono-data text-[11px] tracking-widest text-muted-foreground/60">
                       {deal.fileName}
                     </span>
                   </span>
                 </span>
                 <span
                   className={cn(
-                    "mt-2 block pl-8 font-mono-data text-[11px] tracking-[0.1em] uppercase",
-                    MATURITY_TEXT[deal.expectedMaturity] ?? "text-muted-foreground",
+                    "mt-2 block pl-8 font-mono-data text-[11px] tracking-widest uppercase",
+                    MATURITY_TEXT[deal.expectedMaturity] ??
+                      "text-muted-foreground",
                   )}
                 >
                   {deal.expectedMaturity.replace(/-/g, " ")}
@@ -193,7 +205,7 @@ export function PackagePicker({
             dragging ? "border-signal bg-signal/5" : "border-rule-strong",
           )}
         >
-          <p className="font-mono-data text-[11px] leading-5 tracking-[0.1em] text-muted-foreground uppercase">
+          <p className="font-mono-data text-[11px] leading-5 tracking-widest text-muted-foreground uppercase">
             Drop .json or .zip
           </p>
           <p className="mt-2 text-[11px] leading-5 text-muted-foreground/70">

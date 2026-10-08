@@ -1,13 +1,3 @@
-/**
- * Deterministic JSON.
- *
- * Exports must be byte-stable: the same compiled deal has to produce the same
- * file every run, otherwise the tests could not assert preservation and a
- * reviewer could not diff two revisions. Object keys are therefore sorted
- * recursively while array order (which carries meaning: node order, wave order,
- * critical-path order) is preserved.
- */
-
 export function stableStringify(value: unknown, indent = 2): string {
   return JSON.stringify(sortValue(value), null, indent);
 }

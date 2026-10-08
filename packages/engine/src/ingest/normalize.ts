@@ -1,4 +1,14 @@
-import { arr, at, bool, num, obj, slugify, str, strArray, type Json } from "./json";
+import {
+  arr,
+  at,
+  bool,
+  num,
+  obj,
+  slugify,
+  str,
+  strArray,
+  type Json,
+} from "./json";
 import { isWellFormedId, namespaceOf, normalizeName } from "./ids";
 import type {
   AiBoundary,
@@ -71,7 +81,8 @@ function labeledArray(value: Json, ...preferredKeys: string[]): string[] {
   for (const entry of arr(value)) {
     let text = "";
     if (typeof entry === "string") text = entry;
-    else if (typeof entry === "number" || typeof entry === "boolean") text = String(entry);
+    else if (typeof entry === "number" || typeof entry === "boolean")
+      text = String(entry);
     else {
       const record = obj(entry);
       for (const key of ordered) {
@@ -123,7 +134,8 @@ function readSource(value: Json, lines: string[], path: string): SourceOrigin {
   const lineStart = num(node.lineStart);
   const lineEnd = num(node.lineEnd);
   const quote = str(node.quote);
-  const declaredVerified = typeof node.verified === "boolean" ? node.verified : null;
+  const declaredVerified =
+    typeof node.verified === "boolean" ? node.verified : null;
   const recomputed =
     quote.length > 0
       ? verifyQuote(lines, lineStart ?? undefined, lineEnd ?? undefined, quote)
@@ -165,7 +177,12 @@ function readScopeItem(value: Json, index: number, lines: string[]): ScopeItem {
 function toNamedGroup(
   value: Json,
   index: number,
-  kind: "module" | "workstream" | "deliveryPackage" | "enhancement" | "outOfScope",
+  kind:
+    | "module"
+    | "workstream"
+    | "deliveryPackage"
+    | "enhancement"
+    | "outOfScope",
   prefix: string,
 ): NamedGroup {
   const node = obj(value);
@@ -181,7 +198,8 @@ function toNamedGroup(
     name,
     synthesized: true,
     capabilityIds: strArray(node.capabilityIds),
-    requirementIds: requirementIds.length > 0 ? requirementIds : strArray(node.refs),
+    requirementIds:
+      requirementIds.length > 0 ? requirementIds : strArray(node.refs),
     ...(engagementModelHint ? { engagementModelHint } : {}),
   };
 }
@@ -199,17 +217,34 @@ export function normalizePackage(raw: Json): NormalizeResult {
 
   const scopeNode = obj(root.scope);
   track("scope.items", Array.isArray(scopeNode.items));
-  track("outputs.prd.functionalScope", at(root, "outputs.prd.data.functionalScope") !== undefined);
-  track("outputs.architecture", at(root, "outputs.architecture.data") !== undefined);
-  track("outputs.dataIntegration", at(root, "outputs.dataIntegration.data") !== undefined);
-  track("outputs.aiStrategy", at(root, "outputs.aiStrategy.data") !== undefined);
-  track("outputs.estimate.result", at(root, "outputs.estimate.data.result") !== undefined);
+  track(
+    "outputs.prd.functionalScope",
+    at(root, "outputs.prd.data.functionalScope") !== undefined,
+  );
+  track(
+    "outputs.architecture",
+    at(root, "outputs.architecture.data") !== undefined,
+  );
+  track(
+    "outputs.dataIntegration",
+    at(root, "outputs.dataIntegration.data") !== undefined,
+  );
+  track(
+    "outputs.aiStrategy",
+    at(root, "outputs.aiStrategy.data") !== undefined,
+  );
+  track(
+    "outputs.estimate.result",
+    at(root, "outputs.estimate.data.result") !== undefined,
+  );
   track("quality.checks", Array.isArray(at(root, "quality.checks")));
   track("config", Object.keys(obj(root.config)).length > 0);
   track("input.normalized.lines", lines.length > 0);
 
   /* ---------------- scope items ---------------- */
-  const items = arr(scopeNode.items).map((entry, index) => readScopeItem(entry, index, lines));
+  const items = arr(scopeNode.items).map((entry, index) =>
+    readScopeItem(entry, index, lines),
+  );
 
   const buckets = {
     requirements: [] as ScopeItem[],
@@ -280,100 +315,126 @@ export function normalizePackage(raw: Json): NormalizeResult {
           .map((key) => str(node[key]))
           .filter((value) => value.length > 0),
       ],
-      acceptanceConditions: labeledArray(node.acceptance, "label", "text", "statement"),
+      acceptanceConditions: labeledArray(
+        node.acceptance,
+        "label",
+        "text",
+        "statement",
+      ),
     };
   });
 
   const groups = (
     key: string,
-    kind: "module" | "workstream" | "deliveryPackage" | "enhancement" | "outOfScope",
+    kind:
+      | "module"
+      | "workstream"
+      | "deliveryPackage"
+      | "enhancement"
+      | "outOfScope",
     prefix: string,
   ): NamedGroup[] =>
-    arr(prdScope[key]).map((entry, index) => toNamedGroup(entry, index, kind, prefix));
+    arr(prdScope[key]).map((entry, index) =>
+      toNamedGroup(entry, index, kind, prefix),
+    );
 
   /* ---------------- architecture ---------------- */
   const architectureData = obj(at(root, "outputs.architecture.data"));
-  const components: ArchitectureComponent[] = arr(architectureData.components).map(
-    (entry, index) => {
-      const node = obj(entry);
-      return {
-        id: str(node.id, `ARC_${String(index + 1).padStart(2, "0")}`),
-        area: str(node.area, "general"),
-        logicalComponent: str(node.logicalComponent, "Unnamed component"),
-        service: str(node.service),
-        requirementIds: strArray(node.requirementIds),
-        assumptionIds: strArray(node.assumptionIds),
-      };
-    },
-  );
+  const components: ArchitectureComponent[] = arr(
+    architectureData.components,
+  ).map((entry, index) => {
+    const node = obj(entry);
+    return {
+      id: str(node.id, `ARC_${String(index + 1).padStart(2, "0")}`),
+      area: str(node.area, "general"),
+      logicalComponent: str(node.logicalComponent, "Unnamed component"),
+      service: str(node.service),
+      requirementIds: strArray(node.requirementIds),
+      assumptionIds: strArray(node.assumptionIds),
+    };
+  });
 
   const componentIds = new Set(components.map((component) => component.id));
   // Read the integration ids up front: a flow may end at an external system
   // (`ext:INT_01:Guidewire ClaimCenter`), which is a valid endpoint even though
   // it is not an internal architecture component.
   const integrationIdSet = new Set(
-    arr(obj(at(root, "outputs.dataIntegration.data")).integrations).map((entry, index) =>
-      str(obj(entry).id, `IF_${String(index + 1).padStart(2, "0")}`),
+    arr(obj(at(root, "outputs.dataIntegration.data")).integrations).map(
+      (entry, index) =>
+        str(obj(entry).id, `IF_${String(index + 1).padStart(2, "0")}`),
     ),
   );
   // External endpoints are addressed by *scope* identifier (`ext:INT_01:...`),
   // which is the integration requirement, not the `IF_*` interface-design record.
   // Both, plus any other imported scope item, count as a resolved endpoint.
-  const scopeItemIdSet = new Set(arr(scopeNode.items).map((entry) => str(obj(entry).id)));
+  const scopeItemIdSet = new Set(
+    arr(scopeNode.items).map((entry) => str(obj(entry).id)),
+  );
   const endpointKnown = (endpoint: string): boolean => {
     if (componentIds.has(endpoint)) return true;
     const external = externalEndpointId(endpoint);
-    return external !== null && (integrationIdSet.has(external) || scopeItemIdSet.has(external));
+    return (
+      external !== null &&
+      (integrationIdSet.has(external) || scopeItemIdSet.has(external))
+    );
   };
 
   const invalidFlowEndpoints: StructuralFindings["invalidFlowEndpoints"] = [];
-  const flows: ArchitectureFlow[] = arr(architectureData.flows).map((entry, index) => {
-    const node = obj(entry);
-    const from = str(node.from);
-    const to = str(node.to);
-    const valid = endpointKnown(from) && endpointKnown(to);
-    if (!valid) {
-      invalidFlowEndpoints.push({
-        path: `outputs.architecture.data.flows[${index}]`,
+  const flows: ArchitectureFlow[] = arr(architectureData.flows).map(
+    (entry, index) => {
+      const node = obj(entry);
+      const from = str(node.from);
+      const to = str(node.to);
+      const valid = endpointKnown(from) && endpointKnown(to);
+      if (!valid) {
+        invalidFlowEndpoints.push({
+          path: `outputs.architecture.data.flows[${index}]`,
+          from,
+          to,
+        });
+      }
+      return {
         from,
         to,
-      });
-    }
-    return {
-      from,
-      to,
-      label: str(node.label),
-      kind: str(node.kind, "flow"),
-      valid,
-    };
-  });
+        label: str(node.label),
+        kind: str(node.kind, "flow"),
+        valid,
+      };
+    },
+  );
 
   /* ---------------- data + integration + AI ---------------- */
   const dataIntegration = obj(at(root, "outputs.dataIntegration.data"));
-  const dataDomains: DataDomain[] = arr(dataIntegration.domains).map((entry, index) => {
-    const node = obj(entry);
-    const classification = str(node.classification, "unclassified");
-    return {
-      id: str(node.id, `DD_${String(index + 1).padStart(2, "0")}`),
-      name: str(node.name, `Untitled domain ${index + 1}`),
-      classification,
-      regulated: /regulated|restricted|phi|pii|sensitive/i.test(classification),
-    };
-  });
+  const dataDomains: DataDomain[] = arr(dataIntegration.domains).map(
+    (entry, index) => {
+      const node = obj(entry);
+      const classification = str(node.classification, "unclassified");
+      return {
+        id: str(node.id, `DD_${String(index + 1).padStart(2, "0")}`),
+        name: str(node.name, `Untitled domain ${index + 1}`),
+        classification,
+        regulated: /regulated|restricted|phi|pii|sensitive/i.test(
+          classification,
+        ),
+      };
+    },
+  );
 
-  const integrations: Integration[] = arr(dataIntegration.integrations).map((entry, index) => {
-    const node = obj(entry);
-    return {
-      id: str(node.id, `IF_${String(index + 1).padStart(2, "0")}`),
-      name: str(node.name, `Untitled integration ${index + 1}`),
-      pattern: str(node.pattern, "api"),
-      systemType: str(node.systemType, "external"),
-      direction: str(node.direction, "bidirectional"),
-      authentication: str(node.authentication, "unspecified"),
-      errorHandling: str(node.errorHandling, "unspecified"),
-      requirementIds: strArray(node.requirementIds),
-    };
-  });
+  const integrations: Integration[] = arr(dataIntegration.integrations).map(
+    (entry, index) => {
+      const node = obj(entry);
+      return {
+        id: str(node.id, `IF_${String(index + 1).padStart(2, "0")}`),
+        name: str(node.name, `Untitled integration ${index + 1}`),
+        pattern: str(node.pattern, "api"),
+        systemType: str(node.systemType, "external"),
+        direction: str(node.direction, "bidirectional"),
+        authentication: str(node.authentication, "unspecified"),
+        errorHandling: str(node.errorHandling, "unspecified"),
+        requirementIds: strArray(node.requirementIds),
+      };
+    },
+  );
 
   const aiData = obj(at(root, "outputs.aiStrategy.data"));
   const aiUseCases: AiUseCase[] = arr(aiData.useCases).map((entry, index) => {
@@ -402,13 +463,21 @@ export function normalizePackage(raw: Json): NormalizeResult {
   // Two export variants are in the wild: effort nested under `effortDays`, and
   // effort carried directly on the workstream. Both are accepted, and neither is
   // guessed at: an absent number stays null so the node is marked needs-input.
-  const readEffort = (raw: unknown): { low: number | null; likely: number | null; high: number | null } => {
+  const readEffort = (
+    raw: unknown,
+  ): { low: number | null; likely: number | null; high: number | null } => {
     const node = obj(raw) as Record<string, unknown>;
     const nested = obj(node.effortDays) as Record<string, unknown>;
-    const source: Record<string, unknown> = Object.keys(nested).length > 0 ? nested : node;
+    const source: Record<string, unknown> =
+      Object.keys(nested).length > 0 ? nested : node;
     const toNumber = (value: unknown): number | null => {
       if (typeof value === "number" && Number.isFinite(value)) return value;
-      if (typeof value === "string" && value.trim() !== "" && Number.isFinite(Number(value))) return Number(value);
+      if (
+        typeof value === "string" &&
+        value.trim() !== "" &&
+        Number.isFinite(Number(value))
+      )
+        return Number(value);
       return null;
     };
     return {
@@ -418,22 +487,24 @@ export function normalizePackage(raw: Json): NormalizeResult {
     };
   };
 
-  const workstreams: EstimateWorkstream[] = arr(estimate.workstreams).map((entry, index) => {
-    const node = obj(entry);
-    const effort = readEffort(node);
-    return {
-      id: str(node.id, `WS_${String(index + 1).padStart(2, "0")}`),
-      name: str(node.name, `Untitled workstream ${index + 1}`),
-      low: effort.low,
-      likely: effort.likely,
-      high: effort.high,
-      // Prefer the human label ("Engagement Manager") over the id slug
-      // ("engagement-manager") so a Flexible Talent or Private Pod package reads
-      // as a brief rather than as a list of identifiers.
-      roles: labeledArray(node.roles, "label", "roleId"),
-      skills: labeledArray(node.skills, "label", "skillId"),
-    };
-  });
+  const workstreams: EstimateWorkstream[] = arr(estimate.workstreams).map(
+    (entry, index) => {
+      const node = obj(entry);
+      const effort = readEffort(node);
+      return {
+        id: str(node.id, `WS_${String(index + 1).padStart(2, "0")}`),
+        name: str(node.name, `Untitled workstream ${index + 1}`),
+        low: effort.low,
+        likely: effort.likely,
+        high: effort.high,
+        // Prefer the human label ("Engagement Manager") over the id slug
+        // ("engagement-manager") so a Flexible Talent or Private Pod package reads
+        // as a brief rather than as a list of identifiers.
+        roles: labeledArray(node.roles, "label", "roleId"),
+        skills: labeledArray(node.skills, "label", "skillId"),
+      };
+    },
+  );
 
   const phases: DeliveryPhase[] = arr(estimate.phases).map((entry, index) => {
     const node = obj(entry);
@@ -445,7 +516,10 @@ export function normalizePackage(raw: Json): NormalizeResult {
   });
 
   const totalsNode = obj(estimate.totals);
-  const effortTotals = Object.keys(obj(totalsNode.effortDays)).length > 0 ? obj(totalsNode.effortDays) : totalsNode;
+  const effortTotals =
+    Object.keys(obj(totalsNode.effortDays)).length > 0
+      ? obj(totalsNode.effortDays)
+      : totalsNode;
 
   /* ---------------- quality ---------------- */
   const qualityNode = obj(root.quality);
@@ -474,7 +548,8 @@ export function normalizePackage(raw: Json): NormalizeResult {
           checkId,
           checkName,
           status,
-          message: typeof finding === "string" ? finding : str(obj(finding).message),
+          message:
+            typeof finding === "string" ? finding : str(obj(finding).message),
           provenance: "imported",
         });
       }
@@ -496,7 +571,10 @@ export function normalizePackage(raw: Json): NormalizeResult {
         str(at(root, "customer.name"), str(root.customer, "Unnamed customer")),
       ),
       maturity: "",
-      platform: str(configNode.cloudPlatform, str(architectureData.platform, "unspecified")),
+      platform: str(
+        configNode.cloudPlatform,
+        str(architectureData.platform, "unspecified"),
+      ),
       confidence: str(estimate.confidence, "unknown"),
       updatedAt: str(root.updatedAt) || null,
     },
@@ -510,7 +588,10 @@ export function normalizePackage(raw: Json): NormalizeResult {
       outOfScope: groups("outOfScope", "outOfScope", "EXT"),
     },
     architecture: {
-      platform: str(configNode.cloudPlatform, str(architectureData.platform, "unspecified")),
+      platform: str(
+        configNode.cloudPlatform,
+        str(architectureData.platform, "unspecified"),
+      ),
       components,
       flows,
     },
@@ -728,10 +809,16 @@ export function normalizePackage(raw: Json): NormalizeResult {
 
 /** Fields on the raw package that hold identifiers pointing at other records. */
 const REFERENCE_PATHS: { path: string; field: string }[] = [
-  { path: "outputs.prd.data.functionalScope.capabilities", field: "requirementIds" },
+  {
+    path: "outputs.prd.data.functionalScope.capabilities",
+    field: "requirementIds",
+  },
   { path: "outputs.architecture.data.components", field: "requirementIds" },
   { path: "outputs.architecture.data.components", field: "assumptionIds" },
-  { path: "outputs.dataIntegration.data.integrations", field: "requirementIds" },
+  {
+    path: "outputs.dataIntegration.data.integrations",
+    field: "requirementIds",
+  },
   { path: "outputs.aiStrategy.data.useCases", field: "requirementIds" },
   { path: "outputs.aiStrategy.data.boundaries", field: "requirementIds" },
 ];
@@ -743,7 +830,10 @@ export interface ReferenceScan {
 }
 
 /** Re-read the raw package and check that every reference resolves. */
-export function scanReferences(raw: Json, index: SourceRecord[]): ReferenceScan {
+export function scanReferences(
+  raw: Json,
+  index: SourceRecord[],
+): ReferenceScan {
   const root = obj(raw);
   const known = new Set(index.map((record) => record.id));
   const referenceCounts: Record<string, number> = {};
@@ -769,7 +859,8 @@ export function scanReferences(raw: Json, index: SourceRecord[]): ReferenceScan 
     entries.forEach((entry, index) => {
       const node = obj(entry);
       const from = str(node.id, `${path}[${index}]`);
-      for (const id of strArray(node[field])) note(id, from, `${path}[${index}].${field}`);
+      for (const id of strArray(node[field]))
+        note(id, from, `${path}[${index}].${field}`);
     });
   }
 

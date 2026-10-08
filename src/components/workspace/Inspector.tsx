@@ -16,7 +16,10 @@ function SourceAnchor({ origin }: { origin: SourceOrigin }) {
   return (
     <div className="space-y-2">
       <div className="flex flex-wrap items-center gap-2">
-        <Badge variant="outline" className="border-hairline font-mono-data text-[11px] uppercase">
+        <Badge
+          variant="outline"
+          className="border-hairline font-mono-data text-[11px] uppercase"
+        >
           {origin.path}
         </Badge>
         {origin.sectionId && (
@@ -40,7 +43,9 @@ function SourceAnchor({ origin }: { origin: SourceOrigin }) {
             variant="outline"
             className={cn(
               "font-mono-data text-[11px] uppercase",
-              verified ? "border-ready/40 text-ready" : "border-blocked/50 text-blocked",
+              verified
+                ? "border-ready/40 text-ready"
+                : "border-blocked/50 text-blocked",
             )}
           >
             {verified ? "quote verified" : "quote not found"}
@@ -72,7 +77,9 @@ export function Inspector({ selection, onClose }: InspectorProps) {
         {selection.kind === "issue" && (
           <>
             <DialogHeader>
-              <DialogTitle className="text-base">Validation finding</DialogTitle>
+              <DialogTitle className="text-base">
+                Validation finding
+              </DialogTitle>
               <DialogDescription className="font-mono-data text-[11px]">
                 {selection.issue.code} · {selection.issue.id}
               </DialogDescription>
@@ -94,14 +101,16 @@ export function Inspector({ selection, onClose }: InspectorProps) {
               <p className="text-[13px] leading-6">{selection.issue.message}</p>
               <Separator />
               <div className="space-y-1">
-                <p className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                <p className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                   path
                 </p>
-                <p className="font-mono-data text-[11px]">{selection.issue.path}</p>
+                <p className="font-mono-data text-[11px]">
+                  {selection.issue.path}
+                </p>
               </div>
               {selection.issue.sourceIds.length > 0 && (
                 <div className="space-y-1">
-                  <p className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                  <p className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                     source ids
                   </p>
                   <div className="flex flex-wrap gap-1.5">
@@ -118,7 +127,7 @@ export function Inspector({ selection, onClose }: InspectorProps) {
               )}
               <Separator />
               <div className="space-y-1">
-                <p className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                <p className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                   remediation
                 </p>
                 <p className="text-[13px] leading-6 text-muted-foreground">
@@ -154,7 +163,7 @@ export function Inspector({ selection, onClose }: InspectorProps) {
                 <>
                   <Separator />
                   <div className="space-y-1">
-                    <p className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                    <p className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                       triggering source ids
                     </p>
                     <div className="flex flex-wrap gap-1.5">
@@ -177,17 +186,25 @@ export function Inspector({ selection, onClose }: InspectorProps) {
         {selection.kind === "item" && (
           <>
             <DialogHeader>
-              <DialogTitle className="text-base">{selection.item.title}</DialogTitle>
+              <DialogTitle className="text-base">
+                {selection.item.title}
+              </DialogTitle>
               <DialogDescription className="font-mono-data text-[11px]">
                 {selection.item.id} · {selection.item.kind}
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4 px-4 pb-6">
               <div className="flex flex-wrap gap-1.5">
-                <Badge variant="outline" className="border-hairline text-[11px] uppercase">
+                <Badge
+                  variant="outline"
+                  className="border-hairline text-[11px] uppercase"
+                >
                   {selection.item.provenance}
                 </Badge>
-                <Badge variant="outline" className="border-hairline text-[11px] uppercase">
+                <Badge
+                  variant="outline"
+                  className="border-hairline text-[11px] uppercase"
+                >
                   priority: {selection.item.priority}
                 </Badge>
                 {selection.item.critical && (
@@ -202,7 +219,9 @@ export function Inspector({ selection, onClose }: InspectorProps) {
                   variant="outline"
                   className={cn(
                     "text-[11px] uppercase",
-                    selection.item.inScope ? "border-ready/40 text-ready" : "border-blocked/50 text-blocked",
+                    selection.item.inScope
+                      ? "border-ready/40 text-ready"
+                      : "border-blocked/50 text-blocked",
                   )}
                 >
                   {selection.item.inScope ? "in scope" : "excluded"}
@@ -215,7 +234,7 @@ export function Inspector({ selection, onClose }: InspectorProps) {
 
               {selection.item.resolution && (
                 <div className="space-y-1">
-                  <p className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                  <p className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                     resolution
                   </p>
                   <p className="text-[13px] leading-6 text-muted-foreground">
@@ -226,7 +245,7 @@ export function Inspector({ selection, onClose }: InspectorProps) {
 
               {selection.item.affectsInputs.length > 0 && (
                 <div className="space-y-1">
-                  <p className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                  <p className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                     affects estimation inputs
                   </p>
                   <div className="flex flex-wrap gap-1.5">
@@ -244,7 +263,7 @@ export function Inspector({ selection, onClose }: InspectorProps) {
 
               {selection.item.relatedIds.length > 0 && (
                 <div className="space-y-1">
-                  <p className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                  <p className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                     related ids
                   </p>
                   <div className="flex flex-wrap gap-1.5">
@@ -262,7 +281,7 @@ export function Inspector({ selection, onClose }: InspectorProps) {
 
               <Separator />
               <div className="space-y-2">
-                <p className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                <p className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                   source anchor
                 </p>
                 <SourceAnchor origin={selection.item.source} />

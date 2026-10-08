@@ -4,7 +4,6 @@ dist/
 coverage/
 *.tsbuildinfo
 
-# Local secrets. Only .env.example is committed.
 .env
 .env.local
 .env.*.local

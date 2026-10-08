@@ -10,11 +10,21 @@ export type {
   ImpactExplainRequest,
   PackageDraftRequest,
 } from "./types";
-export type { AIProposal, AISurface, SchemaIssue, ValidationResult } from "./schema";
+export type {
+  AIProposal,
+  AISurface,
+  SchemaIssue,
+  ValidationResult,
+} from "./schema";
 export {
   validateDecomposition,
   validateDependencies,
   validateModelRecommendation,
   validatePackageDraft,
 } from "./schema";
-export { MockProvider, createMockProvider, MOCK_NOTICE, MOCK_PROMPT_VERSION } from "./mock";
+export {
+  MockProvider,
+  createMockProvider,
+  MOCK_NOTICE,
+  MOCK_PROMPT_VERSION,
+} from "./mock";

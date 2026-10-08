@@ -484,9 +484,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:portal"
-        ],
+        "signals": ["capability:portal"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -508,14 +506,10 @@
           "quote": "They would like renewal reminders to go out automatically instead of the Membership Coordinator tracking them manually.",
           "verified": true
         },
-        "relatedIds": [
-          "FR_05"
-        ],
+        "relatedIds": ["FR_05"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:notifications"
-        ],
+        "signals": ["capability:notifications"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -540,9 +534,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:identity"
-        ],
+        "signals": ["capability:identity"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -567,9 +559,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "delivery:deadline"
-        ],
+        "signals": ["delivery:deadline"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -591,14 +581,10 @@
           "quote": "They want a modern member app that lets members log in, update their profile and renew their membership online.",
           "verified": true
         },
-        "relatedIds": [
-          "PER_01"
-        ],
+        "relatedIds": ["PER_01"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:identity"
-        ],
+        "signals": ["capability:identity"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -620,15 +606,10 @@
           "quote": "They want some kind of AI feature but were not specific; the Executive Director said \"maybe a chatbot that can answer member questions, or something that helps us write newsletters, we are open to ideas.\"",
           "verified": true
         },
-        "relatedIds": [
-          "FR_07"
-        ],
+        "relatedIds": ["FR_07"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:content",
-          "ai:assistant"
-        ],
+        "signals": ["capability:content", "ai:assistant"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -650,15 +631,10 @@
           "quote": "The Membership Coordinator would like members to be able to search the directory of other members more easily than today.",
           "verified": true
         },
-        "relatedIds": [
-          "Q_12",
-          "FR_09"
-        ],
+        "relatedIds": ["Q_12", "FR_09"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:search"
-        ],
+        "signals": ["capability:search"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -680,14 +656,10 @@
           "quote": "They mentioned wanting event registration for their annual trade show but were not sure if that should be part of this project or handled separately.",
           "verified": true
         },
-        "relatedIds": [
-          "Q_02"
-        ],
+        "relatedIds": ["Q_02"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:identity"
-        ],
+        "signals": ["capability:identity"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -709,14 +681,10 @@
           "quote": "They would like renewal reminders to go out automatically instead of the Membership Coordinator tracking them manually.",
           "verified": true
         },
-        "relatedIds": [
-          "PER_02"
-        ],
+        "relatedIds": ["PER_02"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:notifications"
-        ],
+        "signals": ["capability:notifications"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -738,15 +706,10 @@
           "quote": "The Executive Director said the new experience \"should probably let members pay their dues online without calling the office.\"",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_05",
-          "Q_03"
-        ],
+        "relatedIds": ["GAP_05", "Q_03"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:payments"
-        ],
+        "signals": ["capability:payments"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -768,15 +731,10 @@
           "quote": "The Executive Director said the chatbot idea \"should only answer basic questions and not make anything up,\" but did not describe what a basic question looks like.",
           "verified": true
         },
-        "relatedIds": [
-          "FR_02",
-          "Q_13"
-        ],
+        "relatedIds": ["FR_02", "Q_13"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "ai:assistant"
-        ],
+        "signals": ["ai:assistant"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -801,10 +759,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:reporting",
-          "data:reporting"
-        ],
+        "signals": ["capability:reporting", "data:reporting"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -826,14 +781,10 @@
           "quote": "The Membership Coordinator said it \"would be nice\" if members could see other members in their region or trade category.",
           "verified": true
         },
-        "relatedIds": [
-          "FR_03"
-        ],
+        "relatedIds": ["FR_03"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:search"
-        ],
+        "signals": ["capability:search"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -855,15 +806,10 @@
           "quote": "Members currently manage their profile, pay dues and browse the member directory through an old membership portal that the Executive Director could not name precisely, only saying \"it might be called MemberSuite, or something similar, our office manager set it up years ago.\"",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_10"
-        ],
+        "relatedIds": ["GAP_10"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:identity",
-          "capability:search"
-        ],
+        "signals": ["capability:identity", "capability:search"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -888,9 +834,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "integration:file"
-        ],
+        "signals": ["integration:file"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -915,9 +859,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:identity"
-        ],
+        "signals": ["capability:identity"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -942,9 +884,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "delivery:deadline"
-        ],
+        "signals": ["delivery:deadline"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -991,9 +931,7 @@
           "quote": "The Membership Coordinator agreed to check whether finance can produce an approximate current member count before the next call.",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_01"
-        ],
+        "relatedIds": ["GAP_01"],
         "affectsInputs": [],
         "critical": false,
         "signals": [],
@@ -1018,14 +956,10 @@
           "quote": "Nobody on the call could say how many active members the association currently has; the Executive Director guessed \"somewhere between a couple thousand and maybe five thousand, but I would need to check with finance.\"",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_01"
-        ],
+        "relatedIds": ["GAP_01"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "delivery:deadline"
-        ],
+        "signals": ["delivery:deadline"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1072,12 +1006,8 @@
           "quote": "Nobody on the call could say how many active members the association currently has; the Executive Director guessed \"somewhere between a couple thousand and maybe five thousand, but I would need to check with finance.\"",
           "verified": true
         },
-        "relatedIds": [
-          "RSK_01"
-        ],
-        "affectsInputs": [
-          "expectedUsers"
-        ],
+        "relatedIds": ["RSK_01"],
+        "affectsInputs": ["expectedUsers"],
         "critical": true,
         "signals": [],
         "review": "approved",
@@ -1102,13 +1032,9 @@
           "verified": true
         },
         "relatedIds": [],
-        "affectsInputs": [
-          "deliveryDeadline"
-        ],
+        "affectsInputs": ["deliveryDeadline"],
         "critical": true,
-        "signals": [
-          "delivery:deadline"
-        ],
+        "signals": ["delivery:deadline"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1130,16 +1056,10 @@
           "quote": "It is unclear which systems, if any, the new app would need to connect to beyond \"whatever we are using for dues payments right now,\" which nobody on the call could name with certainty.",
           "verified": true
         },
-        "relatedIds": [
-          "Q_07"
-        ],
-        "affectsInputs": [
-          "integrationReadiness"
-        ],
+        "relatedIds": ["Q_07"],
+        "affectsInputs": ["integrationReadiness"],
         "critical": true,
-        "signals": [
-          "capability:payments"
-        ],
+        "signals": ["capability:payments"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1161,12 +1081,8 @@
           "quote": "Nobody mentioned how many environments (development, testing, production) they would expect or currently have, and it was not asked.",
           "verified": true
         },
-        "relatedIds": [
-          "Q_08"
-        ],
-        "affectsInputs": [
-          "environments"
-        ],
+        "relatedIds": ["Q_08"],
+        "affectsInputs": ["environments"],
         "critical": false,
         "signals": [],
         "review": "approved",
@@ -1190,18 +1106,10 @@
           "quote": "No compliance or data-protection requirements were mentioned; when asked in passing whether they handle payment card data directly, the Executive Director said \"I honestly am not sure, I think our current vendor handles that part.\"",
           "verified": true
         },
-        "relatedIds": [
-          "Q_03",
-          "FR_06"
-        ],
-        "affectsInputs": [
-          "complianceScope"
-        ],
+        "relatedIds": ["Q_03", "FR_06"],
+        "affectsInputs": ["complianceScope"],
         "critical": true,
-        "signals": [
-          "capability:payments",
-          "compliance:pci"
-        ],
+        "signals": ["capability:payments", "compliance:pci"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1223,9 +1131,7 @@
           "quote": "Nobody expressed a cloud platform preference; the Executive Director said \"we do not really have technical staff, so whatever you all think is best.\"",
           "verified": true
         },
-        "relatedIds": [
-          "Q_09"
-        ],
+        "relatedIds": ["Q_09"],
         "affectsInputs": [],
         "critical": false,
         "signals": [],
@@ -1253,9 +1159,7 @@
         "relatedIds": [],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "delivery:budget"
-        ],
+        "signals": ["delivery:budget"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1277,15 +1181,10 @@
           "quote": "It is unclear whether the association wants a mobile app, a responsive website, or both.",
           "verified": true
         },
-        "relatedIds": [
-          "Q_10"
-        ],
+        "relatedIds": ["Q_10"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:mobile",
-          "capability:portal"
-        ],
+        "signals": ["capability:mobile", "capability:portal"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1307,15 +1206,10 @@
           "quote": "Nobody could say whether any existing single sign-on or shared login system should be reused, since the association does not appear to have one today.",
           "verified": true
         },
-        "relatedIds": [
-          "Q_11"
-        ],
+        "relatedIds": ["Q_11"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:identity",
-          "security:sso"
-        ],
+        "signals": ["capability:identity", "security:sso"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1337,16 +1231,10 @@
           "quote": "Neither attendee could say whether the existing membership portal has an API or any way to export data; the Executive Director said \"I genuinely do not know, that is a good question for our office manager.\"",
           "verified": true
         },
-        "relatedIds": [
-          "SYS_01"
-        ],
-        "affectsInputs": [
-          "integrationReadiness"
-        ],
+        "relatedIds": ["SYS_01"],
+        "affectsInputs": ["integrationReadiness"],
         "critical": true,
-        "signals": [
-          "integration:api"
-        ],
+        "signals": ["integration:api"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1368,14 +1256,10 @@
           "quote": "The Executive Director said the association has about six staff in total and none of them are technical, so day-to-day support after launch would likely need to sit with the delivery partner or a future hire.",
           "verified": true
         },
-        "relatedIds": [
-          "CON_01"
-        ],
+        "relatedIds": ["CON_01"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "delivery:deadline"
-        ],
+        "signals": ["delivery:deadline"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1397,14 +1281,10 @@
           "quote": "The Membership Coordinator said renewals are currently tracked \"mostly by email and a shared spreadsheet, if I am honest.\"",
           "verified": true
         },
-        "relatedIds": [
-          "DATA_01"
-        ],
+        "relatedIds": ["DATA_01"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "integration:file"
-        ],
+        "signals": ["integration:file"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1426,13 +1306,8 @@
           "quote": "Confirm the actual current member count and the platform name and vendor for the existing membership system.",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_01",
-          "SYS_01"
-        ],
-        "affectsInputs": [
-          "expectedUsers"
-        ],
+        "relatedIds": ["GAP_01", "SYS_01"],
+        "affectsInputs": ["expectedUsers"],
         "critical": true,
         "signals": [],
         "review": "approved",
@@ -1456,14 +1331,10 @@
           "quote": "Confirm whether event registration for the annual trade show is in scope for this engagement or a separate future project.",
           "verified": true
         },
-        "relatedIds": [
-          "FR_04"
-        ],
+        "relatedIds": ["FR_04"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:identity"
-        ],
+        "signals": ["capability:identity"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1485,18 +1356,10 @@
           "quote": "Confirm whether the association directly handles payment card data or whether an existing payment vendor is fully responsible for that.",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_05",
-          "FR_06"
-        ],
-        "affectsInputs": [
-          "complianceScope"
-        ],
+        "relatedIds": ["GAP_05", "FR_06"],
+        "affectsInputs": ["complianceScope"],
         "critical": true,
-        "signals": [
-          "capability:payments",
-          "compliance:pci"
-        ],
+        "signals": ["capability:payments", "compliance:pci"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1518,18 +1381,10 @@
           "quote": "Confirm whether there is any target date, even an approximate one, and any budget range the association has in mind.",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_02",
-          "GAP_07"
-        ],
-        "affectsInputs": [
-          "deliveryDeadline"
-        ],
+        "relatedIds": ["GAP_02", "GAP_07"],
+        "affectsInputs": ["deliveryDeadline"],
         "critical": true,
-        "signals": [
-          "delivery:deadline",
-          "delivery:budget"
-        ],
+        "signals": ["delivery:deadline", "delivery:budget"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1551,9 +1406,7 @@
           "quote": "Confirm who on the association's side, if anyone, can act as a technical or business point of contact once the project starts.",
           "verified": true
         },
-        "relatedIds": [
-          "DEP_01"
-        ],
+        "relatedIds": ["DEP_01"],
         "affectsInputs": [],
         "critical": false,
         "signals": [],
@@ -1578,16 +1431,10 @@
           "quote": "Confirm whether the existing membership portal exposes any API or export mechanism that a new app could build on.",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_10"
-        ],
-        "affectsInputs": [
-          "integrationReadiness"
-        ],
+        "relatedIds": ["GAP_10"],
+        "affectsInputs": ["integrationReadiness"],
         "critical": true,
-        "signals": [
-          "integration:api"
-        ],
+        "signals": ["integration:api"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1609,14 +1456,10 @@
           "quote": "It is unclear which systems, if any, the new app would need to connect to beyond \"whatever we are using for dues payments right now,\" which nobody on the call could name with certainty.",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_03"
-        ],
+        "relatedIds": ["GAP_03"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:payments"
-        ],
+        "signals": ["capability:payments"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1638,9 +1481,7 @@
           "quote": "Nobody mentioned how many environments (development, testing, production) they would expect or currently have, and it was not asked.",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_04"
-        ],
+        "relatedIds": ["GAP_04"],
         "affectsInputs": [],
         "critical": false,
         "signals": [],
@@ -1665,14 +1506,10 @@
           "quote": "Nobody expressed a cloud platform preference; the Executive Director said \"we do not really have technical staff, so whatever you all think is best.\"",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_06"
-        ],
+        "relatedIds": ["GAP_06"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "security:data-residency"
-        ],
+        "signals": ["security:data-residency"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1694,15 +1531,10 @@
           "quote": "It is unclear whether the association wants a mobile app, a responsive website, or both.",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_08"
-        ],
+        "relatedIds": ["GAP_08"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:mobile",
-          "capability:portal"
-        ],
+        "signals": ["capability:mobile", "capability:portal"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1724,9 +1556,7 @@
           "quote": "Nobody could say whether any existing single sign-on or shared login system should be reused, since the association does not appear to have one today.",
           "verified": true
         },
-        "relatedIds": [
-          "GAP_09"
-        ],
+        "relatedIds": ["GAP_09"],
         "affectsInputs": [],
         "critical": false,
         "signals": [
@@ -1756,14 +1586,10 @@
           "quote": "Both attendees agreed the current member directory search is frustrating but could not describe specifically what makes it hard to use.",
           "verified": true
         },
-        "relatedIds": [
-          "FR_03"
-        ],
+        "relatedIds": ["FR_03"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "capability:search"
-        ],
+        "signals": ["capability:search"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -1785,14 +1611,10 @@
           "quote": "The Executive Director said the chatbot idea \"should only answer basic questions and not make anything up,\" but did not describe what a basic question looks like.",
           "verified": true
         },
-        "relatedIds": [
-          "FR_07"
-        ],
+        "relatedIds": ["FR_07"],
         "affectsInputs": [],
         "critical": false,
-        "signals": [
-          "ai:assistant"
-        ],
+        "signals": ["ai:assistant"],
         "review": "approved",
         "inScope": true,
         "userEdited": false,
@@ -2284,20 +2106,12 @@
               "statements": [
                 {
                   "text": "The National Horticultural Traders Association wants a modern member app with an unspecified AI feature, but this first exploratory call left member count, launch date, environments, integration details, compliance scope, cloud preference and budget all unconfirmed; confidence is low until these gaps are closed with the customer.",
-                  "refs": [
-                    "BR_01",
-                    "BR_02",
-                    "BR_03"
-                  ],
+                  "refs": ["BR_01", "BR_02", "BR_03"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Member Experience Modernisation serves 3 business objectives set by National Horticultural Traders Association (BR_01, BR_02 and BR_03); each is detailed under Business objectives.",
-                  "refs": [
-                    "BR_01",
-                    "BR_02",
-                    "BR_03"
-                  ],
+                  "refs": ["BR_01", "BR_02", "BR_03"],
                   "label": "customer-requested"
                 },
                 {
@@ -2313,18 +2127,12 @@
               "statements": [
                 {
                   "text": "Today National Horticultural Traders Association relies on Existing Membership Portal (Unconfirmed Platform): An old membership portal is in use today; even its product name is uncertain, possibly \"MemberSuite,\" set up years ago by an office manager.",
-                  "refs": [
-                    "SYS_01"
-                  ],
+                  "refs": ["SYS_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "Until this is addressed, National Horticultural Traders Association cannot achieve \"Modernise a dated member experience\" (BR_01), \"Member self-service demand signal\" (BR_02) and \"Automate renewal reminders\" (BR_03).",
-                  "refs": [
-                    "BR_01",
-                    "BR_02",
-                    "BR_03"
-                  ],
+                  "refs": ["BR_01", "BR_02", "BR_03"],
                   "label": "customer-requested"
                 }
               ]
@@ -2335,23 +2143,17 @@
               "statements": [
                 {
                   "text": "BR_01 - Modernise a dated member experience: The association wants a modern member experience with some AI capability, replacing a portal staff describe as dated.",
-                  "refs": [
-                    "BR_01"
-                  ],
+                  "refs": ["BR_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "BR_02 - Member self-service demand signal: Members have emailed asking to update their own contact details directly, evidencing demand for self-service.",
-                  "refs": [
-                    "BR_02"
-                  ],
+                  "refs": ["BR_02"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "BR_03 - Automate renewal reminders: The association wants renewal reminders to go out automatically instead of being tracked manually by the Membership Coordinator.",
-                  "refs": [
-                    "BR_03"
-                  ],
+                  "refs": ["BR_03"],
                   "label": "customer-requested"
                 }
               ]
@@ -2362,16 +2164,12 @@
               "statements": [
                 {
                   "text": "PER_01 - Member: A representative of a member business (a wholesale nursery, garden retailer or landscape supplier) who logs in, updates the business profile and renews membership.",
-                  "refs": [
-                    "PER_01"
-                  ],
+                  "refs": ["PER_01"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "PER_02 - Association Staff (Non-Technical): The association's roughly six staff, none technical, who will need to operate and support the app after launch.",
-                  "refs": [
-                    "PER_02"
-                  ],
+                  "refs": ["PER_02"],
                   "label": "ai-interpretation"
                 }
               ]
@@ -2382,20 +2180,12 @@
               "statements": [
                 {
                   "text": "Member journey: Step 1: Members log in, update their profile and renew their membership online (FR_01; delivered by CAP_08). Step 2: Members should be able to search the directory of other members more easily than the current experience allows (FR_03; delivered by CAP_05). Step 3: Members should be able to pay their dues online without calling the office (FR_06; delivered by CAP_04). Step 4: Board members may need some kind of special access to reports, but the report content was not described (FR_08; delivered by CAP_02). Step 5: Let members see other members in their region or trade category; stated as a nice-to-have (FR_09; delivered by CAP_05).",
-                  "refs": [
-                    "FR_01",
-                    "FR_03",
-                    "FR_06",
-                    "FR_08",
-                    "FR_09"
-                  ],
+                  "refs": ["FR_01", "FR_03", "FR_06", "FR_08", "FR_09"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Association Staff (Non-Technical) journey: Step 1: Renewal reminders should go out automatically instead of the Membership Coordinator tracking them manually (FR_05; delivered by CAP_03).",
-                  "refs": [
-                    "FR_05"
-                  ],
+                  "refs": ["FR_05"],
                   "label": "ai-interpretation"
                 }
               ]
@@ -2406,79 +2196,57 @@
               "statements": [
                 {
                   "text": "DATA_01 - Renewal Tracking Data (Spreadsheet-Based): Renewals are currently tracked mostly by email and a shared spreadsheet rather than a system of record.",
-                  "refs": [
-                    "DATA_01"
-                  ],
+                  "refs": ["DATA_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "DATA_02 - Member Profile and Contact Data: Member profile and contact data is implied by the requested login, profile-update and renewal capabilities, though its current structure is unknown.",
-                  "refs": [
-                    "DATA_02"
-                  ],
+                  "refs": ["DATA_02"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "FR_01 - Member login, profile and online renewal: Members log in, update their profile and renew their membership online.",
-                  "refs": [
-                    "FR_01"
-                  ],
+                  "refs": ["FR_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_02 - AI feature - concept only: An AI feature is wanted, described only loosely as possibly a member-question chatbot or a newsletter-writing aid.",
-                  "refs": [
-                    "FR_02"
-                  ],
+                  "refs": ["FR_02"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_03 - Improved member directory search: Members should be able to search the directory of other members more easily than the current experience allows.",
-                  "refs": [
-                    "FR_03"
-                  ],
+                  "refs": ["FR_03"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_04 - Event registration for annual trade show (scope undecided): Event registration for the annual trade show is wanted but not yet confirmed as part of this engagement.",
-                  "refs": [
-                    "FR_04"
-                  ],
+                  "refs": ["FR_04"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_05 - Automated renewal reminders: Renewal reminders should go out automatically instead of the Membership Coordinator tracking them manually.",
-                  "refs": [
-                    "FR_05"
-                  ],
+                  "refs": ["FR_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_06 - Online dues payment: Members should be able to pay their dues online without calling the office.",
-                  "refs": [
-                    "FR_06"
-                  ],
+                  "refs": ["FR_06"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_07 - Chatbot scoped to basic, sourced answers: A chatbot, if built, should only answer basic questions and not fabricate information, though \"basic\" was not defined.",
-                  "refs": [
-                    "FR_07"
-                  ],
+                  "refs": ["FR_07"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_08 - Board member reporting access (scope not described): Board members may need some kind of special access to reports, but the report content was not described.",
-                  "refs": [
-                    "FR_08"
-                  ],
+                  "refs": ["FR_08"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_09 - Browse members by region or trade category: Let members see other members in their region or trade category; stated as a nice-to-have.",
-                  "refs": [
-                    "FR_09"
-                  ],
+                  "refs": ["FR_09"],
                   "label": "customer-requested"
                 }
               ]
@@ -2489,13 +2257,7 @@
               "statements": [
                 {
                   "text": "The customer's requirements text did not state a non-functional or security requirement. This is left open and tracked by GAP_05, GAP_09, Q_03, Q_09, Q_11 until the customer confirms it.",
-                  "refs": [
-                    "GAP_05",
-                    "GAP_09",
-                    "Q_03",
-                    "Q_09",
-                    "Q_11"
-                  ],
+                  "refs": ["GAP_05", "GAP_09", "Q_03", "Q_09", "Q_11"],
                   "label": "assumption-to-confirm"
                 }
               ]
@@ -2506,11 +2268,7 @@
               "statements": [
                 {
                   "text": "The customer's requirements text did not state an integration with an external system. This is left open and tracked by GAP_10, Q_06, Q_11 until the customer confirms it.",
-                  "refs": [
-                    "GAP_10",
-                    "Q_06",
-                    "Q_11"
-                  ],
+                  "refs": ["GAP_10", "Q_06", "Q_11"],
                   "label": "assumption-to-confirm"
                 }
               ]
@@ -2521,16 +2279,12 @@
               "statements": [
                 {
                   "text": "DEP_01 - Office manager input required: The office manager who originally set up the existing portal needs to join a future call before key platform questions can be answered.",
-                  "refs": [
-                    "DEP_01"
-                  ],
+                  "refs": ["DEP_01"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "DEP_02 - Finance confirmation of member count pending: The Membership Coordinator agreed to check whether finance can produce an approximate current member count before the next call.",
-                  "refs": [
-                    "DEP_02"
-                  ],
+                  "refs": ["DEP_02"],
                   "label": "customer-requested"
                 }
               ]
@@ -2541,16 +2295,12 @@
               "statements": [
                 {
                   "text": "ASM_01 - A technical/business point of contact will be identified: Assumed the association will be able to name a technical or business point of contact once scoping resumes, despite having no technical staff today.",
-                  "refs": [
-                    "ASM_01"
-                  ],
+                  "refs": ["ASM_01"],
                   "label": "assumption-to-confirm"
                 },
                 {
                   "text": "ASM_02 - Renewal process will be replaced, not just integrated: Assumed the current email-and-spreadsheet renewal process will be replaced by the new app rather than kept alongside it, pending confirmation.",
-                  "refs": [
-                    "ASM_02"
-                  ],
+                  "refs": ["ASM_02"],
                   "label": "assumption-to-confirm"
                 }
               ]
@@ -2561,16 +2311,12 @@
               "statements": [
                 {
                   "text": "RSK_01 - Estimate reliability risk from unknown member count: Without a confirmed member count, any effort, timeline or cost estimate carries significant uncertainty until finance validates a figure.",
-                  "refs": [
-                    "RSK_01"
-                  ],
+                  "refs": ["RSK_01"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "RSK_02 - Renewal-lapse pattern suggests a process gap: Members routinely let renewals lapse and are chased later, suggesting the problem may be process as much as technology.",
-                  "refs": [
-                    "RSK_02"
-                  ],
+                  "refs": ["RSK_02"],
                   "label": "ai-interpretation"
                 }
               ]
@@ -2586,17 +2332,12 @@
                 },
                 {
                   "text": "Production data-migration volumes, historical backfill and legacy data cleansing beyond the reviewed data requirements remain out of scope until the customer confirms them.",
-                  "refs": [
-                    "DATA_01",
-                    "DATA_02"
-                  ],
+                  "refs": ["DATA_01", "DATA_02"],
                   "label": "assumption-to-confirm"
                 },
                 {
                   "text": "Decommissioning of the existing systems referenced in the scope model is out of scope; this engagement covers integration with those systems, not their retirement.",
-                  "refs": [
-                    "SYS_01"
-                  ],
+                  "refs": ["SYS_01"],
                   "label": "assumption-to-confirm"
                 }
               ]
@@ -2607,93 +2348,67 @@
               "statements": [
                 {
                   "text": "Q_01 - What is the current member count and portal platform?: Confirm the actual current member count and the platform name and vendor for the existing membership system.",
-                  "refs": [
-                    "Q_01"
-                  ],
+                  "refs": ["Q_01"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_02 - Is trade-show event registration in scope?: Confirm whether event registration for the annual trade show is in scope for this engagement or a separate future project.",
-                  "refs": [
-                    "Q_02"
-                  ],
+                  "refs": ["Q_02"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_03 - Who handles payment card data today?: Confirm whether the association directly handles payment card data or whether an existing payment vendor is fully responsible for that.",
-                  "refs": [
-                    "Q_03"
-                  ],
+                  "refs": ["Q_03"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_04 - Is there any target date or budget range?: Confirm whether there is any target date, even an approximate one, and any budget range the association has in mind.",
-                  "refs": [
-                    "Q_04"
-                  ],
+                  "refs": ["Q_04"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_05 - Who is the technical or business point of contact?: Confirm who on the association's side, if anyone, can act as a technical or business point of contact once the project starts.",
-                  "refs": [
-                    "Q_05"
-                  ],
+                  "refs": ["Q_05"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_06 - Does the existing portal expose an API or export?: Confirm whether the existing membership portal exposes any API or export mechanism that a new app could build on.",
-                  "refs": [
-                    "Q_06"
-                  ],
+                  "refs": ["Q_06"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_07 - Which systems must the new app connect to?: Confirm which systems the app must exchange data with, starting with the dues-payment service in use today.",
-                  "refs": [
-                    "Q_07"
-                  ],
+                  "refs": ["Q_07"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_08 - Which environments are expected?: Confirm whether separate development, test and production environments are expected, and whether any exist today.",
-                  "refs": [
-                    "Q_08"
-                  ],
+                  "refs": ["Q_08"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_09 - Is any hosting or cloud constraint in place?: Confirm that no existing hosting contract, vendor or data-residency rule limits the cloud platform choice.",
-                  "refs": [
-                    "Q_09"
-                  ],
+                  "refs": ["Q_09"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_10 - Mobile app, responsive website, or both?: Confirm whether members expect an installable mobile app, a responsive website, or both.",
-                  "refs": [
-                    "Q_10"
-                  ],
+                  "refs": ["Q_10"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_11 - How should members sign in?: Confirm whether members sign in with credentials held by the new app or through an identity provider the association already pays for.",
-                  "refs": [
-                    "Q_11"
-                  ],
+                  "refs": ["Q_11"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_12 - What makes the current directory search hard to use?: Ask members and staff which searches fail today (by name, region, trade category) so the improved search can be specified.",
-                  "refs": [
-                    "Q_12"
-                  ],
+                  "refs": ["Q_12"],
                   "label": "ai-interpretation"
                 },
                 {
                   "text": "Q_13 - What should the chatbot count as a basic question?: Agree example questions the chatbot may answer and the sources it may answer from, so \"basic\" can be tested.",
-                  "refs": [
-                    "Q_13"
-                  ],
+                  "refs": ["Q_13"],
                   "label": "ai-interpretation"
                 }
               ]
@@ -2704,115 +2419,72 @@
               "statements": [
                 {
                   "text": "BR_01 - Modernise a dated member experience is covered by CAP_07.",
-                  "refs": [
-                    "BR_01",
-                    "CAP_07"
-                  ],
+                  "refs": ["BR_01", "CAP_07"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "BR_02 - Member self-service demand signal is covered by CAP_06.",
-                  "refs": [
-                    "BR_02",
-                    "CAP_06"
-                  ],
+                  "refs": ["BR_02", "CAP_06"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "BR_03 - Automate renewal reminders is covered by CAP_03.",
-                  "refs": [
-                    "BR_03",
-                    "CAP_03"
-                  ],
+                  "refs": ["BR_03", "CAP_03"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_01 - Member login, profile and online renewal is covered by CAP_08.",
-                  "refs": [
-                    "FR_01",
-                    "CAP_08"
-                  ],
+                  "refs": ["FR_01", "CAP_08"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_02 - AI feature - concept only is covered by CAP_01, CAP_09.",
-                  "refs": [
-                    "FR_02",
-                    "CAP_01",
-                    "CAP_09"
-                  ],
+                  "refs": ["FR_02", "CAP_01", "CAP_09"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_03 - Improved member directory search is covered by CAP_05.",
-                  "refs": [
-                    "FR_03",
-                    "CAP_05"
-                  ],
+                  "refs": ["FR_03", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_04 - Event registration for annual trade show (scope undecided) is covered by CAP_08.",
-                  "refs": [
-                    "FR_04",
-                    "CAP_08"
-                  ],
+                  "refs": ["FR_04", "CAP_08"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_05 - Automated renewal reminders is covered by CAP_03.",
-                  "refs": [
-                    "FR_05",
-                    "CAP_03"
-                  ],
+                  "refs": ["FR_05", "CAP_03"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_06 - Online dues payment is covered by CAP_04.",
-                  "refs": [
-                    "FR_06",
-                    "CAP_04"
-                  ],
+                  "refs": ["FR_06", "CAP_04"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_07 - Chatbot scoped to basic, sourced answers is covered by CAP_09.",
-                  "refs": [
-                    "FR_07",
-                    "CAP_09"
-                  ],
+                  "refs": ["FR_07", "CAP_09"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_08 - Board member reporting access (scope not described) is covered by CAP_02.",
-                  "refs": [
-                    "FR_08",
-                    "CAP_02"
-                  ],
+                  "refs": ["FR_08", "CAP_02"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "FR_09 - Browse members by region or trade category is covered by CAP_05.",
-                  "refs": [
-                    "FR_09",
-                    "CAP_05"
-                  ],
+                  "refs": ["FR_09", "CAP_05"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "DATA_01 - Renewal Tracking Data (Spreadsheet-Based) is covered by CAP_07.",
-                  "refs": [
-                    "DATA_01",
-                    "CAP_07"
-                  ],
+                  "refs": ["DATA_01", "CAP_07"],
                   "label": "customer-requested"
                 },
                 {
                   "text": "DATA_02 - Member Profile and Contact Data is covered by CAP_07.",
-                  "refs": [
-                    "DATA_02",
-                    "CAP_07"
-                  ],
+                  "refs": ["DATA_02", "CAP_07"],
                   "label": "ai-interpretation"
                 }
               ]
@@ -2830,13 +2502,7 @@
                 "Step 4: Board members may need some kind of special access to reports, but the report content was not described (FR_08; delivered by CAP_02).",
                 "Step 5: Let members see other members in their region or trade category; stated as a nice-to-have (FR_09; delivered by CAP_05)."
               ],
-              "requirementIds": [
-                "FR_01",
-                "FR_03",
-                "FR_06",
-                "FR_08",
-                "FR_09"
-              ]
+              "requirementIds": ["FR_01", "FR_03", "FR_06", "FR_08", "FR_09"]
             },
             {
               "id": "JNY_02",
@@ -2845,9 +2511,7 @@
               "steps": [
                 "Step 1: Renewal reminders should go out automatically instead of the Membership Coordinator tracking them manually (FR_05; delivered by CAP_03)."
               ],
-              "requirementIds": [
-                "FR_05"
-              ]
+              "requirementIds": ["FR_05"]
             }
           ]
         },
@@ -2857,9 +2521,7 @@
               "id": "CAP_01",
               "name": "Content Management",
               "scope": "Provide content management so editors can author, review and publish content without a code deployment. It delivers: FR_02 (AI feature - concept only).",
-              "requirementIds": [
-                "FR_02"
-              ],
+              "requirementIds": ["FR_02"],
               "priority": "Low",
               "dependencies": [],
               "label": "customer-requested",
@@ -2875,9 +2537,7 @@
               "id": "CAP_02",
               "name": "Dashboards and Reporting",
               "scope": "Provide dashboards and reporting so stakeholders can monitor operational and business metrics without manual data extraction. It delivers: FR_08 (Board member reporting access (scope not described)).",
-              "requirementIds": [
-                "FR_08"
-              ],
+              "requirementIds": ["FR_08"],
               "priority": "Low",
               "dependencies": [],
               "label": "customer-requested",
@@ -2893,10 +2553,7 @@
               "id": "CAP_03",
               "name": "Notifications and Alerts",
               "scope": "Provide notifications and alerts so users and administrators are informed of relevant events across the channels they use. It delivers: BR_03 (Automate renewal reminders), FR_05 (Automated renewal reminders).",
-              "requirementIds": [
-                "BR_03",
-                "FR_05"
-              ],
+              "requirementIds": ["BR_03", "FR_05"],
               "priority": "Medium",
               "dependencies": [],
               "label": "customer-requested",
@@ -2912,9 +2569,7 @@
               "id": "CAP_04",
               "name": "Payments and Billing",
               "scope": "Provide payments and billing so users can pay, be invoiced or reconcile charges through the platform. It delivers: FR_06 (Online dues payment).",
-              "requirementIds": [
-                "FR_06"
-              ],
+              "requirementIds": ["FR_06"],
               "priority": "High",
               "dependencies": [],
               "label": "customer-requested",
@@ -2930,10 +2585,7 @@
               "id": "CAP_05",
               "name": "Search and Discovery",
               "scope": "Provide search and discovery so users can find the records, documents or catalog entries relevant to their task. It delivers: FR_03 (Improved member directory search), FR_09 (Browse members by region or trade category). It connects to Existing Membership Portal (Unconfirmed Platform).",
-              "requirementIds": [
-                "FR_03",
-                "FR_09"
-              ],
+              "requirementIds": ["FR_03", "FR_09"],
               "priority": "Medium",
               "dependencies": [],
               "label": "customer-requested",
@@ -2949,9 +2601,7 @@
               "id": "CAP_06",
               "name": "Self-Service Portal",
               "scope": "Provide a self-service portal that gives users a single place to manage their account, requests and records. It delivers: BR_02 (Member self-service demand signal).",
-              "requirementIds": [
-                "BR_02"
-              ],
+              "requirementIds": ["BR_02"],
               "priority": "Medium",
               "dependencies": [],
               "label": "customer-requested",
@@ -2967,11 +2617,7 @@
               "id": "CAP_07",
               "name": "Core Platform Services",
               "scope": "Provide the cross-cutting platform services - configuration, environment setup, logging and shared infrastructure - that every capability in this scope depends on. It delivers: BR_01 (Modernise a dated member experience), DATA_01 (Renewal Tracking Data (Spreadsheet-Based)), DATA_02 (Member Profile and Contact Data).",
-              "requirementIds": [
-                "BR_01",
-                "DATA_01",
-                "DATA_02"
-              ],
+              "requirementIds": ["BR_01", "DATA_01", "DATA_02"],
               "priority": "Medium",
               "dependencies": [],
               "label": "ai-interpretation",
@@ -2987,10 +2633,7 @@
               "id": "CAP_08",
               "name": "Identity, Sign-In and Profile Management",
               "scope": "Provide self-service registration, authentication and profile management so users can create and maintain their own account without support intervention. It delivers: FR_01 (Member login, profile and online renewal), FR_04 (Event registration for annual trade show (scope undecided)). It connects to Existing Membership Portal (Unconfirmed Platform).",
-              "requirementIds": [
-                "FR_01",
-                "FR_04"
-              ],
+              "requirementIds": ["FR_01", "FR_04"],
               "priority": "High",
               "dependencies": [],
               "label": "customer-requested",
@@ -3006,10 +2649,7 @@
               "id": "CAP_09",
               "name": "AI Conversational Assistant",
               "scope": "Deliver a conversational AI assistant that answers user questions in natural language, grounded in the platform's own content. It delivers: FR_02 (AI feature - concept only), FR_07 (Chatbot scoped to basic, sourced answers).",
-              "requirementIds": [
-                "FR_02",
-                "FR_07"
-              ],
+              "requirementIds": ["FR_02", "FR_07"],
               "priority": "Low",
               "dependencies": [],
               "label": "customer-requested",
@@ -3027,10 +2667,7 @@
               "id": "ENH_01",
               "name": "AI Answer Quality Feedback Loop",
               "scope": "Capture a thumbs-up/down and free-text rating on every AI-generated answer and route low-confidence responses to human review, closing the loop for the AI use cases in FR_02, FR_07.",
-              "requirementIds": [
-                "FR_02",
-                "FR_07"
-              ],
+              "requirementIds": ["FR_02", "FR_07"],
               "priority": "Medium",
               "dependencies": [],
               "label": "recommended-enhancement",
@@ -3046,9 +2683,7 @@
               "id": "ENH_02",
               "name": "Data Quality and Governance Program",
               "scope": "Define data-quality rules, named ownership and a reconciliation cadence for the data domains in FR_08 so downstream reporting stays trustworthy.",
-              "requirementIds": [
-                "FR_08"
-              ],
+              "requirementIds": ["FR_08"],
               "priority": "Medium",
               "dependencies": [],
               "label": "recommended-enhancement",
@@ -3064,13 +2699,8 @@
           "modules": [
             {
               "name": "AI Capabilities",
-              "capabilityIds": [
-                "CAP_09"
-              ],
-              "requirementIds": [
-                "FR_02",
-                "FR_07"
-              ]
+              "capabilityIds": ["CAP_09"],
+              "requirementIds": ["FR_02", "FR_07"]
             },
             {
               "name": "Application Experience",
@@ -3095,10 +2725,7 @@
             },
             {
               "name": "Platform Foundation",
-              "capabilityIds": [
-                "CAP_07",
-                "CAP_08"
-              ],
+              "capabilityIds": ["CAP_07", "CAP_08"],
               "requirementIds": [
                 "BR_01",
                 "DATA_01",
@@ -3111,24 +2738,13 @@
           "workstreams": [
             {
               "name": "AI and Machine Learning",
-              "capabilityIds": [
-                "CAP_09"
-              ],
-              "requirementIds": [
-                "FR_02",
-                "FR_07"
-              ]
+              "capabilityIds": ["CAP_09"],
+              "requirementIds": ["FR_02", "FR_07"]
             },
             {
               "name": "Core Platform Services",
-              "capabilityIds": [
-                "CAP_07"
-              ],
-              "requirementIds": [
-                "BR_01",
-                "DATA_01",
-                "DATA_02"
-              ]
+              "capabilityIds": ["CAP_07"],
+              "requirementIds": ["BR_01", "DATA_01", "DATA_02"]
             },
             {
               "name": "Core Product Experience",
@@ -3153,13 +2769,8 @@
             },
             {
               "name": "Identity and Access",
-              "capabilityIds": [
-                "CAP_08"
-              ],
-              "requirementIds": [
-                "FR_01",
-                "FR_04"
-              ]
+              "capabilityIds": ["CAP_08"],
+              "requirementIds": ["FR_01", "FR_04"]
             }
           ],
           "deliveryPackages": [
@@ -3199,13 +2810,8 @@
             },
             {
               "name": "Package 3 - AI Capabilities",
-              "capabilityIds": [
-                "CAP_09"
-              ],
-              "requirementIds": [
-                "FR_02",
-                "FR_07"
-              ],
+              "capabilityIds": ["CAP_09"],
+              "requirementIds": ["FR_02", "FR_07"],
               "engagementModel": "dedicated-team",
               "suggestedChallengeTypes": [
                 "Data science challenge",
@@ -3221,17 +2827,12 @@
             },
             {
               "text": "Production data-migration volumes, historical backfill and legacy data cleansing beyond the reviewed data requirements remain out of scope until the customer confirms them.",
-              "refs": [
-                "DATA_01",
-                "DATA_02"
-              ],
+              "refs": ["DATA_01", "DATA_02"],
               "label": "assumption-to-confirm"
             },
             {
               "text": "Decommissioning of the existing systems referenced in the scope model is out of scope; this engagement covers integration with those systems, not their retirement.",
-              "refs": [
-                "SYS_01"
-              ],
+              "refs": ["SYS_01"],
               "label": "assumption-to-confirm"
             }
           ]
@@ -3257,21 +2858,12 @@
         "summary": [
           {
             "text": "The proposed solution architecture targets Google Cloud Platform (GCP) and is composed of 19 components covering 9 functional capabilities. It spans the full reviewed scope; see each component’s own rationale below for its specific citations.",
-            "refs": [
-              "BR_02",
-              "BR_03",
-              "FR_01",
-              "FR_02",
-              "FR_03",
-              "FR_04"
-            ],
+            "refs": ["BR_02", "BR_03", "FR_01", "FR_02", "FR_03", "FR_04"],
             "label": "ai-interpretation"
           },
           {
             "text": "Mobile Backend is not proposed yet because GAP_08 (Mobile app vs. website undecided) is unresolved; add it once that gap is closed.",
-            "refs": [
-              "GAP_08"
-            ],
+            "refs": ["GAP_08"],
             "label": "assumption-to-confirm"
           }
         ],
@@ -3282,9 +2874,7 @@
             "area": "user-apps",
             "logicalComponent": "web-hosting-cdn",
             "service": "Firebase Hosting (global CDN)",
-            "requirementIds": [
-              "BR_02"
-            ],
+            "requirementIds": ["BR_02"],
             "assumptionIds": [],
             "purpose": "Serves the customer-facing web experience and delivers static assets close to users.",
             "rationale": "Firebase Hosting (global CDN) serves the web experience with edge caching, TLS termination and low first-byte latency worldwide. It addresses BR_02.",
@@ -3343,11 +2933,7 @@
             "area": "backend",
             "logicalComponent": "container-runtime",
             "service": "Google Cloud Run",
-            "requirementIds": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "requirementIds": ["FR_01", "FR_06", "FR_03"],
             "assumptionIds": [],
             "purpose": "Hosts the backend business logic that implements the reviewed functional requirements.",
             "rationale": "Google Cloud Run runs the backend services with managed autoscaling so capacity tracks real traffic without manual intervention. It addresses FR_01, FR_06 and FR_03.",
@@ -3355,10 +2941,7 @@
               "Container-based hosting requires a build/release pipeline for every deployable service.",
               "Autoscaling limits must be tuned against real traffic before go-live to avoid cost or latency surprises."
             ],
-            "dependencies": [
-              "Primary Relational Database",
-              "Monitoring"
-            ],
+            "dependencies": ["Primary Relational Database", "Monitoring"],
             "securityConsiderations": [
               "Run containers with least-privilege service identities and no long-lived static credentials.",
               "Scan container images for known vulnerabilities before each release."
@@ -3370,10 +2953,7 @@
             "area": "data-storage",
             "logicalComponent": "managed-relational-db",
             "service": "Cloud SQL for PostgreSQL",
-            "requirementIds": [
-              "DATA_01",
-              "DATA_02"
-            ],
+            "requirementIds": ["DATA_01", "DATA_02"],
             "assumptionIds": [],
             "purpose": "Stores the core transactional data the application reads and writes.",
             "rationale": "Cloud SQL for PostgreSQL provides managed relational storage with automated backups, patching and encryption at rest. It addresses DATA_01 and DATA_02.",
@@ -3381,10 +2961,7 @@
               "A managed relational engine caps vertical scale; very high write throughput may need read replicas or partitioning later.",
               "Schema migrations must be coordinated with application deployments to avoid downtime."
             ],
-            "dependencies": [
-              "Backup",
-              "Key Management"
-            ],
+            "dependencies": ["Backup", "Key Management"],
             "securityConsiderations": [
               "Encrypt data at rest and in transit, and restrict network access to the application tier only.",
               "Apply least-privilege database roles per service rather than a single shared credential."
@@ -3396,11 +2973,7 @@
             "area": "identity",
             "logicalComponent": "identity-customer",
             "service": "Identity Platform",
-            "requirementIds": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "requirementIds": ["FR_01", "FR_06", "FR_03"],
             "assumptionIds": [],
             "purpose": "Handles registration, sign-in, session management and multi-factor authentication for end users.",
             "rationale": "Identity Platform provides managed sign-up, sign-in, SSO federation and MFA so authentication is never implemented by hand. It addresses FR_01, FR_06 and FR_03.",
@@ -3408,9 +2981,7 @@
               "A managed identity provider constrains custom sign-in UX to its supported customization hooks.",
               "Federating with an external identity provider (SSO) adds a dependency on that provider’s availability."
             ],
-            "dependencies": [
-              "Secrets Manager"
-            ],
+            "dependencies": ["Secrets Manager"],
             "securityConsiderations": [
               "Enforce MFA for privileged accounts and require strong password/session policies for all users.",
               "Log every authentication and authorization decision for audit purposes."
@@ -3422,11 +2993,7 @@
             "area": "observability",
             "logicalComponent": "monitoring",
             "service": "Cloud Monitoring",
-            "requirementIds": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "requirementIds": ["FR_01", "FR_06", "FR_03"],
             "assumptionIds": [],
             "purpose": "Tracks infrastructure and application health so incidents are detected before customers report them.",
             "rationale": "Cloud Monitoring aggregates metrics and dashboards with alerting thresholds tied to the availability and performance targets. It addresses FR_01, FR_06 and FR_03.",
@@ -3448,11 +3015,7 @@
             "area": "observability",
             "logicalComponent": "logging",
             "service": "Cloud Logging",
-            "requirementIds": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "requirementIds": ["FR_01", "FR_06", "FR_03"],
             "assumptionIds": [],
             "purpose": "Centralizes application and infrastructure logs for troubleshooting and audit.",
             "rationale": "Cloud Logging aggregates structured logs from every service with a defined, policy-driven retention period. It addresses FR_01, FR_06 and FR_03.",
@@ -3460,9 +3023,7 @@
               "Centralized log retention has a direct storage cost that scales with request volume.",
               "Log content must be scrubbed of personal or sensitive data before it is retained."
             ],
-            "dependencies": [
-              "Monitoring"
-            ],
+            "dependencies": ["Monitoring"],
             "securityConsiderations": [
               "Redact personal or sensitive data from log payloads before they are written.",
               "Restrict log access to authorized operations staff and retain an access audit trail."
@@ -3474,18 +3035,14 @@
             "area": "deployment",
             "logicalComponent": "ci-cd",
             "service": "Cloud Build with Cloud Deploy",
-            "requirementIds": [
-              "CON_01"
-            ],
+            "requirementIds": ["CON_01"],
             "assumptionIds": [],
             "purpose": "Automates build, test and release of every service into each environment.",
             "rationale": "Cloud Build with Cloud Deploy runs the build/test/release pipeline consistently across development, test and production. It addresses CON_01.",
             "tradeOffs": [
               "A fully automated pipeline needs an initial investment in test coverage to be trustworthy for production releases."
             ],
-            "dependencies": [
-              "Infrastructure as Code"
-            ],
+            "dependencies": ["Infrastructure as Code"],
             "securityConsiderations": [
               "Require code review and passing automated security scans before a release can be promoted.",
               "Keep deployment credentials scoped to the pipeline identity, never to individual engineers."
@@ -3497,18 +3054,14 @@
             "area": "environments",
             "logicalComponent": "infrastructure-as-code",
             "service": "Google Cloud Infrastructure Manager",
-            "requirementIds": [
-              "CON_01"
-            ],
+            "requirementIds": ["CON_01"],
             "assumptionIds": [],
             "purpose": "Defines every environment declaratively so dev/test/prod stay reproducible and auditable.",
             "rationale": "Google Cloud Infrastructure Manager provisions and updates cloud resources declaratively, so environment drift is detected instead of accumulating silently. It addresses CON_01.",
             "tradeOffs": [
               "Declarative provisioning has a learning curve for teams used to manual console changes."
             ],
-            "dependencies": [
-              "CI/CD Pipeline"
-            ],
+            "dependencies": ["CI/CD Pipeline"],
             "securityConsiderations": [
               "Store infrastructure state and variables in a controlled, access-audited location, never in source control in plain text."
             ]
@@ -3519,20 +3072,14 @@
             "area": "security",
             "logicalComponent": "secrets-manager",
             "service": "Secret Manager",
-            "requirementIds": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "requirementIds": ["FR_01", "FR_06", "FR_03"],
             "assumptionIds": [],
             "purpose": "Stores and rotates credentials, API keys and connection strings used by every service.",
             "rationale": "Secret Manager centralizes credential storage with automatic rotation and fine-grained access policies. It addresses FR_01, FR_06 and FR_03.",
             "tradeOffs": [
               "Every service must be updated to fetch secrets at runtime rather than reading them from local configuration."
             ],
-            "dependencies": [
-              "Key Management"
-            ],
+            "dependencies": ["Key Management"],
             "securityConsiderations": [
               "Grant read access to a secret only to the specific service identities that need it.",
               "Rotate credentials on a defined schedule and immediately after any suspected exposure."
@@ -3544,11 +3091,7 @@
             "area": "security",
             "logicalComponent": "key-management",
             "service": "Cloud KMS",
-            "requirementIds": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "requirementIds": ["FR_01", "FR_06", "FR_03"],
             "assumptionIds": [],
             "purpose": "Manages the encryption keys that protect data at rest across storage and database services.",
             "rationale": "Cloud KMS issues and rotates encryption keys with a full audit trail of every key-use event. It addresses FR_01, FR_06 and FR_03.",
@@ -3566,20 +3109,14 @@
             "area": "backup-dr",
             "logicalComponent": "backup",
             "service": "Google Cloud Backup and DR Service",
-            "requirementIds": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "requirementIds": ["FR_01", "FR_06", "FR_03"],
             "assumptionIds": [],
             "purpose": "Protects stored data with policy-driven, regularly tested backups.",
             "rationale": "Google Cloud Backup and DR Service takes policy-driven, encrypted backups on a defined schedule with a tested restore procedure. It addresses FR_01, FR_06 and FR_03.",
             "tradeOffs": [
               "Backup retention has a direct storage cost that scales with data volume and retention period."
             ],
-            "dependencies": [
-              "Primary Relational Database"
-            ],
+            "dependencies": ["Primary Relational Database"],
             "securityConsiderations": [
               "Encrypt backups at rest and test restores on a regular schedule, not only after an incident."
             ]
@@ -3590,11 +3127,7 @@
             "area": "security",
             "logicalComponent": "private-networking",
             "service": "VPC Service Controls with Private Service Connect",
-            "requirementIds": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "requirementIds": ["FR_01", "FR_06", "FR_03"],
             "assumptionIds": [],
             "purpose": "Isolates backend services on a private network so they are not directly reachable from the public internet.",
             "rationale": "VPC Service Controls with Private Service Connect keeps service-to-service traffic off the public internet and restricts inbound access to approved paths only. It addresses FR_01, FR_06 and FR_03.",
@@ -3613,11 +3146,7 @@
             "area": "security",
             "logicalComponent": "waf-ddos",
             "service": "Google Cloud Armor",
-            "requirementIds": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "requirementIds": ["FR_01", "FR_06", "FR_03"],
             "assumptionIds": [],
             "purpose": "Filters malicious inbound traffic and absorbs volumetric attacks at the edge, in front of the public entry point.",
             "rationale": "Google Cloud Armor inspects inbound requests against managed and custom rule sets and mitigates volumetric attacks before they reach the application. It addresses FR_01, FR_06 and FR_03.",
@@ -3636,9 +3165,7 @@
             "area": "data-storage",
             "logicalComponent": "data-warehouse",
             "service": "BigQuery",
-            "requirementIds": [
-              "FR_08"
-            ],
+            "requirementIds": ["FR_08"],
             "assumptionIds": [],
             "purpose": "Provides a column-oriented analytical store for cross-domain reporting and analysis.",
             "rationale": "BigQuery holds curated, query-optimized data separate from transactional load so reporting never competes with production traffic. It addresses FR_08.",
@@ -3657,9 +3184,7 @@
             "area": "data-storage",
             "logicalComponent": "bi-reporting",
             "service": "Looker",
-            "requirementIds": [
-              "FR_08"
-            ],
+            "requirementIds": ["FR_08"],
             "assumptionIds": [],
             "purpose": "Delivers self-service dashboards and reports to business stakeholders over the warehouse.",
             "rationale": "Looker provides governed, self-service dashboards over curated warehouse data. It addresses FR_08.",
@@ -3667,9 +3192,7 @@
               "Self-service reporting requires a governed semantic layer to prevent conflicting metric definitions.",
               "The driving requirement is Low-priority and not yet fully defined; scheduled exports or database-backed reporting views instead of a dedicated BI platform would be sufficient until it is confirmed, rather than committing to this component now."
             ],
-            "dependencies": [
-              "Data Warehouse"
-            ],
+            "dependencies": ["Data Warehouse"],
             "securityConsiderations": [
               "Scope dashboard access by role so stakeholders see only their authorized data domains."
             ]
@@ -3680,19 +3203,14 @@
             "area": "ai-ml",
             "logicalComponent": "llm-platform",
             "service": "Vertex AI (Generative AI / Model Garden)",
-            "requirementIds": [
-              "FR_02",
-              "FR_07"
-            ],
+            "requirementIds": ["FR_02", "FR_07"],
             "assumptionIds": [],
             "purpose": "Provides managed access to foundation models for the AI use cases identified in the reviewed scope.",
             "rationale": "Vertex AI (Generative AI / Model Garden) gives managed, guardrailed access to foundation models so AI functionality is not built on an unmanaged model endpoint. It addresses FR_02 and FR_07.",
             "tradeOffs": [
               "Model responses are probabilistic; outputs affecting decisions need a human-review step (see AI solution approach)."
             ],
-            "dependencies": [
-              "Secrets Manager"
-            ],
+            "dependencies": ["Secrets Manager"],
             "securityConsiderations": [
               "Apply content-safety guardrails and never send unmasked personal data in a prompt without a documented basis."
             ]
@@ -3703,10 +3221,7 @@
             "area": "data-storage",
             "logicalComponent": "search-service",
             "service": "Vertex AI Search",
-            "requirementIds": [
-              "FR_03",
-              "FR_09"
-            ],
+            "requirementIds": ["FR_03", "FR_09"],
             "assumptionIds": [],
             "purpose": "Provides fast, relevant search and discovery over application content.",
             "rationale": "Vertex AI Search indexes application content for fast, relevance-ranked search rather than relying on database queries. It addresses FR_03 and FR_09.",
@@ -3714,9 +3229,7 @@
               "A dedicated search index must be kept synchronized with the source of truth, adding a small propagation delay.",
               "The driving requirement is Low-priority and not yet fully defined; database-backed filtering and sorting instead of a dedicated search index would be sufficient until it is confirmed, rather than committing to this component now."
             ],
-            "dependencies": [
-              "Application Compute Runtime"
-            ],
+            "dependencies": ["Application Compute Runtime"],
             "securityConsiderations": [
               "Apply the same authorization filters to search results as to direct data access, so search cannot leak restricted content."
             ]
@@ -3727,10 +3240,7 @@
             "area": "messaging",
             "logicalComponent": "notification",
             "service": "Firebase Cloud Messaging with Pub/Sub-triggered email/SMS delivery",
-            "requirementIds": [
-              "BR_03",
-              "FR_05"
-            ],
+            "requirementIds": ["BR_03", "FR_05"],
             "assumptionIds": [],
             "purpose": "Delivers email, SMS and push notifications and alerts to end users.",
             "rationale": "Firebase Cloud Messaging with Pub/Sub-triggered email/SMS delivery delivers multi-channel notifications with delivery tracking, separate from the transactional data path. It addresses BR_03 and FR_05.",
@@ -3831,87 +3341,53 @@
         "deployment": [
           {
             "text": "Releases build and deploy through Cloud Build with Cloud Deploy, with every environment (Development, Test/QA, Production) provisioned declaratively via Google Cloud Infrastructure Manager so drift is detected rather than accumulating.",
-            "refs": [
-              "CON_01"
-            ],
+            "refs": ["CON_01"],
             "label": "ai-interpretation"
           },
           {
             "text": "Application services run as containers on Google Cloud Run, promoted unchanged from test into production.",
-            "refs": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "refs": ["FR_01", "FR_06", "FR_03"],
             "label": "ai-interpretation"
           }
         ],
         "availability": [
           {
             "text": "Google Cloud Run runs in a single region with the platform's default zone redundancy; a multi-region design is deferred until an explicit availability target is confirmed with the customer.",
-            "refs": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "refs": ["FR_01", "FR_06", "FR_03"],
             "label": "assumption-to-confirm"
           }
         ],
         "backupDr": [
           {
             "text": "Google Cloud Backup and DR Service takes policy-driven, encrypted backups of the primary data store with periodic restore testing.",
-            "refs": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "refs": ["FR_01", "FR_06", "FR_03"],
             "label": "ai-interpretation"
           }
         ],
         "securityControls": [
           {
             "text": "Identity Platform enforces authentication, session management and multi-factor authentication for every end-user session.",
-            "refs": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "refs": ["FR_01", "FR_06", "FR_03"],
             "label": "ai-interpretation"
           },
           {
             "text": "Secret Manager centralizes credential storage and rotation so no service embeds a static secret.",
-            "refs": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "refs": ["FR_01", "FR_06", "FR_03"],
             "label": "ai-interpretation"
           },
           {
             "text": "Cloud KMS manages encryption keys and rotation for data at rest across storage and database services.",
-            "refs": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "refs": ["FR_01", "FR_06", "FR_03"],
             "label": "ai-interpretation"
           },
           {
             "text": "VPC Service Controls with Private Service Connect isolates backend services on a private network with default-deny inbound access.",
-            "refs": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "refs": ["FR_01", "FR_06", "FR_03"],
             "label": "ai-interpretation"
           },
           {
             "text": "Google Cloud Armor filters malicious inbound traffic and mitigates volumetric attacks at the edge, in front of the public entry point.",
-            "refs": [
-              "FR_01",
-              "FR_06",
-              "FR_03"
-            ],
+            "refs": ["FR_01", "FR_06", "FR_03"],
             "label": "ai-interpretation"
           }
         ],
@@ -3925,11 +3401,7 @@
               "reasons": [
                 {
                   "text": "Compliance/residency needs (GAP_05, Q_03, Q_09) are supported by regional data centres on all three platforms and do not change the recommendation.",
-                  "refs": [
-                    "GAP_05",
-                    "Q_03",
-                    "Q_09"
-                  ],
+                  "refs": ["GAP_05", "Q_03", "Q_09"],
                   "points": 0
                 }
               ]
@@ -3974,9 +3446,7 @@
             ],
             "owner": "To be confirmed with customer",
             "classification": "internal",
-            "requirementIds": [
-              "DATA_01"
-            ]
+            "requirementIds": ["DATA_01"]
           },
           {
             "id": "DD_02",
@@ -3987,9 +3457,7 @@
             ],
             "owner": "To be confirmed with customer",
             "classification": "internal",
-            "requirementIds": [
-              "DATA_02"
-            ]
+            "requirementIds": ["DATA_02"]
           }
         ],
         "topics": [
@@ -4003,52 +3471,31 @@
               "VPC Service Controls with Private Service Connect",
               "Google Cloud Armor"
             ],
-            "requirementIds": [
-              "DATA_01",
-              "DATA_02"
-            ]
+            "requirementIds": ["DATA_01", "DATA_02"]
           },
           {
             "topic": "ingestion",
             "approach": "Renewal Tracking Data enters the platform through the integration layer rather than manual re-entry: inbound records are no dedicated service is selected in the current Google Cloud Platform architecture yet; add one during detailed design, validated against the target schema, and rejected records are quarantined for review instead of silently dropped.",
             "services": [],
-            "requirementIds": [
-              "DATA_01",
-              "DATA_02",
-              "ASM_02"
-            ]
+            "requirementIds": ["DATA_01", "DATA_02", "ASM_02"]
           },
           {
             "topic": "transactional-storage",
             "approach": "Operational reads and writes for Renewal Tracking Data and Member Profile and Contact Data are served from Cloud SQL for PostgreSQL on Google Cloud Platform, sized and indexed for the transactional access patterns the reviewed functional requirements describe, separate from the analytical copy used for reporting.",
-            "services": [
-              "Cloud SQL for PostgreSQL"
-            ],
-            "requirementIds": [
-              "DATA_01",
-              "DATA_02"
-            ]
+            "services": ["Cloud SQL for PostgreSQL"],
+            "requirementIds": ["DATA_01", "DATA_02"]
           },
           {
             "topic": "analytical-storage",
             "approach": "FR_08 (Board member reporting access (scope not described)) already asks for analytical or reporting access to this data, though no data-domain item has been reviewed for it yet; a read-optimised analytical copy is scoped to that requirement.",
-            "services": [
-              "BigQuery"
-            ],
-            "requirementIds": [
-              "DATA_01",
-              "DATA_02",
-              "FR_08"
-            ]
+            "services": ["BigQuery"],
+            "requirementIds": ["DATA_01", "DATA_02", "FR_08"]
           },
           {
             "topic": "data-quality",
             "approach": "Data quality: no reviewed requirement states a data-quality or reconciliation rule for this scope yet; records are still validated against their basic schema on the way in.",
             "services": [],
-            "requirementIds": [
-              "DATA_01",
-              "DATA_02"
-            ]
+            "requirementIds": ["DATA_01", "DATA_02"]
           },
           {
             "topic": "metadata-governance",
@@ -4061,10 +3508,7 @@
               "VPC Service Controls with Private Service Connect",
               "Google Cloud Armor"
             ],
-            "requirementIds": [
-              "DATA_01",
-              "DATA_02"
-            ]
+            "requirementIds": ["DATA_01", "DATA_02"]
           },
           {
             "topic": "retention",
@@ -4075,10 +3519,7 @@
               "Looker",
               "Vertex AI Search"
             ],
-            "requirementIds": [
-              "DATA_01",
-              "DATA_02"
-            ]
+            "requirementIds": ["DATA_01", "DATA_02"]
           },
           {
             "topic": "privacy-security",
@@ -4089,34 +3530,19 @@
               "VPC Service Controls with Private Service Connect",
               "Google Cloud Armor"
             ],
-            "requirementIds": [
-              "DATA_01",
-              "DATA_02",
-              "Q_09"
-            ]
+            "requirementIds": ["DATA_01", "DATA_02", "Q_09"]
           },
           {
             "topic": "reporting-analytics",
             "approach": "FR_08 (Board member reporting access (scope not described)) already asks for a report or dashboard over this data, though no data-domain item has been reviewed for it yet; reporting is scoped to that requirement.",
-            "services": [
-              "BigQuery"
-            ],
-            "requirementIds": [
-              "DATA_01",
-              "DATA_02",
-              "FR_08"
-            ]
+            "services": ["BigQuery"],
+            "requirementIds": ["DATA_01", "DATA_02", "FR_08"]
           },
           {
             "topic": "backup-recovery",
             "approach": "Backup and recovery: no reviewed requirement states an availability or recovery target for this data yet; the platform's default backup schedule still applies until a recovery objective is confirmed.",
-            "services": [
-              "Google Cloud Backup and DR Service"
-            ],
-            "requirementIds": [
-              "DATA_01",
-              "DATA_02"
-            ]
+            "services": ["Google Cloud Backup and DR Service"],
+            "requirementIds": ["DATA_01", "DATA_02"]
           }
         ],
         "integrations": [
@@ -4133,12 +3559,8 @@
             "retry": "Exponential backoff starting at 1 second and doubling to a 5-attempt ceiling for calls to Existing Membership Portal (Unconfirmed Platform), after which the call is routed to the dead-letter queue instead of retried forever.",
             "monitoring": "Success/failure counts and latency for calls to Existing Membership Portal (Unconfirmed Platform) are tracked in Cloud Monitoring, Cloud Logging, with an alert routed to the delivery team when the failure rate or latency crosses its threshold.",
             "dataSync": "the platform is treated as the system of record for the fields it owns; conflicting updates are resolved by last-writer-wins on the record's own timestamp, and a daily reconciliation job compares record counts between Existing Membership Portal (Unconfirmed Platform) and the platform to surface drift instead of assuming the sync is complete.",
-            "requirementIds": [
-              "SYS_01"
-            ],
-            "componentIds": [
-              "ARC_02"
-            ],
+            "requirementIds": ["SYS_01"],
+            "componentIds": ["ARC_02"],
             "complexity": "High",
             "readiness": "unknown"
           }
@@ -4178,11 +3600,7 @@
         "summary": [
           {
             "text": "Retrieval-augmented generation (RAG) assistant: AI feature - concept only and 1 related function: Retrieval-augmented generation (RAG) assistant delivering FR_02 (An AI feature is wanted, described only loosely as possibly a member-question chatbot or a newsletter-writing aid.); FR_07 (A chatbot, if built, should only answer basic questions and not fabricate information, though \"basic\" was not defined.). Also shaped by Q_13.",
-            "refs": [
-              "FR_02",
-              "FR_07",
-              "Q_13"
-            ],
+            "refs": ["FR_02", "FR_07", "Q_13"],
             "label": "ai-interpretation"
           }
         ],
@@ -4191,15 +3609,9 @@
             "id": "AIUC_01",
             "name": "Retrieval-augmented generation (RAG) assistant: AI feature - concept only and 1 related function",
             "description": "Retrieval-augmented generation (RAG) assistant delivering FR_02 (An AI feature is wanted, described only loosely as possibly a member-question chatbot or a newsletter-writing aid.); FR_07 (A chatbot, if built, should only answer basic questions and not fabricate information, though \"basic\" was not defined.). Also shaped by Q_13.",
-            "requirementIds": [
-              "FR_02",
-              "FR_07",
-              "Q_13"
-            ],
+            "requirementIds": ["FR_02", "FR_07", "Q_13"],
             "pattern": "Retrieval-augmented generation (RAG) assistant",
-            "modelOptions": [
-              "Vertex AI Gemini (Gemini 2.0 Pro/Flash)"
-            ],
+            "modelOptions": ["Vertex AI Gemini (Gemini 2.0 Pro/Flash)"],
             "retrieval": "Answers are grounded in National Horticultural Traders Association's own indexed content: the assistant retrieves the top-matching passages before generating a response and cites the source passage instead of answering from the model's general training data. Retrieval runs against Vertex AI (Generative AI / Model Garden).",
             "orchestration": "A stateful workflow retrieves context, drafts an answer, checks the draft against the retrieved passages for groundedness, and only then returns it to the \"Retrieval-augmented generation (RAG) assistant: AI feature - concept only and 1 related function\" user, so an ungrounded draft never reaches them.",
             "evaluation": "A golden set of representative questions with expected answers runs on every prompt or model change; groundedness (does the answer match the retrieved passage) and answer relevance are scored automatically, and the regression suite blocks release on a drop.",
@@ -4215,77 +3627,55 @@
             "activity": "Retrieval-augmented generation (RAG) assistant: AI feature - concept only and 1 related function",
             "type": "ai",
             "reason": "Retrieval-augmented generation (RAG) assistant produces a probabilistic result best suited to unstructured input, so it is implemented as an AI function rather than a fixed rule.",
-            "requirementIds": [
-              "FR_02",
-              "FR_07",
-              "Q_13"
-            ]
+            "requirementIds": ["FR_02", "FR_07", "Q_13"]
           },
           {
             "activity": "Member login, profile and online renewal",
             "type": "deterministic",
             "reason": "Authenticating a user and validating their profile fields are checked against fixed identity rules (credentials, required fields), a deterministic check with no ambiguity for a model to resolve.",
-            "requirementIds": [
-              "FR_01"
-            ]
+            "requirementIds": ["FR_01"]
           },
           {
             "activity": "Improved member directory search",
             "type": "deterministic",
             "reason": "A directory or record search is an exact or fixed-fuzzy match against indexed fields; the same query must return the same ranked results every time, which a deterministic search index guarantees and a probabilistic model does not.",
-            "requirementIds": [
-              "FR_03"
-            ]
+            "requirementIds": ["FR_03"]
           },
           {
             "activity": "Event registration for annual trade show (scope undecided)",
             "type": "deterministic",
             "reason": "Authenticating a user and validating their profile fields are checked against fixed identity rules (credentials, required fields), a deterministic check with no ambiguity for a model to resolve.",
-            "requirementIds": [
-              "FR_04"
-            ]
+            "requirementIds": ["FR_04"]
           },
           {
             "activity": "Automated renewal reminders",
             "type": "deterministic",
             "reason": "Whether a notification fires follows a fixed trigger condition (a status change, a schedule) with exactly one correct answer, so it is deterministic rule evaluation, not a prediction.",
-            "requirementIds": [
-              "FR_05"
-            ]
+            "requirementIds": ["FR_05"]
           },
           {
             "activity": "Online dues payment",
             "type": "deterministic",
             "reason": "The amounts, GL codes and approval thresholds it posts are fixed accounting rules with exactly one correct value per transaction, so the posting logic is deterministic, auditable and reconcilable to the cent rather than a probabilistic judgement.",
-            "requirementIds": [
-              "FR_06"
-            ]
+            "requirementIds": ["FR_06"]
           },
           {
             "activity": "Board member reporting access (scope not described)",
             "type": "deterministic",
             "reason": "The figures a report or dashboard shows are a fixed aggregation of already-recorded data (sums, counts, groupings) that a query engine computes exactly and reproducibly every time, with nothing left to infer.",
-            "requirementIds": [
-              "FR_08"
-            ]
+            "requirementIds": ["FR_08"]
           },
           {
             "activity": "Browse members by region or trade category",
             "type": "deterministic",
             "reason": "A directory or record search is an exact or fixed-fuzzy match against indexed fields; the same query must return the same ranked results every time, which a deterministic search index guarantees and a probabilistic model does not.",
-            "requirementIds": [
-              "FR_09"
-            ]
+            "requirementIds": ["FR_09"]
           },
           {
             "activity": "Sign-off on a binding decision that an assistant conversation surfaces",
             "type": "human-decision",
             "reason": "The assistant answers informational questions only; any answer touching a binding decision is withheld and routed to a human, and every answer links back to its source document for verification.",
-            "requirementIds": [
-              "FR_02",
-              "FR_07",
-              "Q_13"
-            ]
+            "requirementIds": ["FR_02", "FR_07", "Q_13"]
           }
         ],
         "architecturePattern": "Retrieval-augmented generation (RAG) assistant, orchestrated with LangGraph and served behind the platform's managed AI service.",
@@ -4294,11 +3684,7 @@
             "name": "LangGraph",
             "category": "orchestration",
             "rationale": "The reviewed AI scope (FR_02, FR_07, Q_13) needs a stateful, multi-step workflow - retrieval/generation with a groundedness check, or several coordinated use cases - with an explicit human-in-the-loop checkpoint before a result is acted on; LangGraph models that as a graph of steps with durable state, which a single prompt call cannot provide.",
-            "requirementIds": [
-              "FR_02",
-              "FR_07",
-              "Q_13"
-            ],
+            "requirementIds": ["FR_02", "FR_07", "Q_13"],
             "alternatives": [
               "A single prompt call per request (insufficient: it cannot hold state across the retrieve/draft/check steps or pause for human review).",
               "LangChain agents without a graph (workable, but its implicit control flow is harder to audit for the required human-checkpoint than an explicit LangGraph state machine)."
@@ -4308,11 +3694,7 @@
             "name": "Vercel AI SDK",
             "category": "sdk",
             "rationale": "No .NET or Java preference is stated, so the front end streams model output using the same TypeScript stack as the rest of the application (FR_02, FR_07, Q_13); the Vercel AI SDK's streaming hooks remove the need to hand-roll server-sent-event/token-streaming handling in the UI.",
-            "requirementIds": [
-              "FR_02",
-              "FR_07",
-              "Q_13"
-            ],
+            "requirementIds": ["FR_02", "FR_07", "Q_13"],
             "alternatives": [
               "Mastra (a comparable TypeScript agent/streaming SDK; either is suitable, Vercel AI SDK is preferred for its more direct React streaming hooks)."
             ]
@@ -4321,11 +3703,7 @@
             "name": "Vertex AI (Generative AI / Model Garden)",
             "category": "model-service",
             "rationale": "Hosting the model(s) for FR_02, FR_07, Q_13 on Vertex AI (Generative AI / Model Garden) keeps inference inside the Google Cloud Platform account boundary already used for the rest of the solution, avoiding a separate vendor contract, network egress path and access-control model to operate.",
-            "requirementIds": [
-              "FR_02",
-              "FR_07",
-              "Q_13"
-            ],
+            "requirementIds": ["FR_02", "FR_07", "Q_13"],
             "alternatives": [
               "A self-hosted open-weight model on Kubernetes/GPU nodes (higher operational overhead; only justified by a strict data-residency or cost-at-scale constraint the reviewed scope does not state)."
             ]
@@ -4380,10 +3758,7 @@
                   "label": "Dashboards and Reporting",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 1 requirement (FR_08) at Low priority, and involves demanding features (Dashboards and reporting).",
-                  "refIds": [
-                    "CAP_02",
-                    "FR_08"
-                  ]
+                  "refIds": ["CAP_02", "FR_08"]
                 },
                 {
                   "id": "DRV_02",
@@ -4391,11 +3766,7 @@
                   "label": "Notifications and Alerts",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 2 requirements (BR_03 and FR_05) at Medium priority.",
-                  "refIds": [
-                    "CAP_03",
-                    "BR_03",
-                    "FR_05"
-                  ]
+                  "refIds": ["CAP_03", "BR_03", "FR_05"]
                 },
                 {
                   "id": "DRV_03",
@@ -4403,10 +3774,7 @@
                   "label": "Payments and Billing",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 1 requirement (FR_06) at High priority, and involves demanding features (Payments and billing).",
-                  "refIds": [
-                    "CAP_04",
-                    "FR_06"
-                  ]
+                  "refIds": ["CAP_04", "FR_06"]
                 },
                 {
                   "id": "DRV_04",
@@ -4414,11 +3782,7 @@
                   "label": "Search and Discovery",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 2 requirements (FR_03 and FR_09) at Medium priority, and involves demanding features (Search and discovery).",
-                  "refIds": [
-                    "CAP_05",
-                    "FR_03",
-                    "FR_09"
-                  ]
+                  "refIds": ["CAP_05", "FR_03", "FR_09"]
                 },
                 {
                   "id": "DRV_05",
@@ -4426,10 +3790,7 @@
                   "label": "Self-Service Portal",
                   "complexity": "Low",
                   "rationale": "Low complexity: covers 1 requirement (BR_02) at Medium priority.",
-                  "refIds": [
-                    "CAP_06",
-                    "BR_02"
-                  ]
+                  "refIds": ["CAP_06", "BR_02"]
                 }
               ],
               "skills": [
@@ -4444,11 +3805,7 @@
               "id": "WS_02",
               "name": "Core Platform Services",
               "phaseId": "PH_2",
-              "requirementIds": [
-                "BR_01",
-                "DATA_01",
-                "DATA_02"
-              ],
+              "requirementIds": ["BR_01", "DATA_01", "DATA_02"],
               "drivers": [
                 {
                   "id": "DRV_06",
@@ -4456,12 +3813,7 @@
                   "label": "Core Platform Services",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 3 requirements (BR_01, DATA_01 and DATA_02) at Medium priority.",
-                  "refIds": [
-                    "CAP_07",
-                    "BR_01",
-                    "DATA_01",
-                    "DATA_02"
-                  ]
+                  "refIds": ["CAP_07", "BR_01", "DATA_01", "DATA_02"]
                 }
               ],
               "skills": [
@@ -4476,10 +3828,7 @@
               "id": "WS_03",
               "name": "Identity and Access",
               "phaseId": "PH_2",
-              "requirementIds": [
-                "FR_01",
-                "FR_04"
-              ],
+              "requirementIds": ["FR_01", "FR_04"],
               "drivers": [
                 {
                   "id": "DRV_07",
@@ -4487,11 +3836,7 @@
                   "label": "Identity, Sign-In and Profile Management",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 2 requirements (FR_01 and FR_04) at High priority.",
-                  "refIds": [
-                    "CAP_08",
-                    "FR_01",
-                    "FR_04"
-                  ]
+                  "refIds": ["CAP_08", "FR_01", "FR_04"]
                 }
               ],
               "skills": [
@@ -4554,11 +3899,7 @@
                   "label": "Delivery pipeline and observability",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: 3 deployment and observability components (Monitoring, Centralized Logging and CI/CD Pipeline) to automate and operate on Google Cloud.",
-                  "refIds": [
-                    "ARC_06",
-                    "ARC_07",
-                    "ARC_08"
-                  ]
+                  "refIds": ["ARC_06", "ARC_07", "ARC_08"]
                 }
               ],
               "skills": [
@@ -4594,11 +3935,7 @@
                   "label": "Existing Membership Portal (Unconfirmed Platform) Connectivity",
                   "complexity": "High",
                   "rationale": "High complexity (from the integration strategy): bidirectional api exchange with Existing Membership Portal (Unconfirmed Platform) (external system) over REST/JSON over HTTPS; interface readiness is not yet confirmed. Requirements: SYS_01.",
-                  "refIds": [
-                    "IF_01",
-                    "SYS_01",
-                    "ARC_02"
-                  ]
+                  "refIds": ["IF_01", "SYS_01", "ARC_02"]
                 }
               ],
               "skills": [
@@ -4612,10 +3949,7 @@
               "id": "WS_06",
               "name": "Data Platform and Migration",
               "phaseId": "PH_3",
-              "requirementIds": [
-                "DATA_01",
-                "DATA_02"
-              ],
+              "requirementIds": ["DATA_01", "DATA_02"],
               "drivers": [
                 {
                   "id": "DRV_11",
@@ -4623,9 +3957,7 @@
                   "label": "Renewal Tracking Data (Spreadsheet-Based)",
                   "complexity": "Low",
                   "rationale": "Low complexity: DATA_01 is limited to modelling and storing the data.",
-                  "refIds": [
-                    "DATA_01"
-                  ]
+                  "refIds": ["DATA_01"]
                 },
                 {
                   "id": "DRV_12",
@@ -4633,9 +3965,7 @@
                   "label": "Member Profile and Contact Data",
                   "complexity": "Low",
                   "rationale": "Low complexity: DATA_02 is limited to modelling and storing the data.",
-                  "refIds": [
-                    "DATA_02"
-                  ]
+                  "refIds": ["DATA_02"]
                 }
               ],
               "skills": [
@@ -4648,11 +3978,7 @@
               "id": "WS_07",
               "name": "AI Capabilities",
               "phaseId": "PH_4",
-              "requirementIds": [
-                "FR_02",
-                "FR_07",
-                "Q_13"
-              ],
+              "requirementIds": ["FR_02", "FR_07", "Q_13"],
               "drivers": [
                 {
                   "id": "DRV_13",
@@ -4660,12 +3986,7 @@
                   "label": "Retrieval-augmented generation (RAG) assistant: AI feature - concept only and 1 related function",
                   "complexity": "High",
                   "rationale": "High complexity (from the AI solution approach): Retrieval-augmented generation (RAG) assistant, including retrieval over customer content, a human review step, evaluation and safety guardrails. Requirements: FR_02, FR_07 and Q_13.",
-                  "refIds": [
-                    "AIUC_01",
-                    "FR_02",
-                    "FR_07",
-                    "Q_13"
-                  ]
+                  "refIds": ["AIUC_01", "FR_02", "FR_07", "Q_13"]
                 }
               ],
               "skills": [
@@ -4679,95 +4000,67 @@
             {
               "id": "ER_01",
               "text": "RSK_01 is not priced as its own effort line; the estimate carries it through the workstream confidence rating instead of a dedicated cost, and the affected driver(s) must be revisited if it materialises. It is scoped against GAP_01.",
-              "refs": [
-                "RSK_01",
-                "GAP_01"
-              ]
+              "refs": ["RSK_01", "GAP_01"]
             },
             {
               "id": "ER_02",
               "text": "RSK_02 is not priced as its own effort line; the estimate carries it through the workstream confidence rating instead of a dedicated cost, and the affected driver(s) must be revisited if it materialises.",
-              "refs": [
-                "RSK_02"
-              ]
+              "refs": ["RSK_02"]
             },
             {
               "id": "ER_03",
               "text": "Interface readiness of Existing Membership Portal (Unconfirmed Platform) (IF_01 Existing Membership Portal (Unconfirmed Platform) Connectivity) is not confirmed; late sandbox access or interface changes would extend the integration workstream.",
-              "refs": [
-                "IF_01",
-                "SYS_01"
-              ]
+              "refs": ["IF_01", "SYS_01"]
             },
             {
               "id": "ER_04",
               "text": "Critical open item Active member count unknown (GAP_01) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "GAP_01"
-              ]
+              "refs": ["GAP_01"]
             },
             {
               "id": "ER_05",
               "text": "Critical open item No target launch date (GAP_02) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "GAP_02"
-              ]
+              "refs": ["GAP_02"]
             },
             {
               "id": "ER_06",
               "text": "Critical open item Systems to integrate with are unnamed (GAP_03) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "GAP_03"
-              ]
+              "refs": ["GAP_03"]
             },
             {
               "id": "ER_07",
               "text": "Critical open item Payment-card handling responsibility unclear (GAP_05) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "GAP_05"
-              ]
+              "refs": ["GAP_05"]
             },
             {
               "id": "ER_08",
               "text": "Critical open item Existing portal API/export capability unknown (GAP_10) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "GAP_10"
-              ]
+              "refs": ["GAP_10"]
             },
             {
               "id": "ER_09",
               "text": "Critical open item What is the current member count and portal platform (Q_01) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "Q_01"
-              ]
+              "refs": ["Q_01"]
             },
             {
               "id": "ER_10",
               "text": "Critical open item Who handles payment card data today (Q_03) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "Q_03"
-              ]
+              "refs": ["Q_03"]
             },
             {
               "id": "ER_11",
               "text": "Critical open item Is there any target date or budget range (Q_04) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "Q_04"
-              ]
+              "refs": ["Q_04"]
             },
             {
               "id": "ER_12",
               "text": "Critical open item Does the existing portal expose an API or export (Q_06) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "Q_06"
-              ]
+              "refs": ["Q_06"]
             },
             {
               "id": "ER_13",
               "text": "AI output quality for Retrieval-augmented generation (RAG) assistant: AI feature - concept only and 1 related function depends on representative customer data being available for evaluation; acceptance thresholds must be agreed before the AI build starts.",
-              "refs": [
-                "AIUC_01"
-              ]
+              "refs": ["AIUC_01"]
             },
             {
               "id": "ER_14",
@@ -4779,24 +4072,17 @@
             {
               "id": "ED_01",
               "text": "DEP_01 is treated as a precondition the estimate assumes will be met on schedule, not as a costed activity; a delay pushes out the dependent work rather than adding effort, so while it is outstanding the workstreams whose requirements it relates to are held at Medium confidence at most.",
-              "refs": [
-                "DEP_01"
-              ]
+              "refs": ["DEP_01"]
             },
             {
               "id": "ED_02",
               "text": "DEP_02 is treated as a precondition the estimate assumes will be met on schedule, not as a costed activity; a delay pushes out the dependent work rather than adding effort, so while it is outstanding the workstreams whose requirements it relates to are held at Medium confidence at most. It is scoped against GAP_01.",
-              "refs": [
-                "DEP_02",
-                "GAP_01"
-              ]
+              "refs": ["DEP_02", "GAP_01"]
             },
             {
               "id": "ED_03",
               "text": "Access to a test instance of Existing Membership Portal (Unconfirmed Platform) (SYS_01) and a named subject-matter expert while the related integration and data work is delivered.",
-              "refs": [
-                "SYS_01"
-              ]
+              "refs": ["SYS_01"]
             },
             {
               "id": "ED_04",
@@ -4827,18 +4113,12 @@
             {
               "id": "EA_01",
               "text": "The estimate is built as if ASM_01 holds as stated (still to be validated with the customer); if that turns out to be wrong, the driver(s) it affects must be re-scored on the next calculation. It is scoped against CON_01.",
-              "refs": [
-                "ASM_01",
-                "CON_01"
-              ]
+              "refs": ["ASM_01", "CON_01"]
             },
             {
               "id": "EA_02",
               "text": "The estimate is built as if ASM_02 holds as stated (still to be validated with the customer); if that turns out to be wrong, the driver(s) it affects must be re-scored on the next calculation. It is scoped against DATA_01.",
-              "refs": [
-                "ASM_02",
-                "DATA_01"
-              ]
+              "refs": ["ASM_02", "DATA_01"]
             },
             {
               "id": "EA_03",
@@ -4870,17 +4150,12 @@
             {
               "id": "EX_03",
               "text": "Migration of data or content that is not listed in the reviewed data requirements (DATA_01 and DATA_02) is excluded.",
-              "refs": [
-                "DATA_01",
-                "DATA_02"
-              ]
+              "refs": ["DATA_01", "DATA_02"]
             },
             {
               "id": "EX_04",
               "text": "Changes to customer-owned or third-party systems (Existing Membership Portal (Unconfirmed Platform)) that are needed to expose interfaces remain with the system owners.",
-              "refs": [
-                "SYS_01"
-              ]
+              "refs": ["SYS_01"]
             },
             {
               "id": "EX_05",
@@ -4895,16 +4170,12 @@
             {
               "id": "EX_07",
               "text": "Recommended enhancement ENH_01 AI Answer Quality Feedback Loop is not estimated until a reviewer accepts it into scope.",
-              "refs": [
-                "ENH_01"
-              ]
+              "refs": ["ENH_01"]
             },
             {
               "id": "EX_08",
               "text": "Recommended enhancement ENH_02 Data Quality and Governance Program is not estimated until a reviewer accepts it into scope.",
-              "refs": [
-                "ENH_02"
-              ]
+              "refs": ["ENH_02"]
             }
           ],
           "explanation": "The estimate inputs for Member Experience Modernisation are organised into 7 workstreams and 13 scope drivers across the build phases Experience and Core Platform, Data and Integration and AI Capabilities; Discovery and Architecture, Testing and Hardening, and Deployment and Handover are added as configurable overheads. Each driver cites the reviewed requirements, capabilities, architecture components, integrations or AI use cases that justify it, and its complexity is derived from the facts named in its rationale. A capability whose reviewed requirements are all already priced by AI use-case, integration or data drivers is priced once, in those more specific workstreams, never twice; two capabilities built from the same requirements are combined into one driver. The main complexity hotspots are Cloud platform foundation and environments (DRV_08), Existing Membership Portal (Unconfirmed Platform) Connectivity (DRV_10) and Retrieval-augmented generation (RAG) assistant: AI feature - concept only and 1 related function (DRV_13). No capability in the functional scope is dedicated to security, so security and compliance controls are estimated as their own workstream from the reviewed security-related requirements. Only complexity levels are suggested here: effort, timeline and ROM values are calculated from the base-effort table, role mix, day rates, contingency and team size in the estimation configuration."
@@ -5023,10 +4294,7 @@
                   "label": "Dashboards and Reporting",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 1 requirement (FR_08) at Low priority, and involves demanding features (Dashboards and reporting).",
-                  "refIds": [
-                    "CAP_02",
-                    "FR_08"
-                  ],
+                  "refIds": ["CAP_02", "FR_08"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 15
                 },
@@ -5036,11 +4304,7 @@
                   "label": "Notifications and Alerts",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 2 requirements (BR_03 and FR_05) at Medium priority.",
-                  "refIds": [
-                    "CAP_03",
-                    "BR_03",
-                    "FR_05"
-                  ],
+                  "refIds": ["CAP_03", "BR_03", "FR_05"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 15
                 },
@@ -5050,10 +4314,7 @@
                   "label": "Payments and Billing",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 1 requirement (FR_06) at High priority, and involves demanding features (Payments and billing).",
-                  "refIds": [
-                    "CAP_04",
-                    "FR_06"
-                  ],
+                  "refIds": ["CAP_04", "FR_06"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 15
                 },
@@ -5063,11 +4324,7 @@
                   "label": "Search and Discovery",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 2 requirements (FR_03 and FR_09) at Medium priority, and involves demanding features (Search and discovery).",
-                  "refIds": [
-                    "CAP_05",
-                    "FR_03",
-                    "FR_09"
-                  ],
+                  "refIds": ["CAP_05", "FR_03", "FR_09"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 15
                 },
@@ -5077,10 +4334,7 @@
                   "label": "Self-Service Portal",
                   "complexity": "Low",
                   "rationale": "Low complexity: covers 1 requirement (BR_02) at Medium priority.",
-                  "refIds": [
-                    "CAP_06",
-                    "BR_02"
-                  ],
+                  "refIds": ["CAP_06", "BR_02"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 8
                 }
@@ -5177,11 +4431,7 @@
               "id": "WS_02",
               "name": "Core Platform Services",
               "phaseId": "PH_2",
-              "requirementIds": [
-                "BR_01",
-                "DATA_01",
-                "DATA_02"
-              ],
+              "requirementIds": ["BR_01", "DATA_01", "DATA_02"],
               "skills": [
                 "UX/UI design",
                 "Frontend engineering",
@@ -5196,12 +4446,7 @@
                   "label": "Core Platform Services",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 3 requirements (BR_01, DATA_01 and DATA_02) at Medium priority.",
-                  "refIds": [
-                    "CAP_07",
-                    "BR_01",
-                    "DATA_01",
-                    "DATA_02"
-                  ],
+                  "refIds": ["CAP_07", "BR_01", "DATA_01", "DATA_02"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 15
                 }
@@ -5291,10 +4536,7 @@
               "id": "WS_03",
               "name": "Identity and Access",
               "phaseId": "PH_2",
-              "requirementIds": [
-                "FR_01",
-                "FR_04"
-              ],
+              "requirementIds": ["FR_01", "FR_04"],
               "skills": [
                 "UX/UI design",
                 "Frontend engineering",
@@ -5309,11 +4551,7 @@
                   "label": "Identity, Sign-In and Profile Management",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: covers 2 requirements (FR_01 and FR_04) at High priority.",
-                  "refIds": [
-                    "CAP_08",
-                    "FR_01",
-                    "FR_04"
-                  ],
+                  "refIds": ["CAP_08", "FR_01", "FR_04"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 15
                 }
@@ -5461,11 +4699,7 @@
                   "label": "Delivery pipeline and observability",
                   "complexity": "Medium",
                   "rationale": "Medium complexity: 3 deployment and observability components (Monitoring, Centralized Logging and CI/CD Pipeline) to automate and operate on Google Cloud.",
-                  "refIds": [
-                    "ARC_06",
-                    "ARC_07",
-                    "ARC_08"
-                  ],
+                  "refIds": ["ARC_06", "ARC_07", "ARC_08"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 10
                 }
@@ -5577,11 +4811,7 @@
                   "label": "Existing Membership Portal (Unconfirmed Platform) Connectivity",
                   "complexity": "High",
                   "rationale": "High complexity (from the integration strategy): bidirectional api exchange with Existing Membership Portal (Unconfirmed Platform) (external system) over REST/JSON over HTTPS; interface readiness is not yet confirmed. Requirements: SYS_01.",
-                  "refIds": [
-                    "IF_01",
-                    "SYS_01",
-                    "ARC_02"
-                  ],
+                  "refIds": ["IF_01", "SYS_01", "ARC_02"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 22
                 }
@@ -5669,10 +4899,7 @@
               "id": "WS_06",
               "name": "Data Platform and Migration",
               "phaseId": "PH_3",
-              "requirementIds": [
-                "DATA_01",
-                "DATA_02"
-              ],
+              "requirementIds": ["DATA_01", "DATA_02"],
               "skills": [
                 "Data engineering and modelling",
                 "Data migration and reconciliation",
@@ -5685,9 +4912,7 @@
                   "label": "Renewal Tracking Data (Spreadsheet-Based)",
                   "complexity": "Low",
                   "rationale": "Low complexity: DATA_01 is limited to modelling and storing the data.",
-                  "refIds": [
-                    "DATA_01"
-                  ],
+                  "refIds": ["DATA_01"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 6
                 },
@@ -5697,9 +4922,7 @@
                   "label": "Member Profile and Contact Data",
                   "complexity": "Low",
                   "rationale": "Low complexity: DATA_02 is limited to modelling and storing the data.",
-                  "refIds": [
-                    "DATA_02"
-                  ],
+                  "refIds": ["DATA_02"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 6
                 }
@@ -5782,11 +5005,7 @@
               "id": "WS_07",
               "name": "AI Capabilities",
               "phaseId": "PH_4",
-              "requirementIds": [
-                "FR_02",
-                "FR_07",
-                "Q_13"
-              ],
+              "requirementIds": ["FR_02", "FR_07", "Q_13"],
               "skills": [
                 "AI/ML engineering",
                 "Prompt and retrieval engineering",
@@ -5799,12 +5018,7 @@
                   "label": "Retrieval-augmented generation (RAG) assistant: AI feature - concept only and 1 related function",
                   "complexity": "High",
                   "rationale": "High complexity (from the AI solution approach): Retrieval-augmented generation (RAG) assistant, including retrieval over customer content, a human review step, evaluation and safety guardrails. Requirements: FR_02, FR_07 and Q_13.",
-                  "refIds": [
-                    "AIUC_01",
-                    "FR_02",
-                    "FR_07",
-                    "Q_13"
-                  ],
+                  "refIds": ["AIUC_01", "FR_02", "FR_07", "Q_13"],
                   "complexitySource": "ai-suggested",
                   "unitDays": 30
                 }
@@ -6057,9 +5271,7 @@
             {
               "id": "PH_1",
               "name": "Discovery and Architecture",
-              "workstreamIds": [
-                "WS_PH_1"
-              ],
+              "workstreamIds": ["WS_PH_1"],
               "effortDays": {
                 "low": 18,
                 "likely": 23,
@@ -6083,12 +5295,7 @@
             {
               "id": "PH_2",
               "name": "Experience and Core Platform",
-              "workstreamIds": [
-                "WS_01",
-                "WS_02",
-                "WS_03",
-                "WS_04"
-              ],
+              "workstreamIds": ["WS_01", "WS_02", "WS_03", "WS_04"],
               "effortDays": {
                 "low": 102,
                 "likely": 124,
@@ -6112,10 +5319,7 @@
             {
               "id": "PH_3",
               "name": "Data and Integration",
-              "workstreamIds": [
-                "WS_05",
-                "WS_06"
-              ],
+              "workstreamIds": ["WS_05", "WS_06"],
               "effortDays": {
                 "low": 29,
                 "likely": 34,
@@ -6139,9 +5343,7 @@
             {
               "id": "PH_4",
               "name": "AI Capabilities",
-              "workstreamIds": [
-                "WS_07"
-              ],
+              "workstreamIds": ["WS_07"],
               "effortDays": {
                 "low": 26,
                 "likely": 30,
@@ -6165,9 +5367,7 @@
             {
               "id": "PH_5",
               "name": "Testing and Hardening",
-              "workstreamIds": [
-                "WS_PH_5"
-              ],
+              "workstreamIds": ["WS_PH_5"],
               "effortDays": {
                 "low": 33,
                 "likely": 41,
@@ -6191,9 +5391,7 @@
             {
               "id": "PH_6",
               "name": "Deployment and Handover",
-              "workstreamIds": [
-                "WS_PH_6"
-              ],
+              "workstreamIds": ["WS_PH_6"],
               "effortDays": {
                 "low": 12,
                 "likely": 15,
@@ -6335,34 +5533,23 @@
               "key": "expectedUsers",
               "label": "Expected number of users",
               "effect": "confidence-reduced",
-              "affected": [
-                "WS_04"
-              ],
-              "relatedScopeIds": [
-                "GAP_01",
-                "Q_01"
-              ],
+              "affected": ["WS_04"],
+              "relatedScopeIds": ["GAP_01", "Q_01"],
               "howToResolve": "Enter the expected number of users in the solution configuration and close the related open item (GAP_01 \"Active member count unknown\" and Q_01 \"What is the current member count and portal platform\"); the estimate is recalculated immediately."
             },
             {
               "key": "environments",
               "label": "Number of environments",
               "effect": "confidence-reduced",
-              "affected": [
-                "WS_04"
-              ],
-              "relatedScopeIds": [
-                "GAP_04"
-              ],
+              "affected": ["WS_04"],
+              "relatedScopeIds": ["GAP_04"],
               "howToResolve": "Enter the number of environments in the solution configuration and close the related open item (GAP_04 \"Environment expectations not discussed\"); the estimate is recalculated immediately."
             },
             {
               "key": "targetRegions",
               "label": "Target deployment regions",
               "effect": "confidence-reduced",
-              "affected": [
-                "WS_04"
-              ],
+              "affected": ["WS_04"],
               "relatedScopeIds": [],
               "howToResolve": "Enter the target deployment regions in the solution configuration; the estimate is recalculated immediately."
             },
@@ -6370,42 +5557,24 @@
               "key": "deliveryDeadline",
               "label": "Delivery deadline",
               "effect": "confidence-reduced",
-              "affected": [
-                "Timeline"
-              ],
-              "relatedScopeIds": [
-                "GAP_02",
-                "Q_04"
-              ],
+              "affected": ["Timeline"],
+              "relatedScopeIds": ["GAP_02", "Q_04"],
               "howToResolve": "Enter the delivery deadline in the solution configuration and close the related open item (GAP_02 \"No target launch date\" and Q_04 \"Is there any target date or budget range\"); the estimate is recalculated immediately."
             },
             {
               "key": "integrationReadiness",
               "label": "Integration readiness",
               "effect": "confidence-reduced",
-              "affected": [
-                "WS_05"
-              ],
-              "relatedScopeIds": [
-                "GAP_03",
-                "GAP_10",
-                "Q_06"
-              ],
+              "affected": ["WS_05"],
+              "relatedScopeIds": ["GAP_03", "GAP_10", "Q_06"],
               "howToResolve": "Confirm the integration readiness with the customer and resolve GAP_03 \"Systems to integrate with are unnamed\", GAP_10 \"Existing portal API/export capability unknown\" and Q_06 \"Does the existing portal expose an API or export\" in the scope model; confidence is restored on the next calculation."
             },
             {
               "key": "complianceScope",
               "label": "Compliance scope",
               "effect": "confidence-reduced",
-              "affected": [
-                "WS_01",
-                "WS_04",
-                "WS_05"
-              ],
-              "relatedScopeIds": [
-                "GAP_05",
-                "Q_03"
-              ],
+              "affected": ["WS_01", "WS_04", "WS_05"],
+              "relatedScopeIds": ["GAP_05", "Q_03"],
               "howToResolve": "Confirm the compliance scope with the customer and resolve GAP_05 \"Payment-card handling responsibility unclear\" and Q_03 \"Who handles payment card data today\" in the scope model; confidence is restored on the next calculation."
             }
           ],
@@ -6413,95 +5582,67 @@
             {
               "id": "ER_01",
               "text": "RSK_01 is not priced as its own effort line; the estimate carries it through the workstream confidence rating instead of a dedicated cost, and the affected driver(s) must be revisited if it materialises. It is scoped against GAP_01.",
-              "refs": [
-                "RSK_01",
-                "GAP_01"
-              ]
+              "refs": ["RSK_01", "GAP_01"]
             },
             {
               "id": "ER_02",
               "text": "RSK_02 is not priced as its own effort line; the estimate carries it through the workstream confidence rating instead of a dedicated cost, and the affected driver(s) must be revisited if it materialises.",
-              "refs": [
-                "RSK_02"
-              ]
+              "refs": ["RSK_02"]
             },
             {
               "id": "ER_03",
               "text": "Interface readiness of Existing Membership Portal (Unconfirmed Platform) (IF_01 Existing Membership Portal (Unconfirmed Platform) Connectivity) is not confirmed; late sandbox access or interface changes would extend the integration workstream.",
-              "refs": [
-                "IF_01",
-                "SYS_01"
-              ]
+              "refs": ["IF_01", "SYS_01"]
             },
             {
               "id": "ER_04",
               "text": "Critical open item Active member count unknown (GAP_01) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "GAP_01"
-              ]
+              "refs": ["GAP_01"]
             },
             {
               "id": "ER_05",
               "text": "Critical open item No target launch date (GAP_02) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "GAP_02"
-              ]
+              "refs": ["GAP_02"]
             },
             {
               "id": "ER_06",
               "text": "Critical open item Systems to integrate with are unnamed (GAP_03) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "GAP_03"
-              ]
+              "refs": ["GAP_03"]
             },
             {
               "id": "ER_07",
               "text": "Critical open item Payment-card handling responsibility unclear (GAP_05) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "GAP_05"
-              ]
+              "refs": ["GAP_05"]
             },
             {
               "id": "ER_08",
               "text": "Critical open item Existing portal API/export capability unknown (GAP_10) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "GAP_10"
-              ]
+              "refs": ["GAP_10"]
             },
             {
               "id": "ER_09",
               "text": "Critical open item What is the current member count and portal platform (Q_01) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "Q_01"
-              ]
+              "refs": ["Q_01"]
             },
             {
               "id": "ER_10",
               "text": "Critical open item Who handles payment card data today (Q_03) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "Q_03"
-              ]
+              "refs": ["Q_03"]
             },
             {
               "id": "ER_11",
               "text": "Critical open item Is there any target date or budget range (Q_04) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "Q_04"
-              ]
+              "refs": ["Q_04"]
             },
             {
               "id": "ER_12",
               "text": "Critical open item Does the existing portal expose an API or export (Q_06) is unresolved; the estimate components it affects stay at Low confidence until it is closed.",
-              "refs": [
-                "Q_06"
-              ]
+              "refs": ["Q_06"]
             },
             {
               "id": "ER_13",
               "text": "AI output quality for Retrieval-augmented generation (RAG) assistant: AI feature - concept only and 1 related function depends on representative customer data being available for evaluation; acceptance thresholds must be agreed before the AI build starts.",
-              "refs": [
-                "AIUC_01"
-              ]
+              "refs": ["AIUC_01"]
             },
             {
               "id": "ER_14",
@@ -6513,24 +5654,17 @@
             {
               "id": "ED_01",
               "text": "DEP_01 is treated as a precondition the estimate assumes will be met on schedule, not as a costed activity; a delay pushes out the dependent work rather than adding effort, so while it is outstanding the workstreams whose requirements it relates to are held at Medium confidence at most.",
-              "refs": [
-                "DEP_01"
-              ]
+              "refs": ["DEP_01"]
             },
             {
               "id": "ED_02",
               "text": "DEP_02 is treated as a precondition the estimate assumes will be met on schedule, not as a costed activity; a delay pushes out the dependent work rather than adding effort, so while it is outstanding the workstreams whose requirements it relates to are held at Medium confidence at most. It is scoped against GAP_01.",
-              "refs": [
-                "DEP_02",
-                "GAP_01"
-              ]
+              "refs": ["DEP_02", "GAP_01"]
             },
             {
               "id": "ED_03",
               "text": "Access to a test instance of Existing Membership Portal (Unconfirmed Platform) (SYS_01) and a named subject-matter expert while the related integration and data work is delivered.",
-              "refs": [
-                "SYS_01"
-              ]
+              "refs": ["SYS_01"]
             },
             {
               "id": "ED_04",
@@ -6561,18 +5695,12 @@
             {
               "id": "EA_01",
               "text": "The estimate is built as if ASM_01 holds as stated (still to be validated with the customer); if that turns out to be wrong, the driver(s) it affects must be re-scored on the next calculation. It is scoped against CON_01.",
-              "refs": [
-                "ASM_01",
-                "CON_01"
-              ]
+              "refs": ["ASM_01", "CON_01"]
             },
             {
               "id": "EA_02",
               "text": "The estimate is built as if ASM_02 holds as stated (still to be validated with the customer); if that turns out to be wrong, the driver(s) it affects must be re-scored on the next calculation. It is scoped against DATA_01.",
-              "refs": [
-                "ASM_02",
-                "DATA_01"
-              ]
+              "refs": ["ASM_02", "DATA_01"]
             },
             {
               "id": "EA_03",
@@ -6619,17 +5747,12 @@
             {
               "id": "EX_03",
               "text": "Migration of data or content that is not listed in the reviewed data requirements (DATA_01 and DATA_02) is excluded.",
-              "refs": [
-                "DATA_01",
-                "DATA_02"
-              ]
+              "refs": ["DATA_01", "DATA_02"]
             },
             {
               "id": "EX_04",
               "text": "Changes to customer-owned or third-party systems (Existing Membership Portal (Unconfirmed Platform)) that are needed to expose interfaces remain with the system owners.",
-              "refs": [
-                "SYS_01"
-              ]
+              "refs": ["SYS_01"]
             },
             {
               "id": "EX_05",
@@ -6644,16 +5767,12 @@
             {
               "id": "EX_07",
               "text": "Recommended enhancement ENH_01 AI Answer Quality Feedback Loop is not estimated until a reviewer accepts it into scope.",
-              "refs": [
-                "ENH_01"
-              ]
+              "refs": ["ENH_01"]
             },
             {
               "id": "EX_08",
               "text": "Recommended enhancement ENH_02 Data Quality and Governance Program is not estimated until a reviewer accepts it into scope.",
-              "refs": [
-                "ENH_02"
-              ]
+              "refs": ["ENH_02"]
             }
           ],
           "rules": [
@@ -7260,40 +6379,28 @@
         {
           "section": "dataIntegration",
           "area": "Data and integration services",
-          "elementIds": [
-            "DD_01",
-            "DD_02",
-            "IF_01"
-          ],
+          "elementIds": ["DD_01", "DD_02", "IF_01"],
           "reason": "Storage, pipeline and integration services are named per cloud platform.",
           "action": "regenerate"
         },
         {
           "section": "aiStrategy",
           "area": "AI model hosting and platform services",
-          "elementIds": [
-            "AIUC_01"
-          ],
+          "elementIds": ["AIUC_01"],
           "reason": "Model hosting, retrieval and guardrail services are chosen from the selected platform.",
           "action": "regenerate"
         },
         {
           "section": "estimate",
           "area": "Cloud infrastructure effort",
-          "elementIds": [
-            "WS_04",
-            "DRV_08",
-            "DRV_09"
-          ],
+          "elementIds": ["WS_04", "DRV_08", "DRV_09"],
           "reason": "WS_04, DRV_08 and DRV_09 make up the cloud infrastructure drivers. Landing zone, deployment pipeline and platform set-up effort depend on the target platform.",
           "action": "regenerate"
         },
         {
           "section": "commercials",
           "area": "ROM commercials",
-          "elementIds": [
-            "WS_04"
-          ],
+          "elementIds": ["WS_04"],
           "reason": "WS_04 makes up the infrastructure workstreams. The ROM is re-priced from the refreshed infrastructure effort.",
           "action": "recalculate"
         }
@@ -7365,40 +6472,28 @@
         {
           "section": "dataIntegration",
           "area": "Data and integration services",
-          "elementIds": [
-            "DD_01",
-            "DD_02",
-            "IF_01"
-          ],
+          "elementIds": ["DD_01", "DD_02", "IF_01"],
           "reason": "Storage, pipeline and integration services are named per cloud platform.",
           "action": "regenerate"
         },
         {
           "section": "aiStrategy",
           "area": "AI model hosting and platform services",
-          "elementIds": [
-            "AIUC_01"
-          ],
+          "elementIds": ["AIUC_01"],
           "reason": "Model hosting, retrieval and guardrail services are chosen from the selected platform.",
           "action": "regenerate"
         },
         {
           "section": "estimate",
           "area": "Cloud infrastructure effort",
-          "elementIds": [
-            "WS_04",
-            "DRV_08",
-            "DRV_09"
-          ],
+          "elementIds": ["WS_04", "DRV_08", "DRV_09"],
           "reason": "WS_04, DRV_08 and DRV_09 make up the cloud infrastructure drivers. Landing zone, deployment pipeline and platform set-up effort depend on the target platform.",
           "action": "regenerate"
         },
         {
           "section": "commercials",
           "area": "ROM commercials",
-          "elementIds": [
-            "WS_04"
-          ],
+          "elementIds": ["WS_04"],
           "reason": "WS_04 makes up the infrastructure workstreams. The ROM is re-priced from the refreshed infrastructure effort.",
           "action": "recalculate"
         }
@@ -7490,16 +6585,11 @@
         "findings": [
           {
             "message": "Expected number of users is missing and reduces estimate confidence for WS_04. Enter the expected number of users in the solution configuration and close the related open item (GAP_01 \"Active member count unknown\" and Q_01 \"What is the current member count and portal platform\"); the estimate is recalculated immediately.",
-            "refs": [
-              "GAP_01",
-              "Q_01"
-            ]
+            "refs": ["GAP_01", "Q_01"]
           },
           {
             "message": "Number of environments is missing and reduces estimate confidence for WS_04. Enter the number of environments in the solution configuration and close the related open item (GAP_04 \"Environment expectations not discussed\"); the estimate is recalculated immediately.",
-            "refs": [
-              "GAP_04"
-            ]
+            "refs": ["GAP_04"]
           },
           {
             "message": "Target deployment regions is missing and reduces estimate confidence for WS_04. Enter the target deployment regions in the solution configuration; the estimate is recalculated immediately.",
@@ -7507,25 +6597,15 @@
           },
           {
             "message": "Delivery deadline is missing and reduces estimate confidence for Timeline. Enter the delivery deadline in the solution configuration and close the related open item (GAP_02 \"No target launch date\" and Q_04 \"Is there any target date or budget range\"); the estimate is recalculated immediately.",
-            "refs": [
-              "GAP_02",
-              "Q_04"
-            ]
+            "refs": ["GAP_02", "Q_04"]
           },
           {
             "message": "Integration readiness is missing and reduces estimate confidence for WS_05. Confirm the integration readiness with the customer and resolve GAP_03 \"Systems to integrate with are unnamed\", GAP_10 \"Existing portal API/export capability unknown\" and Q_06 \"Does the existing portal expose an API or export\" in the scope model; confidence is restored on the next calculation.",
-            "refs": [
-              "GAP_03",
-              "GAP_10",
-              "Q_06"
-            ]
+            "refs": ["GAP_03", "GAP_10", "Q_06"]
           },
           {
             "message": "Compliance scope is missing and reduces estimate confidence for WS_01, WS_04, WS_05. Confirm the compliance scope with the customer and resolve GAP_05 \"Payment-card handling responsibility unclear\" and Q_03 \"Who handles payment card data today\" in the scope model; confidence is restored on the next calculation.",
-            "refs": [
-              "GAP_05",
-              "Q_03"
-            ]
+            "refs": ["GAP_05", "Q_03"]
           }
         ]
       },
@@ -7538,97 +6618,55 @@
         "findings": [
           {
             "message": "Critical clarification question Q_01 is unanswered: What is the current member count and portal platform?",
-            "refs": [
-              "Q_01",
-              "GAP_01",
-              "SYS_01"
-            ]
+            "refs": ["Q_01", "GAP_01", "SYS_01"]
           },
           {
             "message": "Critical clarification question Q_03 is unanswered: Who handles payment card data today?",
-            "refs": [
-              "Q_03",
-              "GAP_05",
-              "FR_06"
-            ]
+            "refs": ["Q_03", "GAP_05", "FR_06"]
           },
           {
             "message": "Critical clarification question Q_04 is unanswered: Is there any target date or budget range?",
-            "refs": [
-              "Q_04",
-              "GAP_02",
-              "GAP_07"
-            ]
+            "refs": ["Q_04", "GAP_02", "GAP_07"]
           },
           {
             "message": "Critical clarification question Q_06 is unanswered: Does the existing portal expose an API or export?",
-            "refs": [
-              "Q_06",
-              "GAP_10"
-            ]
+            "refs": ["Q_06", "GAP_10"]
           },
           {
             "message": "Clarification question Q_02 is unanswered: Is trade-show event registration in scope?",
-            "refs": [
-              "Q_02",
-              "FR_04"
-            ]
+            "refs": ["Q_02", "FR_04"]
           },
           {
             "message": "Clarification question Q_05 is unanswered: Who is the technical or business point of contact?",
-            "refs": [
-              "Q_05",
-              "DEP_01"
-            ]
+            "refs": ["Q_05", "DEP_01"]
           },
           {
             "message": "Clarification question Q_07 is unanswered: Which systems must the new app connect to?",
-            "refs": [
-              "Q_07",
-              "GAP_03"
-            ]
+            "refs": ["Q_07", "GAP_03"]
           },
           {
             "message": "Clarification question Q_08 is unanswered: Which environments are expected?",
-            "refs": [
-              "Q_08",
-              "GAP_04"
-            ]
+            "refs": ["Q_08", "GAP_04"]
           },
           {
             "message": "Clarification question Q_09 is unanswered: Is any hosting or cloud constraint in place?",
-            "refs": [
-              "Q_09",
-              "GAP_06"
-            ]
+            "refs": ["Q_09", "GAP_06"]
           },
           {
             "message": "Clarification question Q_10 is unanswered: Mobile app, responsive website, or both?",
-            "refs": [
-              "Q_10",
-              "GAP_08"
-            ]
+            "refs": ["Q_10", "GAP_08"]
           },
           {
             "message": "Clarification question Q_11 is unanswered: How should members sign in?",
-            "refs": [
-              "Q_11",
-              "GAP_09"
-            ]
+            "refs": ["Q_11", "GAP_09"]
           },
           {
             "message": "Clarification question Q_12 is unanswered: What makes the current directory search hard to use?",
-            "refs": [
-              "Q_12",
-              "FR_03"
-            ]
+            "refs": ["Q_12", "FR_03"]
           },
           {
             "message": "Clarification question Q_13 is unanswered: What should the chatbot count as a basic question?",
-            "refs": [
-              "Q_13",
-              "FR_07"
-            ]
+            "refs": ["Q_13", "FR_07"]
           }
         ]
       },
@@ -7657,17 +6695,11 @@
         "findings": [
           {
             "message": "Assumption ASM_01 \"A technical/business point of contact will be identified\" has not been validated by a qualified stakeholder.",
-            "refs": [
-              "ASM_01",
-              "CON_01"
-            ]
+            "refs": ["ASM_01", "CON_01"]
           },
           {
             "message": "Assumption ASM_02 \"Renewal process will be replaced, not just integrated\" has not been validated by a qualified stakeholder.",
-            "refs": [
-              "ASM_02",
-              "DATA_01"
-            ]
+            "refs": ["ASM_02", "DATA_01"]
           }
         ]
       },

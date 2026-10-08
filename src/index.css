@@ -1,9 +1,7 @@
-/* DO NOT CHANGE */
 @import "tailwindcss";
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
 
-/* DO NOT CHANGE */
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -42,7 +40,6 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-/* CHANGE VALUES FOR THEME */
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -112,12 +109,6 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-/* ------------------------------------------------------------------ */
-/* Deal-to-Challenge Graph Engine — art direction                       */
-/* Self-hosted variable fonts (SIL OFL), a restrained studio palette,    */
-/* and the semantic hues for operating models and status.               */
-/* ------------------------------------------------------------------ */
-
 @font-face {
   font-family: "Archivo";
   src: url("/fonts/archivo-var-latin.woff2") format("woff2");
@@ -135,20 +126,18 @@
 }
 
 :root {
-  /* Operating models: desaturated so they read as marks, not fills. */
-  --model-flexible: oklch(0.70 0.09 218);
+  --model-flexible: oklch(0.7 0.09 218);
   --model-challenge: oklch(0.78 0.12 76);
-  --model-pod: oklch(0.64 0.10 292);
-  --status-ready: oklch(0.72 0.10 158);
-  --status-review: oklch(0.80 0.12 80);
+  --model-pod: oklch(0.64 0.1 292);
+  --status-ready: oklch(0.72 0.1 158);
+  --status-review: oklch(0.8 0.12 80);
   --status-blocked: oklch(0.64 0.15 28);
-  --signal: oklch(0.80 0.13 84);
-  --surface-raise: oklch(0.20 0.006 265);
+  --signal: oklch(0.8 0.13 84);
+  --surface-raise: oklch(0.2 0.006 265);
   --hairline: oklch(1 0 0 / 9%);
   --rule-strong: oklch(1 0 0 / 22%);
 }
 
-/* Cool near-black canvas with a bone foreground — studio, not dashboard. */
 .dark {
   --background: oklch(0.16 0.007 265);
   --foreground: oklch(0.945 0.003 250);
@@ -161,7 +150,7 @@
   --secondary: oklch(0.24 0.006 265);
   --secondary-foreground: oklch(0.945 0.003 250);
   --muted: oklch(0.24 0.006 265);
-  --muted-foreground: oklch(0.70 0.008 258);
+  --muted-foreground: oklch(0.7 0.008 258);
   --accent: oklch(0.26 0.007 265);
   --accent-foreground: oklch(0.945 0.003 250);
   --border: oklch(1 0 0 / 10%);
@@ -169,13 +158,13 @@
   --ring: oklch(0.55 0.01 258);
 
   --model-flexible: oklch(0.76 0.07 216);
-  --model-challenge: oklch(0.82 0.10 80);
+  --model-challenge: oklch(0.82 0.1 80);
   --model-pod: oklch(0.72 0.08 292);
   --status-ready: oklch(0.78 0.08 158);
   --status-review: oklch(0.83 0.09 82);
-  --status-blocked: oklch(0.70 0.13 28);
+  --status-blocked: oklch(0.7 0.13 28);
   --signal: oklch(0.84 0.09 84);
-  --surface-raise: oklch(0.20 0.006 265);
+  --surface-raise: oklch(0.2 0.006 265);
   --hairline: oklch(1 0 0 / 8%);
   --rule-strong: oklch(1 0 0 / 18%);
 }
@@ -196,8 +185,6 @@
   --color-rule-strong: var(--rule-strong);
 }
 
-/* One consistent label style. Wide tracking at 9px was the main source of
-   visual noise, so every micro-label goes through this instead. */
 @utility label {
   font-family: var(--font-mono);
   font-size: 11px;

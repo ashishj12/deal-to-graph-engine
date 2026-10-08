@@ -1,4 +1,4 @@
-{ 
+{
   "id": "NODE_001",
   "title": "Implement Patient Intake API",
   "objective": "Deliver secure APIs for patient intake and validation.",
@@ -15,15 +15,8 @@
     "sourceIds": ["FR_01", "SEC_01", "INT_01", "ARC_02"],
     "overridden": false
   },
-  "inputs": [
-    "Approved API contract",
-    "Identity-provider configuration"
-  ],
-  "deliverables": [
-    "Patient intake API",
-    "Validation rules",
-    "Automated tests"
-  ],
+  "inputs": ["Approved API contract", "Identity-provider configuration"],
+  "deliverables": ["Patient intake API", "Validation rules", "Automated tests"],
   "acceptanceConditions": [
     "Required fields are validated.",
     "Unauthorized requests are rejected.",

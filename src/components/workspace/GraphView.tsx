@@ -1,17 +1,11 @@
-/**
- * 03 · Graph workspace (FR5/FR7).
- *
- * A layered dependency graph drawn as plain SVG: waves become columns, so the
- * layout is a direct picture of the schedule the engine computed. Operating model
- * is encoded by hue *and* by a text mark, blocked nodes are dashed, critical-path
- * nodes carry a heavier outline, and review-required nodes are dotted — nothing
- * is encoded by colour alone.
- */
-
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import type { EdgeType, ExecutionNode, GraphEdge } from "@deal-to-challenge/engine";
+import type {
+  EdgeType,
+  ExecutionNode,
+  GraphEdge,
+} from "@deal-to-challenge/engine";
 import { EDGE_TYPES } from "@deal-to-challenge/engine";
 import { useMemo, useState } from "react";
 import {
@@ -23,6 +17,7 @@ import {
   StackedBar,
 } from "./bits";
 import type { Actions, DealEntry } from "./types";
+/* eslint-disable react-refresh/only-export-components */
 import { cn } from "@/lib/utils";
 import { AlertTriangle, MoveRight, Trash2 } from "lucide-react";
 
@@ -45,7 +40,11 @@ interface Positioned {
   y: number;
 }
 
-function layout(entry: DealEntry): { placed: Positioned[]; width: number; height: number } {
+function layout(entry: DealEntry): {
+  placed: Positioned[];
+  width: number;
+  height: number;
+} {
   const { waves, criticalPath } = entry.compiled.graph;
   const onCritical = new Set(criticalPath.nodeIds);
   const placed: Positioned[] = [];
@@ -56,7 +55,9 @@ function layout(entry: DealEntry): { placed: Positioned[]; width: number; height
       .map((id) => entry.compiled.graph.nodes.find((node) => node.id === id))
       .filter((node): node is ExecutionNode => Boolean(node))
       // Critical-path nodes sit first in their column so the path reads top-to-bottom.
-      .sort((a, b) => Number(onCritical.has(b.id)) - Number(onCritical.has(a.id)));
+      .sort(
+        (a, b) => Number(onCritical.has(b.id)) - Number(onCritical.has(a.id)),
+      );
 
     nodes.forEach((node, index) => {
       placed.push({
@@ -67,12 +68,17 @@ function layout(entry: DealEntry): { placed: Positioned[]; width: number; height
     });
     width = PAD + wave.index * (BOX.width + BOX.gapX);
     // Track the tallest column so the viewBox always covers every box.
-    width = Math.max(width, PAD + (wave.index - 1) * (BOX.width + BOX.gapX) + BOX.width + PAD);
+    width = Math.max(
+      width,
+      PAD + (wave.index - 1) * (BOX.width + BOX.gapX) + BOX.width + PAD,
+    );
   }
 
   const height = Math.max(
     220,
-    ...waves.map((wave) => PAD * 2 + wave.nodeIds.length * (BOX.height + BOX.gapY)),
+    ...waves.map(
+      (wave) => PAD * 2 + wave.nodeIds.length * (BOX.height + BOX.gapY),
+    ),
   );
   return { placed, width, height };
 }
@@ -94,7 +100,13 @@ export interface GraphViewProps {
   busy: boolean;
 }
 
-export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }: GraphViewProps) {
+export function GraphView({
+  entry,
+  actions,
+  selectedNodeId,
+  onSelectNode,
+  busy,
+}: GraphViewProps) {
   const { graph } = entry.compiled;
   const [rationale, setRationale] = useState("");
   const [edgeDraft, setEdgeDraft] = useState<{
@@ -105,15 +117,24 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
   }>({ source: "", target: "", type: "sequencing", blocking: true });
 
   const { placed, width, height } = useMemo(() => layout(entry), [entry]);
-  const positions = useMemo(() => new Map(placed.map((item) => [item.node.id, item])), [placed]);
+  const positions = useMemo(
+    () => new Map(placed.map((item) => [item.node.id, item])),
+    [placed],
+  );
   const criticalEdges = useMemo(
-    () => new Set(graph.criticalPath.nodeIds.map((id, index, all) => `${id}->${all[index + 1] ?? ""}`)),
+    () =>
+      new Set(
+        graph.criticalPath.nodeIds.map(
+          (id, index, all) => `${id}->${all[index + 1] ?? ""}`,
+        ),
+      ),
     [graph],
   );
   const visibleEdges = useMemo(() => {
     if (selectedNodeId) {
       const touching = graph.edges.filter(
-        (edge) => edge.source === selectedNodeId || edge.target === selectedNodeId,
+        (edge) =>
+          edge.source === selectedNodeId || edge.target === selectedNodeId,
       );
       if (touching.length > 0) return touching;
     }
@@ -122,7 +143,9 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
 
   const canAct = rationale.trim().length >= 8 && !busy;
   const onCritical = new Set(graph.criticalPath.nodeIds);
-  const problems = graph.findings.filter((finding) => finding.severity !== "info");
+  const problems = graph.findings.filter(
+    (finding) => finding.severity !== "info",
+  );
 
   return (
     <div className="space-y-8">
@@ -131,25 +154,33 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
         title="Dependency graph"
         detail={
           <>
-            {graph.waves.length} waves · {graph.nodes.length} nodes · {graph.edges.length} edges ·
-            critical path {graph.criticalPath.nodeIds.length} nodes / {graph.criticalPath.effort}{" "}
-            {graph.aggregates.effortUnit}
+            {graph.waves.length} waves · {graph.nodes.length} nodes ·{" "}
+            {graph.edges.length} edges · critical path{" "}
+            {graph.criticalPath.nodeIds.length} nodes /{" "}
+            {graph.criticalPath.effort} {graph.aggregates.effortUnit}
           </>
         }
         right={
           <div className="flex flex-wrap items-center gap-3">
-            {(["flexible-talent", "challenge", "private-pod"] as const).map((model) => (
-              <span key={model} className="flex items-center gap-1.5">
-                <span
-                  aria-hidden
-                  className="size-2.5 border"
-                  style={{ borderColor: MODEL_STROKE[model] }}
-                />
-                <span className={cn("font-mono-data text-[10px] uppercase", MODEL_TEXT[model])}>
-                  {MODEL_MARK[model]} {MODEL_NAME[model]}
+            {(["flexible-talent", "challenge", "private-pod"] as const).map(
+              (model) => (
+                <span key={model} className="flex items-center gap-1.5">
+                  <span
+                    aria-hidden
+                    className="size-2.5 border"
+                    style={{ borderColor: MODEL_STROKE[model] }}
+                  />
+                  <span
+                    className={cn(
+                      "font-mono-data text-[10px] uppercase",
+                      MODEL_TEXT[model],
+                    )}
+                  >
+                    {MODEL_MARK[model]} {MODEL_NAME[model]}
+                  </span>
                 </span>
-              </span>
-            ))}
+              ),
+            )}
           </div>
         }
       />
@@ -164,7 +195,15 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
           className="min-w-full"
         >
           <defs>
-            <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+            <marker
+              id="arrow"
+              viewBox="0 0 8 8"
+              refX="7"
+              refY="4"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto"
+            >
               <path d="M 0 0 L 8 4 L 0 8 z" fill="currentColor" />
             </marker>
           </defs>
@@ -176,8 +215,8 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
               y={14}
               className="fill-current font-mono-data text-[11px] text-muted-foreground"
             >
-              WAVE {String(wave.index).padStart(2, "0")} · {wave.nodeIds.length} NODES · {wave.effort}{" "}
-              {graph.aggregates.effortUnit.toUpperCase()}
+              WAVE {String(wave.index).padStart(2, "0")} · {wave.nodeIds.length}{" "}
+              NODES · {wave.effort} {graph.aggregates.effortUnit.toUpperCase()}
             </text>
           ))}
 
@@ -185,8 +224,11 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
             const from = positions.get(edge.source);
             const to = positions.get(edge.target);
             if (!from || !to) return null;
-            const critical = criticalEdges.has(`${edge.source}->${edge.target}`);
-            const active = selectedNodeId === edge.source || selectedNodeId === edge.target;
+            const critical = criticalEdges.has(
+              `${edge.source}->${edge.target}`,
+            );
+            const active =
+              selectedNodeId === edge.source || selectedNodeId === edge.target;
             return (
               <path
                 key={edge.id}
@@ -206,7 +248,9 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
             const blocked = node.readiness === "blocked";
             const review = node.readiness === "review-required";
             const critical = onCritical.has(node.id);
-            const stroke = MODEL_STROKE[node.operatingModel.primary] ?? "var(--color-hairline)";
+            const stroke =
+              MODEL_STROKE[node.operatingModel.primary] ??
+              "var(--color-hairline)";
             return (
               <g
                 key={node.id}
@@ -231,19 +275,36 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
                   fill="var(--color-background)"
                   stroke={selected ? "var(--color-signal)" : stroke}
                   strokeWidth={critical ? 2.4 : 1.2}
-                  strokeDasharray={blocked ? "4 3" : review ? "1.5 3" : undefined}
+                  strokeDasharray={
+                    blocked ? "4 3" : review ? "1.5 3" : undefined
+                  }
                 />
                 <rect x={x} y={y} width={4} height={BOX.height} fill={stroke} />
-                <text x={x + 14} y={y + 19} className="fill-current font-mono-data text-[10px] text-muted-foreground">
-                  {node.id} · {MODEL_MARK[node.operatingModel.primary]} · {node.workCategory}
+                <text
+                  x={x + 14}
+                  y={y + 19}
+                  className="fill-current font-mono-data text-[10px] text-muted-foreground"
+                >
+                  {node.id} · {MODEL_MARK[node.operatingModel.primary]} ·{" "}
+                  {node.workCategory}
                 </text>
-                <text x={x + 14} y={y + 36} className="fill-current text-[11px]">
+                <text
+                  x={x + 14}
+                  y={y + 36}
+                  className="fill-current text-[11px]"
+                >
                   {truncate(node.title, 34)}
                 </text>
-                <text x={x + 14} y={y + 50} className="fill-current font-mono-data text-[9.5px] text-muted-foreground">
+                <text
+                  x={x + 14}
+                  y={y + 50}
+                  className="fill-current font-mono-data text-[9.5px] text-muted-foreground"
+                >
                   {node.readiness}
                   {critical ? " · critical" : ""}
-                  {node.effort.maximum === null ? " · effort needs input" : ` · ${node.effort.maximum}${node.effort.unit ? ` ${node.effort.unit}` : ""}`}
+                  {node.effort.maximum === null
+                    ? " · effort needs input"
+                    : ` · ${node.effort.maximum}${node.effort.unit ? ` ${node.effort.unit}` : ""}`}
                 </text>
               </g>
             );
@@ -252,9 +313,10 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
       </div>
 
       <p className="font-mono-data text-[11px] leading-5 text-muted-foreground">
-        Solid outline = flexible talent · lighter outline = challenge · heavier outline = private pod.
-        Dashed box = blocked · dotted box = review required · thick outline = critical path · 4px left
-        bar = operating model. Click or press Enter on a node to open it.
+        Solid outline = flexible talent · lighter outline = challenge · heavier
+        outline = private pod. Dashed box = blocked · dotted box = review
+        required · thick outline = critical path · 4px left bar = operating
+        model. Click or press Enter on a node to open it.
       </p>
 
       {/* ----------------------------------------------------------- problems */}
@@ -266,21 +328,33 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
         />
         {problems.length === 0 ? (
           <p className="font-mono-data text-[11px] text-ready">
-            No structural problem: no cycle, no orphan node, no invalid dependency.
+            No structural problem: no cycle, no orphan node, no invalid
+            dependency.
           </p>
         ) : (
           <ul className="space-y-2">
             {problems.map((finding) => (
-              <li key={finding.id} className="border-l-2 border-blocked/60 pl-3">
+              <li
+                key={finding.id}
+                className="border-l-2 border-blocked/60 pl-3"
+              >
                 <div className="flex flex-wrap items-center gap-2">
-                  <Chip tone={finding.severity === "error" ? "border-blocked/50 text-blocked" : "border-review/50 text-review"}>
+                  <Chip
+                    tone={
+                      finding.severity === "error"
+                        ? "border-blocked/50 text-blocked"
+                        : "border-review/50 text-review"
+                    }
+                  >
                     <AlertTriangle className="size-2.5" /> {finding.code}
                   </Chip>
                   <span className="font-mono-data text-[10px] text-muted-foreground uppercase">
                     {finding.nodeIds.join(", ") || "graph"}
                   </span>
                 </div>
-                <p className="mt-1 text-[12.5px] leading-6">{finding.message}</p>
+                <p className="mt-1 text-[12.5px] leading-6">
+                  {finding.message}
+                </p>
                 {finding.cyclePath.length > 0 && (
                   <p className="mt-1 font-mono-data text-[11px] text-blocked">
                     cycle: {finding.cyclePath.join(" → ")}
@@ -301,13 +375,15 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
         />
         <div className="grid gap-3 border border-hairline p-3 sm:grid-cols-2 lg:grid-cols-4">
           <label className="block text-[11px]">
-            <span className="font-mono-data text-[10px] tracking-[0.1em] text-muted-foreground uppercase">
+            <span className="font-mono-data text-[10px] tracking-widest text-muted-foreground uppercase">
               Source
             </span>
             <select
               className="mt-1 h-8 w-full border border-hairline bg-transparent px-2 font-mono-data text-[11px]"
               value={edgeDraft.source}
-              onChange={(event) => setEdgeDraft({ ...edgeDraft, source: event.target.value })}
+              onChange={(event) =>
+                setEdgeDraft({ ...edgeDraft, source: event.target.value })
+              }
             >
               <option value="">select…</option>
               {graph.nodes.map((node) => (
@@ -318,13 +394,15 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
             </select>
           </label>
           <label className="block text-[11px]">
-            <span className="font-mono-data text-[10px] tracking-[0.1em] text-muted-foreground uppercase">
+            <span className="font-mono-data text-[10px] tracking-widest text-muted-foreground uppercase">
               Target
             </span>
             <select
               className="mt-1 h-8 w-full border border-hairline bg-transparent px-2 font-mono-data text-[11px]"
               value={edgeDraft.target}
-              onChange={(event) => setEdgeDraft({ ...edgeDraft, target: event.target.value })}
+              onChange={(event) =>
+                setEdgeDraft({ ...edgeDraft, target: event.target.value })
+              }
             >
               <option value="">select…</option>
               {graph.nodes.map((node) => (
@@ -335,13 +413,18 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
             </select>
           </label>
           <label className="block text-[11px]">
-            <span className="font-mono-data text-[10px] tracking-[0.1em] text-muted-foreground uppercase">
+            <span className="font-mono-data text-[10px] tracking-widest text-muted-foreground uppercase">
               Type
             </span>
             <select
               className="mt-1 h-8 w-full border border-hairline bg-transparent px-2 font-mono-data text-[11px]"
               value={edgeDraft.type}
-              onChange={(event) => setEdgeDraft({ ...edgeDraft, type: event.target.value as EdgeType })}
+              onChange={(event) =>
+                setEdgeDraft({
+                  ...edgeDraft,
+                  type: event.target.value as EdgeType,
+                })
+              }
             >
               {EDGE_TYPES.map((type) => (
                 <option key={type} value={type}>
@@ -354,15 +437,21 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
             <input
               type="checkbox"
               checked={edgeDraft.blocking}
-              onChange={(event) => setEdgeDraft({ ...edgeDraft, blocking: event.target.checked })}
+              onChange={(event) =>
+                setEdgeDraft({ ...edgeDraft, blocking: event.target.checked })
+              }
             />
             blocking
           </label>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="edge-rationale" className="label text-muted-foreground">
-            Rationale (required — every dependency needs a source-backed or user-reviewed reason)
+          <Label
+            htmlFor="edge-rationale"
+            className="label text-muted-foreground"
+          >
+            Rationale (required — every dependency needs a source-backed or
+            user-reviewed reason)
           </Label>
           <Textarea
             id="edge-rationale"
@@ -383,7 +472,15 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
               edgeDraft.target.length === 0 ||
               edgeDraft.source === edgeDraft.target
             }
-            onClick={() => actions.addEdge(edgeDraft.source, edgeDraft.target, edgeDraft.type, edgeDraft.blocking, rationale.trim())}
+            onClick={() =>
+              actions.addEdge(
+                edgeDraft.source,
+                edgeDraft.target,
+                edgeDraft.type,
+                edgeDraft.blocking,
+                rationale.trim(),
+              )
+            }
           >
             <MoveRight className="size-3" /> Add dependency
           </Button>
@@ -401,21 +498,32 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
               >
                 <div className="min-w-0">
                   <div className="font-mono-data text-[11px]">
-                    {edge.source} <MoveRight className="inline size-3" /> {edge.target}
+                    {edge.source} <MoveRight className="inline size-3" />{" "}
+                    {edge.target}
                   </div>
                   <div className="mt-0.5 text-[11.5px] leading-5 text-muted-foreground">
-                    {edge.type} · {edge.blocking ? "blocking" : "non-blocking"} · {edge.handoff}
+                    {edge.type} · {edge.blocking ? "blocking" : "non-blocking"}{" "}
+                    · {edge.handoff}
                   </div>
-                  <div className="text-[11px] leading-5 text-muted-foreground/80">{edge.rationale}</div>
+                  <div className="text-[11px] leading-5 text-muted-foreground/80">
+                    {edge.rationale}
+                  </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Chip tone="border-hairline text-muted-foreground">{edge.provenance}</Chip>
+                  <Chip tone="border-hairline text-muted-foreground">
+                    {edge.provenance}
+                  </Chip>
                   <Button
                     type="button"
                     size="sm"
                     variant="ghost"
                     disabled={!canAct}
-                    onClick={() => actions.removeEdge(`${edge.source}->${edge.target}`, rationale.trim())}
+                    onClick={() =>
+                      actions.removeEdge(
+                        `${edge.source}->${edge.target}`,
+                        rationale.trim(),
+                      )
+                    }
                   >
                     <Trash2 className="size-3" />
                   </Button>
@@ -440,7 +548,7 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
 
       <section className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2 border border-hairline p-4">
-          <div className="font-mono-data text-[10px] tracking-[0.1em] text-muted-foreground uppercase">
+          <div className="font-mono-data text-[10px] tracking-widest text-muted-foreground uppercase">
             Model distribution per wave
           </div>
           <ul className="space-y-3">
@@ -449,15 +557,28 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
                 <div className="flex items-center justify-between font-mono-data text-[11px]">
                   <span>Wave {wave.index}</span>
                   <span className="text-muted-foreground">
-                    FT {wave.models.flexibleTalent} · CH {wave.models.challenge} · PP {wave.models.privatePod}
+                    FT {wave.models.flexibleTalent} · CH {wave.models.challenge}{" "}
+                    · PP {wave.models.privatePod}
                   </span>
                 </div>
                 <div className="mt-1.5">
                   <StackedBar
                     segments={[
-                      { value: wave.models.flexibleTalent, className: "bg-model-flexible", label: "Flexible Talent" },
-                      { value: wave.models.challenge, className: "bg-model-challenge", label: "Challenge" },
-                      { value: wave.models.privatePod, className: "bg-model-pod", label: "Private Pod" },
+                      {
+                        value: wave.models.flexibleTalent,
+                        className: "bg-model-flexible",
+                        label: "Flexible Talent",
+                      },
+                      {
+                        value: wave.models.challenge,
+                        className: "bg-model-challenge",
+                        label: "Challenge",
+                      },
+                      {
+                        value: wave.models.privatePod,
+                        className: "bg-model-pod",
+                        label: "Private Pod",
+                      },
                     ]}
                   />
                 </div>
@@ -467,14 +588,19 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
         </div>
 
         <div className="space-y-2 border border-hairline p-4">
-          <div className="font-mono-data text-[10px] tracking-[0.1em] text-muted-foreground uppercase">
+          <div className="font-mono-data text-[10px] tracking-widest text-muted-foreground uppercase">
             Parallel groups
           </div>
           <ul className="space-y-1.5 font-mono-data text-[11px]">
             {graph.aggregates.parallelGroups.map((group) => (
-              <li key={group.wave} className="flex items-start justify-between gap-3">
+              <li
+                key={group.wave}
+                className="flex items-start justify-between gap-3"
+              >
                 <span>Wave {group.wave}</span>
-                <span className="text-right text-muted-foreground">{group.nodeIds.join(", ")}</span>
+                <span className="text-right text-muted-foreground">
+                  {group.nodeIds.join(", ")}
+                </span>
               </li>
             ))}
           </ul>
@@ -488,7 +614,14 @@ export function GraphView({ entry, actions, selectedNodeId, onSelectNode, busy }
               {graph.aggregates.terminalNodes.join(", ") || "none"}
             </span>
             <span>Orphan nodes</span>
-            <span className={cn("text-right", graph.aggregates.orphanNodes.length > 0 ? "text-review" : "text-muted-foreground")}>
+            <span
+              className={cn(
+                "text-right",
+                graph.aggregates.orphanNodes.length > 0
+                  ? "text-review"
+                  : "text-muted-foreground",
+              )}
+            >
               {graph.aggregates.orphanNodes.join(", ") || "none"}
             </span>
           </div>

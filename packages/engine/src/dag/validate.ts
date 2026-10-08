@@ -1,13 +1,9 @@
-/**
- * Structural validation (FR5).
- *
- * Everything here is reported, never silently repaired: a cycle is named with the
- * path that produces it, a duplicate edge is listed, and an unsupported node says
- * why it has no evidence. The quality gate consumes these findings, and a graph
- * that contains a cycle can never reach `Ready`.
- */
-
-import { EDGE_TYPES, type ExecutionNode, type GraphEdge, type GraphFinding } from "../canonical/execution";
+import {
+  EDGE_TYPES,
+  type ExecutionNode,
+  type GraphEdge,
+  type GraphFinding,
+} from "../canonical/execution";
 
 export interface GraphValidation {
   findings: GraphFinding[];
@@ -16,7 +12,10 @@ export interface GraphValidation {
 }
 
 /** Depth-first search that records the exact cycle path, not just a boolean. */
-export function findCycles(nodes: ExecutionNode[], edges: GraphEdge[]): string[][] {
+export function findCycles(
+  nodes: ExecutionNode[],
+  edges: GraphEdge[],
+): string[][] {
   const outgoing = new Map<string, string[]>();
   for (const node of nodes) outgoing.set(node.id, []);
   for (const edge of edges) outgoing.get(edge.source)?.push(edge.target);
@@ -54,7 +53,10 @@ export function findCycles(nodes: ExecutionNode[], edges: GraphEdge[]): string[]
   return cycles;
 }
 
-export function validateGraph(nodes: ExecutionNode[], edges: GraphEdge[]): GraphValidation {
+export function validateGraph(
+  nodes: ExecutionNode[],
+  edges: GraphEdge[],
+): GraphValidation {
   const findings: GraphFinding[] = [];
   const ids = new Set(nodes.map((node) => node.id));
 
@@ -72,14 +74,22 @@ export function validateGraph(nodes: ExecutionNode[], edges: GraphEdge[]): Graph
     });
   }
 
-  const dangling = edges.filter((edge) => !ids.has(edge.source) || !ids.has(edge.target));
+  const dangling = edges.filter(
+    (edge) => !ids.has(edge.source) || !ids.has(edge.target),
+  );
   if (dangling.length > 0) {
     findings.push({
       id: "FINDING_DANGLING_NODE",
       code: "dangling-node",
       severity: "error",
       message: `${dangling.length} edge(s) reference a node that is not in the graph.`,
-      nodeIds: [...new Set(dangling.flatMap((edge) => [edge.source, edge.target]).filter((id) => !ids.has(id)))],
+      nodeIds: [
+        ...new Set(
+          dangling
+            .flatMap((edge) => [edge.source, edge.target])
+            .filter((id) => !ids.has(id)),
+        ),
+      ],
       edgeIds: dangling.map((edge) => edge.id),
       cyclePath: [],
       provenance: "deterministic",
@@ -98,8 +108,14 @@ export function validateGraph(nodes: ExecutionNode[], edges: GraphEdge[]): Graph
       code: "duplicate-edge",
       severity: "warning",
       message: `${duplicates.length} dependency pair(s) are declared more than once.`,
-      nodeIds: [...new Set(duplicates.flatMap((group) => [group[0].source, group[0].target]))],
-      edgeIds: duplicates.flatMap((group) => group.slice(1).map((edge) => edge.id)),
+      nodeIds: [
+        ...new Set(
+          duplicates.flatMap((group) => [group[0].source, group[0].target]),
+        ),
+      ],
+      edgeIds: duplicates.flatMap((group) =>
+        group.slice(1).map((edge) => edge.id),
+      ),
       cyclePath: [],
       provenance: "deterministic",
     });
@@ -117,7 +133,9 @@ export function validateGraph(nodes: ExecutionNode[], edges: GraphEdge[]): Graph
       code: "invalid-edge",
       severity: "error",
       message: `${invalid.length} edge(s) lack a known type, a rationale or a source id.`,
-      nodeIds: [...new Set(invalid.flatMap((edge) => [edge.source, edge.target]))],
+      nodeIds: [
+        ...new Set(invalid.flatMap((edge) => [edge.source, edge.target])),
+      ],
       edgeIds: invalid.map((edge) => edge.id),
       cyclePath: [],
       provenance: "deterministic",
@@ -133,7 +151,9 @@ export function validateGraph(nodes: ExecutionNode[], edges: GraphEdge[]): Graph
       message: `Dependency cycle: ${cycle.join(" → ")}. A cyclic graph can never be Ready.`,
       nodeIds: cycle,
       edgeIds: edges
-        .filter((edge) => cycle.includes(edge.source) && cycle.includes(edge.target))
+        .filter(
+          (edge) => cycle.includes(edge.source) && cycle.includes(edge.target),
+        )
         .map((edge) => edge.id),
       cyclePath: cycle,
       provenance: "deterministic",
@@ -143,7 +163,10 @@ export function validateGraph(nodes: ExecutionNode[], edges: GraphEdge[]): Graph
   const incoming = new Set(edges.map((edge) => edge.target));
   const outgoing = new Set(edges.map((edge) => edge.source));
   const orphans = nodes.filter(
-    (node) => node.kind === "delivery" && !incoming.has(node.id) && !outgoing.has(node.id),
+    (node) =>
+      node.kind === "delivery" &&
+      !incoming.has(node.id) &&
+      !outgoing.has(node.id),
   );
   if (orphans.length > 0) {
     findings.push({
@@ -159,7 +182,10 @@ export function validateGraph(nodes: ExecutionNode[], edges: GraphEdge[]): Graph
   }
 
   const unsupported = nodes.filter(
-    (node) => node.sourceIds.length === 0 && node.anchors.backlogSourceId === null && node.kind !== "approval",
+    (node) =>
+      node.sourceIds.length === 0 &&
+      node.anchors.backlogSourceId === null &&
+      node.kind !== "approval",
   );
   if (unsupported.length > 0) {
     findings.push({
@@ -195,7 +221,9 @@ export function validateGraph(nodes: ExecutionNode[], edges: GraphEdge[]): Graph
       code: "model-handoff",
       severity: "info",
       message: `${crossModel.length} handoff(s) cross operating models and therefore need an explicit handoff agreement.`,
-      nodeIds: [...new Set(crossModel.flatMap((edge) => [edge.source, edge.target]))],
+      nodeIds: [
+        ...new Set(crossModel.flatMap((edge) => [edge.source, edge.target])),
+      ],
       edgeIds: crossModel.map((edge) => edge.id),
       cyclePath: [],
       provenance: "deterministic",

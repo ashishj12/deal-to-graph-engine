@@ -31,36 +31,25 @@
     "Approved design for data-warehouse",
     "Approved design for bi-reporting"
   ],
-  "missingFields": [
-    "technologies",
-    "skills",
-    "dependencies"
-  ],
+  "missingFields": ["technologies", "skills", "dependencies"],
   "model": "challenge",
   "node": {
     "acceptanceConditions": [
       "A named stakeholder dashboard loads the current metrics without a manual export step.",
       "Report figures reconcile with the underlying transactional data for a sample period."
     ],
-    "acceptanceSourceIds": [
-      "CAP_01"
-    ],
+    "acceptanceSourceIds": ["CAP_01"],
     "aiSuggestions": [],
     "anchors": {
       "aiUseCaseIds": [],
       "backlogSourceId": null,
       "capabilityId": "CAP_01",
-      "componentIds": [
-        "ARC_19",
-        "ARC_22"
-      ],
+      "componentIds": ["ARC_19", "ARC_22"],
       "domainIds": [],
       "estimateWorkstreamId": null,
       "integrationIds": [],
       "phaseId": null,
-      "requirementIds": [
-        "FR_06"
-      ],
+      "requirementIds": ["FR_06"],
       "workstreamId": "PKG:package-1-foundation"
     },
     "assumptionSourceIds": [],
@@ -97,16 +86,10 @@
     ],
     "kind": "delivery",
     "mergedFrom": [],
-    "modelFieldsMissing": [
-      "technologies",
-      "skills",
-      "dependencies"
-    ],
+    "modelFieldsMissing": ["technologies", "skills", "dependencies"],
     "objective": "Provide dashboards and reporting so stakeholders can monitor operational and business metrics without manual data extraction. It delivers: FR_06 (Supervisor reassignment and workload view).",
     "operatingModel": {
-      "alternatives": [
-        "private-pod"
-      ],
+      "alternatives": ["private-pod"],
       "confidence": "medium",
       "features": [
         {
@@ -522,28 +505,19 @@
           "score": 3.47
         }
       ],
-      "sourceIds": [
-        "CAP_01",
-        "FR_06"
-      ],
+      "sourceIds": ["CAP_01", "FR_06"],
       "splitReason": null,
       "splitRecommended": false
     },
     "provenance": "deterministic",
     "readiness": "review-required",
-    "readinessBlockers": [
-      "missing-effort",
-      "missing-package-fields"
-    ],
+    "readinessBlockers": ["missing-effort", "missing-package-fields"],
     "requiredSkills": [],
     "riskSourceIds": [],
     "risks": [],
     "roles": [],
     "scope": "Implements Dashboards and Reporting (implements FR_06). Requirements: FR_06.",
-    "sourceIds": [
-      "CAP_01",
-      "FR_06"
-    ],
+    "sourceIds": ["CAP_01", "FR_06"],
     "sourceRefs": [
       {
         "id": "CAP_01",
@@ -574,10 +548,7 @@
     "Not handoff-ready: technologies, skills, dependencies are not present in the imported package."
   ],
   "skills": [],
-  "sourceIds": [
-    "CAP_01",
-    "FR_06"
-  ],
+  "sourceIds": ["CAP_01", "FR_06"],
   "technicalContext": "Touches data-warehouse (Azure Synapse Analytics (dedicated SQL pool)), bi-reporting (Power BI) on azure.",
   "technologies": [],
   "title": "Dashboards and Reporting: backend and API"

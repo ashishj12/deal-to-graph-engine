@@ -1,14 +1,9 @@
-/**
- * Unit coverage for the small pure helpers.
- *
- * These carry the rules the rest of the engine assumes (namespace separation,
- * the `PREFIX_NN` convention, name normalisation) and are cheap to pin down
- * exactly, so they are asserted directly rather than only through a whole
- * package import.
- */
-
 import { describe, expect, test } from "bun:test";
-import { isWellFormedId, namespaceOf, normalizeName } from "@deal-to-challenge/engine";
+import {
+  isWellFormedId,
+  namespaceOf,
+  normalizeName,
+} from "@deal-to-challenge/engine";
 
 describe("identifier namespaces", () => {
   test("synthesized prefixes are namespaced before anything else", () => {
@@ -28,7 +23,23 @@ describe("identifier namespaces", () => {
   });
 
   test("every scope prefix maps to the scope namespace and nothing else", () => {
-    for (const prefix of ["BR", "FR", "NFR", "SEC", "INT", "DATA", "CON", "SYS", "PER", "TECH", "GAP", "Q", "RSK", "ASM", "DEP"]) {
+    for (const prefix of [
+      "BR",
+      "FR",
+      "NFR",
+      "SEC",
+      "INT",
+      "DATA",
+      "CON",
+      "SYS",
+      "PER",
+      "TECH",
+      "GAP",
+      "Q",
+      "RSK",
+      "ASM",
+      "DEP",
+    ]) {
       expect(namespaceOf(`${prefix}_01`)).toBe("scope");
     }
     expect(namespaceOf("CAP_01")).toBe("capability");
@@ -67,9 +78,13 @@ describe("name normalisation", () => {
   test("case, punctuation and spacing collapse to one comparable key", () => {
     expect(normalizeName("SAP S/4HANA")).toBe("sap s 4hana");
     expect(normalizeName("  Epics   EHR  ")).toBe("epics ehr");
-    expect(normalizeName("Guidewire-ClaimCenter")).toBe("guidewire claimcenter");
+    expect(normalizeName("Guidewire-ClaimCenter")).toBe(
+      "guidewire claimcenter",
+    );
     // Two spellings of the same name normalise identically, which is what lets a
     // capability dependency name resolve to a capability id.
-    expect(normalizeName("Salesforce Sales Cloud")).toBe(normalizeName("salesforce  sales cloud"));
+    expect(normalizeName("Salesforce Sales Cloud")).toBe(
+      normalizeName("salesforce  sales cloud"),
+    );
   });
 });

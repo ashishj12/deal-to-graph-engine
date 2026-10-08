@@ -28,13 +28,7 @@
         "provenance": "deterministic",
         "rule": "source-coverage",
         "severity": "info",
-        "sourceIds": [
-          "PER_01",
-          "PER_02",
-          "CON_01",
-          "ARC_08",
-          "ARC_09"
-        ],
+        "sourceIds": ["PER_01", "PER_02", "CON_01", "ARC_08", "ARC_09"],
         "status": "pass"
       },
       {

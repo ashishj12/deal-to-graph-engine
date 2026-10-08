@@ -1,15 +1,8 @@
-/**
- * User decision log (FR4/FR6).
- *
- * Every operator action — adding, removing or editing a node, splitting or
- * merging, approving or rejecting AI output, overriding an operating model,
- * editing a dependency, resolving a blocker, approving the graph — is appended
- * here with its rationale. The log is never rewritten, so the engine can always
- * explain why the graph looks the way it does, and the user is kept strictly
- * separate from both the imported package and the AI recommendations.
- */
-
-import type { DealDecision, DecisionLog, DecisionType } from "../canonical/execution";
+import type {
+  DealDecision,
+  DecisionLog,
+  DecisionType,
+} from "../canonical/execution";
 import type { OperatingModel } from "../canonical/types";
 
 let sequence = 0;
@@ -36,7 +29,10 @@ export interface DecisionInput {
 }
 
 export function createDecision(input: DecisionInput): DealDecision {
-  const createsContent = input.type === "edit-node" || input.type === "resolve-blocker" || input.type === "add-node";
+  const createsContent =
+    input.type === "edit-node" ||
+    input.type === "resolve-blocker" ||
+    input.type === "add-node";
   return {
     id: nextId(),
     type: input.type,
@@ -53,7 +49,14 @@ export function createDecision(input: DecisionInput): DealDecision {
 }
 
 export function createLog(dealId: string): DecisionLog {
-  return { dealId, revision: 0, entries: [], graphApproved: false, approvedAt: null, approvedBy: null };
+  return {
+    dealId,
+    revision: 0,
+    entries: [],
+    graphApproved: false,
+    approvedAt: null,
+    approvedBy: null,
+  };
 }
 
 /**
@@ -61,13 +64,30 @@ export function createLog(dealId: string): DecisionLog {
  * approval flag; every later change clears it, because a plan that changed after
  * approval is no longer the plan that was approved.
  */
-export function appendDecision(log: DecisionLog, decision: DealDecision): DecisionLog {
-  const next: DecisionLog = { ...log, revision: log.revision + 1, entries: [...log.entries, decision] };
+export function appendDecision(
+  log: DecisionLog,
+  decision: DealDecision,
+): DecisionLog {
+  const next: DecisionLog = {
+    ...log,
+    revision: log.revision + 1,
+    entries: [...log.entries, decision],
+  };
   if (decision.type === "approve-graph") {
-    return { ...next, graphApproved: true, approvedAt: decision.at, approvedBy: "operator" };
+    return {
+      ...next,
+      graphApproved: true,
+      approvedAt: decision.at,
+      approvedBy: "operator",
+    };
   }
   if (decision.type === "revoke-approval") {
-    return { ...next, graphApproved: false, approvedAt: null, approvedBy: null };
+    return {
+      ...next,
+      graphApproved: false,
+      approvedAt: null,
+      approvedBy: null,
+    };
   }
   return { ...next, graphApproved: false, approvedAt: null, approvedBy: null };
 }
@@ -88,7 +108,12 @@ export function overridesFrom(log: DecisionLog): NodeOverride[] {
     const next = entry.after as { model?: OperatingModel } | null;
     if (!next?.model) continue;
     for (const nodeId of entry.targetNodeIds) {
-      map.set(nodeId, { nodeId, model: next.model, rationale: entry.rationale, at: entry.at });
+      map.set(nodeId, {
+        nodeId,
+        model: next.model,
+        rationale: entry.rationale,
+        at: entry.at,
+      });
     }
   }
   return [...map.values()];
@@ -98,8 +123,10 @@ export function overridesFrom(log: DecisionLog): NodeOverride[] {
 export function removedNodesFrom(log: DecisionLog): string[] {
   const removed = new Set<string>();
   for (const entry of log.entries) {
-    if (entry.type === "remove-node") for (const id of entry.targetNodeIds) removed.add(id);
-    if (entry.type === "add-node") for (const id of entry.targetNodeIds) removed.delete(id);
+    if (entry.type === "remove-node")
+      for (const id of entry.targetNodeIds) removed.add(id);
+    if (entry.type === "add-node")
+      for (const id of entry.targetNodeIds) removed.delete(id);
   }
   return [...removed];
 }
@@ -115,20 +142,32 @@ export interface NodeEdit {
 export function nodeEditsFrom(log: DecisionLog): NodeEdit[] {
   const map = new Map<string, NodeEdit>();
   for (const entry of log.entries) {
-    if (entry.type !== "edit-node" && entry.type !== "resolve-blocker") continue;
+    if (entry.type !== "edit-node" && entry.type !== "resolve-blocker")
+      continue;
     const after = entry.after as { field?: string; value?: unknown } | null;
     if (!after?.field) continue;
     for (const nodeId of entry.targetNodeIds) {
-      map.set(`${nodeId}|${after.field}`, { nodeId, field: after.field, value: after.value, at: entry.at });
+      map.set(`${nodeId}|${after.field}`, {
+        nodeId,
+        field: after.field,
+        value: after.value,
+        at: entry.at,
+      });
     }
   }
   return [...map.values()];
 }
 
-export type NodeStatus = "approved" | "rejected" | "blocked" | "review-required";
+export type NodeStatus =
+  | "approved"
+  | "rejected"
+  | "blocked"
+  | "review-required";
 
 /** Node status decisions: approve, reject, block, require review. */
-export function nodeStatusFrom(log: DecisionLog): { nodeId: string; status: NodeStatus }[] {
+export function nodeStatusFrom(
+  log: DecisionLog,
+): { nodeId: string; status: NodeStatus }[] {
   const map = new Map<string, { nodeId: string; status: NodeStatus }>();
   const mapping: Partial<Record<DecisionType, NodeStatus>> = {
     "approve-node": "approved",
@@ -139,18 +178,26 @@ export function nodeStatusFrom(log: DecisionLog): { nodeId: string; status: Node
   for (const entry of log.entries) {
     const status = mapping[entry.type];
     if (!status) continue;
-    for (const nodeId of entry.targetNodeIds) map.set(nodeId, { nodeId, status });
+    for (const nodeId of entry.targetNodeIds)
+      map.set(nodeId, { nodeId, status });
   }
   return [...map.values()];
 }
 
 /** Accepted or rejected AI suggestions, by suggestion id. */
-export function suggestionStatusFrom(log: DecisionLog): Map<string, "accepted" | "rejected"> {
+export function suggestionStatusFrom(
+  log: DecisionLog,
+): Map<string, "accepted" | "rejected"> {
   const map = new Map<string, "accepted" | "rejected">();
   for (const entry of log.entries) {
-    const after = entry.after as { suggestionId?: string; suggestionStatus?: "accepted" | "rejected" } | null;
+    const after = entry.after as {
+      suggestionId?: string;
+      suggestionStatus?: "accepted" | "rejected";
+    } | null;
     if (!after?.suggestionId) continue;
-    const status = after.suggestionStatus ?? (entry.type === "reject-node" ? "rejected" : "accepted");
+    const status =
+      after.suggestionStatus ??
+      (entry.type === "reject-node" ? "rejected" : "accepted");
     map.set(after.suggestionId, status);
   }
   return map;
@@ -177,11 +224,21 @@ export interface UserNodeSpec {
 export function userNodesFrom(log: DecisionLog): UserNodeSpec[] {
   const specs: UserNodeSpec[] = [];
   for (const entry of log.entries) {
-    if (entry.type !== "add-node" && entry.type !== "split-node" && entry.type !== "merge-nodes") continue;
+    if (
+      entry.type !== "add-node" &&
+      entry.type !== "split-node" &&
+      entry.type !== "merge-nodes"
+    )
+      continue;
     const after = entry.after as Partial<UserNodeSpec> | null;
     if (!after?.parts || after.parts.length === 0) continue;
     specs.push({
-      mode: entry.type === "add-node" ? "add" : entry.type === "split-node" ? "split" : "merge",
+      mode:
+        entry.type === "add-node"
+          ? "add"
+          : entry.type === "split-node"
+            ? "split"
+            : "merge",
       derivedFrom: entry.targetNodeIds,
       parts: after.parts,
       at: entry.at,

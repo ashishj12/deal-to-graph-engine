@@ -24,14 +24,6 @@ function worst(a: MaturityLevel, b: MaturityLevel): MaturityLevel {
   return LEVEL_ORDER.indexOf(a) >= LEVEL_ORDER.indexOf(b) ? a : b;
 }
 
-/**
- * Deterministic maturity assessment.
- *
- * Every rule is data-driven and recorded as a `MaturityReason` so the UI can
- * show *why* a package landed at its level. The four supplied packages must
- * never reach `execution-candidate`; a synthetic fixture proves the ladder
- * still has a top rung.
- */
 export function assessMaturity(input: MaturityInput): MaturityAssessment {
   const { canonical, report, conflict } = input;
   const reasons: MaturityReason[] = [];
@@ -39,23 +31,39 @@ export function assessMaturity(input: MaturityInput): MaturityAssessment {
   const openQuestions = canonical.scope.questions.filter(
     (item) => !item.resolved && item.inScope,
   );
-  const openGaps = canonical.scope.gaps.filter((item) => !item.resolved && item.inScope);
+  const openGaps = canonical.scope.gaps.filter(
+    (item) => !item.resolved && item.inScope,
+  );
   const unvalidatedAssumptions = canonical.scope.assumptions.filter(
-    (item) => !item.resolved && !/approved|validated/i.test(item.review) && item.inScope,
+    (item) =>
+      !item.resolved &&
+      !/approved|validated/i.test(item.review) &&
+      item.inScope,
   );
-  const openRisks = canonical.scope.risks.filter((item) => !item.resolved && item.inScope);
-  const criticalOpen = [...canonical.scope.gaps, ...canonical.scope.questions].filter(
-    (item) => item.critical && !item.resolved && item.inScope,
+  const openRisks = canonical.scope.risks.filter(
+    (item) => !item.resolved && item.inScope,
   );
+  const criticalOpen = [
+    ...canonical.scope.gaps,
+    ...canonical.scope.questions,
+  ].filter((item) => item.critical && !item.resolved && item.inScope);
   const warnChecks = canonical.quality.checksWarned;
-  const unreviewedSections = report.sections.filter((section) => section.reviewed === false).length;
-  const staleSections = report.sections.filter((section) => section.status === "stale").length;
+  const unreviewedSections = report.sections.filter(
+    (section) => section.reviewed === false,
+  ).length;
+  const staleSections = report.sections.filter(
+    (section) => section.status === "stale",
+  ).length;
 
   const missingCoreInputs: string[] = [];
-  if (canonical.config.expectedUsers === null) missingCoreInputs.push("expected users");
-  if (canonical.config.environments === null) missingCoreInputs.push("environments");
-  if (canonical.config.targetRegions.length === 0) missingCoreInputs.push("target regions");
-  if (canonical.config.deadline === null) missingCoreInputs.push("target deadline");
+  if (canonical.config.expectedUsers === null)
+    missingCoreInputs.push("expected users");
+  if (canonical.config.environments === null)
+    missingCoreInputs.push("environments");
+  if (canonical.config.targetRegions.length === 0)
+    missingCoreInputs.push("target regions");
+  if (canonical.config.deadline === null)
+    missingCoreInputs.push("target deadline");
 
   const nfrCount = canonical.scope.requirements.filter(
     (item) => item.kind === "nonFunctional",
@@ -131,7 +139,10 @@ export function assessMaturity(input: MaturityInput): MaturityAssessment {
     );
   }
 
-  if (integrationRequirements > 0 && canonical.strategy.integrations.length === 0) {
+  if (
+    integrationRequirements > 0 &&
+    canonical.strategy.integrations.length === 0
+  ) {
     add(
       "unknown-integrations",
       `${integrationRequirements} integration requirement(s) exist but no interface design was produced.`,
@@ -260,13 +271,20 @@ export function assessMaturity(input: MaturityInput): MaturityAssessment {
     new Set(reasons.flatMap((reason) => reason.sourceIds)),
   ).sort();
 
-  const summary = summarise(level, canonical, criticalOpen.length, missingCoreInputs.length);
+  const summary = summarise(
+    level,
+    canonical,
+    criticalOpen.length,
+    missingCoreInputs.length,
+  );
 
   return {
     level,
     score,
     summary,
-    reasons: reasons.sort((a, b) => a.delta - b.delta || a.code.localeCompare(b.code)),
+    reasons: reasons.sort(
+      (a, b) => a.delta - b.delta || a.code.localeCompare(b.code),
+    ),
     gatingItems,
     missingCoreInputs,
     counts: {
@@ -278,8 +296,11 @@ export function assessMaturity(input: MaturityInput): MaturityAssessment {
       warnChecks,
       unreviewedSections,
       staleSections,
-      excludedItems: [...canonical.scope.requirements, ...canonical.scope.gaps, ...canonical.scope.questions]
-        .filter((item) => !item.inScope).length,
+      excludedItems: [
+        ...canonical.scope.requirements,
+        ...canonical.scope.gaps,
+        ...canonical.scope.questions,
+      ].filter((item) => !item.inScope).length,
     },
   };
 }

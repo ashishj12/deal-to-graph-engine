@@ -1,5 +1,9 @@
 import { safeParse } from "./json";
-import { normalizePackage, scanReferences, type StructuralFindings } from "./normalize";
+import {
+  normalizePackage,
+  scanReferences,
+  type StructuralFindings,
+} from "./normalize";
 import { validatePackage } from "./validate";
 import { assessMaturity } from "./maturity";
 import type {
@@ -51,7 +55,12 @@ function emptyCanonical(): CanonicalPackage {
       outOfScope: [],
     },
     architecture: { platform: "unspecified", components: [], flows: [] },
-    strategy: { dataDomains: [], integrations: [], aiUseCases: [], aiBoundaries: [] },
+    strategy: {
+      dataDomains: [],
+      integrations: [],
+      aiUseCases: [],
+      aiBoundaries: [],
+    },
     delivery: {
       phases: [],
       workstreams: [],
@@ -59,7 +68,12 @@ function emptyCanonical(): CanonicalPackage {
       missingInputs: [],
       totals: { low: null, likely: null, high: null },
     },
-    quality: { status: "unknown", findings: [], checksPassed: 0, checksWarned: 0 },
+    quality: {
+      status: "unknown",
+      findings: [],
+      checksPassed: 0,
+      checksWarned: 0,
+    },
     config: {
       cloudPlatform: "unspecified",
       expectedUsers: null,
@@ -122,7 +136,10 @@ const NO_CONFLICT: PlatformConflict = {
  * Pure with respect to its inputs: the same text always produces the same
  * `ImportedPackage` (the only ambient value is the SHA-256 of the text).
  */
-export async function runImport(fileName: string, text: string): Promise<ImportedPackage> {
+export async function runImport(
+  fileName: string,
+  text: string,
+): Promise<ImportedPackage> {
   const byteLength = new TextEncoder().encode(text).length;
   const sha256 = await sha256Hex(text);
 
@@ -134,7 +151,8 @@ export async function runImport(fileName: string, text: string): Promise<Importe
       message: `The package is ${(byteLength / 1024 / 1024).toFixed(1)} MB, above the ${MAX_IMPORT_BYTES / 1024 / 1024} MB import limit.`,
       path: ".",
       sourceIds: [],
-      remediation: "Import a smaller export, or raise the limit for this session.",
+      remediation:
+        "Import a smaller export, or raise the limit for this session.",
     };
     return {
       fileName,
@@ -153,7 +171,11 @@ export async function runImport(fileName: string, text: string): Promise<Importe
   const parsed = safeParse(text);
 
   if (!parsed.ok) {
-    const error = parsed.error ?? { message: "Invalid JSON.", line: 1, column: 1 };
+    const error = parsed.error ?? {
+      message: "Invalid JSON.",
+      line: 1,
+      column: 1,
+    };
     const issue: ValidationIssue = {
       id: "ISSUE_001",
       severity: "error",
@@ -161,7 +183,8 @@ export async function runImport(fileName: string, text: string): Promise<Importe
       message: `${error.message} (line ${error.line}, column ${error.column})`,
       path: ".",
       sourceIds: [],
-      remediation: "Fix the JSON syntax and re-import. The original text is preserved unmodified.",
+      remediation:
+        "Fix the JSON syntax and re-import. The original text is preserved unmodified.",
     };
     return {
       fileName,
@@ -173,7 +196,9 @@ export async function runImport(fileName: string, text: string): Promise<Importe
       sourceIndex: [],
       report: blockedReport(issue),
       conflict: NO_CONFLICT,
-      maturity: blockedMaturity("The package is not valid JSON, so it cannot be assessed."),
+      maturity: blockedMaturity(
+        "The package is not valid JSON, so it cannot be assessed.",
+      ),
     };
   }
 
@@ -183,10 +208,12 @@ export async function runImport(fileName: string, text: string): Promise<Importe
       id: "ISSUE_001",
       severity: "error",
       code: "not-a-workspace-export",
-      message: "The file is valid JSON but is not an object, so it is not a deal-scoping export.",
+      message:
+        "The file is valid JSON but is not an object, so it is not a deal-scoping export.",
       path: ".",
       sourceIds: [],
-      remediation: "Import a workspace export produced by the deal-scoping tool.",
+      remediation:
+        "Import a workspace export produced by the deal-scoping tool.",
     };
     return {
       fileName,
@@ -225,7 +252,9 @@ export async function runImport(fileName: string, text: string): Promise<Importe
     referenceCounts: Object.keys(report.referenceCounts).length
       ? report.referenceCounts
       : Object.fromEntries(
-          Object.entries(scan.referenceCounts).sort(([a], [b]) => a.localeCompare(b)),
+          Object.entries(scan.referenceCounts).sort(([a], [b]) =>
+            a.localeCompare(b),
+          ),
         ),
   };
 

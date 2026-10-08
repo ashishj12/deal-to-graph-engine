@@ -1,12 +1,3 @@
-/**
- * Model-specific execution packages (FR4).
- *
- * The challenge lists the fields each package must describe. A field the imported
- * package does not contain is reported as missing rather than filled with a
- * plausible placeholder, and a node cannot be `ready` while one of its package's
- * required fields is missing.
- */
-
 import type { GeneratorInfo } from "../canonical/execution";
 import type { OperatingModel, Provenance, Readiness } from "../canonical/types";
 
@@ -69,7 +60,10 @@ export interface PrivatePodPackage extends PackageBase {
   definitionOfCompletion: string[];
 }
 
-export type ModelPackage = FlexibleTalentPackage | ChallengePackage | PrivatePodPackage;
+export type ModelPackage =
+  | FlexibleTalentPackage
+  | ChallengePackage
+  | PrivatePodPackage;
 
 /** Required fields per model, used by the completeness check and the quality gate. */
 export const REQUIRED_PACKAGE_FIELDS: Record<OperatingModel, string[]> = {

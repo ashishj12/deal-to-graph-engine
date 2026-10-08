@@ -1,10 +1,3 @@
-/**
- * Wave, earliest-start, critical-path and aggregate calculation (FR5).
- *
- * All of this is deterministic. No model is consulted, and the same graph always
- * produces the same numbers, which is what lets the quality gate trust them.
- */
-
 import type {
   CriticalPath,
   ExecutionNode,
@@ -25,7 +18,10 @@ function effortOf(node: ExecutionNode, bound: "minimum" | "maximum"): number {
 }
 
 /** Kahn layering: wave number is the longest-path depth from an entry node. */
-export function computeSchedule(nodes: ExecutionNode[], edges: GraphEdge[]): ScheduleResult {
+export function computeSchedule(
+  nodes: ExecutionNode[],
+  edges: GraphEdge[],
+): ScheduleResult {
   const ids = nodes.map((node) => node.id).sort();
   const byId = new Map(nodes.map((node) => [node.id, node]));
   const incoming = new Map<string, string[]>(ids.map((id) => [id, []]));
@@ -85,9 +81,15 @@ export function computeSchedule(nodes: ExecutionNode[], edges: GraphEdge[]): Sch
       nodeIds,
       effort: members.reduce((sum, node) => sum + effortOf(node, "maximum"), 0),
       models: {
-        flexibleTalent: members.filter((node) => node.operatingModel.primary === "flexible-talent").length,
-        challenge: members.filter((node) => node.operatingModel.primary === "challenge").length,
-        privatePod: members.filter((node) => node.operatingModel.primary === "private-pod").length,
+        flexibleTalent: members.filter(
+          (node) => node.operatingModel.primary === "flexible-talent",
+        ).length,
+        challenge: members.filter(
+          (node) => node.operatingModel.primary === "challenge",
+        ).length,
+        privatePod: members.filter(
+          (node) => node.operatingModel.primary === "private-pod",
+        ).length,
       },
     };
   });
@@ -108,9 +110,12 @@ function longestPath(
   bound: "minimum" | "maximum",
 ): { nodeIds: string[]; effort: number } {
   const byId = new Map(nodes.map((node) => [node.id, node]));
-  const incoming = new Map<string, string[]>(nodes.map((node) => [node.id, []]));
+  const incoming = new Map<string, string[]>(
+    nodes.map((node) => [node.id, []]),
+  );
   for (const edge of edges) {
-    if (byId.has(edge.source) && byId.has(edge.target)) incoming.get(edge.target)?.push(edge.source);
+    if (byId.has(edge.source) && byId.has(edge.target))
+      incoming.get(edge.target)?.push(edge.source);
   }
   const ids = nodes.map((node) => node.id).sort();
   const best = new Map<string, { total: number; previous: string | null }>();
@@ -139,7 +144,10 @@ function longestPath(
         previousId = predecessor;
       }
     }
-    best.set(id, { total: Number((base + effortOf(node, bound)).toFixed(3)), previous: previousId });
+    best.set(id, {
+      total: Number((base + effortOf(node, bound)).toFixed(3)),
+      previous: previousId,
+    });
   }
 
   let head: string | null = null;
@@ -157,7 +165,10 @@ function longestPath(
   return { nodeIds: path, effort: head ? (best.get(head)?.total ?? 0) : 0 };
 }
 
-export function computeCriticalPath(nodes: ExecutionNode[], edges: GraphEdge[]): CriticalPath {
+export function computeCriticalPath(
+  nodes: ExecutionNode[],
+  edges: GraphEdge[],
+): CriticalPath {
   const worst = longestPath(nodes, edges, "maximum");
   const optimistic = longestPath(nodes, edges, "minimum");
   return {
@@ -190,7 +201,11 @@ export function computeAggregates(
   const criticalIds = new Set(criticalPath.nodeIds);
   const duration = nodes
     .filter((node) => criticalIds.has(node.id))
-    .reduce((total, node) => (node.effort.maximum === null ? total : total + node.effort.maximum), 0);
+    .reduce(
+      (total, node) =>
+        node.effort.maximum === null ? total : total + node.effort.maximum,
+      0,
+    );
 
   return {
     nodeCount: nodes.length,
@@ -206,18 +221,40 @@ export function computeAggregates(
       "Sum of effort.maximum along the critical path. Nodes whose effort is not in the imported package contribute 0 and are listed in nodesMissingEffort.",
     parallelGroups: waves
       .filter((wave) => wave.nodeIds.length > 1)
-      .map((wave) => ({ wave: wave.index, size: wave.nodeIds.length, nodeIds: wave.nodeIds })),
-    nodesMissingEffort: nodes.filter((node) => node.effort.maximum === null).map((node) => node.id).sort(),
-    reviewCheckpoints: nodes.filter((node) => node.humanReviewRequired).map((node) => node.id).sort(),
-    entryNodes: nodes.filter((node) => !incoming.has(node.id)).map((node) => node.id).sort(),
-    terminalNodes: nodes.filter((node) => !outgoing.has(node.id)).map((node) => node.id).sort(),
+      .map((wave) => ({
+        wave: wave.index,
+        size: wave.nodeIds.length,
+        nodeIds: wave.nodeIds,
+      })),
+    nodesMissingEffort: nodes
+      .filter((node) => node.effort.maximum === null)
+      .map((node) => node.id)
+      .sort(),
+    reviewCheckpoints: nodes
+      .filter((node) => node.humanReviewRequired)
+      .map((node) => node.id)
+      .sort(),
+    entryNodes: nodes
+      .filter((node) => !incoming.has(node.id))
+      .map((node) => node.id)
+      .sort(),
+    terminalNodes: nodes
+      .filter((node) => !outgoing.has(node.id))
+      .map((node) => node.id)
+      .sort(),
     orphanNodes: nodes
       .filter((node) => !incoming.has(node.id) && !outgoing.has(node.id))
       .map((node) => node.id)
       .sort(),
-    blockedNodes: nodes.filter((node) => node.blockingStatus === "blocked").map((node) => node.id).sort(),
+    blockedNodes: nodes
+      .filter((node) => node.blockingStatus === "blocked")
+      .map((node) => node.id)
+      .sort(),
     unsupportedNodes: nodes
-      .filter((node) => node.sourceIds.length === 0 && node.anchors.backlogSourceId === null)
+      .filter(
+        (node) =>
+          node.sourceIds.length === 0 && node.anchors.backlogSourceId === null,
+      )
       .map((node) => node.id)
       .sort(),
   };

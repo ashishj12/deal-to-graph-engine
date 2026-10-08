@@ -1,8 +1,19 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { PlatformConflict, Severity, ValidationIssue, ValidationReport } from "@deal-to-challenge/engine";
+import type {
+  PlatformConflict,
+  Severity,
+  ValidationIssue,
+  ValidationReport,
+} from "@deal-to-challenge/engine";
 import { cn } from "@/lib/utils";
-import { CircleAlert, CircleCheck, Info, OctagonAlert, TriangleAlert } from "lucide-react";
+import {
+  CircleAlert,
+  CircleCheck,
+  Info,
+  OctagonAlert,
+  TriangleAlert,
+} from "lucide-react";
 import { useMemo, useState } from "react";
 
 const SEVERITY_ICON = {
@@ -39,7 +50,10 @@ export function ValidationPanel({
         .slice()
         .sort((a, b) => {
           const order: Severity[] = ["error", "warning", "info"];
-          return order.indexOf(a.severity) - order.indexOf(b.severity) || a.id.localeCompare(b.id);
+          return (
+            order.indexOf(a.severity) - order.indexOf(b.severity) ||
+            a.id.localeCompare(b.id)
+          );
         }),
     [report.issues, filter],
   );
@@ -61,8 +75,9 @@ export function ValidationPanel({
               Platform conflict — requires a human decision
             </CardTitle>
             <p className="text-[13px] leading-6 text-muted-foreground">
-              The package references more than one cloud platform. The engine will not
-              pick one for you. Record the decision before this package can be planned.
+              The package references more than one cloud platform. The engine
+              will not pick one for you. Record the decision before this package
+              can be planned.
             </p>
           </CardHeader>
           <CardContent>
@@ -72,11 +87,16 @@ export function ValidationPanel({
                   key={`${claim.source}-${claim.platform}-${index}`}
                   className="flex flex-wrap items-center gap-2 font-mono-data text-[11px]"
                 >
-                  <Badge variant="outline" className="border-hairline text-[11px] uppercase">
+                  <Badge
+                    variant="outline"
+                    className="border-hairline text-[11px] uppercase"
+                  >
                     {claim.platform}
                   </Badge>
                   <span className="text-muted-foreground">{claim.source}</span>
-                  {claim.refId && <span className="text-model-pod">{claim.refId}</span>}
+                  {claim.refId && (
+                    <span className="text-model-pod">{claim.refId}</span>
+                  )}
                 </li>
               ))}
             </ul>
@@ -92,7 +112,9 @@ export function ValidationPanel({
               variant="outline"
               className={cn(
                 "font-mono-data text-[11px] uppercase",
-                report.passed ? "border-ready/40 text-ready" : "border-blocked/50 text-blocked",
+                report.passed
+                  ? "border-ready/40 text-ready"
+                  : "border-blocked/50 text-blocked",
               )}
             >
               {report.passed ? "structure valid" : "structure blocked"}
@@ -105,7 +127,7 @@ export function ValidationPanel({
                 type="button"
                 onClick={() => setFilter(chip.key)}
                 className={cn(
-                  "rounded-none border px-3 py-1 font-mono-data text-[11px] uppercase tracking-[0.1em] transition-colors",
+                  "rounded-none border px-3 py-1 font-mono-data text-[11px] uppercase tracking-widest transition-colors",
                   filter === chip.key
                     ? "border-model-pod/60 bg-model-pod/15 text-foreground"
                     : "border-hairline text-muted-foreground hover:border-model-pod/40",
@@ -137,11 +159,18 @@ export function ValidationPanel({
                     : "border-hairline bg-background/40 hover:border-model-pod/40",
                 )}
               >
-                <Icon className={cn("mt-0.5 size-4 shrink-0", SEVERITY_TONE[issue.severity])} />
+                <Icon
+                  className={cn(
+                    "mt-0.5 size-4 shrink-0",
+                    SEVERITY_TONE[issue.severity],
+                  )}
+                />
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[13px] leading-5">{issue.message}</span>
+                  <span className="block text-[13px] leading-5">
+                    {issue.message}
+                  </span>
                   <span className="mt-1 flex flex-wrap items-center gap-2">
-                    <span className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                    <span className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                       {issue.code}
                     </span>
                     <span className="font-mono-data text-[11px] text-muted-foreground/80">
@@ -166,7 +195,9 @@ export function ValidationPanel({
               className="flex items-center justify-between gap-3 rounded-none border border-hairline bg-background/40 px-3 py-2"
             >
               <span className="min-w-0">
-                <span className="block truncate text-[12px]">{section.name}</span>
+                <span className="block truncate text-[12px]">
+                  {section.name}
+                </span>
                 <span className="font-mono-data text-[11px] text-muted-foreground">
                   {section.path}
                 </span>
@@ -223,7 +254,9 @@ export function ValidationPanel({
                 </span>
               ))}
             {Object.keys(report.referenceCounts).length === 0 && (
-              <p className="text-[13px] text-muted-foreground">No cross-references found.</p>
+              <p className="text-[13px] text-muted-foreground">
+                No cross-references found.
+              </p>
             )}
           </div>
         </CardContent>
@@ -231,8 +264,8 @@ export function ValidationPanel({
 
       <p className="flex items-center gap-2 text-[12px] text-muted-foreground">
         <CircleAlert className="size-3.5" />
-        Findings never stop the import. Everything is reported and the original file is
-        preserved unmodified.
+        Findings never stop the import. Everything is reported and the original
+        file is preserved unmodified.
       </p>
     </div>
   );

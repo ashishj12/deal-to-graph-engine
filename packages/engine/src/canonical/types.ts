@@ -1,12 +1,3 @@
-/**
- * Canonical domain types for the Deal-to-Challenge Graph Engine.
- *
- * V1 scope: package ingestion, validation, normalization and maturity
- * assessment. Node/DAG types will be layered on top of `CanonicalPackage`
- * without changing anything here.
- */
-
-/** Exactly six provenance values, per the challenge spec. */
 export const PROVENANCE = [
   "imported",
   "ai-inferred",
@@ -25,7 +16,11 @@ export const OPERATING_MODELS = [
 ] as const;
 export type OperatingModel = (typeof OPERATING_MODELS)[number];
 
-export const READINESS_STATES = ["ready", "review-required", "blocked"] as const;
+export const READINESS_STATES = [
+  "ready",
+  "review-required",
+  "blocked",
+] as const;
 export type Readiness = (typeof READINESS_STATES)[number];
 
 export const MATURITY_LEVELS = [
@@ -139,11 +134,6 @@ export interface Capability {
   resolvedDependencies: string[];
   unresolvedDependencies: string[];
   moduleNames: string[];
-  /**
-   * Acceptance criteria the package states for this capability. These are the
-   * only acceptance conditions the engine may attach to a node without asking a
-   * human; inventing one is forbidden by the specification.
-   */
   acceptanceConditions: string[];
 }
 

@@ -1,11 +1,3 @@
-/**
- * The operating-model override dialog.
- *
- * The specification requires the override and its rationale to be recorded as a
- * user-reviewed decision, so the confirm button stays disabled until a rationale
- * is entered. Nothing is applied implicitly.
- */
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -22,7 +14,11 @@ import { useState } from "react";
 import { MODEL_LABEL, MODEL_CLASS } from "./store";
 import { cn } from "@/lib/utils";
 
-const MODELS: OperatingModel[] = ["flexible-talent", "challenge", "private-pod"];
+const MODELS: OperatingModel[] = [
+  "flexible-talent",
+  "challenge",
+  "private-pod",
+];
 
 export interface OverrideDialogProps {
   node: ExecutionNode | null;
@@ -31,12 +27,20 @@ export interface OverrideDialogProps {
   busy?: boolean;
 }
 
-export function OverrideDialog({ node, onClose, onConfirm, busy }: OverrideDialogProps) {
+export function OverrideDialog({
+  node,
+  onClose,
+  onConfirm,
+  busy,
+}: OverrideDialogProps) {
   // The dialog is remounted (keyed on the node id) each time it opens, so the
   // default target model can be derived once from the node instead of being
   // synchronised with an effect.
   const [choice, setChoice] = useState<OperatingModel>(() =>
-    node ? (MODELS.find((model) => model !== node.operatingModel.primary) ?? "challenge") : "private-pod",
+    node
+      ? (MODELS.find((model) => model !== node.operatingModel.primary) ??
+        "challenge")
+      : "private-pod",
   );
   const [rationale, setRationale] = useState("");
 
@@ -47,16 +51,20 @@ export function OverrideDialog({ node, onClose, onConfirm, busy }: OverrideDialo
     <Dialog open onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle className="text-base">Override operating model</DialogTitle>
+          <DialogTitle className="text-base">
+            Override operating model
+          </DialogTitle>
           <DialogDescription className="font-mono-data text-[11px]">
-            {node.id} · currently {MODEL_LABEL[node.operatingModel.primary]} ({node.operatingModel.confidence}{" "}
-            confidence)
+            {node.id} · currently {MODEL_LABEL[node.operatingModel.primary]} (
+            {node.operatingModel.confidence} confidence)
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 px-4 pb-2">
           <fieldset className="space-y-2">
-            <legend className="label text-muted-foreground">New primary model</legend>
+            <legend className="label text-muted-foreground">
+              New primary model
+            </legend>
             <div className="grid gap-2 sm:grid-cols-3">
               {MODELS.map((model) => (
                 <button
@@ -66,7 +74,9 @@ export function OverrideDialog({ node, onClose, onConfirm, busy }: OverrideDialo
                   onClick={() => setChoice(model)}
                   className={cn(
                     "border px-3 py-2 text-left font-mono-data text-[11px] uppercase tracking-[0.08em] transition-colors",
-                    choice === model ? MODEL_CLASS[model] : "border-hairline text-muted-foreground hover:border-foreground/40",
+                    choice === model
+                      ? MODEL_CLASS[model]
+                      : "border-hairline text-muted-foreground hover:border-foreground/40",
                   )}
                 >
                   {MODEL_LABEL[model]}
@@ -76,7 +86,10 @@ export function OverrideDialog({ node, onClose, onConfirm, busy }: OverrideDialo
           </fieldset>
 
           <div className="space-y-2">
-            <Label htmlFor="override-rationale" className="label text-muted-foreground">
+            <Label
+              htmlFor="override-rationale"
+              className="label text-muted-foreground"
+            >
               Rationale (recorded as a user decision)
             </Label>
             <Textarea
@@ -88,11 +101,14 @@ export function OverrideDialog({ node, onClose, onConfirm, busy }: OverrideDialo
               className="text-[13px]"
             />
             <p className="font-mono-data text-[11px] text-muted-foreground">
-              {canConfirm ? "Rationale recorded against the node's override history." : "At least 8 characters required."}
+              {canConfirm
+                ? "Rationale recorded against the node's override history."
+                : "At least 8 characters required."}
             </p>
           </div>
 
-          {node.operatingModel.splitRecommended && node.operatingModel.splitReason ? (
+          {node.operatingModel.splitRecommended &&
+          node.operatingModel.splitReason ? (
             <p className="border-l-2 border-review/50 pl-3 text-[12px] leading-6 text-muted-foreground">
               {node.operatingModel.splitReason}
             </p>

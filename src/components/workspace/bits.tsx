@@ -1,5 +1,4 @@
-/** Small presentational primitives shared by the six workspaces. */
-
+/* eslint-disable react-refresh/only-export-components */
 import { cn } from "@/lib/utils";
 import type { Provenance, Readiness } from "@deal-to-challenge/engine";
 import { provenanceLabel } from "@deal-to-challenge/engine";
@@ -69,20 +68,40 @@ export function Chip({
   );
 }
 
-export function ModelChip({ model, confidence }: { model: string; confidence?: string }) {
+export function ModelChip({
+  model,
+  confidence,
+}: {
+  model: string;
+  confidence?: string;
+}) {
   return (
     <Chip
-      tone={cn(MODEL_TEXT[model] ?? "text-muted-foreground", MODEL_BORDER[model] ?? "border-hairline")}
-      title={confidence ? `Classification confidence: ${confidence}` : undefined}
+      tone={cn(
+        MODEL_TEXT[model] ?? "text-muted-foreground",
+        MODEL_BORDER[model] ?? "border-hairline",
+      )}
+      title={
+        confidence ? `Classification confidence: ${confidence}` : undefined
+      }
     >
       {MODEL_MARK[model] ?? "??"} {MODEL_NAME[model] ?? model}
     </Chip>
   );
 }
 
-export function ReadinessChip({ readiness }: { readiness: Readiness | string }) {
+export function ReadinessChip({
+  readiness,
+}: {
+  readiness: Readiness | string;
+}) {
   return (
-    <Chip tone={cn(READINESS_TEXT[readiness] ?? "text-muted-foreground", "border-current/40")}>
+    <Chip
+      tone={cn(
+        READINESS_TEXT[readiness] ?? "text-muted-foreground",
+        "border-current/40",
+      )}
+    >
       {String(readiness).replace(/-/g, " ")}
     </Chip>
   );
@@ -91,7 +110,10 @@ export function ReadinessChip({ readiness }: { readiness: Readiness | string }) 
 export function ProvenanceChip({ provenance }: { provenance: Provenance }) {
   return (
     <Chip
-      tone={cn(PROVENANCE_TEXT[provenance] ?? "text-muted-foreground", "border-hairline")}
+      tone={cn(
+        PROVENANCE_TEXT[provenance] ?? "text-muted-foreground",
+        "border-hairline",
+      )}
       title="Origin of this item. Imported and user-reviewed information outranks AI recommendations."
     >
       {provenanceLabel(provenance)}
@@ -113,12 +135,18 @@ export function SectionTitle({
   return (
     <div className="flex flex-wrap items-end justify-between gap-3 border-b border-rule-strong pb-3">
       <div className="min-w-0">
-        <h3 className="flex items-baseline gap-2 text-[15px] font-[600] tracking-[-0.01em]">
-          {index && <span className="font-mono-data text-[11px] text-muted-foreground">{index}</span>}
+        <h3 className="flex items-baseline gap-2 text-[15px] font-semibold tracking-[-0.01em]">
+          {index && (
+            <span className="font-mono-data text-[11px] text-muted-foreground">
+              {index}
+            </span>
+          )}
           {title}
         </h3>
         {detail && (
-          <p className="mt-1 max-w-3xl text-[12px] leading-5 text-muted-foreground">{detail}</p>
+          <p className="mt-1 max-w-3xl text-[12px] leading-5 text-muted-foreground">
+            {detail}
+          </p>
         )}
       </div>
       {right}
@@ -139,22 +167,38 @@ export function Metric({
 }) {
   return (
     <div className="min-w-0 border border-hairline px-3 py-2.5">
-      <div className="font-mono-data text-[10px] tracking-[0.1em] text-muted-foreground uppercase">
+      <div className="font-mono-data text-[10px] tracking-widest text-muted-foreground uppercase">
         {label}
       </div>
-      <div className={cn("mt-1.5 font-mono-data text-[17px] tabular-nums", tone)}>{value}</div>
-      {hint && <div className="mt-1 text-[11px] leading-4 text-muted-foreground/80">{hint}</div>}
+      <div
+        className={cn("mt-1.5 font-mono-data text-[17px] tabular-nums", tone)}
+      >
+        {value}
+      </div>
+      {hint && (
+        <div className="mt-1 text-[11px] leading-4 text-muted-foreground/80">
+          {hint}
+        </div>
+      )}
     </div>
   );
 }
 
-export function Field({ label, children }: { label: string; children: React.ReactNode }) {
+export function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="min-w-0">
-      <div className="font-mono-data text-[10px] tracking-[0.1em] text-muted-foreground uppercase">
+      <div className="font-mono-data text-[10px] tracking-widest text-muted-foreground uppercase">
         {label}
       </div>
-      <div className="mt-1.5 text-[12.5px] leading-6 break-words">{children}</div>
+      <div className="mt-1.5 text-[12.5px] leading-6 wrap-break-word">
+        {children}
+      </div>
     </div>
   );
 }
@@ -169,14 +213,21 @@ export function Bullets({
   tone?: string;
 }) {
   if (items.length === 0) {
-    return <p className="font-mono-data text-[11px] text-muted-foreground/70">{empty}</p>;
+    return (
+      <p className="font-mono-data text-[11px] text-muted-foreground/70">
+        {empty}
+      </p>
+    );
   }
   return (
     <ul className={cn("space-y-1.5 text-[12.5px] leading-6", tone)}>
       {items.map((item, index) => (
         <li key={`${index}-${item}`} className="flex gap-2">
-          <span aria-hidden className="mt-2.5 size-1 shrink-0 bg-current opacity-50" />
-          <span className="break-words">{item}</span>
+          <span
+            aria-hidden
+            className="mt-2.5 size-1 shrink-0 bg-current opacity-50"
+          />
+          <span className="wrap-break-word">{item}</span>
         </li>
       ))}
     </ul>

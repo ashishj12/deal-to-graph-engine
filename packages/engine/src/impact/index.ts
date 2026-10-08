@@ -1,13 +1,3 @@
-/**
- * Change impact (FR6).
- *
- * After any edit the caller recompiles the graph and hands both revisions here.
- * The diff reports every consequence the specification asks for, and — critically
- * — it verifies that nodes which were not touched came back byte-for-byte
- * identical. If they did not, `preservedExactly` is false and the UI says so
- * instead of quietly presenting a rewritten plan.
- */
-
 import type {
   ChangeImpact,
   ExecutionGraph,
@@ -52,12 +42,20 @@ export interface ImpactInput {
 export function diffGraphs(input: ImpactInput): ChangeImpact {
   const beforeNodes = nodeById(input.before);
   const afterNodes = nodeById(input.after);
-  const beforeEdges = new Map(input.before.edges.map((edge) => [edgeKey(edge.source, edge.target), edge]));
-  const afterEdges = new Map(input.after.edges.map((edge) => [edgeKey(edge.source, edge.target), edge]));
+  const beforeEdges = new Map(
+    input.before.edges.map((edge) => [edgeKey(edge.source, edge.target), edge]),
+  );
+  const afterEdges = new Map(
+    input.after.edges.map((edge) => [edgeKey(edge.source, edge.target), edge]),
+  );
 
   const added: string[] = [];
   const removed: string[] = [];
-  const retyped: { id: string; from: ExecutionGraph["edges"][number]["type"]; to: ExecutionGraph["edges"][number]["type"] }[] = [];
+  const retyped: {
+    id: string;
+    from: ExecutionGraph["edges"][number]["type"];
+    to: ExecutionGraph["edges"][number]["type"];
+  }[] = [];
   for (const [key, edge] of afterEdges) {
     const previous = beforeEdges.get(key);
     if (!previous) {
@@ -77,7 +75,9 @@ export function diffGraphs(input: ImpactInput): ChangeImpact {
   const invalidated = new Set<string>();
   const regenerated = new Set<string>();
 
-  const ids = [...new Set([...beforeNodes.keys(), ...afterNodes.keys()])].sort();
+  const ids = [
+    ...new Set([...beforeNodes.keys(), ...afterNodes.keys()]),
+  ].sort();
   for (const id of ids) {
     const previous = beforeNodes.get(id);
     const next = afterNodes.get(id);
@@ -110,7 +110,11 @@ export function diffGraphs(input: ImpactInput): ChangeImpact {
     const beforeWave = waveOf(input.before, id);
     const afterWave = waveOf(input.after, id);
     if (beforeWave !== afterWave) {
-      waveChanges.push({ nodeId: id, from: beforeWave ?? 0, to: afterWave ?? 0 });
+      waveChanges.push({
+        nodeId: id,
+        from: beforeWave ?? 0,
+        to: afterWave ?? 0,
+      });
     }
     if (packageSignature(previous) !== packageSignature(next)) {
       invalidated.add(id);
@@ -140,16 +144,25 @@ export function diffGraphs(input: ImpactInput): ChangeImpact {
     const previous = beforeNodes.get(id);
     const next = afterNodes.get(id);
     if (!next) continue;
-    if (previous?.readiness !== "blocked" && next.readiness === "blocked") newlyBlocked.push(id);
-    if (previous?.readiness !== "ready" && next.readiness === "ready") newlyReady.push(id);
-    const previouslyUnsupported = previous ? previous.sourceIds.length === 0 : false;
-    const nowUnsupported = next.sourceIds.length === 0 && next.kind !== "approval";
+    if (previous?.readiness !== "blocked" && next.readiness === "blocked")
+      newlyBlocked.push(id);
+    if (previous?.readiness !== "ready" && next.readiness === "ready")
+      newlyReady.push(id);
+    const previouslyUnsupported = previous
+      ? previous.sourceIds.length === 0
+      : false;
+    const nowUnsupported =
+      next.sourceIds.length === 0 && next.kind !== "approval";
     if (!previouslyUnsupported && nowUnsupported) newlyUnsupported.push(id);
   }
 
-  const unaffected = ids.filter((id) => !affected.has(id) && afterNodes.has(id) && beforeNodes.has(id));
+  const unaffected = ids.filter(
+    (id) => !affected.has(id) && afterNodes.has(id) && beforeNodes.has(id),
+  );
   const preservedExactly = unaffected.every(
-    (id) => JSON.stringify(beforeNodes.get(id)) === JSON.stringify(afterNodes.get(id)),
+    (id) =>
+      JSON.stringify(beforeNodes.get(id)) ===
+      JSON.stringify(afterNodes.get(id)),
   );
 
   const criticalBefore = input.before.criticalPath.nodeIds.join(" → ");
@@ -173,16 +186,22 @@ export function diffGraphs(input: ImpactInput): ChangeImpact {
     `${newEffort - oldEffort >= 0 ? "+" : ""}${Number((newEffort - oldEffort).toFixed(2))} person-days of graph effort (${oldEffort} → ${newEffort}).`,
   );
   if (criticalPathChanged) {
-    summary.push(`The critical path changed from ${criticalBefore || "none"} to ${criticalAfter || "none"}.`);
+    summary.push(
+      `The critical path changed from ${criticalBefore || "none"} to ${criticalAfter || "none"}.`,
+    );
   }
   if (waveChanges.length > 0) {
     summary.push(`${waveChanges.length} node(s) moved wave.`);
   }
   if (invalidated.size > 0) {
-    summary.push(`${invalidated.size} execution package(s) must be regenerated.`);
+    summary.push(
+      `${invalidated.size} execution package(s) must be regenerated.`,
+    );
   }
   if (added.length + removed.length > 0) {
-    summary.push(`${added.length} dependency(ies) added, ${removed.length} removed.`);
+    summary.push(
+      `${added.length} dependency(ies) added, ${removed.length} removed.`,
+    );
   }
   summary.push(
     preservedExactly
@@ -206,11 +225,18 @@ export function diffGraphs(input: ImpactInput): ChangeImpact {
       before: input.before.criticalPath.nodeIds,
       after: input.after.criticalPath.nodeIds,
       changed: criticalPathChanged,
-      effortDelta: Number((input.after.criticalPath.effort - input.before.criticalPath.effort).toFixed(2)),
+      effortDelta: Number(
+        (
+          input.after.criticalPath.effort - input.before.criticalPath.effort
+        ).toFixed(2),
+      ),
     },
     effortDelta: Number((newEffort - oldEffort).toFixed(2)),
     durationDelta: Number(
-      (input.after.aggregates.durationEstimate - input.before.aggregates.durationEstimate).toFixed(2),
+      (
+        input.after.aggregates.durationEstimate -
+        input.before.aggregates.durationEstimate
+      ).toFixed(2),
     ),
     newlyBlocked,
     newlyReady,

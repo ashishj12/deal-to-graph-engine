@@ -1,6 +1,9 @@
-import type { MaturityReason, ScopeItem, ValidationIssue } from "@deal-to-challenge/engine";
+import type {
+  MaturityReason,
+  ScopeItem,
+  ValidationIssue,
+} from "@deal-to-challenge/engine";
 
-/** What the right-hand "Why?" inspector is currently explaining. */
 export type Selection =
   | { kind: "issue"; issue: ValidationIssue }
   | { kind: "maturity"; reason: MaturityReason }

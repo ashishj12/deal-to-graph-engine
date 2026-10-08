@@ -1,14 +1,26 @@
 import { describe, expect, test } from "bun:test";
-import { inspectZip, looksLikeZip, unzipTextEntries } from "@deal-to-challenge/engine";
+import {
+  inspectZip,
+  looksLikeZip,
+  unzipTextEntries,
+} from "@deal-to-challenge/engine";
 import { runImport } from "@deal-to-challenge/engine";
 import { SAMPLE_PACKAGES } from "@deal-to-challenge/engine/samples";
-import { buildZip, buildZipWithDataDescriptor, type ZipEntryInput } from "./synthetic/zip-builder";
+import {
+  buildZip,
+  buildZipWithDataDescriptor,
+  type ZipEntryInput,
+} from "./synthetic/zip-builder";
 
 /** The supplied packages arrive from the challenge inside one ZIP archive. */
 function archiveEntries(): ZipEntryInput[] {
   return [
     { name: "packages/", directory: true },
-    { name: "packages/README.txt", text: "Four sanitized deal-scoping exports.", method: "stored" },
+    {
+      name: "packages/README.txt",
+      text: "Four sanitized deal-scoping exports.",
+      method: "stored",
+    },
     ...SAMPLE_PACKAGES.map((sample) => ({
       name: `packages/${sample.fileName}`,
       text: sample.text,
@@ -22,7 +34,9 @@ const ARCHIVE = buildZip(archiveEntries());
 describe("zip import of the supplied packages", () => {
   test("recognises a real zip archive and rejects plain JSON", () => {
     expect(looksLikeZip(ARCHIVE)).toBe(true);
-    expect(looksLikeZip(new TextEncoder().encode('{"id":"DEAL_X"}'))).toBe(false);
+    expect(looksLikeZip(new TextEncoder().encode('{"id":"DEAL_X"}'))).toBe(
+      false,
+    );
   });
 
   test("lists the central directory without decompressing", () => {
@@ -31,16 +45,20 @@ describe("zip import of the supplied packages", () => {
     expect(listing.zip64).toBe(false);
     // 4 packages + readme.txt + the directory entry
     expect(listing.entries.length).toBe(6);
-    expect(listing.entries.filter((entry) => entry.isDirectory).map((entry) => entry.name)).toEqual([
-      "packages/",
-    ]);
+    expect(
+      listing.entries
+        .filter((entry) => entry.isDirectory)
+        .map((entry) => entry.name),
+    ).toEqual(["packages/"]);
   });
 
   test("extracts every package from the nested folder", async () => {
     const { files, skipped } = await unzipTextEntries(ARCHIVE);
     const json = files.filter((file) => file.baseName.endsWith(".json"));
     expect(json.length).toBe(4);
-    expect(json.map((file) => file.baseName).sort()).toEqual(SAMPLE_PACKAGES.map((deal) => deal.fileName).sort());
+    expect(json.map((file) => file.baseName).sort()).toEqual(
+      SAMPLE_PACKAGES.map((deal) => deal.fileName).sort(),
+    );
     // Directory entries are reported, never silently dropped.
     expect(skipped.some((entry) => entry.reason === "directory")).toBe(true);
   });
@@ -69,7 +87,9 @@ describe("zip import of the supplied packages", () => {
     // Sizes are zero in the local headers; only the central directory is reliable.
     const streaming = buildZipWithDataDescriptor(archiveEntries());
     const { files } = await unzipTextEntries(streaming);
-    expect(files.filter((file) => file.baseName.endsWith(".json")).length).toBe(4);
+    expect(files.filter((file) => file.baseName.endsWith(".json")).length).toBe(
+      4,
+    );
   });
 });
 
@@ -96,7 +116,11 @@ describe("zip safety", () => {
     // A zip bomb with hundreds of thousands of entries is rejected at the
     // central-directory stage, before anything is decompressed.
     const many = buildZip(
-      Array.from({ length: 513 }, (_, index) => ({ name: `f${index}.json`, text: "{}", method: "stored" as const })),
+      Array.from({ length: 513 }, (_, index) => ({
+        name: `f${index}.json`,
+        text: "{}",
+        method: "stored" as const,
+      })),
     );
     const listing = inspectZip(many);
     expect(listing.ok).toBe(false);

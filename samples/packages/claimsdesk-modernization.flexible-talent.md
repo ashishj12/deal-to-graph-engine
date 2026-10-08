@@ -1,15 +1,15 @@
 # Flexible Talent package: SAP S/4HANA integration pattern unconfirmed
 
-| Field | Value |
-| --- | --- |
-| Node id | NODE_GAP_01 |
-| Work category | discovery |
-| Operating model | flexible-talent |
-| Classification confidence | low |
-| Readiness | review-required |
-| Handoff ready | no |
-| Provenance | Deterministic |
-| Source ids | GAP_01, INT_02, Q_01 |
+| Field                     | Value                |
+| ------------------------- | -------------------- |
+| Node id                   | NODE_GAP_01          |
+| Work category             | discovery            |
+| Operating model           | flexible-talent      |
+| Classification confidence | low                  |
+| Readiness                 | review-required      |
+| Handoff ready             | no                   |
+| Provenance                | Deterministic        |
+| Source ids                | GAP_01, INT_02, Q_01 |
 
 ## Classification rationale
 
@@ -51,6 +51,7 @@ _Not present in the imported package — the operator must supply this before ha
 ## Completeness
 
 Missing: roles, skills, seniority, duration, capacity, responsibilities, startDependencies, access
+
 - Not handoff-ready: roles, skills, seniority, duration, capacity, responsibilities, startDependencies, access are not present in the imported package.
 
 > MOCK AI MODE — no external service was contacted.

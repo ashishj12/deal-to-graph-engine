@@ -1,12 +1,8 @@
-/**
- * Human-readable exports: the execution plan and the model-specific packages.
- *
- * These documents are what a delivery manager actually reads, so they lead with
- * the decisions (waves, critical path, models, blockers) and always state the
- * provenance of what follows, including the mock-mode notice.
- */
-
-import type { ExecutionNode, QualityReport, Wave } from "../canonical/execution";
+import type {
+  ExecutionNode,
+  QualityReport,
+  Wave,
+} from "../canonical/execution";
 import type { ModelPackage } from "../packages/types";
 import type { CompiledDeal } from "../compile";
 import { provenanceLabel } from "../canonical/provenance";
@@ -29,7 +25,10 @@ function formatEffort(node: ExecutionNode): string {
   return `${minimum ?? "?"}–${maximum} ${unit ?? ""}`.trim();
 }
 
-export function packageToMarkdown(pkg: ModelPackage, node: ExecutionNode): string {
+export function packageToMarkdown(
+  pkg: ModelPackage,
+  node: ExecutionNode,
+): string {
   const lines: string[] = [];
   const modelTitle =
     pkg.model === "flexible-talent"
@@ -48,7 +47,10 @@ export function packageToMarkdown(pkg: ModelPackage, node: ExecutionNode): strin
         ["Operating model", node.operatingModel.primary],
         ["Classification confidence", node.operatingModel.confidence],
         ["Readiness", node.readiness],
-        ["Handoff ready", pkg.complete && node.readiness === "ready" ? "yes" : "no"],
+        [
+          "Handoff ready",
+          pkg.complete && node.readiness === "ready" ? "yes" : "no",
+        ],
         ["Provenance", provenanceLabel(node.provenance)],
         ["Source ids", node.sourceIds.join(", ") || "none"],
       ],
@@ -70,10 +72,18 @@ export function packageToMarkdown(pkg: ModelPackage, node: ExecutionNode): strin
           ["Required roles", pkg.roles],
           ["Required skills", pkg.skills],
           ["Seniority or experience", pkg.seniority],
-          ["Duration or capacity", [pkg.duration, pkg.capacity].filter((value): value is string => Boolean(value))],
+          [
+            "Duration or capacity",
+            [pkg.duration, pkg.capacity].filter((value): value is string =>
+              Boolean(value),
+            ),
+          ],
           ["Responsibilities", pkg.responsibilities],
           ["Start dependencies", pkg.startDependencies],
-          ["Required access and environment", [...pkg.access, ...(pkg.environment ? [pkg.environment] : [])]],
+          [
+            "Required access and environment",
+            [...pkg.access, ...(pkg.environment ? [pkg.environment] : [])],
+          ],
         ]
       : pkg.model === "challenge"
         ? [
@@ -84,7 +94,10 @@ export function packageToMarkdown(pkg: ModelPackage, node: ExecutionNode): strin
             ["Evaluation criteria", pkg.evaluationCriteria],
             ["Acceptance conditions", pkg.acceptanceConditions],
             ["Input assets", pkg.inputAssets],
-            ["Required technologies or skills", [...pkg.technologies, ...pkg.skills]],
+            [
+              "Required technologies or skills",
+              [...pkg.technologies, ...pkg.skills],
+            ],
             ["Dependencies", pkg.dependencies],
             ["Confidentiality limitations", pkg.confidentialityLimitations],
             ["Expected review process", pkg.expectedReviewProcess],
@@ -105,7 +118,9 @@ export function packageToMarkdown(pkg: ModelPackage, node: ExecutionNode): strin
     lines.push(`## ${heading}`);
     lines.push("");
     if (value === null || (Array.isArray(value) && value.length === 0)) {
-      lines.push("_Not present in the imported package — the operator must supply this before handoff._");
+      lines.push(
+        "_Not present in the imported package — the operator must supply this before handoff._",
+      );
     } else if (Array.isArray(value)) {
       for (const entry of value) lines.push(`- ${entry}`);
     } else {
@@ -142,10 +157,22 @@ export function toExecutionPlanMarkdown(compiled: CompiledDeal): string {
         ["Nodes", String(graph.aggregates.nodeCount)],
         ["Dependencies", String(graph.aggregates.edgeCount)],
         ["Waves", String(graph.aggregates.waveCount)],
-        ["Operating models", `${graph.operatingModelSummary.flexibleTalent} flexible-talent · ${graph.operatingModelSummary.challenge} challenge · ${graph.operatingModelSummary.privatePod} private-pod`],
-        ["Graph effort", `${graph.aggregates.totalEffortMin}–${graph.aggregates.totalEffortMax} ${graph.aggregates.effortUnit}`],
-        ["Critical path", `${graph.criticalPath.nodeIds.length} node(s), ${graph.criticalPath.effort} ${graph.aggregates.effortUnit}`],
-        ["Duration estimate", `${graph.aggregates.durationEstimate} ${graph.aggregates.effortUnit}`],
+        [
+          "Operating models",
+          `${graph.operatingModelSummary.flexibleTalent} flexible-talent · ${graph.operatingModelSummary.challenge} challenge · ${graph.operatingModelSummary.privatePod} private-pod`,
+        ],
+        [
+          "Graph effort",
+          `${graph.aggregates.totalEffortMin}–${graph.aggregates.totalEffortMax} ${graph.aggregates.effortUnit}`,
+        ],
+        [
+          "Critical path",
+          `${graph.criticalPath.nodeIds.length} node(s), ${graph.criticalPath.effort} ${graph.aggregates.effortUnit}`,
+        ],
+        [
+          "Duration estimate",
+          `${graph.aggregates.durationEstimate} ${graph.aggregates.effortUnit}`,
+        ],
         ["Quality gate", quality.status],
         ["Generator", `${graph.generator.provider} (${graph.generator.mode})`],
       ],
@@ -158,7 +185,9 @@ export function toExecutionPlanMarkdown(compiled: CompiledDeal): string {
   lines.push("## Execution waves");
   lines.push("");
   for (const wave of graph.waves) {
-    lines.push(`### Wave ${wave.index} — ${wave.nodeIds.length} node(s), ${wave.effort} ${graph.aggregates.effortUnit}`);
+    lines.push(
+      `### Wave ${wave.index} — ${wave.nodeIds.length} node(s), ${wave.effort} ${graph.aggregates.effortUnit}`,
+    );
     lines.push("");
     lines.push(
       table(
@@ -187,7 +216,12 @@ export function toExecutionPlanMarkdown(compiled: CompiledDeal): string {
       ["Order", "Node", "Title", "Effort"],
       graph.criticalPath.nodeIds.map((id, index) => {
         const node = graph.nodes.find((entry) => entry.id === id);
-        return [String(index + 1), id, escapeCell(node?.title ?? ""), formatEffort(node as ExecutionNode)];
+        return [
+          String(index + 1),
+          id,
+          escapeCell(node?.title ?? ""),
+          formatEffort(node as ExecutionNode),
+        ];
       }),
     ),
   );
@@ -201,7 +235,17 @@ export function toExecutionPlanMarkdown(compiled: CompiledDeal): string {
   lines.push("");
   lines.push(
     table(
-      ["Node", "Title", "Model", "Category", "Kind", "Effort", "Readiness", "Blocked by", "Source ids"],
+      [
+        "Node",
+        "Title",
+        "Model",
+        "Category",
+        "Kind",
+        "Effort",
+        "Readiness",
+        "Blocked by",
+        "Source ids",
+      ],
       graph.nodes.map((node) => [
         node.id,
         escapeCell(node.title),
@@ -242,7 +286,11 @@ export function toExecutionPlanMarkdown(compiled: CompiledDeal): string {
   lines.push(
     table(
       ["Rule", "Status", "Finding"],
-      quality.findings.map((finding) => [finding.rule, finding.status, escapeCell(finding.message)]),
+      quality.findings.map((finding) => [
+        finding.rule,
+        finding.status,
+        escapeCell(finding.message),
+      ]),
     ),
   );
   lines.push("");
@@ -290,6 +338,10 @@ export function wavesToMarkdown(waves: Wave[]): string {
 export function qualityToMarkdown(quality: QualityReport): string {
   return table(
     ["Rule", "Status", "Message"],
-    quality.findings.map((finding) => [finding.rule, finding.status, escapeCell(finding.message)]),
+    quality.findings.map((finding) => [
+      finding.rule,
+      finding.status,
+      escapeCell(finding.message),
+    ]),
   );
 }

@@ -1,19 +1,3 @@
-/**
- * A minimal, dependency-free ZIP reader.
- *
- * Deal-scoping input packages ship inside a `.zip`, so the workspace accepts one
- * directly instead of making the operator extract files by hand.
- *
- * Why not a library: the project has no zip dependency, the browser exposes
- * `DecompressionStream('deflate-raw')` natively, and this reader only needs to
- * handle archive layout — not creation, encryption or streaming. Entries are read
- * from the **central directory** rather than by walking local headers, which is what
- * makes entries written with data descriptors (macOS, Windows Explorer, Java) work.
- *
- * All input is treated as untrusted: entry counts and total uncompressed size are
- * capped so a zip bomb cannot exhaust memory.
- */
-
 const EOCD_SIG = 0x06054b50;
 const CENTRAL_SIG = 0x02014b50;
 const LOCAL_SIG = 0x04034b50;
@@ -81,19 +65,28 @@ export function inspectZip(bytes: Uint8Array): ZipListing {
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
   const eocd = findEocd(view, bytes.byteLength);
   if (eocd < 0) {
-    return { ...empty, error: "No zip central directory was found. The file may be corrupted or not a zip." };
+    return {
+      ...empty,
+      error:
+        "No zip central directory was found. The file may be corrupted or not a zip.",
+    };
   }
 
   const totalEntries = view.getUint16(eocd + 10, true);
   const centralSize = view.getUint32(eocd + 12, true);
   const centralOffset = view.getUint32(eocd + 16, true);
 
-  if (centralOffset === 0xffffffff || centralSize === 0xffffffff || totalEntries === 0xffff) {
+  if (
+    centralOffset === 0xffffffff ||
+    centralSize === 0xffffffff ||
+    totalEntries === 0xffff
+  ) {
     return {
       ok: false,
       zip64: true,
       entries: [],
-      error: "This archive uses ZIP64, which is not supported. Re-export it as a standard zip.",
+      error:
+        "This archive uses ZIP64, which is not supported. Re-export it as a standard zip.",
     };
   }
 
@@ -105,7 +98,10 @@ export function inspectZip(bytes: Uint8Array): ZipListing {
   }
 
   if (centralOffset + centralSize > bytes.byteLength) {
-    return { ...empty, error: "The zip central directory points outside the file." };
+    return {
+      ...empty,
+      error: "The zip central directory points outside the file.",
+    };
   }
 
   const entries: ZipEntryInfo[] = [];
@@ -142,9 +138,9 @@ export function inspectZip(bytes: Uint8Array): ZipListing {
 }
 
 async function inflateRaw(data: Uint8Array): Promise<Uint8Array> {
-  const stream = new Blob([data as BlobPart]).stream().pipeThrough(
-    new DecompressionStream("deflate-raw"),
-  );
+  const stream = new Blob([data as BlobPart])
+    .stream()
+    .pipeThrough(new DecompressionStream("deflate-raw"));
   const buffer = await new Response(stream).arrayBuffer();
   return new Uint8Array(buffer);
 }
@@ -177,9 +173,12 @@ function readEntryBytes(
  * Directory entries, editor/OS junk and binary payloads are reported in `skipped`
  * rather than silently ignored.
  */
-export async function unzipTextEntries(bytes: Uint8Array): Promise<UnzipResult> {
+export async function unzipTextEntries(
+  bytes: Uint8Array,
+): Promise<UnzipResult> {
   const listing = inspectZip(bytes);
-  if (!listing.ok) throw new Error(listing.error ?? "The zip archive could not be read.");
+  if (!listing.ok)
+    throw new Error(listing.error ?? "The zip archive could not be read.");
 
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
   const files: UnzippedTextFile[] = [];
@@ -196,7 +195,10 @@ export async function unzipTextEntries(bytes: Uint8Array): Promise<UnzipResult> 
       continue;
     }
     if (entry.method !== METHOD_STORE && entry.method !== METHOD_DEFLATE) {
-      skipped.push({ name: entry.name, reason: `unsupported compression method ${entry.method}` });
+      skipped.push({
+        name: entry.name,
+        reason: `unsupported compression method ${entry.method}`,
+      });
       continue;
     }
     if (!/\.(json|txt|md)$/i.test(entry.name)) {
@@ -205,7 +207,10 @@ export async function unzipTextEntries(bytes: Uint8Array): Promise<UnzipResult> 
     }
     budget += entry.uncompressedSize;
     if (budget > MAX_TOTAL_UNCOMPRESSED) {
-      skipped.push({ name: entry.name, reason: "archive exceeds the uncompressed size budget" });
+      skipped.push({
+        name: entry.name,
+        reason: "archive exceeds the uncompressed size budget",
+      });
       break;
     }
 
@@ -216,7 +221,8 @@ export async function unzipTextEntries(bytes: Uint8Array): Promise<UnzipResult> 
     }
 
     try {
-      const data = entry.method === METHOD_STORE ? raw.data : await inflateRaw(raw.data);
+      const data =
+        entry.method === METHOD_STORE ? raw.data : await inflateRaw(raw.data);
       const text = new TextDecoder("utf-8").decode(data);
       const baseName = entry.name.slice(entry.name.lastIndexOf("/") + 1);
       files.push({ name: entry.name, baseName, text });

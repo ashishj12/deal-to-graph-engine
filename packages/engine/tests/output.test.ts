@@ -20,17 +20,30 @@ import {
 import { SAMPLE_PACKAGES } from "@deal-to-challenge/engine/samples";
 
 const GENERATED_AT = "2026-10-07T00:00:00.000Z";
-const CLAIMSDESK = SAMPLE_PACKAGES.find((sample) => sample.id === "claimsdesk-modernization");
+const CLAIMSDESK = SAMPLE_PACKAGES.find(
+  (sample) => sample.id === "claimsdesk-modernization",
+);
 if (!CLAIMSDESK) throw new Error("claimsdesk sample missing");
 
 const IMPORTED = await runImport(CLAIMSDESK.fileName, CLAIMSDESK.text);
-const COMPILED: CompiledDeal = await compileDeal(IMPORTED, { generatedAt: GENERATED_AT });
+const COMPILED: CompiledDeal = await compileDeal(IMPORTED, {
+  generatedAt: GENERATED_AT,
+});
 
 describe("FR7 export", () => {
   test("graph JSON round-trips and preserves ids, edges, models, waves and readiness", () => {
     const parsed = JSON.parse(toGraphJson(COMPILED)) as {
-      nodes: { id: string; readiness: string; operatingModel: { primary: string; rationale: string[] } }[];
-      edges: { id: string; source: string; target: string; rationale: string }[];
+      nodes: {
+        id: string;
+        readiness: string;
+        operatingModel: { primary: string; rationale: string[] };
+      }[];
+      edges: {
+        id: string;
+        source: string;
+        target: string;
+        rationale: string;
+      }[];
       waves: { index: number; nodeIds: string[] }[];
       criticalPath: { nodeIds: string[] };
       findings: unknown[];
@@ -40,20 +53,29 @@ describe("FR7 export", () => {
     expect(parsed.nodes.length).toBe(COMPILED.graph.nodes.length);
     expect(parsed.edges.length).toBe(COMPILED.graph.edges.length);
     expect(parsed.waves.length).toBe(COMPILED.graph.waves.length);
-    expect(parsed.criticalPath.nodeIds).toEqual(COMPILED.graph.criticalPath.nodeIds);
+    expect(parsed.criticalPath.nodeIds).toEqual(
+      COMPILED.graph.criticalPath.nodeIds,
+    );
     expect(parsed.findings.length).toBe(COMPILED.graph.findings.length);
-    expect(parsed.quality.findings.length).toBe(COMPILED.quality.findings.length);
+    expect(parsed.quality.findings.length).toBe(
+      COMPILED.quality.findings.length,
+    );
     for (const node of parsed.nodes) {
       expect(node.operatingModel.rationale.length).toBeGreaterThan(0);
       expect(["ready", "review-required", "blocked"]).toContain(node.readiness);
     }
-    for (const edge of parsed.edges) expect(edge.rationale.length).toBeGreaterThan(0);
-    expect(COMPILED.graph.nodes.map((node) => node.id)).toEqual(parsed.nodes.map((node) => node.id));
+    for (const edge of parsed.edges)
+      expect(edge.rationale.length).toBeGreaterThan(0);
+    expect(COMPILED.graph.nodes.map((node) => node.id)).toEqual(
+      parsed.nodes.map((node) => node.id),
+    );
   });
 
   test("the same compiled deal exports byte-identically", () => {
     expect(toGraphJson(COMPILED)).toBe(toGraphJson(COMPILED));
-    expect(toExecutionPlanMarkdown(COMPILED)).toBe(toExecutionPlanMarkdown(COMPILED));
+    expect(toExecutionPlanMarkdown(COMPILED)).toBe(
+      toExecutionPlanMarkdown(COMPILED),
+    );
   });
 
   test("the execution plan states the waves, the critical path and the quality gate", () => {
@@ -74,7 +96,9 @@ describe("FR7 export", () => {
     expect(kinds.has("md")).toBe(true);
     expect(COMPILED.packages.length).toBe(COMPILED.graph.nodes.length);
     for (const pkg of COMPILED.packages) {
-      expect(["flexible-talent", "challenge", "private-pod"]).toContain(pkg.model);
+      expect(["flexible-talent", "challenge", "private-pod"]).toContain(
+        pkg.model,
+      );
       expect(pkg.generator.mode).toBe("mock");
       if (!pkg.complete) expect(pkg.missingFields.length).toBeGreaterThan(0);
     }
@@ -85,7 +109,9 @@ describe("FR7 export", () => {
     const { files } = await unzipTextEntries(bytes);
     const names = files.map((file) => file.baseName);
     expect(names.some((name) => name.endsWith(".graph.json"))).toBe(true);
-    expect(names.some((name) => name.endsWith(".execution-plan.md"))).toBe(true);
+    expect(names.some((name) => name.endsWith(".execution-plan.md"))).toBe(
+      true,
+    );
     expect(names.some((name) => name.endsWith(".quality.json"))).toBe(true);
     const graph = files.find((file) => file.baseName.endsWith(".graph.json"));
     expect(JSON.parse(graph?.text ?? "{}")).toBeTruthy();
@@ -97,7 +123,8 @@ describe("AI orchestration in mock mode", () => {
     expect(COMPILED.graph.generator.mode).toBe("mock");
     expect(COMPILED.graph.generator.notice).toBe(MOCK_NOTICE);
     expect(COMPILED.ai.notice).toBe(MOCK_NOTICE);
-    for (const pkg of COMPILED.packages) expect(pkg.generator.notice).toBe(MOCK_NOTICE);
+    for (const pkg of COMPILED.packages)
+      expect(pkg.generator.notice).toBe(MOCK_NOTICE);
     expect(toGraphJson(COMPILED)).toContain(MOCK_NOTICE);
   });
 
@@ -109,12 +136,19 @@ describe("AI orchestration in mock mode", () => {
       sourceIds: ["GAP_01"],
       baseline: [] as AIProposal[],
       evidence: [
-        { id: "GAP_01", title: "Open integration gap", kind: "gap", text: "The contract is unconfirmed." },
+        {
+          id: "GAP_01",
+          title: "Open integration gap",
+          kind: "gap",
+          text: "The contract is unconfirmed.",
+        },
       ],
     };
     const first = await new MockProvider().decompose(request);
     const second = await new MockProvider().decompose(request);
-    expect(JSON.stringify(first.proposal)).toBe(JSON.stringify(second.proposal));
+    expect(JSON.stringify(first.proposal)).toBe(
+      JSON.stringify(second.proposal),
+    );
     expect(first.mode).toBe("mock");
     expect(first.provider).toBe("mock");
     expect(first.promptVersion).toBe("mock-v1");
@@ -128,7 +162,9 @@ describe("AI orchestration in mock mode", () => {
       throw new Error("network access is not allowed in mock mode");
     }) as unknown as typeof fetch;
     try {
-      const compiled = await compileDeal(IMPORTED, { generatedAt: GENERATED_AT });
+      const compiled = await compileDeal(IMPORTED, {
+        generatedAt: GENERATED_AT,
+      });
       expect(compiled.graph.nodes.length).toBeGreaterThan(0);
       expect(compiled.graph.generator.mode).toBe("mock");
     } finally {
@@ -138,7 +174,9 @@ describe("AI orchestration in mock mode", () => {
   });
 
   test("AI suggestions are labelled and never applied without a user decision", () => {
-    const suggestions = COMPILED.graph.nodes.flatMap((node) => node.aiSuggestions);
+    const suggestions = COMPILED.graph.nodes.flatMap(
+      (node) => node.aiSuggestions,
+    );
     expect(suggestions.length).toBeGreaterThan(0);
     for (const suggestion of suggestions) {
       expect(suggestion.mode).toBe("mock");
@@ -203,9 +241,18 @@ describe("AI orchestration in mock mode", () => {
         throw new Error("not used in this test");
       },
     };
-    const compiled = await compileDeal(IMPORTED, { provider: badProvider, generatedAt: GENERATED_AT });
-    expect(compiled.notes.some((note) => note.includes("rejected by schema validation"))).toBe(true);
-    expect(compiled.graph.nodes.flatMap((node) => node.aiSuggestions)).toEqual([]);
+    const compiled = await compileDeal(IMPORTED, {
+      provider: badProvider,
+      generatedAt: GENERATED_AT,
+    });
+    expect(
+      compiled.notes.some((note) =>
+        note.includes("rejected by schema validation"),
+      ),
+    ).toBe(true);
+    expect(compiled.graph.nodes.flatMap((node) => node.aiSuggestions)).toEqual(
+      [],
+    );
     // The deterministic decomposition still produced the full graph.
     expect(compiled.graph.nodes.length).toBeGreaterThan(10);
   });
@@ -214,29 +261,73 @@ describe("AI orchestration in mock mode", () => {
 describe("AI output schema validation", () => {
   test("a decomposition proposal without source ids is rejected", () => {
     const result = validateDecomposition([
-      { id: "P1", title: "T", objective: "O", workCategory: "discovery", kind: "discovery", rationale: "r", sourceIds: [] },
+      {
+        id: "P1",
+        title: "T",
+        objective: "O",
+        workCategory: "discovery",
+        kind: "discovery",
+        rationale: "r",
+        sourceIds: [],
+      },
     ]);
     expect(result.ok).toBe(false);
-    expect(result.issues.some((issue) => issue.path.endsWith("sourceIds"))).toBe(true);
+    expect(
+      result.issues.some((issue) => issue.path.endsWith("sourceIds")),
+    ).toBe(true);
   });
 
   test("a model recommendation must name exactly one known model", () => {
-    expect(validateModelRecommendation({ primary: "challenge", alternatives: ["flexible-talent"], rationale: ["r"] }).ok).toBe(true);
-    expect(validateModelRecommendation({ primary: "challenge", alternatives: ["challenge"], rationale: ["r"] }).ok).toBe(false);
-    expect(validateModelRecommendation({ primary: "auction", alternatives: [], rationale: ["r"] }).ok).toBe(false);
-    expect(validateModelRecommendation({ primary: "challenge", alternatives: [], rationale: [] }).ok).toBe(false);
+    expect(
+      validateModelRecommendation({
+        primary: "challenge",
+        alternatives: ["flexible-talent"],
+        rationale: ["r"],
+      }).ok,
+    ).toBe(true);
+    expect(
+      validateModelRecommendation({
+        primary: "challenge",
+        alternatives: ["challenge"],
+        rationale: ["r"],
+      }).ok,
+    ).toBe(false);
+    expect(
+      validateModelRecommendation({
+        primary: "auction",
+        alternatives: [],
+        rationale: ["r"],
+      }).ok,
+    ).toBe(false);
+    expect(
+      validateModelRecommendation({
+        primary: "challenge",
+        alternatives: [],
+        rationale: [],
+      }).ok,
+    ).toBe(false);
   });
 
   test("suggested dependencies must reference known nodes and edge types", () => {
-    const good = validateDependencies([{ source: "A", target: "B", type: "sequencing", rationale: "r" }], ["A", "B"], ["sequencing"]);
+    const good = validateDependencies(
+      [{ source: "A", target: "B", type: "sequencing", rationale: "r" }],
+      ["A", "B"],
+      ["sequencing"],
+    );
     expect(good.ok).toBe(true);
-    const bad = validateDependencies([{ source: "A", target: "Z", type: "teleport", rationale: "r" }], ["A", "B"], ["sequencing"]);
+    const bad = validateDependencies(
+      [{ source: "A", target: "Z", type: "teleport", rationale: "r" }],
+      ["A", "B"],
+      ["sequencing"],
+    );
     expect(bad.ok).toBe(false);
     expect(bad.issues.length).toBeGreaterThanOrEqual(2);
   });
 
   test("a package draft must contain only strings and string arrays", () => {
-    expect(validatePackageDraft({ roles: ["a"], objective: "text" }).ok).toBe(true);
+    expect(validatePackageDraft({ roles: ["a"], objective: "text" }).ok).toBe(
+      true,
+    );
     expect(validatePackageDraft({ roles: [1] }).ok).toBe(false);
     expect(validatePackageDraft({ nested: { a: 1 } }).ok).toBe(false);
   });

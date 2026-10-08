@@ -1,22 +1,10 @@
-/**
- * The compiler.
- *
- * One entry point turns an imported deal-scoping package into everything the UI
- * and the exports need:
- *
- *   imported package
- *     → decomposition (deterministic rules, package-grounded)
- *     → user decisions from the append-only log (edits, overrides, approvals)
- *     → AI suggestions (labelled, never applied without a decision)
- *     → graph (edges, waves, critical path, aggregates, findings)
- *     → quality gate
- *     → model-specific execution packages
- *
- * Recompiling is deterministic, which is what lets change impact prove that
- * untouched nodes come back byte-for-byte identical.
- */
-
-import { MockProvider, MOCK_NOTICE, MOCK_PROMPT_VERSION, validateDecomposition, validatePackageDraft } from "./ai";
+import {
+  MockProvider,
+  MOCK_NOTICE,
+  MOCK_PROMPT_VERSION,
+  validateDecomposition,
+  validatePackageDraft,
+} from "./ai";
 import type { AIProvider, AIProposal } from "./ai";
 import type {
   AiSuggestion,
@@ -29,7 +17,12 @@ import type {
   QualityReport,
 } from "./canonical/execution";
 import type { EdgeType } from "./canonical/execution";
-import type { CanonicalPackage, ImportedPackage, OperatingModel, Readiness } from "./canonical/types";
+import type {
+  CanonicalPackage,
+  ImportedPackage,
+  OperatingModel,
+  Readiness,
+} from "./canonical/types";
 import { buildGraph, recomputeEdges } from "./dag";
 import { buildEdgeDrafts, type EdgeDraft } from "./dag/edges";
 import {
@@ -59,7 +52,13 @@ export interface CompiledDeal {
   quality: QualityReport;
   packages: ModelPackage[];
   decisions: DecisionLog;
-  ai: { provider: string; mode: "mock" | "live"; model: string | null; promptVersion: string; notice: string };
+  ai: {
+    provider: string;
+    mode: "mock" | "live";
+    model: string | null;
+    promptVersion: string;
+    notice: string;
+  };
   notes: string[];
 }
 
@@ -99,19 +98,32 @@ function applyNodeEdits(
         next = { ...next, scope: String(edit.value) };
         break;
       case "workCategory":
-        next = { ...next, workCategory: edit.value as ExecutionNode["workCategory"] };
+        next = {
+          ...next,
+          workCategory: edit.value as ExecutionNode["workCategory"],
+        };
         break;
       case "acceptanceConditions": {
-        const values = Array.isArray(edit.value) ? (edit.value as string[]) : [String(edit.value)];
+        const values = Array.isArray(edit.value)
+          ? (edit.value as string[])
+          : [String(edit.value)];
         next = {
           ...next,
           acceptanceConditions: values,
-          fieldProvenance: { ...next.fieldProvenance, acceptanceConditions: "user-approved" },
+          fieldProvenance: {
+            ...next.fieldProvenance,
+            acceptanceConditions: "user-approved",
+          },
         };
         break;
       }
       case "effort": {
-        const value = edit.value as { minimum?: number | null; maximum?: number | null; likely?: number | null; unit?: string };
+        const value = edit.value as {
+          minimum?: number | null;
+          maximum?: number | null;
+          likely?: number | null;
+          unit?: string;
+        };
         next = {
           ...next,
           effort: {
@@ -121,14 +133,20 @@ function applyNodeEdits(
             unit: value.unit ?? next.effort.unit,
             provenance: "user-created",
             sourceIds: next.effort.sourceIds,
-            basis: "Effort supplied by the operator; the imported package did not estimate this work.",
+            basis:
+              "Effort supplied by the operator; the imported package did not estimate this work.",
           },
         };
         break;
       }
       case "sourceIds": {
-        const values = Array.isArray(edit.value) ? (edit.value as string[]) : [String(edit.value)];
-        next = { ...next, sourceIds: [...new Set([...next.sourceIds, ...values])].sort() };
+        const values = Array.isArray(edit.value)
+          ? (edit.value as string[])
+          : [String(edit.value)];
+        next = {
+          ...next,
+          sourceIds: [...new Set([...next.sourceIds, ...values])].sort(),
+        };
         break;
       }
       case "operatingModel": {
@@ -169,26 +187,46 @@ function applyNodeEdits(
       // `blockingStatus` is what survives the readiness recomputation, so a
       // rejection stays a block instead of decaying back to review-required.
       blockingStatus: "blocked",
-      readinessBlockers: [...new Set([...next.readinessBlockers, "unsupported" as const, "open-blocker" as const])].sort(),
+      readinessBlockers: [
+        ...new Set([
+          ...next.readinessBlockers,
+          "unsupported" as const,
+          "open-blocker" as const,
+        ]),
+      ].sort(),
       humanReviewRequired: true,
     };
   }
   if (status === "blocked") {
-    return { ...next, readiness: "blocked", blockingStatus: "blocked", humanReviewRequired: true };
+    return {
+      ...next,
+      readiness: "blocked",
+      blockingStatus: "blocked",
+      humanReviewRequired: true,
+    };
   }
   if (status === "approved") {
     const blockers = next.readinessBlockers.filter(
-      (blocker) => blocker !== "human-approval-pending" && blocker !== "missing-rationale",
+      (blocker) =>
+        blocker !== "human-approval-pending" && blocker !== "missing-rationale",
     );
     return {
       ...next,
       humanReviewRequired: false,
       readinessBlockers: blockers,
-      readiness: blockers.length === 0 ? "ready" : next.readiness === "blocked" ? "blocked" : "review-required",
+      readiness:
+        blockers.length === 0
+          ? "ready"
+          : next.readiness === "blocked"
+            ? "blocked"
+            : "review-required",
     };
   }
   if (status === "review-required") {
-    return { ...next, readiness: next.readiness === "blocked" ? "blocked" : "review-required" };
+    return {
+      ...next,
+      readiness: next.readiness === "blocked" ? "blocked" : "review-required",
+    };
   }
   return next;
 }
@@ -221,7 +259,10 @@ export async function compileDeal(
     imported,
     revision: decisions.revision,
     overrides: overridesFrom(decisions),
-    removedNodeIds: [...removedNodesFrom(decisions), ...mergedAwayIds(decisions)],
+    removedNodeIds: [
+      ...removedNodesFrom(decisions),
+      ...mergedAwayIds(decisions),
+    ],
   });
 
   // Nodes the operator created by hand stay in the plan and keep `user-created`
@@ -237,9 +278,14 @@ export async function compileDeal(
   // deterministic edge set computed *before* the removal, which is why the plan is
   // decomposed a second time here, and only when a parent is actually replaced.
   const replacedParents = new Set(
-    userNodes.filter((spec) => spec.mode !== "add").flatMap((spec) => spec.derivedFrom),
+    userNodes
+      .filter((spec) => spec.mode !== "add")
+      .flatMap((spec) => spec.derivedFrom),
   );
-  const neighbours = new Map<string, { upstream: string[]; downstream: string[] }>();
+  const neighbours = new Map<
+    string,
+    { upstream: string[]; downstream: string[] }
+  >();
   if (replacedParents.size > 0) {
     const unremoved = decompose({
       imported,
@@ -250,8 +296,12 @@ export async function compileDeal(
     const unremovedEdges = buildEdgeDrafts(unremoved.nodes, imported.canonical);
     for (const parentId of replacedParents) {
       neighbours.set(parentId, {
-        upstream: unremovedEdges.filter((edge) => edge.target === parentId).map((edge) => edge.source),
-        downstream: unremovedEdges.filter((edge) => edge.source === parentId).map((edge) => edge.target),
+        upstream: unremovedEdges
+          .filter((edge) => edge.target === parentId)
+          .map((edge) => edge.source),
+        downstream: unremovedEdges
+          .filter((edge) => edge.source === parentId)
+          .map((edge) => edge.target),
       });
     }
   }
@@ -264,7 +314,8 @@ export async function compileDeal(
       let id = `NODE_USER_${String(userSequence).padStart(2, "0")}`;
       while (usages.has(id)) id = `${id}_1`;
       usages.add(id);
-      const sourceIds = part.sourceIds.length > 0 ? part.sourceIds : spec.derivedFrom;
+      const sourceIds =
+        part.sourceIds.length > 0 ? part.sourceIds : spec.derivedFrom;
       const node = createUserNode(id, part, sourceIds, imported, spec);
       partNodes.push(node);
       addedNodes.push(node);
@@ -277,8 +328,12 @@ export async function compileDeal(
     for (const parentId of spec.derivedFrom) {
       const parent = decomposition.nodes.find((node) => node.id === parentId);
       // `add` keeps its parent in the plan, so the new node hangs off it directly.
-      const upstream = parent ? [parent.id] : (neighbours.get(parentId)?.upstream ?? []);
-      const downstream = parent ? [] : (neighbours.get(parentId)?.downstream ?? []);
+      const upstream = parent
+        ? [parent.id]
+        : (neighbours.get(parentId)?.upstream ?? []);
+      const downstream = parent
+        ? []
+        : (neighbours.get(parentId)?.downstream ?? []);
       for (const part of partNodes) {
         for (const source of upstream) {
           if (!live.has(source) || source === part.id) continue;
@@ -309,33 +364,48 @@ export async function compileDeal(
   }
 
   const edits = nodeEditsFrom(decisions);
-  const statuses = new Map(nodeStatusFrom(decisions).map((entry) => [entry.nodeId, entry.status]));
-  const accepted = options.acceptedSuggestions ?? new Map<string, { field: string; value: string }>();
+  const statuses = new Map(
+    nodeStatusFrom(decisions).map((entry) => [entry.nodeId, entry.status]),
+  );
+  const accepted =
+    options.acceptedSuggestions ??
+    new Map<string, { field: string; value: string }>();
 
   // Deterministic baseline first, then the operator's decisions on top. AI output
   // is merged only as a labelled suggestion, and only takes effect once the log
   // records that the operator accepted it.
   const withEdits = decomposition.nodes.map((node) => {
-    const nodeEdits = edits.filter((edit) => edit.nodeId === node.id).map((edit) => ({ field: edit.field, value: edit.value }));
+    const nodeEdits = edits
+      .filter((edit) => edit.nodeId === node.id)
+      .map((edit) => ({ field: edit.field, value: edit.value }));
     const status = statuses.get(node.id) ?? null;
     return applyNodeEdits(node, nodeEdits, status);
   });
 
-  const baselineProposals: AIProposal[] = withEdits.slice(0, 12).map((node) => ({
-    id: `BASELINE_${node.id}`,
-    title: node.title,
-    objective: node.objective,
-    workCategory: node.workCategory,
-    kind: node.kind,
-    sourceIds: node.sourceIds,
-    rationale: node.operatingModel.rationale[0] ?? "Generated from the imported structure.",
-  }));
+  const baselineProposals: AIProposal[] = withEdits
+    .slice(0, 12)
+    .map((node) => ({
+      id: `BASELINE_${node.id}`,
+      title: node.title,
+      objective: node.objective,
+      workCategory: node.workCategory,
+      kind: node.kind,
+      sourceIds: node.sourceIds,
+      rationale:
+        node.operatingModel.rationale[0] ??
+        "Generated from the imported structure.",
+    }));
 
   const evidence = [
     ...imported.canonical.scope.gaps,
     ...imported.canonical.scope.questions,
     ...imported.canonical.scope.assumptions,
-  ].map((item) => ({ id: item.id, title: item.title, kind: item.kind, text: item.description }));
+  ].map((item) => ({
+    id: item.id,
+    title: item.title,
+    kind: item.kind,
+    text: item.description,
+  }));
 
   const aiRun = await provider.decompose({
     dealId: imported.canonical.deal.id,
@@ -374,11 +444,13 @@ export async function compileDeal(
       status: suggestionStatus.get(proposal.id) ?? "proposed",
     }));
 
-  const acceptedEdits = [...accepted.entries()].map(([suggestionId, value]) => ({
-    nodeId: suggestionId.replace("PROPOSAL_", "NODE_"),
-    field: value.field,
-    value: value.value,
-  }));
+  const acceptedEdits = [...accepted.entries()].map(
+    ([suggestionId, value]) => ({
+      nodeId: suggestionId.replace("PROPOSAL_", "NODE_"),
+      field: value.field,
+      value: value.value,
+    }),
+  );
 
   const finalNodes = withEdits.map((node) => {
     const relatedSuggestions = aiSuggestions.filter((suggestion) =>
@@ -396,11 +468,18 @@ export async function compileDeal(
   // to accept — the engine never fills a required field silently.
   const fieldSuggestions: AiSuggestion[] = [];
   for (const node of finalNodes
-    .filter((entry) => entry.modelFieldsMissing.length > 0 && entry.sourceIds.length > 0)
+    .filter(
+      (entry) =>
+        entry.modelFieldsMissing.length > 0 && entry.sourceIds.length > 0,
+    )
     .slice(0, 12)) {
     const nodeEvidence = node.sourceRefs
       .slice(0, 4)
-      .map((ref) => ({ id: ref.id, title: ref.title, text: ref.quote ?? ref.title }));
+      .map((ref) => ({
+        id: ref.id,
+        title: ref.title,
+        text: ref.quote ?? ref.title,
+      }));
     const draftRun = await provider.draftPackage({
       dealId: imported.canonical.deal.id,
       dealTitle: imported.canonical.deal.title,
@@ -436,7 +515,9 @@ export async function compileDeal(
     ...node,
     aiSuggestions: [
       ...node.aiSuggestions,
-      ...fieldSuggestions.filter((suggestion) => suggestion.id.startsWith(`SUGGEST_${node.id}_`)),
+      ...fieldSuggestions.filter((suggestion) =>
+        suggestion.id.startsWith(`SUGGEST_${node.id}_`),
+      ),
     ],
   }));
 
@@ -450,7 +531,11 @@ export async function compileDeal(
   {
     const existing = new Set(graph.edges.map(edgeKey));
     const additions = userEdges
-      .filter((edge) => !existing.has(edgeKey(edge)) && graph.nodes.some((node) => node.id === edge.target))
+      .filter(
+        (edge) =>
+          !existing.has(edgeKey(edge)) &&
+          graph.nodes.some((node) => node.id === edge.target),
+      )
       .map((edge, position) => ({
         id: `EDGE_SPLIT_${String(position + 1).padStart(2, "0")}`,
         source: edge.source,
@@ -498,7 +583,9 @@ export async function compileDeal(
     generatedAt: options.generatedAt ?? "1970-01-01T00:00:00.000Z",
   });
 
-  const packages = graph.nodes.map((node) => buildModelPackage(node, { canonical: imported.canonical, generator }));
+  const packages = graph.nodes.map((node) =>
+    buildModelPackage(node, { canonical: imported.canonical, generator }),
+  );
 
   const notes = [
     ...decomposition.notes,
@@ -557,14 +644,20 @@ export async function applyEdits(
       }),
     );
   }
-  const next = await compileDeal(compiled.imported, { ...options, decisions: log });
+  const next = await compileDeal(compiled.imported, {
+    ...options,
+    decisions: log,
+  });
   const impact = diffGraphs({
     before: compiled.graph,
     after: next.graph,
     changes: edits.map((edit) => ({
       nodeId: edit.nodeId,
       field: edit.field,
-      before: compiled.graph.nodes.find((node) => node.id === edit.nodeId)?.[edit.field] ?? null,
+      before:
+        compiled.graph.nodes.find((node) => node.id === edit.nodeId)?.[
+          edit.field
+        ] ?? null,
       after: edit.value,
     })),
   });
@@ -577,7 +670,10 @@ export function modelScores(node: ExecutionNode): ModelScore[] {
 }
 
 /** Operator-added and operator-removed dependencies, read from the decision log. */
-function edgeOverridesFrom(log: DecisionLog): { added: EdgeDraft[]; removed: string[] } {
+function edgeOverridesFrom(log: DecisionLog): {
+  added: EdgeDraft[];
+  removed: string[];
+} {
   const added: EdgeDraft[] = [];
   const removed: string[] = [];
   for (const entry of log.entries) {
@@ -601,7 +697,9 @@ function edgeOverridesFrom(log: DecisionLog): { added: EdgeDraft[]; removed: str
 }
 
 function sourceIdsOf(node: ExecutionNode): string[] {
-  return node.sourceIds.length > 0 ? node.sourceIds.slice(0, 3) : ["USER_DECISION"];
+  return node.sourceIds.length > 0
+    ? node.sourceIds.slice(0, 3)
+    : ["USER_DECISION"];
 }
 
 /**
@@ -612,7 +710,12 @@ function sourceIdsOf(node: ExecutionNode): string[] {
  */
 function createUserNode(
   id: string,
-  part: { title: string; objective: string; workCategory: string; sourceIds: string[] },
+  part: {
+    title: string;
+    objective: string;
+    workCategory: string;
+    sourceIds: string[];
+  },
   sourceIds: string[],
   imported: ImportedPackage,
   spec: { mode: string; rationale: string; derivedFrom: string[] },
@@ -669,7 +772,13 @@ function createUserNode(
     operatingModel: recommendation,
     provenance: "user-created",
     readiness: "review-required",
-    readinessBlockers: ["missing-acceptance", "missing-effort", "missing-inputs", "human-approval-pending", "missing-package-fields"],
+    readinessBlockers: [
+      "missing-acceptance",
+      "missing-effort",
+      "missing-inputs",
+      "human-approval-pending",
+      "missing-package-fields",
+    ],
     modelFieldsMissing: [],
     humanReviewRequired: true,
     fieldProvenance: {

@@ -4,7 +4,11 @@ import type { CanonicalPackage, ScopeItem } from "@deal-to-challenge/engine";
 import { cn } from "@/lib/utils";
 import { Ban, CircleSlash } from "lucide-react";
 
-const GROUPS: { key: keyof CanonicalPackage["scope"]; label: string; tone: string }[] = [
+const GROUPS: {
+  key: keyof CanonicalPackage["scope"];
+  label: string;
+  tone: string;
+}[] = [
   { key: "gaps", label: "Gaps", tone: "text-blocked" },
   { key: "questions", label: "Questions", tone: "text-review" },
   { key: "assumptions", label: "Assumptions", tone: "text-model-pod" },
@@ -33,9 +37,9 @@ export function BacklogPanel({ canonical, onSelectItem }: BacklogPanelProps) {
         <CardHeader>
           <CardTitle className="text-sm">Review queue</CardTitle>
           <p className="text-[12px] leading-5 text-muted-foreground">
-            Open gaps, questions, assumptions, risks and dependencies. Critical items
-            feed the maturity score and will become blocking discovery nodes later in the
-            pipeline.
+            Open gaps, questions, assumptions, risks and dependencies. Critical
+            items feed the maturity score and will become blocking discovery
+            nodes later in the pipeline.
           </p>
         </CardHeader>
         <CardContent className="space-y-5">
@@ -46,7 +50,9 @@ export function BacklogPanel({ canonical, onSelectItem }: BacklogPanelProps) {
             return (
               <div key={group.key}>
                 <div className="mb-2 flex items-center gap-2">
-                  <span className={cn("text-[12px] font-medium", group.tone)}>{group.label}</span>
+                  <span className={cn("text-[12px] font-medium", group.tone)}>
+                    {group.label}
+                  </span>
                   <span className="font-mono-data text-[11px] text-muted-foreground">
                     {open.length} open / {items.length} total
                   </span>
@@ -69,7 +75,9 @@ export function BacklogPanel({ canonical, onSelectItem }: BacklogPanelProps) {
                           <span className="font-mono-data text-[11px] text-model-pod">
                             {item.id}
                           </span>
-                          <span className="text-[13px] leading-5">{item.title}</span>
+                          <span className="text-[13px] leading-5">
+                            {item.title}
+                          </span>
                           {item.critical && item.inScope && !item.resolved && (
                             <Badge
                               variant="outline"
@@ -112,9 +120,9 @@ export function BacklogPanel({ canonical, onSelectItem }: BacklogPanelProps) {
             Excluded from scope
           </CardTitle>
           <p className="text-[12px] leading-5 text-muted-foreground">
-            The customer explicitly excluded these items. Identifiers are preserved, they
-            are never anchored to delivery work, and re-including one later is a recorded
-            decision.
+            The customer explicitly excluded these items. Identifiers are
+            preserved, they are never anchored to delivery work, and
+            re-including one later is a recorded decision.
           </p>
         </CardHeader>
         <CardContent className="space-y-2">
@@ -132,9 +140,14 @@ export function BacklogPanel({ canonical, onSelectItem }: BacklogPanelProps) {
               className="w-full rounded-none border border-hairline/70 bg-background/30 px-4 py-4 text-left transition-colors hover:border-blocked/40"
             >
               <span className="flex flex-wrap items-center gap-2">
-                <span className="font-mono-data text-[11px] text-muted-foreground">{item.id}</span>
+                <span className="font-mono-data text-[11px] text-muted-foreground">
+                  {item.id}
+                </span>
                 <span className="text-[13px]">{item.title}</span>
-                <Badge variant="outline" className="border-hairline text-[11px] uppercase">
+                <Badge
+                  variant="outline"
+                  className="border-hairline text-[11px] uppercase"
+                >
                   {item.kind}
                 </Badge>
               </span>

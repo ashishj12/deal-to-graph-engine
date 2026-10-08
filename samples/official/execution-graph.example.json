@@ -1,78 +1,78 @@
-{ 
-  "graphId": "GRAPH_001", 
-  "dealId": "DEAL_SAMPLE_001", 
-  "nodes": [ 
-    { 
-      "id": "NODE_001", 
-      "title": "Confirm External API Contracts", 
-      "workCategory": "discovery", 
-      "operatingModel": { 
-        "primary": "flexible-talent", 
-        "alternatives": [], 
-        "confidence": "high", 
-        "rationale": [ 
-          "The work requires one integration specialist.", 
-          "The expected output is a focused technical assessment." 
-        ] 
-      }, 
-      "sourceIds": ["GAP_01", "Q_02"], 
-      "readiness": "ready" 
-    }, 
-    { 
-      "id": "NODE_002", 
-      "title": "Explore Customer Experience Concepts", 
-      "workCategory": "ux-design", 
-      "operatingModel": { 
-        "primary": "challenge", 
-        "alternatives": ["flexible-talent"], 
-        "confidence": "medium", 
-        "rationale": [ 
-          "Multiple design approaches would add value.", 
-          "The outputs can be evaluated against clear usability criteria." 
-        ] 
-      }, 
-      "sourceIds": ["FR_02", "NFR_03"], 
-      "readiness": "ready" 
-    }, 
-    { 
-      "id": "NODE_003", 
-      "title": "Deliver the Integrated Platform", 
-      "workCategory": "solution-delivery", 
-      "operatingModel": { 
-        "primary": "private-pod", 
-        "alternatives": [], 
-        "confidence": "high", 
-        "rationale": [ 
-          "The work spans frontend, backend, AI, security, and integrations.", 
-          "The components require continuous technical coordination.", 
-          "Restricted data requires a controlled team." 
-        ] 
-      }, 
-      "sourceIds": ["CAP_01", "ARC_01", "ARC_02", "AI_01"], 
-      "readiness": "review-required" 
-    } 
-  ], 
-  "edges": [ 
-    { 
-      "id": "EDGE_001", 
-      "source": "NODE_001", 
-      "target": "NODE_003", 
-      "type": "blocking-discovery", 
-      "rationale": "The delivery pod requires confirmed external API contracts.", 
-      "blocking": true 
-    }, 
-    { 
-      "id": "EDGE_002", 
-      "source": "NODE_002", 
-      "target": "NODE_003", 
-      "type": "design-handoff", 
-      "rationale": "The delivery pod requires an approved intake experience.", 
-      "blocking": true 
-    } 
-  ], 
-  "operatingModelSummary": { 
-    "flexibleTalent": 1, 
-    "challenge": 1, 
-    "privatePod": 1 
-  } 
-} 
+{
+  "graphId": "GRAPH_001",
+  "dealId": "DEAL_SAMPLE_001",
+  "nodes": [
+    {
+      "id": "NODE_001",
+      "title": "Confirm External API Contracts",
+      "workCategory": "discovery",
+      "operatingModel": {
+        "primary": "flexible-talent",
+        "alternatives": [],
+        "confidence": "high",
+        "rationale": [
+          "The work requires one integration specialist.",
+          "The expected output is a focused technical assessment."
+        ]
+      },
+      "sourceIds": ["GAP_01", "Q_02"],
+      "readiness": "ready"
+    },
+    {
+      "id": "NODE_002",
+      "title": "Explore Customer Experience Concepts",
+      "workCategory": "ux-design",
+      "operatingModel": {
+        "primary": "challenge",
+        "alternatives": ["flexible-talent"],
+        "confidence": "medium",
+        "rationale": [
+          "Multiple design approaches would add value.",
+          "The outputs can be evaluated against clear usability criteria."
+        ]
+      },
+      "sourceIds": ["FR_02", "NFR_03"],
+      "readiness": "ready"
+    },
+    {
+      "id": "NODE_003",
+      "title": "Deliver the Integrated Platform",
+      "workCategory": "solution-delivery",
+      "operatingModel": {
+        "primary": "private-pod",
+        "alternatives": [],
+        "confidence": "high",
+        "rationale": [
+          "The work spans frontend, backend, AI, security, and integrations.",
+          "The components require continuous technical coordination.",
+          "Restricted data requires a controlled team."
+        ]
+      },
+      "sourceIds": ["CAP_01", "ARC_01", "ARC_02", "AI_01"],
+      "readiness": "review-required"
+    }
+  ],
+  "edges": [
+    {
+      "id": "EDGE_001",
+      "source": "NODE_001",
+      "target": "NODE_003",
+      "type": "blocking-discovery",
+      "rationale": "The delivery pod requires confirmed external API contracts.",
+      "blocking": true
+    },
+    {
+      "id": "EDGE_002",
+      "source": "NODE_002",
+      "target": "NODE_003",
+      "type": "design-handoff",
+      "rationale": "The delivery pod requires an approved intake experience.",
+      "blocking": true
+    }
+  ],
+  "operatingModelSummary": {
+    "flexibleTalent": 1,
+    "challenge": 1,
+    "privatePod": 1
+  }
+}

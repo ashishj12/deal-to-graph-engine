@@ -34,11 +34,7 @@
         "provenance": "ai-recommended",
         "provider": "mock",
         "rationale": "Drafted from 3 source record(s) because the imported package does not state roles.",
-        "sourceIds": [
-          "GAP_01",
-          "INT_02",
-          "Q_01"
-        ],
+        "sourceIds": ["GAP_01", "INT_02", "Q_01"],
         "status": "proposed",
         "value": "SAP S/4HANA integration pattern unconfirmed (GAP_01); SAP S/4HANA payment-posting integration (INT_02); Does SAP S/4HANA expose a REST API for journal posting? (Q_01)"
       },
@@ -50,11 +46,7 @@
         "provenance": "ai-recommended",
         "provider": "mock",
         "rationale": "Drafted from 3 source record(s) because the imported package does not state skills.",
-        "sourceIds": [
-          "GAP_01",
-          "INT_02",
-          "Q_01"
-        ],
+        "sourceIds": ["GAP_01", "INT_02", "Q_01"],
         "status": "proposed",
         "value": "SAP S/4HANA integration pattern unconfirmed (GAP_01); SAP S/4HANA payment-posting integration (INT_02); Does SAP S/4HANA expose a REST API for journal posting? (Q_01)"
       },
@@ -66,11 +58,7 @@
         "provenance": "ai-recommended",
         "provider": "mock",
         "rationale": "Drafted from 3 source record(s) because the imported package does not state seniority.",
-        "sourceIds": [
-          "GAP_01",
-          "INT_02",
-          "Q_01"
-        ],
+        "sourceIds": ["GAP_01", "INT_02", "Q_01"],
         "status": "proposed",
         "value": "Not stated in the imported package — the operator must set the seniority level."
       },
@@ -82,11 +70,7 @@
         "provenance": "ai-recommended",
         "provider": "mock",
         "rationale": "Drafted from 3 source record(s) because the imported package does not state duration.",
-        "sourceIds": [
-          "GAP_01",
-          "INT_02",
-          "Q_01"
-        ],
+        "sourceIds": ["GAP_01", "INT_02", "Q_01"],
         "status": "proposed",
         "value": "SAP S/4HANA integration pattern unconfirmed (GAP_01); SAP S/4HANA payment-posting integration (INT_02); Does SAP S/4HANA expose a REST API for journal posting? (Q_01)"
       },
@@ -98,11 +82,7 @@
         "provenance": "ai-recommended",
         "provider": "mock",
         "rationale": "Drafted from 3 source record(s) because the imported package does not state capacity.",
-        "sourceIds": [
-          "GAP_01",
-          "INT_02",
-          "Q_01"
-        ],
+        "sourceIds": ["GAP_01", "INT_02", "Q_01"],
         "status": "proposed",
         "value": "Not stated in the imported package — the operator must set the committed capacity."
       },
@@ -114,11 +94,7 @@
         "provenance": "ai-recommended",
         "provider": "mock",
         "rationale": "Drafted from 3 source record(s) because the imported package does not state responsibilities.",
-        "sourceIds": [
-          "GAP_01",
-          "INT_02",
-          "Q_01"
-        ],
+        "sourceIds": ["GAP_01", "INT_02", "Q_01"],
         "status": "proposed",
         "value": "SAP S/4HANA integration pattern unconfirmed (GAP_01); SAP S/4HANA payment-posting integration (INT_02); Does SAP S/4HANA expose a REST API for journal posting? (Q_01)"
       },
@@ -130,11 +106,7 @@
         "provenance": "ai-recommended",
         "provider": "mock",
         "rationale": "Drafted from 3 source record(s) because the imported package does not state startDependencies.",
-        "sourceIds": [
-          "GAP_01",
-          "INT_02",
-          "Q_01"
-        ],
+        "sourceIds": ["GAP_01", "INT_02", "Q_01"],
         "status": "proposed",
         "value": "SAP S/4HANA integration pattern unconfirmed (GAP_01); SAP S/4HANA payment-posting integration (INT_02); Does SAP S/4HANA expose a REST API for journal posting? (Q_01)"
       },
@@ -146,11 +118,7 @@
         "provenance": "ai-recommended",
         "provider": "mock",
         "rationale": "Drafted from 3 source record(s) because the imported package does not state access.",
-        "sourceIds": [
-          "GAP_01",
-          "INT_02",
-          "Q_01"
-        ],
+        "sourceIds": ["GAP_01", "INT_02", "Q_01"],
         "status": "proposed",
         "value": "SAP S/4HANA integration pattern unconfirmed (GAP_01); SAP S/4HANA payment-posting integration (INT_02); Does SAP S/4HANA expose a REST API for journal posting? (Q_01)"
       }
@@ -164,11 +132,7 @@
       "estimateWorkstreamId": null,
       "integrationIds": [],
       "phaseId": null,
-      "requirementIds": [
-        "GAP_01",
-        "INT_02",
-        "Q_01"
-      ],
+      "requirementIds": ["GAP_01", "INT_02", "Q_01"],
       "workstreamId": null
     },
     "assumptionSourceIds": [],
@@ -196,9 +160,7 @@
     },
     "humanReviewRequired": true,
     "id": "NODE_GAP_01",
-    "inputs": [
-      "Estimation input integrationReadiness"
-    ],
+    "inputs": ["Estimation input integrationReadiness"],
     "kind": "discovery",
     "mergedFrom": [],
     "modelFieldsMissing": [
@@ -213,9 +175,7 @@
     ],
     "objective": "It is not yet known whether SAP S/4HANA exposes a REST API for journal posting or only IDoc/BAPI interfaces, which changes the integration design.",
     "operatingModel": {
-      "alternatives": [
-        "challenge"
-      ],
+      "alternatives": ["challenge"],
       "confidence": "low",
       "features": [
         {
@@ -623,11 +583,7 @@
           "score": 2.045
         }
       ],
-      "sourceIds": [
-        "GAP_01",
-        "INT_02",
-        "Q_01"
-      ],
+      "sourceIds": ["GAP_01", "INT_02", "Q_01"],
       "splitReason": "The flexible-talent score (4.732) and the challenge score (4.202) are only 0.53 points apart, so this work straddles two operating models. Split it into a flexible-talent node and a challenge node, or define an explicit handoff.",
       "splitRecommended": true
     },
@@ -643,11 +599,7 @@
     "risks": [],
     "roles": [],
     "scope": "Open gap in the imported package. Raised by the imported package as gap GAP_01. Affects estimation inputs: integrationReadiness.",
-    "sourceIds": [
-      "GAP_01",
-      "INT_02",
-      "Q_01"
-    ],
+    "sourceIds": ["GAP_01", "INT_02", "Q_01"],
     "sourceRefs": [
       {
         "id": "GAP_01",
@@ -689,11 +641,7 @@
   "roles": [],
   "seniority": null,
   "skills": [],
-  "sourceIds": [
-    "GAP_01",
-    "INT_02",
-    "Q_01"
-  ],
+  "sourceIds": ["GAP_01", "INT_02", "Q_01"],
   "startDependencies": [],
   "title": "SAP S/4HANA integration pattern unconfirmed"
 }

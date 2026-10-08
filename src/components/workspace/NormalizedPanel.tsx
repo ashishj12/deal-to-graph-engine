@@ -24,7 +24,9 @@ function Chip({
       title={item.title}
       className={cn(
         "rounded border border-hairline bg-background/40 px-2 py-0.5 font-mono-data text-[11px] transition-colors hover:border-model-pod/50",
-        item.inScope ? "text-muted-foreground" : "text-muted-foreground/50 line-through",
+        item.inScope
+          ? "text-muted-foreground"
+          : "text-muted-foreground/50 line-through",
       )}
     >
       {item.id}
@@ -38,7 +40,10 @@ export interface NormalizedPanelProps {
   onSelectItem: (item: ScopeItem) => void;
 }
 
-export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) {
+export function NormalizedPanel({
+  result,
+  onSelectItem,
+}: NormalizedPanelProps) {
   const { canonical } = result;
   const requirementsByKind = new Map<string, ScopeItem[]>();
   for (const item of canonical.scope.requirements) {
@@ -47,7 +52,9 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
     requirementsByKind.set(item.kind, bucket);
   }
 
-  const invalidFlows = canonical.architecture.flows.filter((flow) => !flow.valid);
+  const invalidFlows = canonical.architecture.flows.filter(
+    (flow) => !flow.valid,
+  );
 
   return (
     <div className="space-y-5">
@@ -60,18 +67,29 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
             { label: "Deal id", value: canonical.deal.id },
             { label: "Customer", value: canonical.deal.customer },
             { label: "Platform", value: canonical.config.cloudPlatform },
-            { label: "Estimate confidence", value: canonical.delivery.confidence },
-            { label: "Effort (likely)", value: `${canonical.delivery.totals.likely ?? 0} days` },
+            {
+              label: "Estimate confidence",
+              value: canonical.delivery.confidence,
+            },
+            {
+              label: "Effort (likely)",
+              value: `${canonical.delivery.totals.likely ?? 0} days`,
+            },
             { label: "Updated", value: canonical.deal.updatedAt ?? "unknown" },
             { label: "SHA-256", value: `${result.sha256.slice(0, 24)}…` },
-            { label: "Size", value: `${(result.byteLength / 1024).toFixed(1)} KB` },
+            {
+              label: "Size",
+              value: `${(result.byteLength / 1024).toFixed(1)} KB`,
+            },
             { label: "Schema", value: canonical.schemaVersion },
           ].map((entry) => (
             <div key={entry.label} className="bg-background px-4 py-3">
-              <div className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+              <div className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                 {entry.label}
               </div>
-              <div className="mt-1.5 truncate font-mono-data text-[12px]">{entry.value}</div>
+              <div className="mt-1.5 truncate font-mono-data text-[12px]">
+                {entry.value}
+              </div>
             </div>
           ))}
         </CardContent>
@@ -100,7 +118,9 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
               </div>
             ))}
           {requirementsByKind.size === 0 && (
-            <p className="text-[13px] text-muted-foreground">No requirements were found.</p>
+            <p className="text-[13px] text-muted-foreground">
+              No requirements were found.
+            </p>
           )}
         </CardContent>
       </Card>
@@ -109,8 +129,9 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
         <CardHeader>
           <CardTitle className="text-sm">Capabilities</CardTitle>
           <p className="text-[12px] leading-5 text-muted-foreground">
-            Capability dependencies in the source are names, not identifiers. Resolved
-            names are shown in teal; anything that could not be matched stays visible.
+            Capability dependencies in the source are names, not identifiers.
+            Resolved names are shown in teal; anything that could not be matched
+            stays visible.
           </p>
         </CardHeader>
         <CardContent className="space-y-2">
@@ -120,9 +141,16 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
               className="rounded-none border border-hairline/70 bg-background/30 p-4"
             >
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono-data text-[11px] text-model-pod">{capability.id}</span>
-                <span className="text-[13px] font-medium">{capability.name}</span>
-                <Badge variant="outline" className="border-hairline text-[11px] uppercase">
+                <span className="font-mono-data text-[11px] text-model-pod">
+                  {capability.id}
+                </span>
+                <span className="text-[13px] font-medium">
+                  {capability.name}
+                </span>
+                <Badge
+                  variant="outline"
+                  className="border-hairline text-[11px] uppercase"
+                >
                   {capability.priority}
                 </Badge>
               </div>
@@ -163,13 +191,13 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
       <Card className="border-hairline bg-surface-raise/30 shadow-none">
         <CardHeader>
           <CardTitle className="text-sm">
-            Architecture — {canonical.architecture.components.length} components,{" "}
-            {canonical.architecture.flows.length} flows
+            Architecture — {canonical.architecture.components.length}{" "}
+            components, {canonical.architecture.flows.length} flows
           </CardTitle>
           {invalidFlows.length > 0 && (
             <p className="text-[12px] text-blocked">
-              {invalidFlows.length} flow(s) reference undefined components and were kept
-              visible rather than dropped.
+              {invalidFlows.length} flow(s) reference undefined components and
+              were kept visible rather than dropped.
             </p>
           )}
         </CardHeader>
@@ -180,12 +208,16 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
               className="rounded-none border border-hairline/70 bg-background/30 p-4"
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="font-mono-data text-[11px] text-model-pod">{component.id}</span>
+                <span className="font-mono-data text-[11px] text-model-pod">
+                  {component.id}
+                </span>
                 <span className="font-mono-data text-[11px] text-muted-foreground">
                   {component.area}
                 </span>
               </div>
-              <div className="mt-1.5 text-[13px] leading-5">{component.logicalComponent}</div>
+              <div className="mt-1.5 text-[13px] leading-5">
+                {component.logicalComponent}
+              </div>
               <div className="font-mono-data text-[11px] text-muted-foreground">
                 {component.service || "service unspecified"}
               </div>
@@ -212,7 +244,9 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
               >
                 {domain.regulated && <ShieldCheck className="size-3" />}
                 {domain.id} · {domain.name}
-                <span className="text-muted-foreground/70">{domain.classification}</span>
+                <span className="text-muted-foreground/70">
+                  {domain.classification}
+                </span>
               </span>
             ))}
           </div>
@@ -220,7 +254,7 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
           {canonical.strategy.integrations.length > 0 ? (
             <div className="overflow-hidden rounded-none border border-hairline">
               <table className="w-full text-left text-[12px]">
-                <thead className="bg-background/60 font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                <thead className="bg-background/60 font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                   <tr>
                     <th className="px-3 py-2">Id</th>
                     <th className="px-3 py-2">Interface</th>
@@ -231,7 +265,10 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
                 </thead>
                 <tbody>
                   {canonical.strategy.integrations.map((integration) => (
-                    <tr key={integration.id} className="border-t border-hairline">
+                    <tr
+                      key={integration.id}
+                      className="border-t border-hairline"
+                    >
                       <td className="px-3 py-2 font-mono-data text-[11px] text-model-pod">
                         {integration.id}
                       </td>
@@ -252,8 +289,8 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
             </div>
           ) : (
             <p className="rounded-none border border-review/40 bg-review/5 p-3 text-[12px] text-review">
-              No interface designs were produced, even though integration requirements
-              exist. That is a discovery signal, not an empty list.
+              No interface designs were produced, even though integration
+              requirements exist. That is a discovery signal, not an empty list.
             </p>
           )}
         </CardContent>
@@ -262,13 +299,19 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
       <Card className="border-hairline bg-surface-raise/30 shadow-none">
         <CardHeader>
           <CardTitle className="text-sm">
-            AI strategy {canonical.strategy.aiUseCases.length > 0 ? "" : "(not applicable)"}
+            AI strategy{" "}
+            {canonical.strategy.aiUseCases.length > 0 ? "" : "(not applicable)"}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           {canonical.strategy.aiUseCases.map((useCase) => (
-            <div key={useCase.id} className="rounded-none border border-hairline/70 bg-background/30 p-4">
-              <span className="font-mono-data text-[11px] text-model-pod">{useCase.id}</span>
+            <div
+              key={useCase.id}
+              className="rounded-none border border-hairline/70 bg-background/30 p-4"
+            >
+              <span className="font-mono-data text-[11px] text-model-pod">
+                {useCase.id}
+              </span>
               <div className="mt-1 text-[13px] font-medium">{useCase.name}</div>
               <p className="mt-1 text-[12px] leading-5 text-muted-foreground">
                 {useCase.description}
@@ -277,7 +320,7 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
           ))}
           {canonical.strategy.aiBoundaries.length > 0 && (
             <div className="space-y-1.5">
-              <p className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+              <p className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                 decision boundaries
               </p>
               {canonical.strategy.aiBoundaries.map((boundary, index) => (
@@ -289,13 +332,16 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
                     variant="outline"
                     className={cn(
                       "font-mono-data text-[11px] uppercase",
-                      BOUNDARY_TONE[boundary.type] ?? "border-hairline text-muted-foreground",
+                      BOUNDARY_TONE[boundary.type] ??
+                        "border-hairline text-muted-foreground",
                     )}
                   >
                     {boundary.type}
                   </Badge>
                   <span>{boundary.activity}</span>
-                  <span className="text-muted-foreground">— {boundary.reason}</span>
+                  <span className="text-muted-foreground">
+                    — {boundary.reason}
+                  </span>
                 </div>
               ))}
             </div>
@@ -306,11 +352,12 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
       <Card className="border-hairline bg-surface-raise/30 shadow-none">
         <CardHeader>
           <CardTitle className="text-sm">
-            Delivery estimate — {canonical.delivery.workstreams.length} workstreams
+            Delivery estimate — {canonical.delivery.workstreams.length}{" "}
+            workstreams
           </CardTitle>
           <p className="text-[12px] leading-5 text-muted-foreground">
-            Effort is imported verbatim from the estimate. Commercial rates are ignored:
-            this tool never commits funding.
+            Effort is imported verbatim from the estimate. Commercial rates are
+            ignored: this tool never commits funding.
           </p>
         </CardHeader>
         <CardContent className="space-y-2">
@@ -320,20 +367,26 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
               className="flex flex-wrap items-center justify-between gap-3 rounded-none border border-hairline bg-background/40 px-3 py-2"
             >
               <span className="min-w-0">
-                <span className="font-mono-data text-[11px] text-model-pod">{workstream.id}</span>
+                <span className="font-mono-data text-[11px] text-model-pod">
+                  {workstream.id}
+                </span>
                 <span className="ml-2 text-[13px]">{workstream.name}</span>
               </span>
               <span className="flex items-center gap-3 font-mono-data text-[11px] text-muted-foreground">
-                <span>{workstream.roles.join(", ") || "roles unspecified"}</span>
+                <span>
+                  {workstream.roles.join(", ") || "roles unspecified"}
+                </span>
                 <span className="text-foreground">
-                  {workstream.low ?? "–"} / {workstream.likely ?? "–"} / {workstream.high ?? "–"}
+                  {workstream.low ?? "–"} / {workstream.likely ?? "–"} /{" "}
+                  {workstream.high ?? "–"}
                 </span>
               </span>
             </div>
           ))}
           {canonical.delivery.missingInputs.length > 0 && (
             <p className="rounded-none border border-review/40 bg-review/5 p-3 text-[12px] text-review">
-              Missing estimate inputs: {canonical.delivery.missingInputs.join(", ")}
+              Missing estimate inputs:{" "}
+              {canonical.delivery.missingInputs.join(", ")}
             </p>
           )}
         </CardContent>
@@ -343,8 +396,8 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
         <CardHeader>
           <CardTitle className="text-sm">Imported quality findings</CardTitle>
           <p className="text-[12px] leading-5 text-muted-foreground">
-            Carried through verbatim and marked as imported. This engine adds its own
-            findings separately and never re-scores the source.
+            Carried through verbatim and marked as imported. This engine adds
+            its own findings separately and never re-scores the source.
           </p>
         </CardHeader>
         <CardContent className="space-y-1.5">
@@ -365,7 +418,8 @@ export function NormalizedPanel({ result, onSelectItem }: NormalizedPanelProps) 
                 {finding.status}
               </Badge>
               <span className="text-muted-foreground">
-                <span className="text-foreground">{finding.checkName}</span> — {finding.message}
+                <span className="text-foreground">{finding.checkName}</span> —{" "}
+                {finding.message}
               </span>
             </div>
           ))}

@@ -1,9 +1,6 @@
 {
   "complete": false,
-  "componentOwnership": [
-    "data-warehouse",
-    "bi-reporting"
-  ],
+  "componentOwnership": ["data-warehouse", "bi-reporting"],
   "coordinationDependencies": [],
   "definitionOfCompletion": [
     "A named stakeholder dashboard loads the current metrics without a manual export step.",
@@ -21,35 +18,25 @@
     "promptVersion": "mock-v1",
     "provider": "mock"
   },
-  "missingFields": [
-    "securityAndAccess",
-    "coordinationDependencies"
-  ],
+  "missingFields": ["securityAndAccess", "coordinationDependencies"],
   "model": "private-pod",
   "node": {
     "acceptanceConditions": [
       "A named stakeholder dashboard loads the current metrics without a manual export step.",
       "Report figures reconcile with the underlying transactional data for a sample period."
     ],
-    "acceptanceSourceIds": [
-      "CAP_01"
-    ],
+    "acceptanceSourceIds": ["CAP_01"],
     "aiSuggestions": [],
     "anchors": {
       "aiUseCaseIds": [],
       "backlogSourceId": null,
       "capabilityId": "CAP_01",
-      "componentIds": [
-        "ARC_19",
-        "ARC_22"
-      ],
+      "componentIds": ["ARC_19", "ARC_22"],
       "domainIds": [],
       "estimateWorkstreamId": "WS_04",
       "integrationIds": [],
       "phaseId": null,
-      "requirementIds": [
-        "FR_06"
-      ],
+      "requirementIds": ["FR_06"],
       "workstreamId": "PKG:package-1-foundation"
     },
     "assumptionSourceIds": [],
@@ -68,9 +55,7 @@
       "maximum": 5,
       "minimum": 3.5,
       "provenance": "deterministic",
-      "sourceIds": [
-        "WS_04"
-      ],
+      "sourceIds": ["WS_04"],
       "unit": "person-days"
     },
     "fieldProvenance": {
@@ -88,15 +73,10 @@
     ],
     "kind": "delivery",
     "mergedFrom": [],
-    "modelFieldsMissing": [
-      "securityAndAccess",
-      "coordinationDependencies"
-    ],
+    "modelFieldsMissing": ["securityAndAccess", "coordinationDependencies"],
     "objective": "Provide dashboards and reporting so stakeholders can monitor operational and business metrics without manual data extraction. It delivers: FR_06 (Supervisor reassignment and workload view).",
     "operatingModel": {
-      "alternatives": [
-        "challenge"
-      ],
+      "alternatives": ["challenge"],
       "confidence": "medium",
       "features": [
         {
@@ -512,20 +492,13 @@
           "score": 2.52
         }
       ],
-      "sourceIds": [
-        "CAP_01",
-        "ARC_19",
-        "ARC_22",
-        "FR_06"
-      ],
+      "sourceIds": ["CAP_01", "ARC_19", "ARC_22", "FR_06"],
       "splitReason": null,
       "splitRecommended": false
     },
     "provenance": "deterministic",
     "readiness": "review-required",
-    "readinessBlockers": [
-      "missing-package-fields"
-    ],
+    "readinessBlockers": ["missing-package-fields"],
     "requiredSkills": [
       "Microsoft Azure infrastructure as code",
       "CI/CD and release automation",
@@ -542,12 +515,7 @@
       "qa-engineer"
     ],
     "scope": "Implements Dashboards and Reporting (provisions ARC_19, ARC_22). Requirements: FR_06.",
-    "sourceIds": [
-      "CAP_01",
-      "ARC_19",
-      "ARC_22",
-      "FR_06"
-    ],
+    "sourceIds": ["CAP_01", "ARC_19", "ARC_22", "FR_06"],
     "sourceRefs": [
       {
         "id": "CAP_01",
@@ -605,12 +573,7 @@
     "Observability and site reliability",
     "Performance and resilience testing"
   ],
-  "sourceIds": [
-    "CAP_01",
-    "ARC_19",
-    "ARC_22",
-    "FR_06"
-  ],
+  "sourceIds": ["CAP_01", "ARC_19", "ARC_22", "FR_06"],
   "technicalLeadership": "Technical lead owns data-warehouse and bi-reporting.",
   "title": "Dashboards and Reporting: cloud and DevOps"
 }

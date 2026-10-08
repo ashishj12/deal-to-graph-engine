@@ -8,10 +8,6 @@ import type {
 } from "../canonical/execution";
 import type { ImportedPackage, OperatingModel } from "../canonical/types";
 
-/**
- * An intermediate node: everything the rules can establish from the imported
- * package before classification, effort allocation and package completeness.
- */
 export interface NodeDraft {
   id: string;
   title: string;
@@ -44,7 +40,12 @@ export interface DecomposeInput {
   imported: ImportedPackage;
   revision: number;
   /** Operating-model overrides recorded as user decisions. */
-  overrides: { nodeId: string; model: OperatingModel; rationale: string; at: string }[];
+  overrides: {
+    nodeId: string;
+    model: OperatingModel;
+    rationale: string;
+    at: string;
+  }[];
   /** Nodes the user removed; they are filtered out of the result. */
   removedNodeIds: string[];
 }

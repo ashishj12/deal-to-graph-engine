@@ -1,28 +1,8 @@
-/**
- * Operating-model classification (FR4) — the 20% criterion.
- *
- * A transparent, weighted, deterministic scorer. There is no model call here:
- * given the same features it always returns the same recommendation, and every
- * point in the score can be traced to a feature and a piece of evidence.
- *
- * The specification lists thirteen features to consider. Each feature awards
- * points to the operating model it actually argues *for*:
- *
- *   flexible-talent  defined skills, one assignable person, bounded scope, the
- *                    client can manage it directly
- *   challenge        multiple approaches add value, outputs can be judged
- *                    against clear criteria, participation is safe
- *   private-pod      several roles must work together, architecture and
- *                    implementation are coupled, access is restricted
- *
- * Points are never awarded for the *absence* of evidence: a node that tells us
- * nothing must not silently default to a winner. Negative points express a
- * genuine contradiction (restricted data cannot go to an open challenge), which
- * is how the specification's "sensitive work moves toward a pod and away from a
- * challenge" rule is implemented.
- */
-
-import type { Confidence, ModelScore, OperatingModelRecommendation } from "../canonical/execution";
+import type {
+  Confidence,
+  ModelScore,
+  OperatingModelRecommendation,
+} from "../canonical/execution";
 import type { MaturityLevel, OperatingModel } from "../canonical/types";
 
 export interface ClassificationInput {
@@ -62,7 +42,12 @@ export interface FeatureDefinition {
 }
 
 /** Categories where competitive exploration is genuinely valuable. */
-const EXPLORATION_CATEGORIES = new Set(["ux-design", "ai-implementation", "testing", "documentation"]);
+const EXPLORATION_CATEGORIES = new Set([
+  "ux-design",
+  "ai-implementation",
+  "testing",
+  "documentation",
+]);
 /** Categories that require several roles working together. */
 const INTEGRATIVE_CATEGORIES = new Set([
   "integration",
@@ -72,7 +57,12 @@ const INTEGRATIVE_CATEGORIES = new Set([
   "backend-api",
 ]);
 /** Categories that are commonly one specialist with a defined skill set. */
-const SPECIALIST_CATEGORIES = new Set(["technical-review", "documentation", "deployment", "discovery"]);
+const SPECIALIST_CATEGORIES = new Set([
+  "technical-review",
+  "documentation",
+  "deployment",
+  "discovery",
+]);
 
 function clamp01(value: number): number {
   if (Number.isNaN(value)) return 0;
@@ -93,17 +83,47 @@ function computeFeatures(input: ClassificationInput): FeatureDefinition[] {
       (input.acceptanceMeasurable ? 0.3 : 0) -
       openCount * 0.35,
   );
-  const teamSize = clamp01(roleCount <= 1 ? 0.1 : roleCount === 2 ? 0.5 : 0.6 + (roleCount - 3) * 0.2);
-  const leadership = clamp01((isIntegrative ? 0.6 : 0) + (componentCount >= 3 ? 0.4 : componentCount === 2 ? 0.2 : 0));
-  const collaboration = clamp01(roleCount >= 3 ? 0.9 : roleCount === 2 ? 0.55 : 0.15);
-  const coupling = clamp01(componentCount >= 4 ? 1 : componentCount === 3 ? 0.7 : componentCount === 2 ? 0.45 : componentCount === 1 ? 0.2 : 0);
-  const security = clamp01((input.securityRequirementIds.length > 0 ? 0.7 : 0) + (input.sensitiveData ? 0.6 : 0));
+  const teamSize = clamp01(
+    roleCount <= 1 ? 0.1 : roleCount === 2 ? 0.5 : 0.6 + (roleCount - 3) * 0.2,
+  );
+  const leadership = clamp01(
+    (isIntegrative ? 0.6 : 0) +
+      (componentCount >= 3 ? 0.4 : componentCount === 2 ? 0.2 : 0),
+  );
+  const collaboration = clamp01(
+    roleCount >= 3 ? 0.9 : roleCount === 2 ? 0.55 : 0.15,
+  );
+  const coupling = clamp01(
+    componentCount >= 4
+      ? 1
+      : componentCount === 3
+        ? 0.7
+        : componentCount === 2
+          ? 0.45
+          : componentCount === 1
+            ? 0.2
+            : 0,
+  );
+  const security = clamp01(
+    (input.securityRequirementIds.length > 0 ? 0.7 : 0) +
+      (input.sensitiveData ? 0.6 : 0),
+  );
   const dataSensitivity = clamp01(input.sensitiveData ? 1 : 0);
-  const continuity = clamp01(input.effortMaximum === null ? 0 : Math.min(1, input.effortMaximum / 120));
-  const community = clamp01((isExploration ? 0.85 : 0.1) - (input.sensitiveData ? 1 : 0));
-  const multipleApproaches = clamp01((isExploration ? 0.85 : isIntegrative ? 0.2 : 0.25) - (input.sensitiveData ? 0.5 : 0));
+  const continuity = clamp01(
+    input.effortMaximum === null ? 0 : Math.min(1, input.effortMaximum / 120),
+  );
+  const community = clamp01(
+    (isExploration ? 0.85 : 0.1) - (input.sensitiveData ? 1 : 0),
+  );
+  const multipleApproaches = clamp01(
+    (isExploration ? 0.85 : isIntegrative ? 0.2 : 0.25) -
+      (input.sensitiveData ? 0.5 : 0),
+  );
   // Measurable acceptance is what makes a competition judgeable.
-  const measurability = clamp01((input.acceptanceMeasurable ? 0.8 : 0) + (input.deliverableCount > 0 ? 0.2 : 0));
+  const measurability = clamp01(
+    (input.acceptanceMeasurable ? 0.8 : 0) +
+      (input.deliverableCount > 0 ? 0.2 : 0),
+  );
   // A challenged-free, packaged scope with a defined specialist is the classic
   // flexible-talent shape: known skills, bounded work, client-managed.
   const boundedSpecialist = clamp01(
@@ -159,7 +179,11 @@ function computeFeatures(input: ClassificationInput): FeatureDefinition[] {
       id: "collaboration",
       label: "Degree of collaboration",
       weight: 1.4,
-      points: { "flexible-talent": collaboration < 0.3 ? 0.5 : 0.1, challenge: collaboration < 0.6 ? 0.4 : 0.2, "private-pod": collaboration },
+      points: {
+        "flexible-talent": collaboration < 0.3 ? 0.5 : 0.1,
+        challenge: collaboration < 0.6 ? 0.4 : 0.2,
+        "private-pod": collaboration,
+      },
       reason:
         collaboration > 0.6
           ? "Delivery depends on several roles working together rather than on one contributor."
@@ -305,7 +329,10 @@ function sensitiveOrCompetitivePenalty(input: ClassificationInput): number {
   // A pod is the answer when competition is unsuitable *and* the work is coupled
   // enough to need a team; otherwise it is not the model that competition's
   // absence argues for.
-  const unsuitable = input.sensitiveData || input.componentIds.length >= 3 || input.roles.length >= 3;
+  const unsuitable =
+    input.sensitiveData ||
+    input.componentIds.length >= 3 ||
+    input.roles.length >= 3;
   return unsuitable ? 0.6 : 0.2;
 }
 
@@ -326,9 +353,16 @@ function scoreModels(features: FeatureDefinition[]): ModelScore[] {
         points: Number((feature.weight * feature.points[model]).toFixed(3)),
         evidence: feature.reason,
       }));
-    const score = contributions.reduce((sum, contribution) => sum + contribution.points, 0);
+    const score = contributions.reduce(
+      (sum, contribution) => sum + contribution.points,
+      0,
+    );
     return { model, score: Number(score.toFixed(3)), contributions };
-  }).sort((a, b) => b.score - a.score || MODEL_KEYS.indexOf(a.model) - MODEL_KEYS.indexOf(b.model));
+  }).sort(
+    (a, b) =>
+      b.score - a.score ||
+      MODEL_KEYS.indexOf(a.model) - MODEL_KEYS.indexOf(b.model),
+  );
 }
 
 function inputCompleteness(input: ClassificationInput): number {
@@ -344,14 +378,21 @@ function inputCompleteness(input: ClassificationInput): number {
 }
 
 /** Confidence combines the score margin with how complete the input was. */
-export function confidenceFrom(winner: number, runnerUp: number, completeness: number): Confidence {
+export function confidenceFrom(
+  winner: number,
+  runnerUp: number,
+  completeness: number,
+): Confidence {
   const margin = winner - runnerUp;
   if (margin >= 4 && completeness >= 0.7) return "high";
   if (margin >= 1.5 && completeness >= 0.4) return "medium";
   return "low";
 }
 
-export function classifyNode(input: ClassificationInput, options?: { maturity?: MaturityLevel }): ClassificationResult {
+export function classifyNode(
+  input: ClassificationInput,
+  options?: { maturity?: MaturityLevel },
+): ClassificationResult {
   void options;
   const features = computeFeatures(input);
   const scores = scoreModels(features);
@@ -367,9 +408,15 @@ export function classifyNode(input: ClassificationInput, options?: { maturity?: 
     .filter((feature) => {
       const topPoints = feature.weight * feature.points[top.model];
       const runnerPoints = feature.weight * feature.points[second.model];
-      return topPoints >= 0.45 || topPoints - runnerPoints >= 0.7 || feature.points[top.model] < 0;
+      return (
+        topPoints >= 0.45 ||
+        topPoints - runnerPoints >= 0.7 ||
+        feature.points[top.model] < 0
+      );
     })
-    .sort((a, b) => b.weight * b.points[top.model] - a.weight * a.points[top.model])
+    .sort(
+      (a, b) => b.weight * b.points[top.model] - a.weight * a.points[top.model],
+    )
     .slice(0, 5)
     .map((feature) => feature.reason);
 
@@ -408,11 +455,19 @@ export function applyOverride(
     ...recommendation,
     primary: to,
     overridden: true,
-    overrideHistory: [...recommendation.overrideHistory, { from: recommendation.primary, to, rationale, at }],
+    overrideHistory: [
+      ...recommendation.overrideHistory,
+      { from: recommendation.primary, to, rationale, at },
+    ],
     alternatives: [
       recommendation.primary,
-      ...recommendation.alternatives.filter((model) => model !== to && model !== recommendation.primary),
+      ...recommendation.alternatives.filter(
+        (model) => model !== to && model !== recommendation.primary,
+      ),
     ],
-    rationale: [`Operating model overridden by the operator: ${rationale}`, ...recommendation.rationale],
+    rationale: [
+      `Operating model overridden by the operator: ${rationale}`,
+      ...recommendation.rationale,
+    ],
   };
 }

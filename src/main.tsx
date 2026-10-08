@@ -4,7 +4,6 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router";
 import "./index.css";
 
-// The app is a single-operator tool: no account, no backend, no network calls.
 const Landing = lazy(() => import("./pages/Landing.tsx"));
 const Workspace = lazy(() => import("./pages/Workspace.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
@@ -17,7 +16,6 @@ function RouteLoading() {
   );
 }
 
-/** Hard guard so a runtime error never leaves the preview as a blank page. */
 class RootErrorBoundary extends React.Component<
   { children: React.ReactNode },
   { hasError: boolean; message: string; stack: string }
@@ -39,7 +37,7 @@ class RootErrorBoundary extends React.Component<
         <div className="grid min-h-screen place-items-center p-6">
           <div className="max-w-lg">
             <p className="label text-blocked">Runtime error</p>
-            <p className="mt-2 text-sm text-foreground break-words">
+            <p className="mt-2 text-sm text-foreground wrap-break-word">
               {this.state.message}
             </p>
             {this.state.stack ? (
@@ -55,7 +53,6 @@ class RootErrorBoundary extends React.Component<
   }
 }
 
-/** Keeps the hosting iframe's history in step with the SPA route. */
 function RouteSyncer() {
   const location = useLocation();
   useEffect(() => {

@@ -1,13 +1,25 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import type { ImportedPackage, MaturityReason } from "@deal-to-challenge/engine";
+import type {
+  ImportedPackage,
+  MaturityReason,
+} from "@deal-to-challenge/engine";
 import { cn } from "@/lib/utils";
 import { Info, OctagonAlert, TriangleAlert } from "lucide-react";
 
-const LEVEL_STYLE: Record<ImportedPackage["maturity"]["level"], { label: string; className: string }> = {
-  "execution-candidate": { label: "Execution Candidate", className: "border-ready/50 text-ready" },
-  "review-required": { label: "Review Required", className: "border-review/50 text-review" },
+const LEVEL_STYLE: Record<
+  ImportedPackage["maturity"]["level"],
+  { label: string; className: string }
+> = {
+  "execution-candidate": {
+    label: "Execution Candidate",
+    className: "border-ready/50 text-ready",
+  },
+  "review-required": {
+    label: "Review Required",
+    className: "border-review/50 text-review",
+  },
   "discovery-required": {
     label: "Discovery Required",
     className: "border-model-pod/60 text-model-pod",
@@ -27,17 +39,32 @@ export interface MaturityPanelProps {
   selectedCode: string | null;
 }
 
-export function MaturityPanel({ result, onSelectReason, selectedCode }: MaturityPanelProps) {
+export function MaturityPanel({
+  result,
+  onSelectReason,
+  selectedCode,
+}: MaturityPanelProps) {
   const { maturity } = result;
   const style = LEVEL_STYLE[maturity.level];
 
   const counts: { label: string; value: number; tone?: string }[] = [
-    { label: "Critical open", value: maturity.counts.criticalOpen, tone: "text-blocked" },
+    {
+      label: "Critical open",
+      value: maturity.counts.criticalOpen,
+      tone: "text-blocked",
+    },
     { label: "Open questions", value: maturity.counts.openQuestions },
     { label: "Open gaps", value: maturity.counts.openGaps },
-    { label: "Unvalidated assumptions", value: maturity.counts.unvalidatedAssumptions },
+    {
+      label: "Unvalidated assumptions",
+      value: maturity.counts.unvalidatedAssumptions,
+    },
     { label: "Open risks", value: maturity.counts.openRisks },
-    { label: "Quality warnings", value: maturity.counts.warnChecks, tone: "text-review" },
+    {
+      label: "Quality warnings",
+      value: maturity.counts.warnChecks,
+      tone: "text-review",
+    },
     { label: "Unreviewed sections", value: maturity.counts.unreviewedSections },
     { label: "Stale sections", value: maturity.counts.staleSections },
   ];
@@ -48,11 +75,14 @@ export function MaturityPanel({ result, onSelectReason, selectedCode }: Maturity
         <CardHeader className="gap-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+              <p className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                 package maturity
               </p>
               <CardTitle className="mt-2 text-xl">
-                <Badge variant="outline" className={cn("text-[13px]", style.className)}>
+                <Badge
+                  variant="outline"
+                  className={cn("text-[13px]", style.className)}
+                >
                   {style.label}
                 </Badge>
               </CardTitle>
@@ -61,13 +91,15 @@ export function MaturityPanel({ result, onSelectReason, selectedCode }: Maturity
               <div className="font-mono-data text-4xl font-semibold tabular-nums">
                 {maturity.score}
               </div>
-              <p className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+              <p className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                 readiness score
               </p>
             </div>
           </div>
           <Progress value={maturity.score} className="h-1.5" />
-          <p className="text-[13px] leading-6 text-muted-foreground">{maturity.summary}</p>
+          <p className="text-[13px] leading-6 text-muted-foreground">
+            {maturity.summary}
+          </p>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-none border border-hairline bg-hairline sm:grid-cols-4">
@@ -94,8 +126,9 @@ export function MaturityPanel({ result, onSelectReason, selectedCode }: Maturity
         <CardHeader>
           <CardTitle className="text-sm">Why this level?</CardTitle>
           <p className="text-[12px] leading-5 text-muted-foreground">
-            Every contributing rule, its weight, and the source items that triggered
-            it. Nothing here is inferred by a model — all of it is deterministic.
+            Every contributing rule, its weight, and the source items that
+            triggered it. Nothing here is inferred by a model — all of it is
+            deterministic.
           </p>
         </CardHeader>
         <CardContent className="space-y-2">
@@ -125,15 +158,19 @@ export function MaturityPanel({ result, onSelectReason, selectedCode }: Maturity
                   )}
                 />
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[13px] leading-5">{reason.label}</span>
+                  <span className="block text-[13px] leading-5">
+                    {reason.label}
+                  </span>
                   <span className="mt-1 flex flex-wrap items-center gap-2">
-                    <span className="font-mono-data text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                    <span className="font-mono-data text-[11px] uppercase tracking-widest text-muted-foreground">
                       {reason.code}
                     </span>
                     <span
                       className={cn(
                         "font-mono-data text-[11px] tabular-nums",
-                        reason.delta <= -10 ? "text-blocked" : "text-muted-foreground",
+                        reason.delta <= -10
+                          ? "text-blocked"
+                          : "text-muted-foreground",
                       )}
                     >
                       {reason.delta > 0 ? "+" : ""}
@@ -142,7 +179,9 @@ export function MaturityPanel({ result, onSelectReason, selectedCode }: Maturity
                     {reason.sourceIds.length > 0 && (
                       <span className="font-mono-data text-[11px] text-muted-foreground">
                         {reason.sourceIds.slice(0, 4).join(" · ")}
-                        {reason.sourceIds.length > 4 ? ` +${reason.sourceIds.length - 4}` : ""}
+                        {reason.sourceIds.length > 4
+                          ? ` +${reason.sourceIds.length - 4}`
+                          : ""}
                       </span>
                     )}
                   </span>

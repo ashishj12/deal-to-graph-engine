@@ -1,12 +1,3 @@
-/**
- * Provenance helpers.
- *
- * The six provenance values come from the challenge specification. Nothing the
- * engine emits may carry a bare "AI generated" label: every item points at the
- * source ids that justify it, and this module is the single place that decides
- * whether a claim counts as grounded.
- */
-
 import { PROVENANCE, type Provenance } from "./types";
 
 /** Display labels used by the UI and by every export. */
@@ -34,13 +25,10 @@ export function isUserProvenance(provenance: Provenance): boolean {
   return USER_PROVENANCE.includes(provenance);
 }
 
-/**
- * A claim is grounded when it is either backed by imported source ids or created
- * by a human decision. AI output is only grounded when it cites the sources it
- * was derived from, which is what stops the reviewer from seeing an unsupported
- * recommendation.
- */
-export function isGrounded(provenance: Provenance, sourceIds: readonly string[]): boolean {
+export function isGrounded(
+  provenance: Provenance,
+  sourceIds: readonly string[],
+): boolean {
   if (!PROVENANCE.includes(provenance)) return false;
   if (isUserProvenance(provenance)) return true;
   return sourceIds.length > 0;

@@ -1,18 +1,3 @@
-/**
- * The deal-scoping packages the engine is exercised against.
- *
- * `samples/inputs/*.json` holds the package files. `scripts/vendor-inputs.ts`
- * inlines their exact bytes into `./inputs.ts` so the browser app, the CLI and
- * the test suite all read the *same* text with no filesystem or network access.
- *
- * A test asserts the inlined text is byte-identical to the files on disk, so the
- * two can never drift apart.
- *
- * The official packages for this challenge are distributed to participants as a
- * ZIP. When that ZIP is imported through the Import workspace it is handled by
- * exactly this code path — the schema is identical, so nothing needs to change.
- */
-
 import type { MaturityLevel } from "../canonical/types";
 import { SAMPLE_INPUTS } from "./inputs";
 
@@ -71,11 +56,15 @@ const DESCRIPTORS: SampleDescriptor[] = [
 ];
 
 function asRecord(value: unknown): Record<string, unknown> {
-  return typeof value === "object" && value !== null ? (value as Record<string, unknown>) : {};
+  return typeof value === "object" && value !== null
+    ? (value as Record<string, unknown>)
+    : {};
 }
 
 function asText(value: unknown, fallback: string): string {
-  return typeof value === "string" && value.trim().length > 0 ? value : fallback;
+  return typeof value === "string" && value.trim().length > 0
+    ? value
+    : fallback;
 }
 
 function build(descriptor: SampleDescriptor): SamplePackage {
@@ -95,7 +84,10 @@ function build(descriptor: SampleDescriptor): SamplePackage {
     // `customer.name` on older exports, `customer.customerName` on the official
     // packages — the same fallback the normalizer applies, so the picker and the
     // imported model never disagree about who the customer is.
-    customer: asText(customer.customerName, asText(customer.name, "unknown customer")),
+    customer: asText(
+      customer.customerName,
+      asText(customer.name, "unknown customer"),
+    ),
     character: descriptor.character,
     text,
     json,
@@ -106,8 +98,12 @@ function build(descriptor: SampleDescriptor): SamplePackage {
 /** Every sample package, in the order the challenge lists them. */
 export const SAMPLE_PACKAGES: SamplePackage[] = DESCRIPTORS.map(build);
 
-export const SAMPLE_FILES: string[] = DESCRIPTORS.map((descriptor) => descriptor.fileName);
+export const SAMPLE_FILES: string[] = DESCRIPTORS.map(
+  (descriptor) => descriptor.fileName,
+);
 
 export function findSamplePackage(id: string): SamplePackage | undefined {
-  return SAMPLE_PACKAGES.find((sample) => sample.id === id || sample.fileName === id);
+  return SAMPLE_PACKAGES.find(
+    (sample) => sample.id === id || sample.fileName === id,
+  );
 }

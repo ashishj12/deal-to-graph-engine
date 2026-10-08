@@ -1,14 +1,3 @@
-/**
- * Workspace session state.
- *
- * Only the operator's own decisions are persisted, never the imported package
- * text and never a credential: the imported packages are reloaded from the
- * vendored samples, and nothing here leaves the browser.
- *
- * Reading is guarded by try/catch and a schema version, so a stale or corrupted
- * entry degrades to a fresh session instead of breaking the app.
- */
-
 import type { DealDecision, DecisionLog } from "@deal-to-challenge/engine";
 
 export const SESSION_VERSION = 1;
@@ -24,13 +13,40 @@ export const VIEW_IDS = [
 ] as const;
 export type ViewId = (typeof VIEW_IDS)[number];
 
-export const VIEW_LABELS: Record<ViewId, { index: string; name: string; purpose: string }> = {
-  import: { index: "01", name: "Import", purpose: "Upload, validate and assess a deal-scoping package" },
-  decomposition: { index: "02", name: "Decomposition", purpose: "Generate, edit, split and approve delivery nodes" },
-  graph: { index: "03", name: "Graph", purpose: "Dependencies, cycles, orphans and blocked nodes" },
-  plan: { index: "04", name: "Execution plan", purpose: "Waves, critical path, effort and review checkpoints" },
-  packages: { index: "05", name: "Packages", purpose: "Model-specific execution packages and handoff readiness" },
-  validation: { index: "06", name: "Validate & export", purpose: "Coverage, change impact, quality gate and export" },
+export const VIEW_LABELS: Record<
+  ViewId,
+  { index: string; name: string; purpose: string }
+> = {
+  import: {
+    index: "01",
+    name: "Import",
+    purpose: "Upload, validate and assess a deal-scoping package",
+  },
+  decomposition: {
+    index: "02",
+    name: "Decomposition",
+    purpose: "Generate, edit, split and approve delivery nodes",
+  },
+  graph: {
+    index: "03",
+    name: "Graph",
+    purpose: "Dependencies, cycles, orphans and blocked nodes",
+  },
+  plan: {
+    index: "04",
+    name: "Execution plan",
+    purpose: "Waves, critical path, effort and review checkpoints",
+  },
+  packages: {
+    index: "05",
+    name: "Packages",
+    purpose: "Model-specific execution packages and handoff readiness",
+  },
+  validation: {
+    index: "06",
+    name: "Validate & export",
+    purpose: "Coverage, change impact, quality gate and export",
+  },
 };
 
 export interface PersistedSession {
@@ -42,7 +58,12 @@ export interface PersistedSession {
 }
 
 export function emptySession(): PersistedSession {
-  return { version: SESSION_VERSION, activeSlug: null, view: "import", decisions: {} };
+  return {
+    version: SESSION_VERSION,
+    activeSlug: null,
+    view: "import",
+    decisions: {},
+  };
 }
 
 export function loadSession(): PersistedSession {
@@ -53,9 +74,15 @@ export function loadSession(): PersistedSession {
     if (parsed.version !== SESSION_VERSION) return emptySession();
     return {
       version: SESSION_VERSION,
-      activeSlug: typeof parsed.activeSlug === "string" ? parsed.activeSlug : null,
-      view: VIEW_IDS.includes(parsed.view as ViewId) ? (parsed.view as ViewId) : "import",
-      decisions: typeof parsed.decisions === "object" && parsed.decisions !== null ? parsed.decisions : {},
+      activeSlug:
+        typeof parsed.activeSlug === "string" ? parsed.activeSlug : null,
+      view: VIEW_IDS.includes(parsed.view as ViewId)
+        ? (parsed.view as ViewId)
+        : "import",
+      decisions:
+        typeof parsed.decisions === "object" && parsed.decisions !== null
+          ? parsed.decisions
+          : {},
     };
   } catch {
     // A corrupted or unavailable store must never stop the app from running.
@@ -81,7 +108,8 @@ export function clearSession(): void {
 
 /** Human-readable one-liner for the decision-log view. */
 export function describeDecision(decision: DealDecision): string {
-  const target = decision.targetNodeIds[0] ?? decision.targetEdgeIds[0] ?? "graph";
+  const target =
+    decision.targetNodeIds[0] ?? decision.targetEdgeIds[0] ?? "graph";
   return `${target}: ${decision.summary}`;
 }
 

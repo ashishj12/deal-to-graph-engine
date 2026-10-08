@@ -1,18 +1,3 @@
-/**
- * Model-specific execution package builders (FR4).
- *
- * Each builder fills the fields the challenge lists for its operating model. Two
- * rules keep this honest:
- *
- *  1. A value is only produced when the imported package (or an approved user
- *     decision) supports it. Everything else is reported in `missingFields`.
- *  2. `complete` is false while any required field is missing, and a node whose
- *     package is incomplete cannot be `ready` for operational handoff.
- *
- * The builders are pure functions of (node, canonical package, generator info),
- * so a package can be rebuilt after an edit without re-running decomposition.
- */
-
 import type { ExecutionNode, GeneratorInfo } from "../canonical/execution";
 import type { CanonicalPackage, OperatingModel } from "../canonical/types";
 import {
@@ -33,13 +18,20 @@ export interface PackageContext {
 function workstreamFor(node: ExecutionNode, canonical: CanonicalPackage) {
   const id = node.anchors.estimateWorkstreamId;
   if (!id) return null;
-  return canonical.delivery.workstreams.find((workstream) => workstream.id === id) ?? null;
+  return (
+    canonical.delivery.workstreams.find((workstream) => workstream.id === id) ??
+    null
+  );
 }
 
 function capabilityFor(node: ExecutionNode, canonical: CanonicalPackage) {
   const id = node.anchors.capabilityId;
   if (!id) return null;
-  return canonical.functionalScope.capabilities.find((capability) => capability.id === id) ?? null;
+  return (
+    canonical.functionalScope.capabilities.find(
+      (capability) => capability.id === id,
+    ) ?? null
+  );
 }
 
 function named(list: { id: string; name: string }[], ids: string[]): string[] {
@@ -49,7 +41,8 @@ function named(list: { id: string; name: string }[], ids: string[]): string[] {
     .map((entry) => entry.name);
 }
 
-const NON_EMPTY = (values: string[]): boolean => values.some((value) => value.trim().length > 0);
+const NON_EMPTY = (values: string[]): boolean =>
+  values.some((value) => value.trim().length > 0);
 
 function baseFor<M extends OperatingModel>(
   node: ExecutionNode,
@@ -73,7 +66,8 @@ function baseFor<M extends OperatingModel>(
 function finalise<T extends PackageBase>(pkg: T): T {
   const missing = REQUIRED_PACKAGE_FIELDS[pkg.model].filter((field) => {
     const value = (pkg as unknown as Record<string, unknown>)[field];
-    if (Array.isArray(value)) return value.length === 0 || !NON_EMPTY(value as string[]);
+    if (Array.isArray(value))
+      return value.length === 0 || !NON_EMPTY(value as string[]);
     return value === null || value === undefined || value === "";
   });
   return {
@@ -83,7 +77,9 @@ function finalise<T extends PackageBase>(pkg: T): T {
     readinessNotes:
       missing.length === 0
         ? []
-        : [`Not handoff-ready: ${missing.join(", ")} ${missing.length === 1 ? "is" : "are"} not present in the imported package.`],
+        : [
+            `Not handoff-ready: ${missing.join(", ")} ${missing.length === 1 ? "is" : "are"} not present in the imported package.`,
+          ],
   };
 }
 
@@ -96,16 +92,32 @@ function durationFromEffort(node: ExecutionNode): string | null {
   return `${minimum}–${maximum} ${suffix}`;
 }
 
-function buildFlexibleTalent(node: ExecutionNode, ctx: PackageContext): FlexibleTalentPackage {
+function buildFlexibleTalent(
+  node: ExecutionNode,
+  ctx: PackageContext,
+): FlexibleTalentPackage {
   const workstream = workstreamFor(node, ctx.canonical);
   const capability = capabilityFor(node, ctx.canonical);
-  const integrationNames = named(ctx.canonical.strategy.integrations, node.anchors.integrationIds);
-  const domainNames = named(ctx.canonical.strategy.dataDomains, node.anchors.domainIds);
+  const integrationNames = named(
+    ctx.canonical.strategy.integrations,
+    node.anchors.integrationIds,
+  );
+  const domainNames = named(
+    ctx.canonical.strategy.dataDomains,
+    node.anchors.domainIds,
+  );
 
-  const responsibilities = node.deliverables.length > 0 ? node.deliverables : node.acceptanceConditions;
+  const responsibilities =
+    node.deliverables.length > 0
+      ? node.deliverables
+      : node.acceptanceConditions;
   const access = [
-    ...integrationNames.map((name) => `Access to the ${name} integration environment`),
-    ...domainNames.map((name) => `Access to ${name} data under the agreed handling rules`),
+    ...integrationNames.map(
+      (name) => `Access to the ${name} integration environment`,
+    ),
+    ...domainNames.map(
+      (name) => `Access to ${name} data under the agreed handling rules`,
+    ),
   ];
   const environment =
     ctx.canonical.config.environments !== null
@@ -129,7 +141,10 @@ function buildFlexibleTalent(node: ExecutionNode, ctx: PackageContext): Flexible
   return finalise(pkg);
 }
 
-function buildChallenge(node: ExecutionNode, ctx: PackageContext): ChallengePackage {
+function buildChallenge(
+  node: ExecutionNode,
+  ctx: PackageContext,
+): ChallengePackage {
   const capability = capabilityFor(node, ctx.canonical);
   const componentNames = named(
     ctx.canonical.architecture.components.map((component) => ({
@@ -140,7 +155,8 @@ function buildChallenge(node: ExecutionNode, ctx: PackageContext): ChallengePack
   );
   const sensitives = [
     ...ctx.canonical.strategy.dataDomains.filter(
-      (domain) => node.anchors.domainIds.includes(domain.id) && domain.regulated,
+      (domain) =>
+        node.anchors.domainIds.includes(domain.id) && domain.regulated,
     ),
   ];
 
@@ -169,19 +185,26 @@ function buildChallenge(node: ExecutionNode, ctx: PackageContext): ChallengePack
     ),
     acceptanceConditions: node.acceptanceConditions,
     inputAssets: node.inputs,
-    technologies: workstreamFor(node, ctx.canonical)?.skills ?? node.requiredSkills,
+    technologies:
+      workstreamFor(node, ctx.canonical)?.skills ?? node.requiredSkills,
     skills: node.requiredSkills,
     dependencies: node.dependsOn.map((id) => `Depends on ${id}`),
     // The specification requires a challenge node to declare its confidentiality limits.
     confidentialityLimitations: privacyClause,
     expectedReviewProcess: node.humanReviewRequired
-      ? ["Independent review of submissions by the client reviewer.", "Human sign-off recorded before handoff."]
+      ? [
+          "Independent review of submissions by the client reviewer.",
+          "Human sign-off recorded before handoff.",
+        ]
       : ["Review of submissions against the stated acceptance conditions."],
   };
   return finalise(pkg);
 }
 
-function buildPrivatePod(node: ExecutionNode, ctx: PackageContext): PrivatePodPackage {
+function buildPrivatePod(
+  node: ExecutionNode,
+  ctx: PackageContext,
+): PrivatePodPackage {
   const componentNames = named(
     ctx.canonical.architecture.components.map((component) => ({
       id: component.id,
@@ -189,17 +212,29 @@ function buildPrivatePod(node: ExecutionNode, ctx: PackageContext): PrivatePodPa
     })),
     node.anchors.componentIds,
   );
-  const integrationNames = named(ctx.canonical.strategy.integrations, node.anchors.integrationIds);
+  const integrationNames = named(
+    ctx.canonical.strategy.integrations,
+    node.anchors.integrationIds,
+  );
   const securityRequirementIds = ctx.canonical.scope.requirements
-    .filter((item) => item.kind === "security" && node.anchors.requirementIds.includes(item.id))
+    .filter(
+      (item) =>
+        item.kind === "security" &&
+        node.anchors.requirementIds.includes(item.id),
+    )
     .map((item) => item.id);
   const regulated = ctx.canonical.strategy.dataDomains.filter(
     (domain) => node.anchors.domainIds.includes(domain.id) && domain.regulated,
   );
 
   const securityAndAccess = [
-    ...securityRequirementIds.map((id) => `Implements security requirement ${id}`),
-    ...regulated.map((domain) => `Handles regulated data domain ${domain.name} — restricted access and audit logging required`),
+    ...securityRequirementIds.map(
+      (id) => `Implements security requirement ${id}`,
+    ),
+    ...regulated.map(
+      (domain) =>
+        `Handles regulated data domain ${domain.name} — restricted access and audit logging required`,
+    ),
     ...integrationNames.map((name) => `Restricted credentials for ${name}`),
   ];
 
@@ -212,7 +247,10 @@ function buildPrivatePod(node: ExecutionNode, ctx: PackageContext): PrivatePodPa
       ? `Technical lead owns ${componentNames.join(" and ")}.`
       : null,
     componentOwnership: componentNames,
-    deliveryResponsibilities: node.deliverables.length > 0 ? node.deliverables : node.acceptanceConditions,
+    deliveryResponsibilities:
+      node.deliverables.length > 0
+        ? node.deliverables
+        : node.acceptanceConditions,
     securityAndAccess,
     coordinationDependencies: node.dependsOn,
     expectedDuration: durationFromEffort(node),
@@ -222,7 +260,10 @@ function buildPrivatePod(node: ExecutionNode, ctx: PackageContext): PrivatePodPa
 }
 
 /** Build the package for the node's current operating model. */
-export function buildModelPackage(node: ExecutionNode, ctx: PackageContext): ModelPackage {
+export function buildModelPackage(
+  node: ExecutionNode,
+  ctx: PackageContext,
+): ModelPackage {
   switch (node.operatingModel.primary) {
     case "flexible-talent":
       return buildFlexibleTalent(node, ctx);
@@ -234,6 +275,9 @@ export function buildModelPackage(node: ExecutionNode, ctx: PackageContext): Mod
 }
 
 /** Field names still missing for a node, without building the whole package. */
-export function missingModelFields(node: ExecutionNode, ctx: PackageContext): string[] {
+export function missingModelFields(
+  node: ExecutionNode,
+  ctx: PackageContext,
+): string[] {
   return buildModelPackage(node, ctx).missingFields;
 }
