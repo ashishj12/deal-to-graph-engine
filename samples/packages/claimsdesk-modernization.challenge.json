@@ -1,0 +1,584 @@
+{
+  "acceptanceConditions": [
+    "A named stakeholder dashboard loads the current metrics without a manual export step.",
+    "Report figures reconcile with the underlying transactional data for a sample period."
+  ],
+  "businessContext": "Meridian Assurance Group — Dashboards and Reporting. Delivery confidence: Medium.",
+  "complete": false,
+  "confidentialityLimitations": [
+    "No confidentiality limitations apply: every source this work derives from is classified as non-restricted."
+  ],
+  "deliverables": [
+    "data-warehouse updated for Dashboards and Reporting",
+    "bi-reporting updated for Dashboards and Reporting"
+  ],
+  "dependencies": [],
+  "evaluationCriteria": [
+    "Demonstrated when: A named stakeholder dashboard loads the current metrics without a manual export step.",
+    "Demonstrated when: Report figures reconcile with the underlying transactional data for a sample period."
+  ],
+  "expectedReviewProcess": [
+    "Review of submissions against the stated acceptance conditions."
+  ],
+  "generator": {
+    "mode": "mock",
+    "model": null,
+    "notice": "MOCK AI MODE — no external service was contacted.",
+    "promptVersion": "mock-v1",
+    "provider": "mock"
+  },
+  "inputAssets": [
+    "Approved design for data-warehouse",
+    "Approved design for bi-reporting"
+  ],
+  "missingFields": [
+    "technologies",
+    "skills",
+    "dependencies"
+  ],
+  "model": "challenge",
+  "node": {
+    "acceptanceConditions": [
+      "A named stakeholder dashboard loads the current metrics without a manual export step.",
+      "Report figures reconcile with the underlying transactional data for a sample period."
+    ],
+    "acceptanceSourceIds": [
+      "CAP_01"
+    ],
+    "aiSuggestions": [],
+    "anchors": {
+      "aiUseCaseIds": [],
+      "backlogSourceId": null,
+      "capabilityId": "CAP_01",
+      "componentIds": [
+        "ARC_19",
+        "ARC_22"
+      ],
+      "domainIds": [],
+      "estimateWorkstreamId": null,
+      "integrationIds": [],
+      "phaseId": null,
+      "requirementIds": [
+        "FR_06"
+      ],
+      "workstreamId": "PKG:package-1-foundation"
+    },
+    "assumptionSourceIds": [],
+    "assumptions": [],
+    "blockedBy": [],
+    "blockingStatus": "none",
+    "complexity": "medium",
+    "deliverables": [
+      "data-warehouse updated for Dashboards and Reporting",
+      "bi-reporting updated for Dashboards and Reporting"
+    ],
+    "dependsOn": [],
+    "effort": {
+      "basis": "No estimate workstream in the imported package covers this work, so effort is unknown until the operator supplies it.",
+      "likely": null,
+      "maximum": null,
+      "minimum": null,
+      "provenance": "deterministic",
+      "sourceIds": [],
+      "unit": "person-days"
+    },
+    "fieldProvenance": {
+      "acceptanceConditions": "imported",
+      "assumptions": "imported",
+      "deliverables": "deterministic",
+      "inputs": "deterministic",
+      "risks": "imported"
+    },
+    "humanReviewRequired": false,
+    "id": "NODE_CAP_01_BACKEND_API",
+    "inputs": [
+      "Approved design for data-warehouse",
+      "Approved design for bi-reporting"
+    ],
+    "kind": "delivery",
+    "mergedFrom": [],
+    "modelFieldsMissing": [
+      "technologies",
+      "skills",
+      "dependencies"
+    ],
+    "objective": "Provide dashboards and reporting so stakeholders can monitor operational and business metrics without manual data extraction. It delivers: FR_06 (Supervisor reassignment and workload view).",
+    "operatingModel": {
+      "alternatives": [
+        "private-pod"
+      ],
+      "confidence": "medium",
+      "features": [
+        {
+          "id": "scope-clarity",
+          "label": "Scope clarity",
+          "points": {
+            "challenge": 0.8999999999999999,
+            "flexible-talent": 0.2,
+            "private-pod": 0.4
+          },
+          "reason": "Scope is clear enough to assign.",
+          "weight": 1.2
+        },
+        {
+          "id": "team-size",
+          "label": "Required roles and team size",
+          "points": {
+            "challenge": 0.4,
+            "flexible-talent": 0.1,
+            "private-pod": 0.1
+          },
+          "reason": "One role is enough (role not named in the package), so this can be assigned to a named person.",
+          "weight": 1.7
+        },
+        {
+          "id": "technical-leadership",
+          "label": "Need for technical leadership",
+          "points": {
+            "challenge": 0.1,
+            "flexible-talent": 0.05,
+            "private-pod": 0.8
+          },
+          "reason": "Continuous architectural ownership is needed across 2 component(s).",
+          "weight": 1.6
+        },
+        {
+          "id": "collaboration",
+          "label": "Degree of collaboration",
+          "points": {
+            "challenge": 0.4,
+            "flexible-talent": 0.5,
+            "private-pod": 0.15
+          },
+          "reason": "The work can be carried by one or two contributors.",
+          "weight": 1.4
+        },
+        {
+          "id": "coupling",
+          "label": "Component coupling",
+          "points": {
+            "challenge": 0.15,
+            "flexible-talent": 0.05,
+            "private-pod": 0.45
+          },
+          "reason": "It touches 2 architecture component(s), which have to change together.",
+          "weight": 1.6
+        },
+        {
+          "id": "competition",
+          "label": "Suitability for competitive delivery",
+          "points": {
+            "challenge": 1,
+            "flexible-talent": 0.15,
+            "private-pod": 0.2
+          },
+          "reason": "The work is not naturally separable into an independently judgeable submission.",
+          "weight": 1.5
+        },
+        {
+          "id": "multiple-approaches",
+          "label": "Value of multiple approaches",
+          "points": {
+            "challenge": 0.2,
+            "flexible-talent": 0.15,
+            "private-pod": 0.24
+          },
+          "reason": "One correct approach exists; exploration would not add value.",
+          "weight": 1.4
+        },
+        {
+          "id": "security",
+          "label": "Security and confidentiality",
+          "points": {
+            "challenge": 0,
+            "flexible-talent": 0.1,
+            "private-pod": 0
+          },
+          "reason": "No restricted access is required.",
+          "weight": 1.9
+        },
+        {
+          "id": "data-sensitivity",
+          "label": "Data sensitivity",
+          "points": {
+            "challenge": 0.1,
+            "flexible-talent": 0.1,
+            "private-pod": 0
+          },
+          "reason": "The data in scope is not restricted.",
+          "weight": 1.9
+        },
+        {
+          "id": "continuity",
+          "label": "Duration and continuity",
+          "points": {
+            "challenge": 0.35,
+            "flexible-talent": 0.3,
+            "private-pod": 0
+          },
+          "reason": "No effort range is available from the package, so continuity cannot be judged yet.",
+          "weight": 1.1
+        },
+        {
+          "id": "client-managed",
+          "label": "Managed directly by the client",
+          "points": {
+            "challenge": 0.25,
+            "flexible-talent": 0.3,
+            "private-pod": 0.6
+          },
+          "reason": "Delivery coordination cannot sit with the client as things stand.",
+          "weight": 1.3
+        },
+        {
+          "id": "measurability",
+          "label": "Acceptance measurability",
+          "points": {
+            "challenge": 0.8999999999999999,
+            "flexible-talent": 0.5,
+            "private-pod": 0
+          },
+          "reason": "Acceptance conditions are stated in the package, so the result is objectively reviewable.",
+          "weight": 1.2
+        },
+        {
+          "id": "community",
+          "label": "Need for community participation",
+          "points": {
+            "challenge": 0.1,
+            "flexible-talent": 0.05,
+            "private-pod": 0.27
+          },
+          "reason": "A closed team serves this work better than open participation.",
+          "weight": 1.3
+        }
+      ],
+      "margin": 1.983,
+      "overridden": false,
+      "overrideHistory": [],
+      "primary": "challenge",
+      "rationale": [
+        "The work is not naturally separable into an independently judgeable submission.",
+        "Scope is clear enough to assign.",
+        "Acceptance conditions are stated in the package, so the result is objectively reviewable.",
+        "One role is enough (role not named in the package), so this can be assigned to a named person.",
+        "The work can be carried by one or two contributors."
+      ],
+      "scores": [
+        {
+          "contributions": [
+            {
+              "evidence": "Scope is clear enough to assign.",
+              "feature": "Scope clarity",
+              "points": 1.08,
+              "value": 0.8999999999999999,
+              "weight": 1.2
+            },
+            {
+              "evidence": "One role is enough (role not named in the package), so this can be assigned to a named person.",
+              "feature": "Required roles and team size",
+              "points": 0.68,
+              "value": 0.4,
+              "weight": 1.7
+            },
+            {
+              "evidence": "Continuous architectural ownership is needed across 2 component(s).",
+              "feature": "Need for technical leadership",
+              "points": 0.16,
+              "value": 0.1,
+              "weight": 1.6
+            },
+            {
+              "evidence": "The work can be carried by one or two contributors.",
+              "feature": "Degree of collaboration",
+              "points": 0.56,
+              "value": 0.4,
+              "weight": 1.4
+            },
+            {
+              "evidence": "It touches 2 architecture component(s), which have to change together.",
+              "feature": "Component coupling",
+              "points": 0.24,
+              "value": 0.15,
+              "weight": 1.6
+            },
+            {
+              "evidence": "The work is not naturally separable into an independently judgeable submission.",
+              "feature": "Suitability for competitive delivery",
+              "points": 1.5,
+              "value": 1,
+              "weight": 1.5
+            },
+            {
+              "evidence": "One correct approach exists; exploration would not add value.",
+              "feature": "Value of multiple approaches",
+              "points": 0.28,
+              "value": 0.2,
+              "weight": 1.4
+            },
+            {
+              "evidence": "The data in scope is not restricted.",
+              "feature": "Data sensitivity",
+              "points": 0.19,
+              "value": 0.1,
+              "weight": 1.9
+            },
+            {
+              "evidence": "No effort range is available from the package, so continuity cannot be judged yet.",
+              "feature": "Duration and continuity",
+              "points": 0.385,
+              "value": 0.35,
+              "weight": 1.1
+            },
+            {
+              "evidence": "Delivery coordination cannot sit with the client as things stand.",
+              "feature": "Managed directly by the client",
+              "points": 0.325,
+              "value": 0.25,
+              "weight": 1.3
+            },
+            {
+              "evidence": "Acceptance conditions are stated in the package, so the result is objectively reviewable.",
+              "feature": "Acceptance measurability",
+              "points": 1.08,
+              "value": 0.8999999999999999,
+              "weight": 1.2
+            },
+            {
+              "evidence": "A closed team serves this work better than open participation.",
+              "feature": "Need for community participation",
+              "points": 0.13,
+              "value": 0.1,
+              "weight": 1.3
+            }
+          ],
+          "model": "challenge",
+          "score": 6.61
+        },
+        {
+          "contributions": [
+            {
+              "evidence": "Scope is clear enough to assign.",
+              "feature": "Scope clarity",
+              "points": 0.48,
+              "value": 0.4,
+              "weight": 1.2
+            },
+            {
+              "evidence": "One role is enough (role not named in the package), so this can be assigned to a named person.",
+              "feature": "Required roles and team size",
+              "points": 0.17,
+              "value": 0.1,
+              "weight": 1.7
+            },
+            {
+              "evidence": "Continuous architectural ownership is needed across 2 component(s).",
+              "feature": "Need for technical leadership",
+              "points": 1.28,
+              "value": 0.8,
+              "weight": 1.6
+            },
+            {
+              "evidence": "The work can be carried by one or two contributors.",
+              "feature": "Degree of collaboration",
+              "points": 0.21,
+              "value": 0.15,
+              "weight": 1.4
+            },
+            {
+              "evidence": "It touches 2 architecture component(s), which have to change together.",
+              "feature": "Component coupling",
+              "points": 0.72,
+              "value": 0.45,
+              "weight": 1.6
+            },
+            {
+              "evidence": "The work is not naturally separable into an independently judgeable submission.",
+              "feature": "Suitability for competitive delivery",
+              "points": 0.3,
+              "value": 0.2,
+              "weight": 1.5
+            },
+            {
+              "evidence": "One correct approach exists; exploration would not add value.",
+              "feature": "Value of multiple approaches",
+              "points": 0.336,
+              "value": 0.24,
+              "weight": 1.4
+            },
+            {
+              "evidence": "Delivery coordination cannot sit with the client as things stand.",
+              "feature": "Managed directly by the client",
+              "points": 0.78,
+              "value": 0.6,
+              "weight": 1.3
+            },
+            {
+              "evidence": "A closed team serves this work better than open participation.",
+              "feature": "Need for community participation",
+              "points": 0.351,
+              "value": 0.27,
+              "weight": 1.3
+            }
+          ],
+          "model": "private-pod",
+          "score": 4.627
+        },
+        {
+          "contributions": [
+            {
+              "evidence": "Scope is clear enough to assign.",
+              "feature": "Scope clarity",
+              "points": 0.24,
+              "value": 0.2,
+              "weight": 1.2
+            },
+            {
+              "evidence": "One role is enough (role not named in the package), so this can be assigned to a named person.",
+              "feature": "Required roles and team size",
+              "points": 0.17,
+              "value": 0.1,
+              "weight": 1.7
+            },
+            {
+              "evidence": "Continuous architectural ownership is needed across 2 component(s).",
+              "feature": "Need for technical leadership",
+              "points": 0.08,
+              "value": 0.05,
+              "weight": 1.6
+            },
+            {
+              "evidence": "The work can be carried by one or two contributors.",
+              "feature": "Degree of collaboration",
+              "points": 0.7,
+              "value": 0.5,
+              "weight": 1.4
+            },
+            {
+              "evidence": "It touches 2 architecture component(s), which have to change together.",
+              "feature": "Component coupling",
+              "points": 0.08,
+              "value": 0.05,
+              "weight": 1.6
+            },
+            {
+              "evidence": "The work is not naturally separable into an independently judgeable submission.",
+              "feature": "Suitability for competitive delivery",
+              "points": 0.225,
+              "value": 0.15,
+              "weight": 1.5
+            },
+            {
+              "evidence": "One correct approach exists; exploration would not add value.",
+              "feature": "Value of multiple approaches",
+              "points": 0.21,
+              "value": 0.15,
+              "weight": 1.4
+            },
+            {
+              "evidence": "No restricted access is required.",
+              "feature": "Security and confidentiality",
+              "points": 0.19,
+              "value": 0.1,
+              "weight": 1.9
+            },
+            {
+              "evidence": "The data in scope is not restricted.",
+              "feature": "Data sensitivity",
+              "points": 0.19,
+              "value": 0.1,
+              "weight": 1.9
+            },
+            {
+              "evidence": "No effort range is available from the package, so continuity cannot be judged yet.",
+              "feature": "Duration and continuity",
+              "points": 0.33,
+              "value": 0.3,
+              "weight": 1.1
+            },
+            {
+              "evidence": "Delivery coordination cannot sit with the client as things stand.",
+              "feature": "Managed directly by the client",
+              "points": 0.39,
+              "value": 0.3,
+              "weight": 1.3
+            },
+            {
+              "evidence": "Acceptance conditions are stated in the package, so the result is objectively reviewable.",
+              "feature": "Acceptance measurability",
+              "points": 0.6,
+              "value": 0.5,
+              "weight": 1.2
+            },
+            {
+              "evidence": "A closed team serves this work better than open participation.",
+              "feature": "Need for community participation",
+              "points": 0.065,
+              "value": 0.05,
+              "weight": 1.3
+            }
+          ],
+          "model": "flexible-talent",
+          "score": 3.47
+        }
+      ],
+      "sourceIds": [
+        "CAP_01",
+        "FR_06"
+      ],
+      "splitReason": null,
+      "splitRecommended": false
+    },
+    "provenance": "deterministic",
+    "readiness": "review-required",
+    "readinessBlockers": [
+      "missing-effort",
+      "missing-package-fields"
+    ],
+    "requiredSkills": [],
+    "riskSourceIds": [],
+    "risks": [],
+    "roles": [],
+    "scope": "Implements Dashboards and Reporting (implements FR_06). Requirements: FR_06.",
+    "sourceIds": [
+      "CAP_01",
+      "FR_06"
+    ],
+    "sourceRefs": [
+      {
+        "id": "CAP_01",
+        "kind": "capability",
+        "path": "outputs.prd.data.functionalScope.capabilities",
+        "quoteVerified": null,
+        "title": "Dashboards and Reporting"
+      },
+      {
+        "id": "FR_06",
+        "kind": "functional",
+        "path": "scope.items[10].source",
+        "quote": "FR6. Supervisors must be able to reassign claims between examiners and view team workload dashboards.",
+        "quoteVerified": false,
+        "title": "Supervisor reassignment and workload view"
+      }
+    ],
+    "splitOf": null,
+    "title": "Dashboards and Reporting: backend and API",
+    "workCategory": "backend-api"
+  },
+  "nodeId": "NODE_CAP_01_BACKEND_API",
+  "nodeTitle": "Dashboards and Reporting: backend and API",
+  "objective": "Provide dashboards and reporting so stakeholders can monitor operational and business metrics without manual data extraction. It delivers: FR_06 (Supervisor reassignment and workload view).",
+  "provenance": "deterministic",
+  "readiness": "review-required",
+  "readinessNotes": [
+    "Not handoff-ready: technologies, skills, dependencies are not present in the imported package."
+  ],
+  "skills": [],
+  "sourceIds": [
+    "CAP_01",
+    "FR_06"
+  ],
+  "technicalContext": "Touches data-warehouse (Azure Synapse Analytics (dedicated SQL pool)), bi-reporting (Power BI) on azure.",
+  "technologies": [],
+  "title": "Dashboards and Reporting: backend and API"
+}

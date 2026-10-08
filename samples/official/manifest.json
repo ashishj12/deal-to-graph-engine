@@ -1,0 +1,51 @@
+{
+  "packageVersion": "1.0",
+  "challenge": "Deal-to-Challenge Graph Engine",
+  "inputs": [
+    {
+      "file": "claimsdesk-modernization.json",
+      "scenario": "Enterprise application modernization",
+      "expectedHandling": [
+        "implementation decomposition",
+        "integration dependencies",
+        "migration planning",
+        "security and deployment work",
+        "operating-model classification"
+      ]
+    },
+    {
+      "file": "clinical-intake-and-patient-support-assistant.json",
+      "scenario": "Regulated AI-enabled healthcare solution",
+      "expectedHandling": [
+        "AI and data work",
+        "privacy and security controls",
+        "human-review checkpoints",
+        "integration blockers",
+        "restricted-access delivery assessment"
+      ]
+    },
+    {
+      "file": "member-experience-modernisation-early-discovery.json",
+      "scenario": "Early discovery with missing information",
+      "expectedHandling": [
+        "maturity assessment",
+        "discovery nodes",
+        "clarification work",
+        "blocked implementation nodes",
+        "no invented implementation details"
+      ]
+    },
+    {
+      "file": "unified-supply-chain-analytics.json",
+      "scenario": "Data, integration, analytics, and forecasting",
+      "expectedHandling": [
+        "data-platform work",
+        "enterprise integrations",
+        "forecasting work",
+        "data quality and lineage",
+        "phased rollout",
+        "mixed operating models"
+      ]
+    }
+  ]
+}

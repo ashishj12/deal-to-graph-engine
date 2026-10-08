@@ -1,0 +1,40 @@
+{ 
+  "id": "NODE_001",
+  "title": "Implement Patient Intake API",
+  "objective": "Deliver secure APIs for patient intake and validation.",
+  "workCategory": "backend-api",
+  "operatingModel": {
+    "primary": "private-pod",
+    "alternatives": ["flexible-talent"],
+    "confidence": "high",
+    "rationale": [
+      "The work is connected to identity, clinical data, and document-processing components.",
+      "The work requires coordinated backend, security, and integration skills.",
+      "Healthcare data restrictions require controlled access."
+    ],
+    "sourceIds": ["FR_01", "SEC_01", "INT_01", "ARC_02"],
+    "overridden": false
+  },
+  "inputs": [
+    "Approved API contract",
+    "Identity-provider configuration"
+  ],
+  "deliverables": [
+    "Patient intake API",
+    "Validation rules",
+    "Automated tests"
+  ],
+  "acceptanceConditions": [
+    "Required fields are validated.",
+    "Unauthorized requests are rejected.",
+    "Automated tests pass."
+  ],
+  "dependsOn": [],
+  "effort": {
+    "minimum": 5,
+    "maximum": 8,
+    "unit": "person-days"
+  },
+  "provenance": "ai-recommended",
+  "readiness": "review-required"
+}

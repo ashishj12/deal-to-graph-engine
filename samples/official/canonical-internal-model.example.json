@@ -1,0 +1,40 @@
+{ 
+  "schemaVersion": "1.0", 
+  "deal": { 
+    "id": "DEAL_SAMPLE_001", 
+    "title": "Sample Deal", 
+    "maturity": "review-required" 
+  }, 
+  "scope": { 
+    "requirements": [], 
+    "assumptions": [], 
+    "questions": [], 
+    "gaps": [], 
+    "risks": [], 
+    "dependencies": [] 
+  }, 
+  "functionalScope": { 
+    "capabilities": [], 
+    "workstreams": [] 
+  }, 
+  "architecture": { 
+    "platform": "azure", 
+    "components": [], 
+    "flows": [] 
+  }, 
+  "strategy": { 
+    "dataDomains": [], 
+    "integrations": [], 
+    "aiUseCases": [] 
+  }, 
+  "delivery": { 
+    "phases": [], 
+    "workstreams": [], 
+    "timeline": {}, 
+    "confidence": "medium" 
+  }, 
+  "quality": { 
+    "status": "review-required", 
+    "findings": [] 
+  } 
+} 

@@ -1,0 +1,15 @@
+{
+  "name": "@deal-to-challenge/engine",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Deal-to-Challenge compiler: normalizes deal-scoping packages and compiles an execution-ready DAG of delivery nodes classified as flexible-talent, challenge or private-pod.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./samples": "./src/samples/index.ts"
+  },
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc -b --noEmit"
+  }
+}
