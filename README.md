@@ -29,6 +29,10 @@ The engine turns unstructured deal packages into something operationally usable:
 
 The focus is not to guess. When the data is incomplete, the system marks it as missing or discovery-driven instead of fabricating a conclusion.
 
+## Architecture overview
+
+![Architecture overview](./docs/architecture-overview.png)
+
 ## Tech stack
 
 - React + Vite for the browser UI
