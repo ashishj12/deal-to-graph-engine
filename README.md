@@ -1,181 +1,239 @@
 # Deal-to-Challenge Graph Engine
 
-A browser-accessible **deal-to-execution compiler**. It imports a deal-scoping
-workspace export, preserves the original untouched, normalizes it into a canonical
-id-preserving model, validates every reference, and assesses whether the package is
-ready to become delivery work — or exactly what is standing in the way.
+A browser-based planner and compiler for deal-scoping exports. It takes raw deal JSON or a ZIP of packages, normalizes them into a canonical model, validates references and assumptions, decomposes the work into delivery nodes, classifies the right operating model, and exports a deterministic execution-ready package.
 
-> Internal planning aid. It never recruits talent, launches a challenge, builds a
-> pod, approves funding or commits a delivery timeline.
+This project is built for single-operator planning work. It does not recruit talent, approve budgets, or commit delivery timelines; it makes the work legible, reviewable, and exportable.
 
-## Scope
+## What this project does
 
-The whole pipeline is implemented: from a raw deal-scoping export through to an
-execution-ready plan and the artefacts a delivery team would hand over. Nothing is
-stubbed; stages that need operator input say so rather than guessing.
+- Imports deal-scoping exports from pasted JSON, uploaded files, or ZIP archives
+- Preserves the original source data and keeps a canonical, id-preserving model
+- Validates structure, identifiers, references, platform conflicts, data freshness, and missing inputs
+- Assesses maturity as Execution Candidate, Review Required, Discovery Required, or Blocked
+- Decomposes the package into grounded delivery nodes with source anchors and provenance
+- Classifies each node for Flexible Talent, Challenge, or Private Pod
+- Builds a DAG with edges, dependencies, execution waves, critical path, and traceability
+- Runs a deterministic quality gate and exposes every rule behind the decision
+- Exports graph JSON, quality JSON, execution plans, per-node packages, and a ZIP bundle
+- Records operator decisions, overrides, approvals, and AI suggestions in an append-only decision log
 
-**Shipped**
+## Why it exists
 
-- Deal package ingestion: four sample packages, drag-and-drop, file picker, paste and
-  **ZIP import** (drop `deal-scoping-input-packages.zip` and every package inside is
-  unpacked in the browser). No dependency is used for either path — see ADR-013.
-- Validation: prototype-safe parsing, shape and identifier checks, dangling and
-  name-based reference resolution, quote re-verification, freshness, platform
-  conflict, missing estimation inputs, imported quality passthrough.
-- Normalization: a canonical model that keeps every source identifier and flags
-  synthesized ones.
-- Maturity assessment: Execution Candidate / Review Required / Discovery Required /
-  Blocked, with every contributing rule and its weight shown.
-- Decomposition: package-grounded delivery nodes with source anchors, provenance and
-  readiness, plus operator-authored add / split / merge.
-- Operating-model classification: a weighted, auditable scorer recommending
-  **Flexible Talent**, **Challenge** or **Private Pod**, with the score table and
-  rationale for every node and a recorded override path.
-- Execution graph: edges and typed dependencies, execution waves, the critical path,
-  aggregates, structural findings and a full traceability matrix.
-- Change impact: recompiling after an edit proves untouched nodes come back
-  byte-for-byte identical and itemises every consequence.
-- Quality gate: deterministic **Ready / Review Required / Blocked**, itemised rule by
-  rule, and never "Ready" without a recorded human approval.
-- Model-specific execution packages: what each of the three models needs, and what is
-  still missing before handoff.
-- Export: graph JSON, quality JSON, an execution plan in Markdown, per-node packages
-  and a ZIP bundle of all of it.
-- Append-only decision log: every edit, override, approval, split, merge and AI
-  decision is recorded with its rationale.
-- AI layer: an `AIProvider` interface with a deterministic mock provider as the
-  default. Suggestions are labelled and never applied without a recorded decision.
-- Cinematic landing page: a type-only hero on an ambient light field, then the
-  delivery graph presented as its own figure. Self-hosted variable fonts (Archivo,
-  JetBrains Mono) and no runtime font requests — see ADR-014 and ADR-015.
+The engine turns unstructured deal packages into something operationally usable:
 
-## Quick start
+- a transparent validation report
+- a normalized execution model
+- a classified project graph
+- a reasoned quality decision
+- exportable artefacts a delivery team can act on
+
+The focus is not to guess. When the data is incomplete, the system marks it as missing or discovery-driven instead of fabricating a conclusion.
+
+## Tech stack
+
+- React + Vite for the browser UI
+- TypeScript for the engine and the app
+- Bun as the test and script runner
+- Tailwind CSS for styling
+- Pure TypeScript engine package with no React, DOM, or network dependency in the core logic
+
+## Project structure
+
+```text
+.
+├── docs/                          # Architecture and decision docs
+├── packages/
+│   └── engine/
+│       ├── src/                  # Core compiler logic
+│       │   ├── ai/               # AI provider interfaces and mock provider
+│       │   ├── canonical/        # Canonical domain and execution types
+│       │   ├── classify/         # Classification scoring
+│       │   ├── dag/              # Graph, waves, edges, critical path
+│       │   ├── decompose/        # Delivery-node generation
+│       │   ├── decisions/        # Append-only decision log
+│       │   ├── export/           # JSON/Markdown/ZIP exports
+│       │   ├── ingest/           # Parsing, normalization, validation, ZIP handling
+│       │   ├── impact/           # Change impact and deterministic recompile checks
+│       │   ├── packages/         # Model-specific execution packages
+│       │   ├── quality/          # Quality gate rules
+│       │   ├── samples/          # Vendored example packages
+│       │   ├── compile.ts        # Single entry point: compileDeal
+│       │   └── index.ts          # Public engine exports
+│       └── tests/                # Engine coverage and acceptance tests
+├── public/                       # Static assets and fonts
+├── scripts/                      # CLI scripts and validation helpers
+├── src/                          # Browser app UI
+│   ├── components/              # Reusable UI components
+│   ├── pages/                   # Landing and workspace pages
+│   ├── lib/                     # UI utilities
+│   └── main.tsx                 # App bootstrap
+├── samples/                      # Generated artifacts from sample runs
+├── package.json                  # Root scripts and dependencies
+├── bun.lock                     # Lock file
+├── vite.config.ts               # Vite config
+├── eslint.config.js             # ESLint config
+├── tsconfig*.json               # TypeScript config
+└── README.md                    # Project docs
+```
+
+## Getting started
+
+### Prerequisites
+
+- Node.js 20+ (or use the version managed by the repo tooling)
+- Bun 1.4.2+ (the repo declares this in the root `package.json`)
+
+### Install dependencies
 
 ```bash
 bun install
-bun run dev          # http://localhost:5173
 ```
 
-- Landing page: `/`
-- Workspace: `/workspace` (also `/workspace?sample=clinical-intake-and-patient-support-assistant`)
-
-Other commands:
+### Start the app locally
 
 ```bash
-bun test                # engine test suite (123 tests)
-bun test --coverage     # same suite with a per-file coverage table
-bun tsc -b --noEmit     # typecheck
-bun run lint            # eslint
-bun run samples         # compile every sample; write samples/{graphs,quality,plans,packages}
-bun run check-submission # acceptance harness: import → classify → export → impact
-bun run vendor-inputs   # inline samples/inputs/*.json into the engine
+bun run dev
 ```
 
-The deterministic pipeline is fully covered: `packages/engine` reports
-**96%+ line and function coverage**, which is where every classification, DAG,
-readiness and export decision is made. Nothing in the workflow needs paid AI
-access.
+Then open:
 
-### Importing the official ZIP
+- http://localhost:5173 for the landing page
+- http://localhost:5173/workspace for the planning workspace
 
-In the workspace, drop `deal-scoping-input-packages.zip` onto **Bring your own**. The
-archive is read in the browser, every `.json` package inside is imported, and the
-left rail lists them so you can switch between deals. A `.zip` is detected by
-content, not only by extension.
+## Useful commands
 
-## How it works
-
-```
-raw JSON text
-  └─ safeParse            prototype-safe parse + duplicate/stripped key report
-      └─ normalizePackage canonical model + source index + structural findings
-          └─ scanReferences dangling refs, quote verification, reference coverage
-              └─ validatePackage validation report + platform conflict
-                  └─ assessMaturity maturity level, score and reasons
-                      └─ decompose        delivery nodes + anchors + readiness
-                          └─ classify     weighted operating-model recommendation
-                              └─ buildGraph  edges, waves, critical path, traceability
-                                  └─ runQualityGate  Ready | Review Required | Blocked
-                                      └─ export  graph JSON · quality JSON · plan · packages · ZIP
+```bash
+bun test                # Run the engine test suite
+bun test --coverage     # Run tests with coverage output
+bun run typecheck       # Type-check the TypeScript project
+bun run lint            # Lint the app and engine code
+bun run build           # Production bundle build
+bun run samples         # Compile all sample packages and write output artifacts
+bun run vendor-inputs   # Inline sample package JSON into the engine
+bun run check-submission # Acceptance checks for import → classify → export → impact
 ```
 
-Everything above runs on one call — `compileDeal(imported, { decisions })` — and
-recompiling is deterministic, which is what lets change impact prove that untouched
-nodes come back byte-for-byte identical.
+## How the engine works
 
-The engine is pure TypeScript in the `packages/engine` workspace package (**no React,
-DOM, network or Convex imports**), so the same code runs in the browser, in the Bun
-CLI (`bun run samples`) and in the test suite without a bundler.
+The project is built around one primary pipeline:
 
-| Path                                    | Contents                                                    |
-| --------------------------------------- | ----------------------------------------------------------- |
-| `packages/engine/src/canonical/`        | Canonical domain types and execution types                  |
-| `packages/engine/src/ingest/`           | Parsing, normalization, validation, maturity, ZIP reader    |
-| `packages/engine/src/decompose/`        | Package-grounded delivery-node generation                   |
-| `packages/engine/src/classify/`         | The weighted operating-model scorer                         |
-| `packages/engine/src/dag/`              | Edges, waves, critical path, aggregates, traceability       |
-| `packages/engine/src/impact/`           | Change impact + byte-for-byte preservation proof            |
-| `packages/engine/src/quality/`          | The deterministic quality gate                              |
-| `packages/engine/src/packages/`         | Model-specific execution packages                           |
-| `packages/engine/src/decisions/`        | The append-only decision log                                |
-| `packages/engine/src/export/`           | Graph JSON, plan, packages, dependency-free ZIP writer      |
-| `packages/engine/src/ai/`               | `AIProvider` interface + deterministic mock provider        |
-| `packages/engine/src/compile.ts`        | `compileDeal()` — the single entry point                    |
-| `packages/engine/src/samples/`          | The four vendored sample packages                           |
-| `src/pages`, `src/components/workspace` | Landing page and the six-workspace UI                       |
-| `packages/engine/tests/*.test.ts`       | Engine, export and ZIP test suites                          |
-| `scripts/run-all.ts`                    | CLI: compile every sample and write artefacts to `samples/` |
-| `scripts/check-submission.ts`           | Acceptance harness over the public interface                |
-| `public/fonts/*.woff2`                  | Self-hosted Archivo and JetBrains Mono (SIL OFL 1.1)        |
+```text
+raw JSON / ZIP input
+  → parse and normalize
+  → validate references and package quality
+  → assess maturity
+  → decompose into delivery nodes
+  → classify node operating model
+  → build DAG and execution waves
+  → run quality gate
+  → export graph, quality, plan, and package outputs
+```
 
-Docs: [`docs/architecture.md`](docs/architecture.md) (submission diagram) ·
-[`docs/gap-analysis.md`](docs/gap-analysis.md) (requirement-by-requirement audit) ·
-[`docs/source-to-canonical-mapping.md`](docs/source-to-canonical-mapping.md) ·
-[`docs/DECISIONS.md`](docs/DECISIONS.md)
+The key entry point is:
 
-## Mock mode
+```ts
+compileDeal(imported, { decisions })
+```
 
-The workspace header carries a permanent **Mock mode** badge. The default
-`AIProvider` is a deterministic `MockProvider`: no network calls, no API key, and the
-complete workflow runs offline. Every proposal it returns is schema-validated and
-shown as a labelled suggestion — it is never applied without a decision recorded in
-the log. A live provider can be swapped in behind the same interface, and every
-export states which mode produced it (ADR-005).
+This is a deterministic pipeline. When the same inputs and decisions are given, the output remains consistent. That property is what enables the change-impact system to prove precisely which nodes changed and which remain byte-for-byte identical.
 
-## The four sample packages
+## How to work on this project
 
-The official `deal-scoping-input-packages.zip` is not vendored. `samples/inputs/`
-holds four exports in the documented shape that carry the same traps as the
-originals; `scripts/vendor-inputs.ts` inlines their exact bytes into
-`packages/engine/src/samples/inputs.ts` so the browser app, the CLI and the tests all
-read the _same_ text.
+### 1. Understand the input first
 
-| Package                                           | Expected maturity  | Exercises                                                               |
-| ------------------------------------------------- | ------------------ | ----------------------------------------------------------------------- |
-| ClaimsDesk Modernization                          | Review Required    | critical SAP gap, unvalidated assumptions, warn checks                  |
-| Clinical Intake and Patient Support Assistant     | Review Required    | AWS-vs-Azure conflict, out-of-scope items, regulated PHI domains        |
-| Member Experience Modernisation (early discovery) | Discovery Required | null config, low confidence, nine open gaps/questions, stale anchor     |
-| Unified Supply Chain Analytics                    | Review Required    | five integration patterns, six data domains, unresolved dependency name |
+Most work starts with a deal-scoping JSON package or one of the bundled sample packages. Start by checking how the package is structured and what the expected model looks like. The most important place to inspect is the engine under `packages/engine/src/ingest/` and the canonical types under `packages/engine/src/canonical/`.
 
-No supplied package is ever presented as an Execution Candidate or as `Ready` by the
-quality gate. `bun test` and `bun run check-submission` both assert it.
+### 2. Change engine logic in the core package
 
-## Known limitations
+The core compiler is intentionally isolated from the UI. If you are fixing logic around:
 
-- The four official deal-scoping packages are vendored byte-for-byte in
-  `samples/inputs/` and inlined into `packages/engine/src/samples/inputs.ts`, so
-  every import path reads identical bytes with no filesystem or network access.
-  The original ZIP is still accepted through the import workspace and the importer
-  is schema-tolerant (ADR-004).
-- A Flexible Talent or Private Pod package stays incomplete while the package does
-  not state a seniority level or a capacity commitment. The engine reports those
-  fields as missing rather than inventing them, so such nodes remain
-  `review-required` until an operator supplies the value.
-- No persistence or sharing: reloading the page clears the imported package and the
-  decision log. The tool is a single-operator planning aid with no accounts (ADR-003).
-- Classification is a deterministic weighted scorer, not a model judgement. The score
-  table and rationale are always shown so an operator can override (FR3).
-- `bun run lint` reports warnings only (react-refresh hints in the shadcn primitives
-  and `main.tsx`); there are no errors.
-- Tests run under Bun and are type-checked by `tsconfig.test.json`, which is part of
-  `bun tsc -b --noEmit` (ADR-012).
+- validation rules: look in `packages/engine/src/ingest/`
+- node decomposition: look in `packages/engine/src/decompose/`
+- operating model scoring: look in `packages/engine/src/classify/`
+- graph and dependency logic: look in `packages/engine/src/dag/`
+- quality gate decisions: look in `packages/engine/src/quality/`
+- output generation: look in `packages/engine/src/export/`
+
+This is the main place to build features or fix bugs.
+
+### 3. Keep the UI thin and declarative
+
+The browser app in `src/` is mostly a presentation layer over the engine output. It reads compiled data and renders it in workspace panels and views.
+
+If you need to change UI behavior, inspect:
+
+- `src/pages/Landing.tsx` for the landing page
+- `src/pages/Workspace.tsx` for the main planning workspace
+- `src/components/workspace/` for the detail views, panels, and graphs
+
+### 4. Validate with the smallest relevant command
+
+Run the smallest command that checks the change you made:
+
+```bash
+bun test
+bun run typecheck
+bun run lint
+```
+
+For export or pipeline changes, also run:
+
+```bash
+bun run samples
+bun run check-submission
+```
+
+### 5. Treat the engine as the source of truth
+
+The app should reflect engine output, not replicate logic separately. If a rule belongs to the compiler, it should live in the engine package. That keeps the system deterministic and testable.
+
+## Sample packages and output artifacts
+
+The repo includes bundled sample deal packages used for validation and demonstration. They are intentionally designed to surface the edge cases the engine needs to handle, such as:
+
+- unresolved references
+- platform conflicts
+- stale anchors
+- missing capacity or seniority data
+- discovery-heavy work
+- unresolved dependency names
+
+Generated outputs are written under `samples/` when you run:
+
+```bash
+bun run samples
+```
+
+## Working conventions
+
+- Favor deterministic, explicit logic over AI-style guessing
+- Preserve source identifiers and provenance whenever possible
+- When data is missing, surface a gap instead of inventing a value
+- Keep engine logic pure and testable
+- Prefer one well-named pipeline function over scattered side effects
+- Use the decision log to capture operator overrides and approvals
+
+## Acceptance and quality bar
+
+Before shipping a change, verify that:
+
+- tests still pass
+- TypeScript still type-checks
+- the app still builds
+- the compiled output is consistent with the expected pipeline behavior
+- any user-visible behavior is reflected in the relevant workspace view
+
+## Contributing
+
+1. Make a focused change in the relevant engine or UI area
+2. Add or update tests for behavior changes
+3. Run the project checks
+4. Keep the patch small and scoped to the underlying issue
+
+## Notes
+
+- The tool is intentionally offline and single-operator by design
+- AI suggestions are explicit and labelled; they are not silently applied
+- The production workflow is deterministic and exportable, which makes it suitable for audited planning and review rather than ad hoc guessing
+
+This repo is a full compiler pipeline, not a mock. The engine is the real source of truth; the UI is the interface that makes it inspectable and usable.
